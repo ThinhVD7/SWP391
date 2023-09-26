@@ -55,6 +55,21 @@ public class DAO extends DBContext {
         }
     }
 
+    public List<Account> getAllAcount() {
+        try {
+            String strSelect = "select * from account";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Account a = new Account(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                account.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return account;
+    }
+
     public Account getAccountLogin(String email, String password) {
         String sql = "select * from account where Email = ? and Password = ?";
         try {
@@ -159,10 +174,41 @@ public class DAO extends DBContext {
         return classes;
     }
 
+    public List<Course> getAllCourse() {
+        try {
+            String strSelect = "select * from course";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                course.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return course;
+    }
+    
+     public List<Course> getAllCourseByLId(String lecId) {
+        try {
+            String strSelect = "select * from course";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                course.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return course;
+    }
+    
+
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Class1> cl1 = d.getClass("dungnt_he_176358");
-        System.out.println(cl1.get(0).getClassName());
+        List<Course> course = d.getAllCourse();
+        System.out.println(course.get(0).getCourseName());
     }
 
 }

@@ -37,7 +37,7 @@ public class ValidateOTP extends HttpServlet {
         if (value == otp) {
             request.setAttribute("email", request.getParameter("email"));
             request.getRequestDispatcher("AdminHomePage.jsp").forward(request, response);
-            response.sendRedirect("AdminHomePage.jsp.jsp");
+            response.sendRedirect("AdminHomePage.jsp");
 
         } else {
             request.setAttribute("OTPmess", "WRONG OTP!");

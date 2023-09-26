@@ -4,25 +4,22 @@
  */
 package Controller;
 
-import Dal.GoogleSupport;
-import Model.GoogleDTO;
 import Dal.DAO;
 import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
- * @author DMX
+ * @author tanki
  */
-@WebServlet(name = "GoogleLogin", urlPatterns = {"/GoogleLogin"})
-public class GoogleLogin extends HttpServlet {
+public class adminHome extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,39 +33,21 @@ public class GoogleLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String code = request.getParameter("code");
-        String accessToken = GoogleSupport.getToken(code);
-        GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
-        String email = userToken.getEmail();
-        DAO dao = new DAO();
-        PrintWriter pr = response.getWriter();
-        Account a;
-        a = dao.getUser(email);
-        request.getSession().setAttribute("acc", a);
-
-        if (a == null) {
-            request.setAttribute("mess", "Your email is not accepted!!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-
-        } else {
-            if (a.roleID == 0) {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("admin");
-            } else if (a.roleID == 1) {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("managerHome");
-            } else if (a.roleID == 2) {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("lecturer-homepage.jsp");
-            } else {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("student");
-            }
-
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet admin</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet admin at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -80,7 +59,13 @@ public class GoogleLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+//        HttpSession session = request.getSession();
+           DAO dao = new DAO();
+           List<Account> listA = dao.getAllAcount();
+           request.setAttribute("listA", listA);
+           request.getRequestDispatcher("admin-Homepage.jsp").forward(request, response);
+        
     }
 
     /**

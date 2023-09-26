@@ -60,7 +60,7 @@ public class Login extends HttpServlet {
             Session mysession = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     //username , password of sender
-                    return new PasswordAuthentication("otpbot3@gmail.com", "ammkrxlfounqlxbr");
+                    return new PasswordAuthentication("otpbotswp@gmail.com", "wewttgnapgzfqmeq");
                 }
             });
             // compose message
