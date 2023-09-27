@@ -37,33 +37,31 @@ public class ValidateOTP extends HttpServlet {
         int otp = (int) session.getAttribute("otp");
 
         if (value == otp) {
-            
+
             request.setAttribute("email", request.getParameter("email"));
             DAO dao = new DAO();
             Account a;
             a = dao.getUser(request.getParameter("email"));
-            request.getSession().setAttribute("user",a);
-      //      response.sendRedirect("indexStudent.jsp");
-            
+            request.getSession().setAttribute("user", a);
+            //      response.sendRedirect("indexStudent.jsp");
+
             int roleId = (int) session.getAttribute("roleId");
 
-            
-       //     int num1 = Integer.parseInt(roleId);
-       
-            if(roleId==0){
+            //     int num1 = Integer.parseInt(roleId);
+            if (roleId == 0) {
                 response.sendRedirect("AdminHomePage.jsp");
-            } else if(roleId==1){
+            } else if (roleId == 1) {
                 response.sendRedirect("ManagerHomePage.jsp");
-            } else if(roleId==2){
+            } else if (roleId == 2) {
                 response.sendRedirect("LecturerHomePage.jsp");
             } else {
                 response.sendRedirect("StudentHomePage.jsp");
             }
-                
+
         } else {
             request.setAttribute("OTPmess", "WRONG OTP!");
             request.getRequestDispatcher("OTP.jsp").forward(request, response);
-        }       
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

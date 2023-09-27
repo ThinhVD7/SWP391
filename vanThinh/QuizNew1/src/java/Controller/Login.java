@@ -41,8 +41,7 @@ public class Login extends HttpServlet {
             HttpSession session = request.getSession();
 
             if (username != null || !username.equals("")) {
-                
-                   
+
                 // sending otp
                 Random rand = new Random();
                 otpvalue = rand.nextInt(2222222);
@@ -74,16 +73,14 @@ public class Login extends HttpServlet {
                 } catch (MessagingException e) {
                     throw new RuntimeException(e);
                 }
-                
-                           
+
                 request.getRequestDispatcher("OTP.jsp").forward(request, response);
                 session.setAttribute("otp", otpvalue);
                 session.setAttribute("username", username);
                 session.setAttribute("roleId", acc.roleID);
                 response.sendRedirect("OTP.jsp");
             }
-                
-                
+
         }
     }
 
