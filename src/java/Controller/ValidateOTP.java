@@ -4,6 +4,8 @@
  */
 package Controller;
 
+import Dal.DAO;
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -35,14 +37,32 @@ public class ValidateOTP extends HttpServlet {
         int otp = (int) session.getAttribute("otp");
 
         if (value == otp) {
+//            request.setAttribute("email", request.getParameter("email"));
+            String email = request.getParameter("email");
+
             request.setAttribute("email", request.getParameter("email"));
-            request.getRequestDispatcher("AdminHomePage.jsp").forward(request, response);
-            response.sendRedirect("AdminHomePage.jsp");
+            DAO dao = new DAO();
+            Account a;
+            a = dao.getUser(request.getParameter("email"));
+            request.getSession().setAttribute("user", a);
+            //      response.sendRedirect("indexStudent.jsp");
+
+            int roleId = (int) session.getAttribute("roleId");
+
+            if (roleId == 0) {
+                response.sendRedirect("admin");
+            } else if (roleId == 1) {
+                response.sendRedirect("managerHome");
+            } else if (roleId == 2) {
+                response.sendRedirect("lecturer-homepage.jsp");
+            } else {
+                response.sendRedirect("student");
+            }
 
         } else {
             request.setAttribute("OTPmess", "WRONG OTP!");
             request.getRequestDispatcher("OTP.jsp").forward(request, response);
-        }       
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

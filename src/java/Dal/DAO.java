@@ -139,6 +139,20 @@ public class DAO extends DBContext {
         }
     }
 
+    public boolean resetPassword(Account user) {
+        try {
+            String sql = "UPDATE quiz8.account SET Password = ? WHERE Email = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, user.getPassword());
+            ps.setString(2, user.getEmail());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public List<Class1> getClass(String studentId) {
         String sql = "select a.Student_ID,a.Class_ID,b.ClassName,c.Semester,c.Course_ID from studentinwhichclass a join class b on \n"
                 + "a.Class_ID = b.Class_ID \n"
@@ -188,8 +202,8 @@ public class DAO extends DBContext {
         }
         return course;
     }
-    
-     public List<Course> getAllCourseByLId(String lecId) {
+
+    public List<Course> getAllCourseByLId(String lecId) {
         try {
             String strSelect = "select * from course";
             PreparedStatement ps = connector.prepareStatement(strSelect);
@@ -203,12 +217,14 @@ public class DAO extends DBContext {
         }
         return course;
     }
-    
 
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Course> course = d.getAllCourse();
-        System.out.println(course.get(0).getCourseName());
+        Account a = d.getUser("dungnthe176358@fpt.edu.vn");
+        System.out.println(a.accountID);
+        System.out.println(a.email);
+        System.out.println(a.name);
+
     }
 
 }
