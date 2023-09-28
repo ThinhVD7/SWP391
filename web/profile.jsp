@@ -106,7 +106,7 @@
                                                     <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="tab" href="#change-password"><i class="ti-lock"></i>Change Password</a>
+                                                    <a class="nav-link" data-toggle="" href="ChangePassword"><i class="ti-lock"></i>Change Password</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -173,7 +173,7 @@
                                                             </ul>
                                                         </div>
                                                         <div class="col-md-6 col-lg-6">
-                                                            <ul class="course-features">
+                                                            <ul class="course-features" id="myTabs">
                                                                 <li><i class="ti-book"></i> <span class="label">Lectures</span> <span class="value">8</span></li>
                                                                 <li><i class="ti-help-alt"></i> <span class="label">Quizzes</span> <span class="value">1</span></li>
                                                                 <li><i class="ti-time"></i> <span class="label">Duration</span> <span class="value">60 hours</span></li>
@@ -306,7 +306,7 @@
                                                 <div class="profile-head">
                                                     <h3>Change Password</h3>
                                                 </div>
-                                                <form class="edit-profile">
+                                                <form class="edit-profile" action="ChangePassword" method="POST">
                                                     <div class="">
                                                         <div class="form-group row">
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-9 ml-auto">
@@ -316,27 +316,29 @@
                                                         <div class="form-group row">
                                                             <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current Password</label>
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
+                                                                <input class="form-control" type="password" value="" name ="opass">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New Password</label>
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
+                                                                <input class="form-control" type="password" value="" name ="npass" required="" onchange="onChange()" >
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re Type New Password</label>
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
+                                                                <input class="form-control" type="password" value="" name ="rnpass" required="" onchange="onChange()" >
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <p class="text-danger">${msg}</p>
+                                                    <p class="text-danger">${fmsg}</p>
                                                     <div class="row">
                                                         <div class="col-12 col-sm-4 col-md-4 col-lg-3">
                                                         </div>
                                                         <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                            <button type="reset" class="btn">Save changes</button>
+                                                            <button type="Submit" class="btn" onclick="showTab()">Save changes</button>
                                                             <button type="reset" class="btn-secondry">Cancel</button>
                                                         </div>
                                                     </div>
@@ -373,6 +375,24 @@
         <script src="assets/js/functions.js"></script>
         <script src="assets/js/contact.js"></script>
         <script src='assets/vendors/switcher/switcher.js'></script>
+
+
+        <script>
+
+                                                                function onChange() {
+                                                                    const password = document.querySelector('input[name=npass]');
+                                                                    const confirm = document.querySelector('input[name=rnpass]');
+                                                                    if (confirm.value === password.value) {
+                                                                        confirm.setCustomValidity('');
+                                                                    } else {
+                                                                        confirm.setCustomValidity('Passwords do not match');
+                                                                    }
+                                                                }
+
+
+
+        </script>
+
     </body>
 
 </html>

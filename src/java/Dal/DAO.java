@@ -61,7 +61,14 @@ public class DAO extends DBContext {
             PreparedStatement ps = connector.prepareStatement(strSelect);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Account a = new Account(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                Account a = new Account(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getFloat(7),
+                        rs.getInt(8));
                 account.add(a);
             }
         } catch (SQLException e) {
@@ -117,6 +124,29 @@ public class DAO extends DBContext {
         return null;
     }
 
+    public Account getUserById(String id) {
+        String sql = "select * from account where Account_ID = ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Account(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getFloat(7),
+                        rs.getInt(8));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
     public void why() {
         try {
             if (connector != null) {
@@ -141,7 +171,7 @@ public class DAO extends DBContext {
 
     public boolean resetPassword(Account user) {
         try {
-            String sql = "UPDATE quiz8.account SET Password = ? WHERE Email = ?";
+            String sql = "UPDATE account SET Password = ? WHERE Email = ?";
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, user.getPassword());
             ps.setString(2, user.getEmail());
@@ -218,12 +248,51 @@ public class DAO extends DBContext {
         return course;
     }
 
+    public void changePassword(String pass, String user) {
+        try {
+            String sql = "UPDATE account SET Password = ? WHERE Email = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, pass);
+            ps.setString(2, user);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public boolean addAccount(String id, String name, String email, String password, int role, int status, int gender, String phno) {
+        try {
+            String sql = "INSERT INTO account\n"
+                    + "(Account_ID,\n"
+                    + "Name,\n"
+                    + "Email,\n"
+                    + "Password,\n"
+                    + "Role_ID,\n"
+                    + "Status,\n"
+                    + "Gender,\n"
+                    + "PhoneNumber)\n"
+                    + "VALUES(?,?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setString(3, email);
+            ps.setString(4, password);
+            ps.setInt(5, role);
+            ps.setInt(6, status);
+            ps.setInt(7, gender);
+            ps.setString(8, phno);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         DAO d = new DAO();
-        Account a = d.getUser("dungnthe176358@fpt.edu.vn");
-        System.out.println(a.accountID);
-        System.out.println(a.email);
-        System.out.println(a.name);
+//        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }
 

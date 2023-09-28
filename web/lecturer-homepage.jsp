@@ -12,7 +12,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Side Navbar - Tivotal</title>
+        <title>Lecturer</title>
         <%@include file="all_component/allCss.jsp" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <link rel="stylesheet" href="all_component/studentStyle.css" />
@@ -65,7 +65,7 @@
                     <span class="tooltip">${user.name}</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="home">
                         <i class="bx bx-home-alt-2"></i>
                         <span class="title">Home</span>
                     </a>
@@ -127,7 +127,7 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a href="profile2.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                    <a href="profile.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
 

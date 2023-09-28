@@ -5,7 +5,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Side Navbar - Tivotal</title>
+        <title>Student</title>
         <%@include file="all_component/allCss.jsp" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <link rel="stylesheet" href="all_component/studentStyle.css" />
@@ -51,14 +51,14 @@
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="profile.jsp">
                         <i class='bx bxs-user-account'></i>
                         <span class="title">Profile</span>
                     </a>
                     <span class="tooltip">${user.name}</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="home">
                         <i class="bx bx-home-alt-2"></i>
                         <span class="title">Home</span>
                     </a>

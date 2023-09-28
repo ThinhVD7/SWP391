@@ -4,14 +4,10 @@
  */
 package Controller;
 
-import Dal.GoogleSupport;
-import Model.GoogleDTO;
-import Dal.DAO;
 import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,10 +15,9 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author DMX
+ * @author tanki
  */
-@WebServlet(name = "GoogleLogin", urlPatterns = {"/GoogleLogin"})
-public class GoogleLogin extends HttpServlet {
+public class HomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,39 +31,28 @@ public class GoogleLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String code = request.getParameter("code");
-        String accessToken = GoogleSupport.getToken(code);
-        GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
-        String email = userToken.getEmail();
-        DAO dao = new DAO();
-        PrintWriter pr = response.getWriter();
-        Account a;
-        a = dao.getUser(email);
-        request.getSession().setAttribute("user", a);
-
-        if (a == null) {
-            request.setAttribute("mess", "Your email is not accepted!!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-
+        HttpSession session = request.getSession();
+        Account acc = (Account) session.getAttribute("user");
+        if (acc == null) {
+            response.sendRedirect("index.html");
         } else {
-            if (a.roleID == 0) {
-                request.getSession().setAttribute("user", a);
+            int role = (int) acc.getRoleID();
+            if (role == 0) {
                 response.sendRedirect("admin");
-            } else if (a.roleID == 1) {
-                request.getSession().setAttribute("user", a);
+            }
+            if (role == 1) {
                 response.sendRedirect("managerHome");
-            } else if (a.roleID == 2) {
-                request.getSession().setAttribute("user", a);
+            }
+            if (role == 2) {
                 response.sendRedirect("lecturer-homepage.jsp");
-            } else {
-                request.getSession().setAttribute("user", a);
+            }
+            if (role == 3) {
                 response.sendRedirect("student");
             }
-
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -4,25 +4,22 @@
  */
 package Controller;
 
-import Dal.GoogleSupport;
-import Model.GoogleDTO;
 import Dal.DAO;
 import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 /**
  *
  * @author DMX
  */
-@WebServlet(name = "GoogleLogin", urlPatterns = {"/GoogleLogin"})
-public class GoogleLogin extends HttpServlet {
+public class ChangePassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,42 +30,7 @@ public class GoogleLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        String code = request.getParameter("code");
-        String accessToken = GoogleSupport.getToken(code);
-        GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
-        String email = userToken.getEmail();
-        DAO dao = new DAO();
-        PrintWriter pr = response.getWriter();
-        Account a;
-        a = dao.getUser(email);
-        request.getSession().setAttribute("user", a);
-
-        if (a == null) {
-            request.setAttribute("mess", "Your email is not accepted!!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-
-        } else {
-            if (a.roleID == 0) {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("admin");
-            } else if (a.roleID == 1) {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("managerHome");
-            } else if (a.roleID == 2) {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("lecturer-homepage.jsp");
-            } else {
-                request.getSession().setAttribute("user", a);
-                response.sendRedirect("student");
-            }
-
-        }
-    }
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -80,7 +42,7 @@ public class GoogleLogin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
     }
 
     /**
@@ -94,7 +56,33 @@ public class GoogleLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String Password = request.getParameter("password0");
+        String NPassword = request.getParameter("password1");
+        String RNPassword = request.getParameter("password2");
+        HttpSession session = request.getSession();
+        DAO dao = new DAO();
+        Account acc = (Account) session.getAttribute("user");
+        if (acc == null) {
+            response.sendRedirect("Login.jsp");
+        } else {
+            String email = acc.getEmail();
+            Account a = dao.getAccountLogin(email, Password);
+            if (a == null) {
+                request.setAttribute("msg", "Old password is incorrect");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            }
+            if (!NPassword.equals(RNPassword)) {
+                request.setAttribute("msg", "New password not equals renew password");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            } else {
+                dao.changePassword(NPassword, email);
+                acc.setPassword(NPassword);
+                session.setAttribute("user", acc);
+                request.setAttribute("fmsg", "Password was successfully changed");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            }
+        }
+
     }
 
     /**
