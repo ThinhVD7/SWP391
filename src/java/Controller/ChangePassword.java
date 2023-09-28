@@ -4,25 +4,22 @@
  */
 package Controller;
 
-import Dal.GoogleSupport;
-import Model.GoogleDTO;
 import Dal.DAO;
 import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.sql.SQLException;
 
 /**
  *
  * @author DMX
  */
-@WebServlet(name = "GoogleLogin", urlPatterns = {"/GoogleLogin"})
-public class GoogleLogin extends HttpServlet {
+public class ChangePassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,24 +33,26 @@ public class GoogleLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String code = request.getParameter("code");
-        String accessToken = GoogleSupport.getToken(code);
-        GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
-        String email = userToken.getEmail();
+        String Password = request.getParameter("opass");
+        String NPassword = request.getParameter("npass");
+        String RNPassword = request.getParameter("rnpass");        
+        HttpSession session = request.getSession();
         DAO dao = new DAO();
-        PrintWriter pr = response.getWriter();
-        Account a;
-        a = dao.getUser(email);
-        request.getSession().setAttribute("user", a);
-
-
-        if (a == null) {
-            request.setAttribute("mess", "Your email is not accepted!!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-
-        } else {
-            request.getSession().setAttribute("user",a);
-            response.sendRedirect("student");
+        Account acc = (Account) session.getAttribute("user");  
+        String email = acc.getEmail();
+        Account a = dao.getAccountLogin(email, Password);
+        if(a==null){
+            request.setAttribute("msg", "Old password is incorrect");
+            request.getRequestDispatcher("profile2.jsp").forward(request, response);
+        } if(!NPassword.equals(RNPassword)){
+                request.setAttribute("msg", "New password not equals renew password");
+                request.getRequestDispatcher("profile2.jsp").forward(request, response);
+            } else {
+                dao.changePassword(NPassword, email);
+                acc.setPassword(NPassword);
+                session.setAttribute("user", acc);
+                request.setAttribute("fmsg", "Password was successfully changed");
+                request.getRequestDispatcher("profile2.jsp").forward(request, response);
         }
     }
 

@@ -171,7 +171,19 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
         return false;
-    }
+    }   
+    
+    public void changePassword(String pass, String user) {
+        try {
+            String sql = "UPDATE quiz7.account SET Password = ? WHERE Email = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, pass);
+            ps.setString(2, user);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        }   
     
     public static void main(String[] args) {
         DAO d = new DAO();

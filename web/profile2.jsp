@@ -306,7 +306,7 @@
                                                 <div class="profile-head">
                                                     <h3>Change Password</h3>
                                                 </div>
-                                                <form class="edit-profile">
+                                                <form action="ChangePassword">
                                                     <div class="">
                                                         <div class="form-group row">
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-9 ml-auto">
@@ -314,29 +314,31 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Current Password</label>
+                                                            <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Old Password</label>
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
+                                                                <input class="form-control" type="password" value="" name ="opass">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">New Password</label>
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
+                                                                <input class="form-control" type="password" value="" name ="npass">
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
                                                             <label class="col-12 col-sm-4 col-md-4 col-lg-3 col-form-label">Re Type New Password</label>
                                                             <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                                <input class="form-control" type="password" value="">
+                                                                <input class="form-control" type="password" value="" name ="rnpass">
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <p class="text-danger">${msg}</p>
+                                                    <p class="text-danger">${fmsg}</p>
                                                     <div class="row">
                                                         <div class="col-12 col-sm-4 col-md-4 col-lg-3">
                                                         </div>
                                                         <div class="col-12 col-sm-8 col-md-8 col-lg-7">
-                                                            <button type="reset" class="btn">Save changes</button>
+                                                            <button id="submit-btn" type="submit" value="CHANGE" class="btn">Save changes</button>
                                                             <button type="reset" class="btn-secondry">Cancel</button>
                                                         </div>
                                                     </div>
