@@ -73,7 +73,7 @@ public class Login extends HttpServlet {
             sendMail(username, otpvalue);
             request.getRequestDispatcher("OTP.jsp").forward(request, response);
             session.setAttribute("otp", otpvalue);
-            session.setAttribute("username", username);
+            session.setAttribute("email", username);
             session.setAttribute("roleId", acc.roleID);
             response.sendRedirect("OTP.jsp");
         }

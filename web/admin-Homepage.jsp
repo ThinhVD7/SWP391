@@ -197,6 +197,7 @@
                             </div>
                             <div class="col-sm-7">
                                 <a href="addAccount" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>
+                                <a href="Logout" class="btn btn-secondary"> <span>Logout</span></a>
                             </div>
                         </div>
                     </div>
@@ -220,8 +221,24 @@
                                     <td><a href="#">${u.accountID}</a></td>
                                     <td>${u.name}</td>                        
                                     <td>${u.email} </td>
-                                    <td>${u.roleID}</td>
-                                    <td><span class="status text-success">&bull;</span> Active</td>
+                                    <c:if test = "${u.roleID == 0}">
+                                        <td>Admin</td>
+                                    </c:if>
+                                    <c:if test = "${u.roleID == 1}">
+                                        <td>Manager</td>
+                                    </c:if>
+                                    <c:if test = "${u.roleID == 2}">
+                                        <td>Lecturer</td>
+                                    </c:if>
+                                    <c:if test = "${u.roleID == 3}">
+                                        <td>Student</td>
+                                    </c:if>
+                                    <c:if test = "${u.status ==1}">
+                                        <td><span class="status text-success">&bull;</span> Active</td>
+                                    </c:if>
+                                    <c:if test = "${u.status ==0}">
+                                        <td><span class="status text-danger">&bull;</span> Inactive</td>
+                                    </c:if>
                                     <td>
                                         <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>

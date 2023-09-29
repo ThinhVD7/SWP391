@@ -60,7 +60,7 @@
             <div id="loading-icon-bx"></div>
             <div class="account-form">
                 <div class="account-head" style="background-image:url(https://i.ibb.co/jTh7KHj/web-design-HN-min.png)">
-                    <a href="index.html"><img src="assets/images/icon.png" alt="" width="150px" height="150px"></a>
+                    <a href="home"><img src="assets/images/icon.png" alt="" width="150px" height="150px"></a>
                 </div>
                 <div class="account-form-inner">
                     <div class="account-container">
