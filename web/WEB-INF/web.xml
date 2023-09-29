@@ -47,6 +47,10 @@
         <servlet-name>HomeController</servlet-name>
         <servlet-class>Controller.HomeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewProfile</servlet-name>
+        <servlet-class>Controller.ViewProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -90,6 +94,10 @@
     <servlet-mapping>
         <servlet-name>HomeController</servlet-name>
         <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewProfile</servlet-name>
+        <url-pattern>/ViewProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

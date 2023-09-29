@@ -197,6 +197,7 @@
                             </div>
                             <div class="col-sm-7">
                                 <a href="addAccount" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>
+                                <a href="home" class="btn btn-secondary"> <span>Logout</span></a>
                             </div>
                         </div>
                     </div>
@@ -232,10 +233,10 @@
                                     <c:if test = "${u.roleID == 3}">
                                         <td>Student</td>
                                     </c:if>
-                                    <c:if test = "${u.status == 1}">
+                                    <c:if test = "${u.status ==1}">
                                         <td><span class="status text-success">&bull;</span> Active</td>
                                     </c:if>
-                                    <c:if test = "${u.status == 0}">
+                                    <c:if test = "${u.status ==0}">
                                         <td><span class="status text-danger">&bull;</span> Inactive</td>
                                     </c:if>
                                     <td>

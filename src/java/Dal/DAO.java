@@ -40,6 +40,7 @@ public class DAO extends DBContext {
             test = " Not Connected";
         }
     }
+
     public void loadStudent() {
         student = new Vector();
         String sql = "select * from role";
@@ -291,10 +292,8 @@ public class DAO extends DBContext {
 
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Account> acc = d.getAllAcount();
-        for (Account account : acc) {
-            System.out.println(account.getAccountID());
-        }
+        Account acc = d.getUser("nampthe171400@fpt.edu.vn");
+        System.out.println(acc.getEmail());
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }

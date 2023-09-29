@@ -62,7 +62,7 @@
                         <i class='bx bxs-user-account'></i>
                         <span class="title">Profile</span>
                     </a>
-                    <span class="tooltip">${user.name}</span>
+                    <span class="tooltip">${sessionScope.user.name}</span>
                 </li>
                 <li>
                     <a href="home">
@@ -127,7 +127,7 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a href="profile.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                    <a href="ViewProfile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i>Profile</div></a>
                 </div>
             </div>
 
@@ -136,10 +136,14 @@
 
                 </div>    
             </div>
+            
+            
+            
+            <p>It seems that there is no course assigned for you this semester yet...<p>
 
 
-
-            <div class="container-fluid mt-3">
+            
+<!--            <div class="container-fluid mt-3">
                 <div class="row mt-5">
 
                     <div class="col col-sm-4 mt-4">
@@ -174,7 +178,7 @@
 
 
                 </div>
-            </div>
+            </div>-->
 
 
 
