@@ -6,7 +6,6 @@ package Controller;
 
 import Dal.DAO;
 import Model.Account;
-import Model.Class1;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,15 +13,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
-import java.util.Vector;
-import javax.mail.Session;
+import java.sql.SQLException;
 
 /**
  *
- * @author tanki
+ * @author DMX
  */
-public class studentHome extends HttpServlet {
+public class ChangePassword extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,23 +30,6 @@ public class studentHome extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet studentHome</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet studentHome at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -62,14 +42,7 @@ public class studentHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("user");
-        DAO dao = new DAO();
-        List<Class1> c = dao.getClass(acc.accountID);
-        request.setAttribute("user", acc);
-        request.setAttribute("classes", c);
-        request.getRequestDispatcher("student-homepage.jsp").forward(request, response);
-
+        request.getRequestDispatcher("changePassword.jsp").forward(request, response);
     }
 
     /**
@@ -83,7 +56,33 @@ public class studentHome extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String Password = request.getParameter("password0");
+        String NPassword = request.getParameter("password1");
+        String RNPassword = request.getParameter("password2");
+        HttpSession session = request.getSession();
+        DAO dao = new DAO();
+        Account acc = (Account) session.getAttribute("user");
+        if (acc == null) {
+            response.sendRedirect("Login.jsp");
+        } else {
+            String email = acc.getEmail();
+            Account a = dao.getAccountLogin(email, Password);
+            if (a == null) {
+                request.setAttribute("msg", "Old password is incorrect");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            }
+            if (!NPassword.equals(RNPassword)) {
+                request.setAttribute("msg", "New password not equals renew password");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            } else {
+                dao.changePassword(NPassword, email);
+                acc.setPassword(NPassword);
+                session.setAttribute("user", acc);
+                request.setAttribute("fmsg", "Password was successfully changed");
+                request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+            }
+        }
+
     }
 
     /**

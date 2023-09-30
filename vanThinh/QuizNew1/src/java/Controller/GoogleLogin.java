@@ -44,20 +44,31 @@ public class GoogleLogin extends HttpServlet {
         PrintWriter pr = response.getWriter();
         Account a;
         a = dao.getUser(email);
-        request.getSession().setAttribute("acc", a);
-
+        request.getSession().setAttribute("user", a);
 
         if (a == null) {
             request.setAttribute("mess", "Your email is not accepted!!");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
 
         } else {
-            request.getSession().setAttribute("user",a);
-            response.sendRedirect("student");
+            if (a.roleID == 0) {
+                request.getSession().setAttribute("user", a);
+                response.sendRedirect("admin");
+            } else if (a.roleID == 1) {
+                request.getSession().setAttribute("user", a);
+                response.sendRedirect("managerHome");
+            } else if (a.roleID == 2) {
+                request.getSession().setAttribute("user", a);
+                response.sendRedirect("lecturer-homepage.jsp");
+            } else {
+                request.getSession().setAttribute("user", a);
+                response.sendRedirect("student");
+            }
+
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

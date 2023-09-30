@@ -37,25 +37,34 @@ public class ValidateOTP extends HttpServlet {
         int otp = (int) session.getAttribute("otp");
 
         if (value == otp) {
+//            request.setAttribute("email", request.getParameter("email"));
+            String email = (String) session.getAttribute("email");
 
-            request.setAttribute("email", request.getParameter("email"));
+//            request.setAttribute("email", request.getParameter("email"));
             DAO dao = new DAO();
             Account a;
-            a = dao.getUser(request.getParameter("email"));
+            a = dao.getUser(email);
             request.getSession().setAttribute("user", a);
             //      response.sendRedirect("indexStudent.jsp");
 
             int roleId = (int) session.getAttribute("roleId");
 
-            //     int num1 = Integer.parseInt(roleId);
             if (roleId == 0) {
-                response.sendRedirect("AdminHomePage.jsp");
+                request.getSession().setAttribute("user", a);
+
+                response.sendRedirect("admin");
             } else if (roleId == 1) {
-                response.sendRedirect("ManagerHomePage.jsp");
+                request.getSession().setAttribute("user", a);
+
+                response.sendRedirect("managerHome");
             } else if (roleId == 2) {
-                response.sendRedirect("LecturerHomePage.jsp");
+                request.getSession().setAttribute("user", a);
+
+                response.sendRedirect("lecturer-homepage.jsp");
             } else {
-                response.sendRedirect("StudentHomePage.jsp");
+                request.getSession().setAttribute("user", a);
+
+                response.sendRedirect("student");
             }
 
         } else {

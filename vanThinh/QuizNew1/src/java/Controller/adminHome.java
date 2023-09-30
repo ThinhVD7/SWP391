@@ -6,7 +6,6 @@ package Controller;
 
 import Dal.DAO;
 import Model.Account;
-import Model.Class1;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,14 +14,12 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Vector;
-import javax.mail.Session;
 
 /**
  *
  * @author tanki
  */
-public class studentHome extends HttpServlet {
+public class adminHome extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +38,10 @@ public class studentHome extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet studentHome</title>");
+            out.println("<title>Servlet admin</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet studentHome at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet admin at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,14 +59,13 @@ public class studentHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("user");
-        DAO dao = new DAO();
-        List<Class1> c = dao.getClass(acc.accountID);
-        request.setAttribute("user", acc);
-        request.setAttribute("classes", c);
-        request.getRequestDispatcher("student-homepage.jsp").forward(request, response);
-
+//        processRequest(request, response);
+//        HttpSession session = request.getSession();
+           DAO dao = new DAO();
+           List<Account> listA = dao.getAllAcount();
+           request.setAttribute("listA", listA);
+           request.getRequestDispatcher("admin-Homepage.jsp").forward(request, response);
+        
     }
 
     /**

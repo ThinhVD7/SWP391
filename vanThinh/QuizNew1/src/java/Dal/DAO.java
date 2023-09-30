@@ -55,6 +55,28 @@ public class DAO extends DBContext {
         }
     }
 
+    public List<Account> getAllAcount() {
+        try {
+            String strSelect = "select * from account";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Account a = new Account(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getFloat(7),
+                        rs.getInt(8));
+                account.add(a);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return account;
+    }
+
     public Account getAccountLogin(String email, String password) {
         String sql = "select * from account where Email = ? and Password = ?";
         try {
@@ -102,6 +124,29 @@ public class DAO extends DBContext {
         return null;
     }
 
+    public Account getUserById(String id) {
+        String sql = "select * from account where Account_ID = ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Account(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getInt(6),
+                        rs.getFloat(7),
+                        rs.getInt(8));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
     public void why() {
         try {
             if (connector != null) {
@@ -122,6 +167,20 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
 
         }
+    }
+
+    public boolean resetPassword(Account user) {
+        try {
+            String sql = "UPDATE account SET Password = ? WHERE Email = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, user.getPassword());
+            ps.setString(2, user.getEmail());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
     }
 
     public List<Class1> getClass(String studentId) {
@@ -159,12 +218,70 @@ public class DAO extends DBContext {
         return classes;
     }
 
-    public boolean resetPassword(Account user) {
+    public List<Course> getAllCourse() {
         try {
-            String sql = "UPDATE quiz7.account SET Password = ? WHERE Email = ?";
+            String strSelect = "select * from course";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                course.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return course;
+    }
+
+    public List<Course> getAllCourseByLId(String lecId) {
+        try {
+            String strSelect = "select * from course";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                course.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return course;
+    }
+
+    public void changePassword(String pass, String user) {
+        try {
+            String sql = "UPDATE account SET Password = ? WHERE Email = ?";
             PreparedStatement ps = connector.prepareStatement(sql);
-            ps.setString(1, user.getPassword());
-            ps.setString(2, user.getEmail());
+            ps.setString(1, pass);
+            ps.setString(2, user);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public boolean addAccount(String id, String name, String email, String password, int role, int status, int gender, String phno) {
+        try {
+            String sql = "INSERT INTO account\n"
+                    + "(Account_ID,\n"
+                    + "Name,\n"
+                    + "Email,\n"
+                    + "Password,\n"
+                    + "Role_ID,\n"
+                    + "Status,\n"
+                    + "Gender,\n"
+                    + "PhoneNumber)\n"
+                    + "VALUES(?,?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setString(3, email);
+            ps.setString(4, password);
+            ps.setInt(5, role);
+            ps.setInt(6, status);
+            ps.setInt(7, gender);
+            ps.setString(8, phno);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -172,11 +289,11 @@ public class DAO extends DBContext {
         }
         return false;
     }
-    
+
     public static void main(String[] args) {
         DAO d = new DAO();
-        List<Class1> cl1 = d.getClass("dungnt_he_176358");
-        System.out.println(cl1.get(0).getClassName());
+//        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
+
     }
 
 }
