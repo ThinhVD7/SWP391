@@ -47,30 +47,3 @@ public class DBContext {
         }
     }
 }
-  public static void main(String[] args) 
-    {
-        try
-        {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz8",USER,PASSWORD);
-            if (conn != null) {
-                System.out.println("Connected");
-                DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
-                System.out.println("Driver name: " + dm.getDriverName());
-                System.out.println("Driver version: " + dm.getDriverVersion());
-                System.out.println("Product name: " +
-                dm.getDatabaseProductName());
-                System.out.println("Product version: " +
-                dm.getDatabaseProductVersion());
-                PreparedStatement ps = conn.prepareStatement("select * from account");
-                ResultSet rs = ps.executeQuery();
-                while(rs.next())
-                {
-                    System.out.println(rs.getString(1));
-                }
-            }
-        }catch (SQLException ex)
-        {
-            System.err.println("Cannot connect database, " + ex);
-        }
-    }
-}
