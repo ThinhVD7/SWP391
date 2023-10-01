@@ -62,7 +62,7 @@ public class adminHome extends HttpServlet {
             throws ServletException, IOException 
     {
         response.setContentType("text/html;charset=UTF-8");
-        //block check if user have logged in, if not then return to home
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
         if(session == null||session.getAttribute("user") == null)
         {
@@ -71,8 +71,10 @@ public class adminHome extends HttpServlet {
         }
         ////////////////////////////////////////////////////////////////
         Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
         if(user.getRoleID()!=0)
-            request.getRequestDispatcher("index.html").forward(request, response);
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         
 ////test session block//////////////////////////////////////////////////////////////
 //try (PrintWriter out = response.getWriter()) 

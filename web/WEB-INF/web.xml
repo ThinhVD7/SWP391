@@ -55,6 +55,10 @@
         <servlet-name>profile</servlet-name>
         <servlet-class>Controller.profile</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>pageNotFound</servlet-name>
+        <servlet-class>Controller.pageNotFound</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -106,6 +110,10 @@
     <servlet-mapping>
         <servlet-name>profile</servlet-name>
         <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>pageNotFound</servlet-name>
+        <url-pattern>/pageNotFound</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

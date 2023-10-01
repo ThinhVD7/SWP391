@@ -44,7 +44,7 @@ public class HomeController extends HttpServlet {
                 response.sendRedirect("managerHome");
             }
             if (role == 2) {
-                response.sendRedirect("lecturer-homepage.jsp");
+                response.sendRedirect("lecturer");
             }
             if (role == 3) {
                 response.sendRedirect("student");

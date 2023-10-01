@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
-
 package Controller;
 
-import Dal.DAO;
-import Model.Account;
-import Model.Course;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,13 +7,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
-/**
- *
- * @author tanki
- */
-public class managerHome extends HttpServlet {
+
+public class pageNotFound extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +26,10 @@ public class managerHome extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet managerHome</title>");  
+            out.println("<title>Servlet pageNotFound</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet managerHome at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet pageNotFound at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,9 +45,7 @@ public class managerHome extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException 
-    {
-        //block check if user have logged in, if not then return to home
+    throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if(session == null||session.getAttribute("user") == null)
         {
@@ -67,16 +53,8 @@ public class managerHome extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
-        Account user = (Account)session.getAttribute("user");
-        //check user's authority by role
-        if(user.getRoleID()!=1)
-            request.getRequestDispatcher("pageNotFound").forward(request, response);
-        ///////////////////////////////
-        DAO dao = new DAO();
-        List<Course> course = dao.getAllCourse();
-        request.setAttribute("course", course);
-        request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
-    }
+        request.getRequestDispatcher("pageNotFound.jsp").forward(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.

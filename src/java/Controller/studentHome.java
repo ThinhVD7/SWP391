@@ -64,7 +64,7 @@ public class studentHome extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
-        //block check if user have logged in, if not then return to home
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
         if(session == null||session.getAttribute("user") == null)
         {
@@ -73,6 +73,10 @@ public class studentHome extends HttpServlet {
         }
         ////////////////////////////////////////////////////////////////
         Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=3)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         DAO dao = new DAO();
 ////test session block//////////////////////////////////////////////////////////////
 //try (PrintWriter out = response.getWriter()) {
