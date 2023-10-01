@@ -3,7 +3,7 @@
     Created on : Sep 28, 2023, 10:51:41 PM
     Author     : tanki
 --%>
-
+<%@page import = "java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="all_component/allCss.jsp" %>
 <!DOCTYPE html>
@@ -13,6 +13,11 @@
         <title>Add New Account</title>
     </head>
     <body>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 
 
         <style>
@@ -89,7 +94,7 @@
 
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gender" id="femaleGender"
-                                                       value="0" checked />
+                                                       value="2" checked />
                                                 <label class="form-check-label" for="femaleGender">Female</label>
                                             </div>
 
@@ -97,6 +102,11 @@
                                                 <input class="form-check-input" type="radio" name="gender" id="maleGender"
                                                        value="1" />
                                                 <label class="form-check-label" for="maleGender">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="fluidGender"
+                                                       value="0" checked />
+                                                <label class="form-check-label" for="femaleGender">Others</label>
                                             </div>
 
 

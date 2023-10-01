@@ -3,6 +3,7 @@
     Created on : Sep 27, 2023, 12:56:44 AM
     Author     : tanki
 --%>
+<%@page import = "java.util.*"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="all_component/allCss.jsp" %>
@@ -187,6 +188,11 @@
         </script>
     </head>
     <body>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
         <div class="container-xl">
             <div class="table-responsive">
                 <div class="table-wrapper">
@@ -240,7 +246,7 @@
                                         <td><span class="status text-danger">&bull;</span> Inactive</td>
                                     </c:if>
                                     <td>
-                                        <a href="#" class="settings" title="Settings" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+                                        <a href="#" class="settings" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                                     </td>
                                 </tr>

@@ -69,18 +69,18 @@ public class adminHome extends HttpServlet {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
         Account user = (Account)session.getAttribute("user");
         if(user.getRoleID()!=0)
             request.getRequestDispatcher("index.html").forward(request, response);
         
-        ////////////////////////////////////////////////////////////////
-////test session block
-//try (PrintWriter out = response.getWriter()) {
-///* TODO output your page here. You may use following sample code. */
+////test session block//////////////////////////////////////////////////////////////
+//try (PrintWriter out = response.getWriter()) 
+//{
 //out.println("<!DOCTYPE html>");
 //out.println("<html>");
 //out.println("<head>");
-//out.println("<title>Adminhome</title>");  
+//out.println("<title>SessionDetail</title>");  
 //out.println("</head>");
 //out.println("<body>");
 //out.print("<h1>SessionId: "+session.getId()+ "</h1>");
@@ -97,6 +97,7 @@ public class adminHome extends HttpServlet {
 //out.println("</body>");
 //out.println("</html>");
 //}
+////////////////////////////////////////////////////////////////////////////////////
            
         
             DAO dao = new DAO();

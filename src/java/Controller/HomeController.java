@@ -32,11 +32,11 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("user");
-        if (acc == null) {
+        Account user = (Account) session.getAttribute("user");
+        if (user == null) {
             response.sendRedirect("index.html");
         } else {
-            int role = (int) acc.getRoleID();
+            int role = (int) user.getRoleID();
             if (role == 0) {
                 response.sendRedirect("admin");
             }

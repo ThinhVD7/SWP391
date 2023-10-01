@@ -83,13 +83,13 @@ public class Login extends HttpServlet {
             //      response.sendRedirect("indexStudent.jsp");
 
             int roleId = ((Account)session.getAttribute("user")).getRoleID();
-//test session block
-try (PrintWriter out = response.getWriter()) {
-/* TODO output your page here. You may use following sample code. */
+//test session block//////////////////////////////////////////////////////////////
+try (PrintWriter out = response.getWriter()) 
+{
 out.println("<!DOCTYPE html>");
 out.println("<html>");
 out.println("<head>");
-out.println("<title>Servlet DemoSession03</title>");  
+out.println("<title>SessionDetail</title>");  
 out.println("</head>");
 out.println("<body>");
 out.print("<h1>SessionId: "+session.getId()+ "</h1>");
@@ -106,6 +106,7 @@ while(enu.hasMoreElements())
 out.println("</body>");
 out.println("</html>");
 }
+//////////////////////////////////////////////////////////////////////////////////
 //            if (roleId == 0) {
 //                request.getSession().setAttribute("user", acc);
 //

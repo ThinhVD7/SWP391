@@ -5,9 +5,6 @@
 
 package Controller;
 
-import Dal.DAO;
-import Model.Account;
-import Model.Course;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -15,13 +12,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
- * @author tanki
+ * @author ROG
  */
-public class managerHome extends HttpServlet {
+public class profile extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +34,10 @@ public class managerHome extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet managerHome</title>");  
+            out.println("<title>Servlet profile</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet managerHome at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet profile at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -57,8 +53,7 @@ public class managerHome extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException 
-    {
+    throws ServletException, IOException {
         //block check if user have logged in, if not then return to home
         HttpSession session = request.getSession(false);
         if(session == null||session.getAttribute("user") == null)
@@ -67,19 +62,8 @@ public class managerHome extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
-        Account user = (Account)session.getAttribute("user");
-        //block check user authority
-        if(user.getRoleID() != 1)
-        {
-            
-            return;
-        }
-        ///////////////////////////////
-        DAO dao = new DAO();
-        List<Course> course = dao.getAllCourse();
-        request.setAttribute("course", course);
-        request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
-    }
+        request.getRequestDispatcher("profile.jsp").forward(request, response);
+    } 
 
     /** 
      * Handles the HTTP <code>POST</code> method.

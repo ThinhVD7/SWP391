@@ -1,3 +1,4 @@
+<%@page import = "java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -33,6 +34,11 @@
 
             }
         </style>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
     </head>
     <body>
         <section class="sidebar">
@@ -49,7 +55,7 @@
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
-                    <a href="profile.jsp">
+                    <a href="profile">
                         <i class='bx bxs-user-account'></i>
                         <span class="title">Profile</span>
                     </a>
@@ -62,13 +68,14 @@
                     </a>
                     <span class="tooltip">Home</span>
                 </li>
-                <!--                <li>
-                                    <a href="#">
-                                        <i class="bx bx-phone-call"></i>
-                                        <span class="title">Calls</span>
-                                    </a>
-                                    <span class="tooltip">Calls</span>
-                                </li>
+               <li>
+                    <a href="Logout">
+                        <i class="bx bxs-devices"></i>
+                        <span class="title">Logout</span>
+                    </a>
+                    <span class="tooltip">Logout</span>
+                </li>
+                                <!--
                                 <li>
                                     <a href="#">
                                         <i class="bx bx-bookmark"></i>
@@ -118,7 +125,7 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a href="profile2.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
 

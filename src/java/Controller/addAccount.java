@@ -5,6 +5,7 @@
 package Controller;
 
 import Dal.DAO;
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -66,9 +67,20 @@ public class addAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+       //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        session.removeAttribute("idErr");
+        session.removeAttribute("nameErr");
+        session.removeAttribute("phoneErr");
+        session.removeAttribute("emailErr");
         request.getRequestDispatcher("addAccount.jsp").forward(request, response);
-
+        
     }
 
     /**
@@ -81,9 +93,16 @@ public class addAccount extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-//        processRequest(request, response);
-        HttpSession session = request.getSession();
+            throws ServletException, IOException 
+    {
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
         session.removeAttribute("idErr");
         session.removeAttribute("nameErr");
         session.removeAttribute("phoneErr");

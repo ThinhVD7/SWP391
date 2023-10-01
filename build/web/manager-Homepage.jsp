@@ -1,4 +1,9 @@
 <!DOCTYPE html>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 <html lang="en">
     <head>
 
@@ -37,7 +42,7 @@
     <body>
         <section class="sidebar">
             <div class="nav-header">
-                <p class="logo">FPTQuiz</p>
+                <p class="logo">Quiz Practice</p>
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
@@ -51,11 +56,11 @@
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="profile">
                         <i class='bx bxs-user-account'></i>
                         <span class="title">Profile</span>
                     </a>
-                    <span class="tooltip">${user.name}</span>
+                    <span class="tooltip">${sessionScope.user.name}</span>
                 </li>
                 <li>
                     <a href="home">
@@ -63,6 +68,13 @@
                         <span class="title">Home</span>
                     </a>
                     <span class="tooltip">Home</span>
+                </li>
+                <li>
+                    <a href="Logout">
+                        <i class="bx bxs-devices"></i>
+                        <span class="title">Logout</span>
+                    </a>
+                    <span class="tooltip">Logout</span>
                 </li>
                 <!--                <li>
                                     <a href="#">
@@ -120,7 +132,7 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a href="profile.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
 

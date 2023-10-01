@@ -71,16 +71,16 @@ public class studentHome extends HttpServlet {
             response.sendRedirect("index.html");
             return;
         }
-        Account user = (Account)session.getAttribute("user");
         ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
         DAO dao = new DAO();
-//test session block
+////test session block//////////////////////////////////////////////////////////////
 //try (PrintWriter out = response.getWriter()) {
 ///* TODO output your page here. You may use following sample code. */
 //out.println("<!DOCTYPE html>");
 //out.println("<html>");
 //out.println("<head>");
-//out.println("<title>Adminhome</title>");  
+//out.println("<title>Servlet DemoSession03</title>");  
 //out.println("</head>");
 //out.println("<body>");
 //out.print("<h1>SessionId: "+session.getId()+ "</h1>");
@@ -97,6 +97,7 @@ public class studentHome extends HttpServlet {
 //out.println("</body>");
 //out.println("</html>");
 //}
+////////////////////////////////////////////////////////////////////////////////////
         List<Class1> userClasses = dao.getClass(user.accountID);
         request.setAttribute("classes", userClasses);
         request.getRequestDispatcher("student-homepage.jsp").forward(request, response);

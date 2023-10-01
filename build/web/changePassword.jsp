@@ -3,11 +3,10 @@
     Created on : Sep 27, 2023, 12:31:48 AM
     Author     : tanki
 --%>
-
+<%@page import = "java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
 
         <!-- META ============================================= -->
@@ -56,6 +55,12 @@
 
     </head>
     <body id="bg">
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
+        
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <div class="account-form">
