@@ -64,16 +64,16 @@
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
-                                                <input type="text" id="id" class="form-control form-control-lg" name="id" required="" value="${requestScope.id}" />
-                                                <label class="form-label" for="id">ID <p class="text-danger">${idErr}</p></label>
+                                                ID<input type="text" id="id" class="form-control form-control-lg" name="id" required="" value="${requestScope.id}" />
+                                                <label class="form-label" for="id"><p class="text-danger">${idErr}</p></label>
                                             </div>
 
                                         </div>
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
-                                                <input type="text" id="name" class="form-control form-control-lg"  name="name" required="" value="${requestScope.name}"/>
-                                                <label class="form-label" for="name">Name <p class="text-danger">${nameErr}</p></label>
+                                                Name<input type="text" id="name" class="form-control form-control-lg"  name="name" required="" value="${requestScope.name}"/>
+                                                <label class="form-label" for="name"><p class="text-danger">${nameErr}</p></label>
                                             </div>
 
                                         </div>
@@ -83,8 +83,8 @@
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                             <div class="form-outline datepicker w-100">
-                                                <input type="text" class="form-control form-control-lg" id="email" name="email" required="" value="${requestScope.email}" />
-                                                <label for="email" class="form-label">Email <p class="text-danger">${emailErr}</p></label>
+                                                Email<input type="text" class="form-control form-control-lg" id="email" name="email" required="" value="${requestScope.email}" />
+                                                <label for="email" class="form-label"><p class="text-danger">${emailErr}</p></label>
                                             </div>
 
                                         </div>
@@ -118,8 +118,8 @@
                                         <div class="col-md-6 mb-4 pb-2">
 
                                             <div class="form-outline">
-                                                <input type="text" id="phoneNumber" class="form-control form-control-lg" name="phno" required="" value="${requestScope.phno}" />
-                                                <label class="form-label" for="phoneNumber">Phone Number <p class="text-danger">${phoneErr}</p> </label>
+                                                Phone Number<input type="text" id="phoneNumber" class="form-control form-control-lg" name="phno" required="" value="${requestScope.phno}" />
+                                                <label class="form-label" for="phoneNumber"><p class="text-danger">${phoneErr}</p> </label>
                                             </div>
 
                                         </div>
@@ -129,7 +129,7 @@
                                                                                             <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
                                                                                             <label class="form-label" for="phoneNumber">Phone Number</label>
                                                                                         </div>-->
-                                            <select class="select form-control-md" name="status">
+                                            Status: <select class="select form-control-md" name="status">
                                                 <option value="" disabled>Status</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
@@ -140,7 +140,7 @@
                                     <div class="row">
                                         <div class="col-12">
 
-                                            <select class="select form-control-md" name="role">
+                                            Role: <select class="select form-control-md" name="role">
                                                 <option value="" disabled>Role</option>
                                                 <option value="0">Admin</option>
                                                 <option value="1">Manager</option>
@@ -149,7 +149,7 @@
 
 
                                             </select>
-                                            <label class="form-label select-label">Role</label>
+                                            <label class="form-label select-label"></label>
 
                                         </div>
                                     </div>
