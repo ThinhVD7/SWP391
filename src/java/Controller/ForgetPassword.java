@@ -82,9 +82,17 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+
 
         String username = request.getParameter("email");
+        HttpSession session = request.getSession(false);
+        //block check if user have logged in, if true then return to home
+        if(session.getAttribute("user") != null)
+        {
+            response.sendRedirect("home");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
 
         DAO dao = new DAO();
         Account acc = dao.getUser(username);
@@ -93,7 +101,7 @@ public class ForgetPassword extends HttpServlet {
             request.setAttribute("mess", "Wrong email!");
             request.getRequestDispatcher("forget-password.jsp").forward(request, response);
         } else {
-            HttpSession session = request.getSession();
+            
 
             if (username != null || !username.equals("")) {
                 // sending otp
