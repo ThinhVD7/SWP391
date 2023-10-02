@@ -3,6 +3,13 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
+<!--    <servlet>
+        <description>
+        </description>
+        <display-name>hidden</display-name>
+        <servlet-name>hidden</servlet-name>
+        <jsp-file>student-homepage.jsp</jsp-file>
+    </servlet>-->
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>Controller.Login</servlet-class>

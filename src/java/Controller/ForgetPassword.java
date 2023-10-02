@@ -57,6 +57,16 @@ public class ForgetPassword extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        //block check if user have logged in, if true then return to home
+        HttpSession session = request.getSession(false);
+        if(session ==null)
+            request.getRequestDispatcher("forget-password.jsp").forward(request, response);
+        if(session.getAttribute("user") != null)
+        {
+            response.sendRedirect("home");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
         request.getRequestDispatcher("forget-password.jsp").forward(request, response);
 
     }
