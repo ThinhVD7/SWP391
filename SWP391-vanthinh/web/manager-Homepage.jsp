@@ -37,6 +37,78 @@
                 text-decoration: none;
 
             }
+            
+            .home{
+                position: relative;
+            }
+            
+            .addCourse{
+                position: absolute;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                
+            }
+            
+            .addCourseContent{
+                padding: 60px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                margin: auto;
+                
+            }
+            
+            .addCourseTitle{
+                color: blue;
+                font-family: sans-serif;
+                letter-spacing: 2px;
+                word-spacing: 3px;
+                font-weight: bold;
+                font-size: 2.4rem;
+                margin-bottom: 20px;
+            }
+            
+            .form-field {
+                padding-left: 10px;
+                margin-bottom: 20px;
+                border-radius: 20px;
+                box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+            }
+            
+            .form-field input {
+                width: 100%;
+                display: block;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.2rem;
+                color: #666;
+                padding: 10px 15px 10px 10px;
+                /* border: 1px solid red; */
+            }
+            
+            .closePopUp{
+                padding: 4px 12px;
+                background-color: orange;
+                border: 1px solid transparent;
+                color: #fff;
+                font-weight: 600;
+                transition: .4s;
+                margin-top: 10px;
+                border-radius: 5px;
+                
+                &:hover{
+                    transform: scale(1.05);
+                }
+            }
         </style>
     </head>
     <body>
@@ -141,7 +213,7 @@
 
                 </div>
                 <div class=" col-md-2 input-group" style="border: solid wheat; border-radius: 25px;background-color: #869791">
-                    <a href="#" style="">  <div>
+                    <a id="show" onclick="openPopUp()">  <div>
                             <i class="fa fa-plus-circle fa-xl" aria-hidden="true"></i> <p>Add Course</p>
                         </div> </a>
                 </div>
@@ -180,15 +252,45 @@
 
                                     <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
                                     <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
+                                    <span style="float: right"> <a onclick="openEdit(1,2,3,4,5)">Edit</a> </span>
                                     <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a href=""><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                    <span style="float: right"> <a onclick="closeEdit()"><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
 
 
+                </div>
+            </div>
+            <div class="addCourse" id="addCourse" style="display: none;">
+                <div class="addCourseContent">
+                    <h3 class="addCourseTitle" id="titleCourse">Add course</h3> 
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <input type="text" name="courseId" id="courseId" placeholder="course-ID" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <input type="text" name="courseName" id="courseName" placeholder="Course Name" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <input type="text" name="semester" id="semseter" placeholder="Semester" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <p>Start Day</p>
+                        <input type="date" name="courseId" id="courseId" placeholder="course-ID" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <p>Start Day</p>
+                        <input type="date" name="courseId" id="courseId" placeholder="course-ID" required="">
+                    </div>
+                    <button class="closePopUp" type="submit" >Submit</button>
+                    <button class="closePopUp" onclick="closePopUp()">Close</button>
                 </div>
             </div>
 
@@ -217,6 +319,22 @@
                     btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                 }
             }
+            
+            function openPopUp(){
+                const divPopUp = document.querySelector("#addCourse");
+                document.getElementById('titleCourse').innerHTML = 'Add Course';
+                divPopUp.style.display = 'block';
+                document.getElementById("courseId").value = '';
+                document.getElementById("courseName").value = '';
+                document.getElementById("semseter").value = '';
+            }
+            
+            function closePopUp(){
+                const divPopUp = document.querySelector("#addCourse");
+                divPopUp.style.display = 'none';
+            }
+
+
 
             const btn_theme = document.querySelector(".theme-btn");
             const theme_ball = document.querySelector(".theme-ball");
