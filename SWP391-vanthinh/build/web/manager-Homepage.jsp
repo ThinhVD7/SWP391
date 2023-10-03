@@ -255,7 +255,7 @@
                                     <span style="float: right"> <a onclick="openEdit(1,2,3,4,5)">Edit</a> </span>
                                     <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a onclick="closeEdit()"><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                    <span style="float: right"> <a onclick="openDelete()"><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
                                 </div>
                             </div>
                         </div>
@@ -289,6 +289,13 @@
                         <p>Start Day</p>
                         <input type="date" name="courseId" id="courseId" placeholder="course-ID" required="">
                     </div>
+                    <button class="closePopUp" type="submit" >Submit</button>
+                    <button class="closePopUp" onclick="closePopUp()">Close</button>
+                </div>
+            </div>
+            <div class="addCourse" id="deleterCouse" style="display: none;">
+                <div class="addCourseContent">
+                    <h3 class="addCourseTitle" id="titleCourse">Add course</h3> 
                     <button class="closePopUp" type="submit" >Submit</button>
                     <button class="closePopUp" onclick="closePopUp()">Close</button>
                 </div>
@@ -334,7 +341,20 @@
                 divPopUp.style.display = 'none';
             }
 
-
+            function openEdit(id, name, semester, start, end){
+                 const divPopUp = document.querySelector("#addCourse");
+                const showBtn = document.querySelector("show");
+                divPopUp.style.display = 'block';
+                document.getElementById('titleCourse').innerHTML = 'Edit Course';
+                document.getElementById("courseId").value = id;
+                document.getElementById("courseName").value = name;
+                document.getElementById("semseter").value = semester;
+                
+            }
+            function closeEdit(){
+                 const divPopUp = document.querySelector("#addCourse");
+                divPopUp.style.display = 'none';
+            }
 
             const btn_theme = document.querySelector(".theme-btn");
             const theme_ball = document.querySelector(".theme-ball");
