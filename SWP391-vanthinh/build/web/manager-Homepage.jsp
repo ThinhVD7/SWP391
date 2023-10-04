@@ -107,7 +107,21 @@
                 
                 &:hover{
                     transform: scale(1.05);
-                }
+                }          
+            }
+                .closePopUp1{
+                padding: 4px 12px;
+                background-color: green;
+                border: 1px solid transparent;
+                color: #fff;
+                font-weight: 600;
+                transition: .4s;
+                margin-top: 10px;
+                border-radius: 5px;
+                
+                &:hover{
+                    transform: scale(1.05);
+                }          
             }
         </style>
     </head>
@@ -252,7 +266,7 @@
 
                                     <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
                                     <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                    <span style="float: right"> <a onclick="openEdit(1,2,3,4,5)">Edit</a> </span>
+                                    <span style="float: right"> <a onclick="openEdit(11,22,3,4,5)"><i class="fa-solid fa-pen-to-square" style="color: #0be50e;"></i> </span>
                                     <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
                                     <span style="float: right"> <a onclick="openDelete()"><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
@@ -286,17 +300,19 @@
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
-                        <p>Start Day</p>
+                        <p>End Day</p>
                         <input type="date" name="courseId" id="courseId" placeholder="course-ID" required="">
                     </div>
                     <button class="closePopUp" type="submit" >Submit</button>
-                    <button class="closePopUp" onclick="closePopUp()">Close</button>
+                    <button class="closePopUp" onclick="closePopUp1()">Close</button>
                 </div>
             </div>
             <div class="addCourse" id="deleterCouse" style="display: none;">
                 <div class="addCourseContent">
-                    <h3 class="addCourseTitle" id="titleCourse">Add course</h3> 
-                    <button class="closePopUp" type="submit" >Submit</button>
+                    <h3 class="addCourseTitle" id="titleCourse">Delete course</h3> 
+                    <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
+                    <button class="closePopUp1" type="submit" >Yes</button>
+                    <button class="closePopUp1" type="submit" >No</button>
                     <button class="closePopUp" onclick="closePopUp()">Close</button>
                 </div>
             </div>
@@ -351,8 +367,18 @@
                 document.getElementById("semseter").value = semester;
                 
             }
-            function closeEdit(){
+            function closePopUp1(){
                  const divPopUp = document.querySelector("#addCourse");
+                divPopUp.style.display = 'none';
+            }
+            function openDelete(){
+                const divPopUp = document.querySelector("#deleterCouse");
+                const showBtn = document.querySelector("show");
+                divPopUp.style.display = 'block';
+                
+            }
+            function closePopUp(){
+                 const divPopUp = document.querySelector("#deleterCouse");
                 divPopUp.style.display = 'none';
             }
 
