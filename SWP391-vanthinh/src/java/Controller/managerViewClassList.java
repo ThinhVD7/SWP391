@@ -72,7 +72,7 @@ public class managerViewClassList extends HttpServlet {
             ManagerDAO dao=new ManagerDAO();
             List<Class1> listA = dao.getAllClass();
             request.setAttribute("listA", listA);
-            request.getRequestDispatcher("managreViewClassList.jsp").forward(request, response);
+            request.getRequestDispatcher("managerViewClassList.jsp").forward(request, response);
     } 
 
     /** 
