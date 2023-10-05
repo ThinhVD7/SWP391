@@ -51,14 +51,9 @@
             padding: 15px;
             margin-left: 30px;
             margin-right: 30px;
-<<<<<<< HEAD
             /*margin-top: 30px;*/
             overflow: hidden;
             /*margin-bottom: 30px;*/
-=======
-            margin-top: 30px;
-            overflow: hidden;
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             }
             
             .class-detail 
@@ -104,7 +99,12 @@
 =======
                 border: 2px solid #ccc;
                 margin-right: 10px;
+<<<<<<< HEAD
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                height: 540px;
+                overflow: auto;
+>>>>>>> 0d94aba (minor)
                 /*width: 50%;*/
                 /*display:block;*/
             }
@@ -651,7 +651,11 @@
 =======
                 
             </div>
+<<<<<<< HEAD
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+           
+>>>>>>> 0d94aba (minor)
             
         </div>
              <div class="right-div">
