@@ -77,6 +77,8 @@
                 border-radius: 10px;
                 border: 2px solid #ccc;
                 margin-right: 10px;
+                height: 540px;
+                overflow: auto;
                 /*width: 50%;*/
                 /*display:block;*/
             }
@@ -269,6 +271,7 @@
                 Click to view details
                 
             </div>
+           
             
         </div>
              <div class="right-div">
