@@ -1,9 +1,3 @@
-<%-- 
-    Document   : lectuer-homepage
-    Created on : Sep 27, 2023, 2:49:56 AM
-    Author     : tanki
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -44,9 +38,83 @@
                 text-decoration: none;
 
             }
+            .main-container {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            }
+            
+            .exam-detail {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            margin: 20px auto;
+            width:80%;
+            text-align: center; 
+            font-size: 1em;
+            overflow: hidden;
+        }
+
+        .edit-exam-button {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+        }
+        /* Style for the pop-up */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 1;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
+            backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
+            z-index: 1;
+        }
+
+        /* Style for the clear pop-up container */
+        .popup-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 2;
+        }
+        
+        
         </style>
     </head>
     <body>
+        
+  <!--side bar------------------------------------------------------------------------------------------------------->        
         <section class="sidebar">
             <div class="nav-header">
                 <p class="logo">Quiz Practice</p>
@@ -93,8 +161,12 @@
                 </div>
             </div>
         </section>
-        <section class="home">
+                
+<!--end of side bar------------------------------------------------------------------------------------------->
+       
 
+        <section class="home">
+<!--seach and profile icon------------------------------------------------------------------------------------>
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
@@ -108,73 +180,58 @@
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
+            
+            
 
             
-            <div class="container-fluid mt-3">
-                <div class="row mt-5">
-
-                    <c:forEach items="${requestScope.course}" var="c">
-                        <div class="col col-sm-4 mt-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                    <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a href=""><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-            </div>
-
-
-
-
-            <div class="container-fluid mt-3">
-                <div class="row mt-5">
-
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
+<!--            <div class="class-list">
+                <c:forEach items="${requestScope.classList}" var="c">
+                    <div class="class-containder">
+                        <a style="text-decoration: none;"  href="#"> 
+                        <h3>${c.className}</h3>
                     </div>
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>   <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
                     </div>
+                </c:forEach>
+            </div>-->
 
 
-                </div>
+            
+<!--main block------------------------------------------------------------------------------------------------->
+        <div class="main-container">
+            <div>
+                <a style="font-size: 36px; margin-bottom: 10px;">
+                    MAS291 Fall 2023
             </div>
-
-
-
-
-
-
-
+            <div>
+                <a style ="padding: 5px;"
+                    href="#">Home</a> / 
+                    <a style ="padding: 5px;" 
+                       href="#">MAS291</a> /
+                        <a style ="padding: 5px;" 
+                           href="#">SE1732</a> /
+                            <a style ="padding: 5px;" 
+                               href="#">Progress Test 1</a>
+            </div>
+            <div>
+                <a style ="padding:5px;">
+            </div>
+            <div>
+                
+                   <h3>Progress Test 1 </h3>           
+            </div>
+            <div class="exam-detail">
+                <p>Start Date: 4/10/2023 to 6/10/2023</p>
+                <br>
+                <p>Time limit: 30 minutes</p>
+                <br>
+                <p>Review Permission: Absolutely</p>
+                <br>
+                <button class="edit-exam-button">Edit Exam</button> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                <button class="edit-exam-button" ${exam.permission==1?"":"hidden"}>Review Exam</button>
+            </div>
+        </div>
+             
+<!--end of main block------------------------------------------------------------------------------------------------->
 
         </section>
 

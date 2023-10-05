@@ -1,9 +1,3 @@
-<%-- 
-    Document   : lectuer-homepage
-    Created on : Sep 27, 2023, 2:49:56 AM
-    Author     : tanki
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -42,8 +36,60 @@
             }
             .card-title {
                 text-decoration: none;
+                
 
             }
+                    /* Main container */
+            .main {
+            /*display: flex;*/
+/*            justify-content: space-between;*/
+            padding: 20px;
+            flex:1;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            overflow: hidden;
+            justify-content: center;
+        }
+            .class-list {
+                            display: flex;
+
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            width: 50%;
+            align-self: center;
+            justify-content: center;
+            }
+
+            .class-container {
+                margin-bottom: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+                /*width: 50%;*/
+                margin-bottom: 20px;
+                padding: 15px;
+                display: block;
+            }
+            .class-info-container {
+                margin-bottom: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                width: 50%;
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+            
         </style>
     </head>
     <body>
@@ -53,10 +99,6 @@
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
-
-
-
-
                 <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
@@ -110,60 +152,55 @@
             </div>
 
             
-            <div class="container-fluid mt-3">
-                <div class="row mt-5">
+<!--            <div class="class-list">
+                <c:forEach items="${requestScope.classList}" var="c">
+                    <div class="class-containder">
+                        <a style="text-decoration: none;"  href="#"> 
+                        <h3>${c.className}</h3>
+                    </div>
+                    </div>
+                </c:forEach>
+            </div>-->
 
-                    <c:forEach items="${requestScope.course}" var="c">
-                        <div class="col col-sm-4 mt-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                    <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a href=""><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+
+
+
+        <div class="main">
+            <div>
+                <a style="font-size: 36px; margin-bottom: 10px;">
+                    MAS291 Fall 2023
+            </div>
+            <div>
+                <a style ="padding: 5px;"
+                    href="#">Home</a> / <a style ="padding: 5px;" href="#">MAS291</a>
+            </div>
+            <div>
+                <a style ="padding:5px;">
+            </div>
+            <div class="class-list">
+            <div class="class-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>SE1732</h3>
+                
             </div>
 
+            <div class="class-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>SE1744</h3>
+                
+            </div>
 
+            <div class="class-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>SE1802</h3>
+                
+            </div>
+            </div>
+                
+           
 
-
-            <div class="container-fluid mt-3">
-                <div class="row mt-5">
-
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>   <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
+            <!-- Add more class containers as needed -->
+        </div>
 
 
                 </div>

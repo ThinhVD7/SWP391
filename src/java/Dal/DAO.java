@@ -244,6 +244,7 @@ public class DAO extends DBContext {
             PreparedStatement ps = connector.prepareStatement(strSelect);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                System.out.println("");
                 Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                 course.add(c);
             }
@@ -313,6 +314,7 @@ public class DAO extends DBContext {
     public static void main(String[] args) {
         DAO d = new DAO();
         String two = d.encodeSHA1("123456");
+        d.getAllCourse();
         System.out.println(d.encodeSHA1("123456").equals(two));
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : lectuer-homepage
-    Created on : Sep 27, 2023, 2:49:56 AM
-    Author     : tanki
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%
@@ -42,10 +36,116 @@
             }
             .card-title {
                 text-decoration: none;
-
             }
+            
+         /* Main container */
+            .main-container 
+            {
+/*            display: flex;*/
+/*            justify-content: space-between;*/
+            padding: 20px;
+            flex:1;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            overflow: hidden;
+            }
+            
+            .class-detail 
+            {
+                flex:1;
+            background-color: #fff;
+            border-radius: 10px;
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);*/
+            padding: 10px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            display: flex;
+            overflow: hidden;
+            }
+            
+            /* Left div (list of exams) */
+            .left-div 
+            {
+                flex: 1;
+                padding: 10px;
+                border-radius: 10px;
+                border: 2px solid #ccc;
+                margin-right: 10px;
+                /*width: 50%;*/
+                /*display:block;*/
+            }
+
+            .right-div 
+            {
+                /*flex: 1;*/
+                padding: 15px;
+                border-radius: 10px;
+                /*border: 2px solid #ccc;*/
+                position: relative;
+                margin-right: 10px;
+                overflow: hidden;
+                /*display:block;*/
+            }
+
+            .exam-container 
+            {
+                flex:1;
+                margin-bottom: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+                margin-bottom: 20px;
+                padding: 15px;
+                overflow: hidden;
+                /*display: block;*/
+            }
+            
+        
+            .info-container 
+            {
+                position: sticky;
+                top: 20px;
+                border-radius: 10px;
+                /*border: 2px solid #ccc;*/
+                background-color: #fff;
+                padding: 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+            }
+        
+            .edit-exam-button 
+            {
+                position: static;
+                background-color: #299be4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+                align-self: center;
+                margin-top: auto;
+            }
+
+
+        .bottom-right-p {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 0;
+        }
+        
+            
         </style>
-    </head>
+</head>
     <body>
         <section class="sidebar">
             <div class="nav-header">
@@ -53,9 +153,6 @@
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
-
-
-
 
                 <li>
                     <i class="bx bx-search search-btn"></i>
@@ -110,72 +207,90 @@
             </div>
 
             
-            <div class="container-fluid mt-3">
-                <div class="row mt-5">
+<!--            <div class="class-list">
+                <c:forEach items="${requestScope.classList}" var="c">
+                    <div class="class-containder">
+                        <a style="text-decoration: none;"  href="#"> 
+                        <h3>${c.className}</h3>
+                    </div>
+                    </div>
+                </c:forEach>
+            </div>-->
 
-                    <c:forEach items="${requestScope.course}" var="c">
-                        <div class="col col-sm-4 mt-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                    <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a href=""><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
+
+
+    <div class="main-container">
+        <div style="font-size: 36px; margin-bottom: 10px;">
+                MAS291 Fall 2023
+        </div>
+        <div>
+            <a style ="padding: 5px;"
+                href="#">Home</a> / 
+                <a style ="padding: 5px;" 
+                   href="#">MAS291</a> /
+                    <a style ="padding: 5px;" 
+                       href="#">SE1732</a>
+        </div>
+
+        <div class ="class-detail" >
+            
+<!--            <div>
+                <a style ="padding:5px;">
+                    
+            </div>-->
+             <!-- Right div (Class information) -->
+        
+        <div class="left-div">
+            <h2>Exam</h2>
+            
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 1</h3>
+                <br>
+                Start Date: 4/10/2023 to 6/10/2023<br>
+                Click to view details
+                
             </div>
 
-
-
-
-            <div class="container-fluid mt-3">
-                <div class="row mt-5">
-
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>   <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 2</h3>
+                <br>
+                Start Date: 12/10/2023 to 14/10/2023<br>
+                Click to view details
+                
             </div>
 
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Final Trial</h3>
+                <br>
+                Start Date: 16/10/2023 to 21/10/2023<br>
+                Click to view details
+                
+            </div>
+            
+        </div>
+             <div class="right-div">
+            <!-- Information container (fixed position) -->
+            <div class="info-container">
+                <a style="font-size: 24px; font-style: inherit"></a>
+                <h2>Class Information</h2>
+                <p>Start Date: 1/10/2023 to 2/11/2023</p><br>
+                <p>Lecturer: John Doe</p><br>
+                <p>Email: john.doe@example.com</p><br>
+                <button class="edit-exam-button" >View Students</button>
+            </div>
+        </div>
+        
+       
+
+            
+        </div>
+    </div>
 
 
-
-
-
-
-
+             
         </section>
 
         <script>

@@ -83,41 +83,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-                <!--                <li>
-                                    <a href="#">
-                                        <i class="bx bx-phone-call"></i>
-                                        <span class="title">Calls</span>
-                                    </a>
-                                    <span class="tooltip">Calls</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-bookmark"></i>
-                                        <span class="title">Bookmarks</span>
-                                    </a>
-                                    <span class="tooltip">Bookmarks</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-wallet-alt"></i>
-                                        <span class="title">Wallet</span>
-                                    </a>
-                                    <span class="tooltip">Wallet</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bxs-devices"></i>
-                                        <span class="title">Devices</span>
-                                    </a>
-                                    <span class="tooltip">Devices</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-cog"></i>
-                                        <span class="title">Setting</span>
-                                    </a>
-                                    <span class="tooltip">Setting</span>
-                                </li>-->
+                
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -143,11 +109,26 @@
                 </div>
             </div>
 
-            <div class="row">
-                <div class="col-md-9">
+            
+            <div class="container-fluid mt-3">
+                <div class="row mt-5">
 
-                </div>    
+                    <c:forEach items="${requestScope.course}" var="c">
+                        <div class="col col-sm-4 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
+                                    <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
+                                    <span style="float: right"> <a href=""><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
+
 
 
 
