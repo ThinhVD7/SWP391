@@ -3,16 +3,6 @@
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
-<<<<<<< HEAD
-=======
-    <!--    <servlet>
-        <description>
-        </description>
-        <display-name>hidden</display-name>
-        <servlet-name>hidden</servlet-name>
-        <jsp-file>student-homepage.jsp</jsp-file>
-    </servlet>-->
->>>>>>> NamThanh
     <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>Controller.Login</servlet-class>
@@ -61,21 +51,6 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
-<<<<<<< HEAD
-=======
-    <servlet>
-        <servlet-name>profile</servlet-name>
-        <servlet-class>Controller.profile</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>pageNotFound</servlet-name>
-        <servlet-class>Controller.pageNotFound</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>lecturerHomepage</servlet-name>
-        <servlet-class>Controller.lecturerHomepage</servlet-class>
-    </servlet>
->>>>>>> NamThanh
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -124,21 +99,6 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
-=======
-    <servlet-mapping>
-        <servlet-name>profile</servlet-name>
-        <url-pattern>/profile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>pageNotFound</servlet-name>
-        <url-pattern>/pageNotFound</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>lecturerHomepage</servlet-name>
-        <url-pattern>/lecturer</url-pattern>
-    </servlet-mapping>
->>>>>>> NamThanh
     <session-config>
         <session-timeout>
             30

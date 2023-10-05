@@ -1,15 +1,8 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
 
-=======
-<%@page import = "java.util.*"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
->>>>>>> NamThanh
     <head>
 
         <!-- META ============================================= -->
@@ -56,15 +49,6 @@
 
     </head>
     <body id="bg">
-<<<<<<< HEAD
-=======
-        <%
-    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
-    response.setHeader("Pragma","no-cache"); //HTTP 1.0
-    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
-%>
-
->>>>>>> NamThanh
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Content -->
@@ -144,26 +128,16 @@
                                                         <hr class="mt-0 mb-4">
                                                         <div class="row pt-1">
                                                             <div class="col-7 mb-3">
-<<<<<<< HEAD
                                                                 <h6>Email</h6>
                                                                 <p class="text-muted">${sessionScope.user.email}</p>
                                                             </div>
                                                             <div class="col-5 mb-3">
                                                                 <h6>Phone</h6>
                                                                 <p class="text-muted">${sessionScope.user.phoneNumber}</p>
-=======
-                                                                <h6>Name</h6>
-                                                                <p class="text-muted">${sessionScope.user.name}</p>
-                                                            </div>
-                                                            <div class="col-5 mb-3">
-                                                                <h6>Email</h6>
-                                                                <p class="text-muted">${sessionScope.user.email}</p>
->>>>>>> NamThanh
                                                             </div>
                                                         </div>
                                                         <div class="row pt-1">
                                                             <div class="col-7 mb-3">
-<<<<<<< HEAD
                                                                 <h6>Email</h6>
                                                                 <p class="text-muted">${sessionScope.user.name}</p>
                                                             </div>
@@ -173,18 +147,6 @@
                                                             </div>
                                                         </div>
 
-=======
-                                                                <h6>Phone Number</h6>
-                                                                <p class="text-muted">${sessionScope.user.phoneNumber}</p>
-                                                            </div>
-                                                            <div class="col-5 mb-3">
-                                                                <h6>Gender</h6>
-                                                                <p class="text-muted">${user.gender==1||user.gender==2?"Straight":"Fluid"}</p>
-                                                            </div>
-                                                        </div>
-
-
->>>>>>> NamThanh
                                                         <div class="row pb-3">
                                                         </div>
 

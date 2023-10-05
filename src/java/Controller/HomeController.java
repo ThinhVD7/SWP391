@@ -32,19 +32,11 @@ public class HomeController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-<<<<<<< HEAD
         Account acc = (Account) session.getAttribute("user");
         if (acc == null) {
             response.sendRedirect("index.html");
         } else {
             int role = (int) acc.getRoleID();
-=======
-        Account user = (Account) session.getAttribute("user");
-        if (user == null) {
-            response.sendRedirect("index.html");
-        } else {
-            int role = (int) user.getRoleID();
->>>>>>> NamThanh
             if (role == 0) {
                 response.sendRedirect("admin");
             }
@@ -52,11 +44,7 @@ public class HomeController extends HttpServlet {
                 response.sendRedirect("managerHome");
             }
             if (role == 2) {
-<<<<<<< HEAD
                 response.sendRedirect("lecturer-homepage.jsp");
-=======
-                response.sendRedirect("lecturer");
->>>>>>> NamThanh
             }
             if (role == 3) {
                 response.sendRedirect("student");

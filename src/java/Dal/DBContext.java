@@ -11,11 +11,7 @@ import java.sql.SQLException;
 public class DBContext {
     private final String DB_URL = "jdbc:mysql://localhost3306/";
     private static final String USER = "root";
-<<<<<<< HEAD
     private static final String PASSWORD = "Hoalac@99";
-=======
-    private static final String PASSWORD = "qqqqqqqq";
->>>>>>> NamThanh
     private static final String DATABASE = "quiz8";
     public Connection getConnection()throws Exception 
             

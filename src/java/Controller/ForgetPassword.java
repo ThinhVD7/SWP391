@@ -57,19 +57,6 @@ public class ForgetPassword extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-<<<<<<< HEAD
-=======
-        //block check if user have logged in, if true then return to home
-        HttpSession session = request.getSession(false);
-        if(session ==null)
-            request.getRequestDispatcher("forget-password.jsp").forward(request, response);
-        if(session.getAttribute("user") != null)
-        {
-            response.sendRedirect("home");
-            return;
-        }
-        ////////////////////////////////////////////////////////////////
->>>>>>> NamThanh
         request.getRequestDispatcher("forget-password.jsp").forward(request, response);
 
     }
@@ -85,23 +72,9 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-<<<<<<< HEAD
 //        processRequest(request, response);
 
         String username = request.getParameter("email");
-=======
-
-
-        String username = request.getParameter("email");
-        HttpSession session = request.getSession(false);
-        //block check if user have logged in, if true then return to home
-        if(session.getAttribute("user") != null)
-        {
-            response.sendRedirect("home");
-            return;
-        }
-        ////////////////////////////////////////////////////////////////
->>>>>>> NamThanh
 
         DAO dao = new DAO();
         Account acc = dao.getUser(username);
@@ -110,11 +83,7 @@ public class ForgetPassword extends HttpServlet {
             request.setAttribute("mess", "Wrong email!");
             request.getRequestDispatcher("forget-password.jsp").forward(request, response);
         } else {
-<<<<<<< HEAD
             HttpSession session = request.getSession();
-=======
-            
->>>>>>> NamThanh
 
             if (username != null || !username.equals("")) {
                 // sending otp

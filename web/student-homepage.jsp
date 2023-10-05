@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-<%@page import = "java.util.*"%>
->>>>>>> NamThanh
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -37,19 +33,10 @@
 
             }
         </style>
-<<<<<<< HEAD
-=======
-<%
-    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
-    response.setHeader("Pragma","no-cache"); //HTTP 1.0
-    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
-%>
->>>>>>> NamThanh
     </head>
     <body>
         <section class="sidebar">
             <div class="nav-header">
-<<<<<<< HEAD
                 <p class="logo">FPTQuiz</p>
                 <i class="bx bx-menu btn-menu"></i>
             </div>
@@ -58,33 +45,17 @@
 
 
 
-=======
-                <p class="logo">Quiz Practice</p>
-                <i class="bx bx-menu btn-menu"></i>
-            </div>
-            <ul class="nav-links">
-                
-                
->>>>>>> NamThanh
                 <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
-<<<<<<< HEAD
                     <a href="profile.jsp">
                         <i class='bx bxs-user-account'></i>
                         <span class="title">Profile</span>
                     </a>
                     <span class="tooltip">${user.name}</span>
-=======
-                    <a href="profile">
-                        <i class='bx bxs-user-account'></i>
-                        <span class="title">Profile</span>
-                    </a>
-                    <span class="tooltip">${sessionScope.user.name}</span>
->>>>>>> NamThanh
                 </li>
                 <li>
                     <a href="home">
@@ -93,7 +64,6 @@
                     </a>
                     <span class="tooltip">Home</span>
                 </li>
-<<<<<<< HEAD
                 <!--                <li>
                                     <a href="#">
                                         <i class="bx bx-phone-call"></i>
@@ -101,16 +71,6 @@
                                     </a>
                                     <span class="tooltip">Calls</span>
                                 </li>
-=======
-               <li>
-                    <a href="Logout">
-                        <i class="bx bxs-devices"></i>
-                        <span class="title">Logout</span>
-                    </a>
-                    <span class="tooltip">Logout</span>
-                </li>
-                                <!--
->>>>>>> NamThanh
                                 <li>
                                     <a href="#">
                                         <i class="bx bx-bookmark"></i>
@@ -160,11 +120,7 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-<<<<<<< HEAD
                     <a href="profile2.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
-=======
-                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
->>>>>>> NamThanh
                 </div>
             </div>
 

@@ -18,11 +18,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-<<<<<<< HEAD
-=======
-import java.security.MessageDigest;
-import org.apache.tomcat.util.codec.binary.Base64;
->>>>>>> NamThanh
 
 public class DAO extends DBContext {
 
@@ -45,27 +40,6 @@ public class DAO extends DBContext {
             test = " Not Connected";
         }
     }
-<<<<<<< HEAD
-=======
-    
-    //result get saved to database,
-    //future comparing password to the database saved one have to be encoded to compare
-    public String encodeSHA1(String password)
-            {
-                String result="";
-                try
-                    {
-                        byte[] dataBytes = password.getBytes("UTF-8");
-                        MessageDigest md = MessageDigest.getInstance("SHA-1");
-                        result = Base64.encodeBase64String(md.digest(dataBytes));
-                    }
-                catch(Exception e)
-                    {
-                        status = "Error at encodeSHA1"+e.getMessage();
-                    }
-                return result;
-            }
->>>>>>> NamThanh
 
     public void loadStudent() {
         student = new Vector();
@@ -318,11 +292,6 @@ public class DAO extends DBContext {
 
     public static void main(String[] args) {
         DAO d = new DAO();
-<<<<<<< HEAD
-=======
-        String two = d.encodeSHA1("123456");
-        System.out.println(d.encodeSHA1("123456").equals(two));
->>>>>>> NamThanh
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }
