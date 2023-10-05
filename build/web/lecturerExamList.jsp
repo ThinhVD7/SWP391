@@ -51,9 +51,14 @@
             padding: 15px;
             margin-left: 30px;
             margin-right: 30px;
+<<<<<<< HEAD
             /*margin-top: 30px;*/
             overflow: hidden;
             /*margin-bottom: 30px;*/
+=======
+            margin-top: 30px;
+            overflow: hidden;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             }
             
             .class-detail 
@@ -76,6 +81,7 @@
                 flex: 1;
                 padding: 10px;
                 border-radius: 10px;
+<<<<<<< HEAD
                 /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);*/
                 /*border: 2px solid #ccc;*/
                 margin-right: 10px;
@@ -95,6 +101,10 @@
                 margin-right: 10px;
                 height: 540px;
                 overflow: auto;
+=======
+                border: 2px solid #ccc;
+                margin-right: 10px;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 /*width: 50%;*/
                 /*display:block;*/
             }
@@ -115,44 +125,69 @@
             {
                 flex:1;
                 margin-bottom: 20px;
+<<<<<<< HEAD
                 margin-top: 30px;
                 background-color: #fff;
                 border-radius: 10px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+=======
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 margin-bottom: 20px;
                 padding: 15px;
                 overflow: hidden;
                 /*display: block;*/
             }
+<<<<<<< HEAD
             .exam-container:hover
             {
                 background-color: #f5f5f5;
             }
+=======
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             
         
             .info-container 
             {
+<<<<<<< HEAD
                 position: relative;
+=======
+                position: sticky;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 top: 20px;
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
                 background-color: #fff;
                 padding: 10px;
+<<<<<<< HEAD
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+=======
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 overflow: hidden;
             }
         
             .edit-exam-button 
             {
+<<<<<<< HEAD
                 /*position: static;*/
                 background-color: #299be4;
                 color: #fff;
                  border: 2px solid #ccc;
+=======
+                position: static;
+                background-color: #299be4;
+                color: #fff;
+                border: none;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 border-radius: 5px;
                 padding: 10px 20px;
                 font-size: 16px;
                 cursor: pointer;
                 margin-top: 10px;
+<<<<<<< HEAD
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
                 align-self: center;
                 margin-top: auto;
@@ -163,6 +198,12 @@
             .edit-exam-button:hover{
             background-color: #0073e6;
         }
+=======
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+                align-self: center;
+                margin-top: auto;
+            }
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
 
         .bottom-right-p {
@@ -172,6 +213,7 @@
             margin: 0;
         }
         
+<<<<<<< HEAD
         .popup-button {
             background-color: #299be4;
             color: #fff;
@@ -358,6 +400,8 @@
                 background-color: #0073e6;
             }
         
+=======
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             
         </style>
 </head>
@@ -406,9 +450,14 @@
             </div>
         </section>
         <section class="home">
+<<<<<<< HEAD
             <div><br></div>
 
 <!--            <div class="row pt-2">
+=======
+
+            <div class="row pt-2">
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form class="nosubmit">
@@ -420,7 +469,11 @@
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
+<<<<<<< HEAD
             </div>-->
+=======
+            </div>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
             
 <!--            <div class="class-list">
@@ -436,6 +489,7 @@
 
 
     <div class="main-container">
+<<<<<<< HEAD
 <!--pop up start----------------------------------------------------------------------------------------------->
 <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
@@ -510,6 +564,18 @@
                    href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
                     <a style ="padding: 5px;" 
                        href="#">${sessionScope.sessionThisClass.className}</a>
+=======
+        <div style="font-size: 36px; margin-bottom: 10px;">
+                MAS291 Fall 2023
+        </div>
+        <div>
+            <a style ="padding: 5px;"
+                href="#">Home</a> / 
+                <a style ="padding: 5px;" 
+                   href="#">MAS291</a> /
+                    <a style ="padding: 5px;" 
+                       href="#">SE1732</a>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         </div>
 
         <div class ="class-detail" >
@@ -521,6 +587,7 @@
              <!-- Right div (Class information) -->
         
         <div class="left-div">
+<<<<<<< HEAD
             
                 
             <h2>Exam</h2>
@@ -547,16 +614,44 @@
             
 
 <!--            <div class="exam-container">
+=======
+            <h2>Exam</h2>
+            
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 1</h3>
+                <br>
+                Start Date: 4/10/2023 to 6/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 2</h3>
+                <br>
+                Start Date: 12/10/2023 to 14/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 <a style="text-decoration: none;"  href="#"> 
                 <h3>Final Trial</h3>
                 <br>
                 Start Date: 16/10/2023 to 21/10/2023<br>
                 Click to view details
+<<<<<<< HEAD
             </div>-->
         </div>
             
             
            
+=======
+                
+            </div>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             
         </div>
              <div class="right-div">
@@ -564,6 +659,7 @@
             <div class="info-container">
                 <a style="font-size: 24px; font-style: inherit"></a>
                 <h2>Class Information</h2>
+<<<<<<< HEAD
                 <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
                 <p>Lecturer: ${requestScope.lecturer.name}</p><br>
                 <p>Email: ${requestScope.lecturer.email}</p><br>
@@ -571,6 +667,12 @@
 <!--                <form action="action"> -->
                     <button class="edit-exam-button" onclick="openPopup()">View Students</button>
 <!--                </form>-->
+=======
+                <p>Start Date: 1/10/2023 to 2/11/2023</p><br>
+                <p>Lecturer: John Doe</p><br>
+                <p>Email: john.doe@example.com</p><br>
+                <button class="edit-exam-button" >View Students</button>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             </div>
         </div>
         
@@ -585,6 +687,7 @@
         </section>
 
         <script>
+<<<<<<< HEAD
             // Function to open the edit class name pop-up
             function openPopup() {
                 const overlay = document.getElementById('viewStudentListPopup');
@@ -611,6 +714,8 @@
                 closePopup();
             }
             
+=======
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             const btn_menu = document.querySelector(".btn-menu");
             const side_bar = document.querySelector(".sidebar");
 
@@ -626,6 +731,7 @@
                     btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                 }
             }
+<<<<<<< HEAD
             
             function confirmDelete(examID) {
                 var confirmDelete = confirm("Are you sure you want to delete this exam?");
@@ -647,6 +753,8 @@
                     xhr.send();
                 }
             }
+=======
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
             const btn_theme = document.querySelector(".theme-btn");
             const theme_ball = document.querySelector(".theme-ball");
@@ -674,7 +782,10 @@
                     localStorage.setItem("theme", "light");
                 }
             });
+<<<<<<< HEAD
             
+=======
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         </script>
     </body>
 </html>

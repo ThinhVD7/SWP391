@@ -45,14 +45,19 @@
             padding: 15px;
             margin-left: 30px;
             margin-right: 30px;
+<<<<<<< HEAD
             margin-bottom: 30px;
             /*margin-top: 10px;*/
             position: relative;
+=======
+            margin-top: 30px;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             }
             
             .exam-detail {
             background-color: #fff;
             border-radius: 10px;
+<<<<<<< HEAD
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
             padding: 15px;
             margin: 20px auto;
@@ -67,6 +72,18 @@
 
         .edit-exam-button 
         {
+=======
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            margin: 20px auto;
+            width:80%;
+            text-align: center; 
+            font-size: 1em;
+            overflow: hidden;
+        }
+
+        .edit-exam-button {
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             background-color: #299be4;
             color: #fff;
             border: none;
@@ -77,6 +94,7 @@
             margin-top: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
         }
+<<<<<<< HEAD
         .edit-exam-button:hover
         {
             background-color: #0073e6;
@@ -99,6 +117,8 @@
         .edit-exam-button-bottom:hover{
             background-color: #0073e6;
         }
+=======
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         /* Style for the pop-up */
         .popup {
             display: none;
@@ -137,6 +157,7 @@
             z-index: 2;
         }
         
+<<<<<<< HEAD
          .bottom-right-p {
             position: absolute;
             bottom: 0;
@@ -144,6 +165,8 @@
             margin: 0;
         }
         
+=======
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         
         </style>
     </head>
@@ -202,8 +225,12 @@
 
         <section class="home">
 <!--seach and profile icon------------------------------------------------------------------------------------>
+<<<<<<< HEAD
 <div> <br> </div>
 <!--            <div class="row pt-2">
+=======
+            <div class="row pt-2">
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form class="nosubmit">
@@ -215,8 +242,12 @@
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
+<<<<<<< HEAD
             </div>-->
 
+=======
+            </div>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             
             
 
@@ -237,6 +268,7 @@
         <div class="main-container">
             <div>
                 <a style="font-size: 36px; margin-bottom: 10px;">
+<<<<<<< HEAD
                     ${sessionScope.sessionPageTitle}
             </div>
             <div>
@@ -248,12 +280,26 @@
                            href="lecturerExamList?classID=${sessionScope.sessionThisClass.classID}">${sessionScope.sessionThisClass.className}</a> /
                             <a style ="padding: 5px;" 
                                href="#">${sessionScope.sessionThisExam.examName}</a>
+=======
+                    MAS291 Fall 2023
+            </div>
+            <div>
+                <a style ="padding: 5px;"
+                    href="#">Home</a> / 
+                    <a style ="padding: 5px;" 
+                       href="#">MAS291</a> /
+                        <a style ="padding: 5px;" 
+                           href="#">SE1732</a> /
+                            <a style ="padding: 5px;" 
+                               href="#">Progress Test 1</a>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             </div>
             <div>
                 <a style ="padding:5px;">
             </div>
             <div>
                 
+<<<<<<< HEAD
                    <h3>${sessionScope.sessionThisExam.examName} </h3>           
             </div>
             <div class="exam-detail">
@@ -280,6 +326,20 @@
                         <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
                     </form>
                 </div>
+=======
+                   <h3>Progress Test 1 </h3>           
+            </div>
+            <div class="exam-detail">
+                <p>Start Date: 4/10/2023 to 6/10/2023</p>
+                <br>
+                <p>Time limit: 30 minutes</p>
+                <br>
+                <p>Review Permission: Absolutely</p>
+                <br>
+                <button class="edit-exam-button">Edit Exam</button> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                <button class="edit-exam-button" ${exam.permission==1?"":"hidden"}>Review Exam</button>
+            </div>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         </div>
              
 <!--end of main block------------------------------------------------------------------------------------------------->

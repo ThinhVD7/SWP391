@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -21,6 +22,13 @@ import java.util.logging.Logger;
 
 public class LecturerDAO extends DBContext {
 
+=======
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+public class LecturerDAO extends DBContext{
+    
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
     Connection connector;
     public List<Account> accountList = new ArrayList<>();
     public List<Student> studentList = new ArrayList<>();
@@ -28,6 +36,7 @@ public class LecturerDAO extends DBContext {
     public List<Course> courseList = new ArrayList<>();
     public HashMap<String, Course> courseHashMap = new HashMap<>();
     public List<Class1> classList = new ArrayList<>();
+<<<<<<< HEAD
     public List<Exam> examList = new ArrayList<>();
     public List<Question> questionList = new ArrayList<>();
     public List<ChoiceQuestion> choiceList = new ArrayList<>();
@@ -40,10 +49,26 @@ public class LecturerDAO extends DBContext {
             System.out.println("Connected");
             test = "Connected";
         } catch (Exception e) {
+=======
+    private String status = "yes";
+    public String test;
+
+    public LecturerDAO() 
+    {
+        try 
+        {
+            connector = new DBContext().getConnection();
+            System.out.println("Connected");
+            test = "Connected";
+        } 
+        catch (Exception e) 
+        {
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             System.out.println("Not connected");
             test = " Not Connected";
         }
     }
+<<<<<<< HEAD
 
 ////student///////////////////////////////////////////////////////////////////////////////////////////////////////
     public HashMap<String, Course> loadAllStudentCourse(String studentID) {
@@ -286,6 +311,41 @@ public class LecturerDAO extends DBContext {
         return output;
     }
 
+=======
+    
+    public List<Course> loadAllCourses(String lecturerID)
+             {
+                 String sql = "SELECT * FROM course INNER JOIN (select distinct Course_ID from class join lecturerinwhichclass on class.Class_ID = lecturerinwhichclass.Class_ID where Lecturer_ID = ?) AS Subquery ON course.Course_ID = Subquery.Course_ID";
+                 try
+                     {
+                         PreparedStatement ps = connector.prepareStatement(sql);
+                         ps.setString(1, lecturerID);
+                         
+                         ResultSet rs = ps.executeQuery();
+                         while(rs.next())
+                             {
+                                 System.out.println("");
+                                 Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                                 courseList.add(c);
+                             }
+                         System.out.println("Ran");
+                     }
+                 catch(Exception e)
+                     {
+                         status = "Error at load Depart "+ e.getMessage();
+                     }
+                 return courseList;
+             }
+
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
+    public void setCourseList(List<Course> courseList) {
+        this.courseList = courseList;
+    }
+    
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
     public Account getUser(String email) {
         String sql = "select * from account where Email = ?";
         try {
@@ -301,13 +361,18 @@ public class LecturerDAO extends DBContext {
                         rs.getInt(5),
                         rs.getInt(6),
                         rs.getFloat(7),
+<<<<<<< HEAD
                         rs.getString(8));
+=======
+                        rs.getInt(8));
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
         }
         return null;
     }
+<<<<<<< HEAD
 
     ////exam handle///////////////////////////////////////////////////////////////////////////////////////////////
     public boolean addExam(String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
@@ -776,3 +841,44 @@ public class LecturerDAO extends DBContext {
     }
 
 }
+=======
+    
+    public List<Course> getAllCourse() {
+        try {
+            String strSelect = "select * from course";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                System.out.println("");
+                Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                courseList.add(c);
+            }
+            System.out.println("Ran2");
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return courseList;
+    }
+    
+    
+    
+    public static void main(String[] args) 
+    {
+        LecturerDAO dao = new LecturerDAO();
+        //dao.loadAllCourses("minhvnt_he_176043");
+       // List<Course> list2 = dao.getAllCourse();
+        List<Course> list = dao.loadAllCourses("minhvnt_he_176043");
+        if(list ==null)
+            System.out.println("null");
+        for (int i = 0; i < list.size(); i++) 
+        {
+            System.out.println(list.get(i).getCourseID());
+            
+        }
+        Account acc = dao.getUser("nampthe171400@fpt.edu.vn");
+        System.out.println(acc.getEmail());
+        
+    }
+    
+}
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)

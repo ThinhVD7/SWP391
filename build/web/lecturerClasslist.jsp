@@ -51,17 +51,26 @@
             padding: 15px;
             margin-left: 30px;
             margin-right: 30px;
+<<<<<<< HEAD
             /*margin-top: 30px;*/
+=======
+            margin-top: 30px;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             overflow: hidden;
             justify-content: center;
         }
             .class-list {
+<<<<<<< HEAD
                             /*display: flex;*/
+=======
+                            display: flex;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
+<<<<<<< HEAD
 /*            margin-left: 200px;
             margin-right: 200px;*/
             margin-top: 30px;
@@ -106,6 +115,14 @@
                 align-items: center; /* Center vertically */
 /*                height: 100vh;*/
                 
+=======
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            width: 50%;
+            align-self: center;
+            justify-content: center;
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             }
 
             .class-container {
@@ -116,6 +133,7 @@
                 /*width: 50%;*/
                 margin-bottom: 20px;
                 padding: 15px;
+<<<<<<< HEAD
                 /*display: block;*/
             }
             
@@ -155,6 +173,19 @@
             .edit-exam-button:hover{
             background-color: #0073e6;
         }
+=======
+                display: block;
+            }
+            .class-info-container {
+                margin-bottom: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                width: 50%;
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             
         </style>
     </head>
@@ -202,7 +233,24 @@
             </div>
         </section>
         <section class="home">
+<<<<<<< HEAD
             <div><br></div>
+=======
+
+            <div class="row pt-2">
+                <div class="col-md-9 ml-2">
+                    <div class="input-group rounded">
+                        <form class="nosubmit">
+                            <input class="nosubmit" type="search" placeholder="Search">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ml-auto">
+                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                </div>
+            </div>
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
             
 <!--            <div class="class-list">
@@ -221,6 +269,7 @@
         <div class="main">
             <div>
                 <a style="font-size: 36px; margin-bottom: 10px;">
+<<<<<<< HEAD
                     ${sessionScope.sessionPageTitle}
             </div>
             <div>
@@ -303,6 +352,40 @@
            
 
             
+=======
+                    MAS291 Fall 2023
+            </div>
+            <div>
+                <a style ="padding: 5px;"
+                    href="#">Home</a> / <a style ="padding: 5px;" href="#">MAS291</a>
+            </div>
+            <div>
+                <a style ="padding:5px;">
+            </div>
+            <div class="class-list">
+            <div class="class-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>SE1732</h3>
+                
+            </div>
+
+            <div class="class-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>SE1744</h3>
+                
+            </div>
+
+            <div class="class-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>SE1802</h3>
+                
+            </div>
+            </div>
+                
+           
+
+            <!-- Add more class containers as needed -->
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         </div>
 
 

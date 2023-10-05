@@ -326,6 +326,7 @@ public class DAO extends DBContext {
         return false;
     }
 
+<<<<<<< HEAD
     public String updateAccount(String id, String newID, String name, String email, int role, int status, int gender, String phno) {
         //check role student or lecturer
 //            String condition = "select Role_ID from account where Account_ID like ?";
@@ -591,6 +592,14 @@ public class DAO extends DBContext {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;
+=======
+    public static void main(String[] args) {
+        DAO d = new DAO();
+        String two = d.encodeSHA1("123456");
+        d.getAllCourse();
+        System.out.println(d.encodeSHA1("123456").equals(two));
+//        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
+>>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
     }
 
