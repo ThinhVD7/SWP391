@@ -6,6 +6,10 @@
 package Controller;
 
 import Dal.DAO;
+<<<<<<< HEAD
+=======
+import Model.Account;
+>>>>>>> NamThanh
 import Model.Course;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +17,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+<<<<<<< HEAD
+=======
+import jakarta.servlet.http.HttpSession;
+>>>>>>> NamThanh
 import java.util.List;
 
 /**
@@ -55,13 +63,35 @@ public class managerHome extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
+<<<<<<< HEAD
     throws ServletException, IOException {
 //        processRequest(request, response);
+=======
+    throws ServletException, IOException 
+    {
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=1)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
+>>>>>>> NamThanh
         DAO dao = new DAO();
         List<Course> course = dao.getAllCourse();
         request.setAttribute("course", course);
         request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
+<<<<<<< HEAD
     } 
+=======
+    }
+>>>>>>> NamThanh
 
     /** 
      * Handles the HTTP <code>POST</code> method.

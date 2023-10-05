@@ -42,6 +42,17 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
+=======
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+>>>>>>> NamThanh
         request.getRequestDispatcher("changePassword.jsp").forward(request, response);
     }
 
@@ -56,6 +67,7 @@ public class ChangePassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
         String Password = request.getParameter("password0");
         String NPassword = request.getParameter("password1");
         String RNPassword = request.getParameter("password2");
@@ -83,6 +95,44 @@ public class ChangePassword extends HttpServlet {
             }
         }
 
+=======
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        
+        Account user = (Account)session.getAttribute("user");
+        String oldPassword = request.getParameter("password0");
+        String newPassword = request.getParameter("password1");
+        String repeatNewPassword = request.getParameter("password2");
+        DAO dao = new DAO();
+        String email = user.getEmail();
+        Account checkOldPassword = dao.getAccountLogin(email, oldPassword);
+        //check if old password existed
+        if (checkOldPassword == null) 
+        {
+            request.setAttribute("msg", "Old password is incorrect");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        }
+        //check if the repeat is right
+        else if (!newPassword.equals(repeatNewPassword)) {
+            request.setAttribute("msg", "New password not equals renew password");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        } 
+        //change the password
+        else 
+        {
+            dao.changePassword(newPassword, email);
+            user.setPassword(newPassword);
+            session.setAttribute("user", user);
+            request.setAttribute("fmsg", "Password was successfully changed");
+            request.getRequestDispatcher("changePassword.jsp").forward(request, response);
+        }
+>>>>>>> NamThanh
     }
 
     /**

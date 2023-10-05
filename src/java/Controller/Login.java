@@ -9,6 +9,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+<<<<<<< HEAD
+=======
+import java.util.Enumeration;
+>>>>>>> NamThanh
 import java.util.Properties;
 import java.util.Random;
 import javax.mail.Message;
@@ -43,6 +47,19 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
+=======
+        //block check if user have logged in, if true then return to home
+        HttpSession session = request.getSession(false);
+        if(session ==null)
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        if(session.getAttribute("user") != null)
+        {
+            response.sendRedirect("home");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+>>>>>>> NamThanh
         request.getRequestDispatcher("Login.jsp").forward(request, response);
     }
 
@@ -57,17 +74,33 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
 //        processRequest(request, response);
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
 
+=======
+        
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        HttpSession session = request.getSession();
+        
+        //block check if user have logged in, if true then return to home
+        if(session.getAttribute("user") != null)
+        {
+            response.sendRedirect("home");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+>>>>>>> NamThanh
         DAO dao = new DAO();
         Account acc = dao.getAccountLogin(username, password);
 
         if (acc == null) {
             request.setAttribute("mess", "Wrong username or password!");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
+<<<<<<< HEAD
         } else {
             int otpvalue = Random();
             sendMail(username, otpvalue);
@@ -76,6 +109,47 @@ public class Login extends HttpServlet {
             session.setAttribute("email", username);
             session.setAttribute("roleId", acc.roleID);
             response.sendRedirect("OTP.jsp");
+=======
+        } 
+        else 
+        {
+//            int otpvalue = Random();
+//            sendMail(username, otpvalue);
+//            request.getRequestDispatcher("OTP.jsp").forward(request, response);
+//            session.setAttribute("otp", otpvalue);
+//            session.setAttribute("email", username);
+//            session.setAttribute("roleId", acc.roleID);
+//            response.sendRedirect("OTP.jsp");
+            request.getSession().setAttribute("user", acc);
+            //      response.sendRedirect("indexStudent.jsp");
+
+            int roleId = ((Account)session.getAttribute("user")).getRoleID();
+////test session block//////////////////////////////////////////////////////////////
+//try (PrintWriter out = response.getWriter()) 
+//{
+//out.println("<!DOCTYPE html>");
+//out.println("<html>");
+//out.println("<head>");
+//out.println("<title>SessionDetail</title>");  
+//out.println("</head>");
+//out.println("<body>");
+//out.print("<h1>SessionId: "+session.getId()+ "</h1>");
+//Enumeration enu = session.getAttributeNames();
+//while(enu.hasMoreElements())
+//{
+//    String key = enu.nextElement() + "";
+//    Object value = session.getAttribute(key);
+//    out.print("<h1> Attribute name = "+key+" : value = "+value);
+//    out.print("<h2> Object:" +((Account)session.getAttribute("user")).getEmail()
+//            +"role: " +((Account)session.getAttribute("user")).getRoleID()
+//            +"</h2>");
+//}
+//out.println("</body>");
+//out.println("</html>");
+//}
+////////////////////////////////////////////////////////////////////////////////////
+            response.sendRedirect("home");
+>>>>>>> NamThanh
         }
     }
 

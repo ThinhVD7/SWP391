@@ -5,6 +5,10 @@
 package Controller;
 
 import Dal.DAO;
+<<<<<<< HEAD
+=======
+import Model.Account;
+>>>>>>> NamThanh
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -66,9 +70,26 @@ public class addAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+<<<<<<< HEAD
 //        processRequest(request, response);
         request.getRequestDispatcher("addAccount.jsp").forward(request, response);
 
+=======
+       //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        session.removeAttribute("idErr");
+        session.removeAttribute("nameErr");
+        session.removeAttribute("phoneErr");
+        session.removeAttribute("emailErr");
+        request.getRequestDispatcher("addAccount.jsp").forward(request, response);
+        
+>>>>>>> NamThanh
     }
 
     /**
@@ -81,9 +102,22 @@ public class addAccount extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
+<<<<<<< HEAD
             throws ServletException, IOException {
 //        processRequest(request, response);
         HttpSession session = request.getSession();
+=======
+            throws ServletException, IOException 
+    {
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+>>>>>>> NamThanh
         session.removeAttribute("idErr");
         session.removeAttribute("nameErr");
         session.removeAttribute("phoneErr");

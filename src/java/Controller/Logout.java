@@ -31,6 +31,10 @@ public class Logout extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         session.removeAttribute("user");
+<<<<<<< HEAD
+=======
+        request.getSession().invalidate();
+>>>>>>> NamThanh
         response.sendRedirect("index.html");
         
     } 

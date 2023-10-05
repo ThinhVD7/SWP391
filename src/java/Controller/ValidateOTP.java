@@ -34,6 +34,16 @@ public class ValidateOTP extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         int value = Integer.parseInt(request.getParameter("otp"));
         HttpSession session = request.getSession();
+<<<<<<< HEAD
+=======
+        //block check if user have logged in, if not then return to home
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+>>>>>>> NamThanh
         int otp = (int) session.getAttribute("otp");
 
         if (value == otp) {
