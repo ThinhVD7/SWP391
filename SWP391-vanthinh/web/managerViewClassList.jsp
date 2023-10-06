@@ -455,7 +455,89 @@
             backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
             z-index: 1;
         }
-
+                    .addCourse{
+                position: absolute;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+                
+            }
+            
+            .addCourseContent{
+                padding: 60px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                margin: auto;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                
+            }
+            
+            .addCourseTitle{
+                color: blue;
+                font-family: sans-serif;
+                letter-spacing: 2px;
+                word-spacing: 3px;
+                font-weight: bold;
+                font-size: 2.4rem;
+                margin-bottom: 20px;
+            }
+            .form-field {
+                padding-left: 10px;
+                margin-bottom: 20px;
+                border-radius: 20px;
+                box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+            }
+            
+            .form-field input {
+                width: 100%;
+                display: block;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.2rem;
+                color: #666;
+                padding: 10px 15px 10px 10px;
+                /* border: 1px solid red; */
+            }
+            .closePopUp{
+                padding: 4px 12px;
+                background-color: orange;
+                border: 1px solid transparent;
+                color: #fff;
+                font-weight: 600;
+                transition: .4s;
+                margin-top: 10px;
+                border-radius: 5px;
+                
+                &:hover{
+                    transform: scale(1.05);
+                }          
+            }
+            .closePopUp1{
+                padding: 4px 12px;
+                background-color: green;
+                border: 1px solid transparent;
+                color: #fff;
+                font-weight: 600;
+                transition: .4s;
+                margin-top: 10px;
+                border-radius: 5px;
+                
+                &:hover{
+                    transform: scale(1.05);
+                }          
+            }
         /* Style for the clear pop-up container */
         .popup-container {
             position: fixed;
@@ -536,89 +618,27 @@
             
         <div class="class-list">
 <!--pop up--------------------------------------------------------------------------------------------------->
-             <div id="classEditPopup" class="overlay" onclick="closePopup()">
-            <div class="popup-container" onclick="event.stopPropagation();">
-                <h2>Delete</h2>
-                <input type="text" id="newClassName" placeholder="New Class Name">
-                <button class ="popup-button" onclick="editClassName()">Save</button>
-                <button class ="popup-button" onclick="closePopup()">Cancel</button>
-            </div>
-   <!--Delete pop up----------------------------->
-             </div
-<!--Assign Lecturer-->
-             <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
-            <div class="popup-container" onclick="event.stopPropagation();">
-                <h2>Assign Lecturer</h2>
-                <input type="text" id="search" placeholder="New Class Name">
-                <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>Lecturer</b></h2>
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ID</th>						
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>View Profile</th>
-                                <th>Add</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                            <tr>
-                                    <td>1</td>
-                                    <td><a href="#">ThanhDT59</a></td>
-                                    <td>Do Tien Thanh</td>                        
-                                    <td>thanhdt59@fe.edu.vn </td>
-                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                    <td>
-                                        <input type="checkbox" name="add" value="ON" />
-                                    </td>
-                                </tr>
-
-                            <c:forEach items="${requestScope.listA}" var="u" varStatus="x" >
-                                <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
-                                    <td><a href="#"> icon </td>
-                                    <td>
-                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-
-
-                        </tbody>
-                    </table>
-                                <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                    <ul class="pagination">
-                                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
+            <div class="addCourse" id="deleterCouse" style="display: none;">
+                <div class="addCourseContent">
+                    <h3 class="addCourseTitle" id="titleCourse">Delete Class</h3> 
+                    <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
+                    <button class="closePopUp1" type="submit" >Yes</button>
+                    <button class="closePopUp1" type="submit" >No</button>
+                    <button class="closePopUp" onclick="closePopUp()">Close</button>
                 </div>
             </div>
-        </div>
-                <button class ="popup-button" onclick="editClassName()">Save</button>
-                <button class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</button>
+<!--Assign Lecturer-->
+                      <div class="addCourse" id="addCourse" style="display: none;">
+                <div class="addCourseContent">
+                    <h3 class="addCourseTitle" id="titleCourse">Add Class</h3> 
+                    <div class="form-field d-flex align-items-center"> 
+                        <!--<span class="far fa-user"></span>-->
+                        <input type="text" name="courseName" id="courseName" placeholder="ClassName" required="">
+                    </div>
+                    <button class="closePopUp" type="submit" >Submit</button>
+                    <button class="closePopUp" onclick="closePopUp1()">Close</button>
+                </div>
             </div>
-             </div>
 <!--pop up--------------------------------------------------------------------------------------------------->
 
 
@@ -636,7 +656,7 @@
                                 <h2> </a><b>View Class List</b></h2>
                             </div>
                             <div class="col-sm-7">
-                                <button onclick="openAssignLecturerPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Class</span></button>
+                                <button onclick="openPopUp()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Class</span></button>
                                 
                             </div>
                         </div>
@@ -657,7 +677,7 @@
                                     <td>SE1714</td>                        
                                     <td>MAS291 </td>
                                     <td>
-                                        <a href="#" class="classEditPopup" title="Delete" data-toggle="tooltip"><a onclick="openPopup()"> <i class="material-icons">&#xE5C9;</i></a>
+                                        <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
                                     </td>
                                 </tr>
 
@@ -699,28 +719,28 @@
     <div id="overlay" class="overlay"></div>
         <script>
             // Function to open the edit class name pop-up
-            function openPopup(className) {
-                const overlay = document.getElementById('classEditPopup');
-                const newClassNameInput = document.getElementById('newClassName');
-                newClassNameInput.value = className;
-                overlay.style.display = 'block';
+              function openDelete(){
+                const divPopUp = document.querySelector("#deleterCouse");
+                const showBtn = document.querySelector("show");
+                divPopUp.style.display = 'block';
+                
             }
-            function openAssignLecturerPopup(className) {
-                const overlay = document.getElementById('assignLecturerPopup');
-                const newClassNameInput = document.getElementById('search');
-                newClassNameInput.value = className;
-                overlay.style.display = 'block';
+            function openPopUp(){
+                const divPopUp = document.querySelector("#addCourse");
+                divPopUp.style.display = 'block';
+                document.getElementById("Class_ID").value = '';
+                document.getElementById("ClassName").value = '';
+                document.getElementById("Course_ID").value = '';
             }
-
 
             // Function to close the pop-up
-            function closePopup() {
-                const overlay = document.getElementById('classEditPopup');
-                overlay.style.display = 'none';
+              function closePopUp(){
+                 const divPopUp = document.querySelector("#deleterCouse");
+                divPopUp.style.display = 'none';
             }
-            function closeAssignLecturerPopup() {
-                const overlay = document.getElementById('assignLecturerPopup');
-                overlay.style.display = 'none';
+            function closePopUp1(){
+                 const divPopUp = document.querySelector("#addCourse");
+                divPopUp.style.display = 'none';
             }
 
             // Function to save the edited class name

@@ -63,7 +63,10 @@
                 flex-direction: column;
                 text-align: center;
                 margin: auto;
-                
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
             }
             
             .addCourseTitle{
