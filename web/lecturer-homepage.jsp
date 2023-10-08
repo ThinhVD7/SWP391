@@ -117,65 +117,15 @@
                         <div class="col col-sm-4 mt-4">
                             <div class="card">
                                 <div class="card-body">
-                                    <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
+                                    <a style="text-decoration: none;"  href="lecturerClasslist?courseID=${c.courseID}">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
                                     <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a href=""><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
-                                </div>
+                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6>        </div>
                             </div>
                         </div>
                     </c:forEach>
                 </div>
             </div>
-
-
-
-
-            <div class="container-fluid mt-3">
-                <div class="row mt-5">
-
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>   <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-
-
-
-
-
-
-
-
         </section>
 
         <script>

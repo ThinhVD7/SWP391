@@ -1,9 +1,13 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+
 package Controller;
 
-import Dal.DAO;
 import Dal.LecturerDAO;
 import Model.Account;
-import Model.Course;
+import Model.Exam;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,13 +15,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  *
  * @author ROG
  */
-public class lecturerHomepage extends HttpServlet {
+public class lecturerExamDetail extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +38,10 @@ public class lecturerHomepage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet lecturerHomepage</title>");  
+            out.println("<title>Servlet lecturerExamDetail</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet lecturerHomepage at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet lecturerExamDetail at " + request.getParameter("examID")+ "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,8 +73,18 @@ public class lecturerHomepage extends HttpServlet {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
         ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
-        request.setAttribute("course", dao.loadAllCourses(user.getAccountID()));
-        request.getRequestDispatcher("lecturer-homepage.jsp").forward(request, response);
+        Exam thisExam = dao.loadAExam(request.getParameter("examID"));
+        //session thisExam
+        session.setAttribute("sessionThisExam", thisExam);
+        String[] temp;
+        temp = thisExam.getStartDate().split("T");
+        String examStartDate = temp[0]+" "+temp[1];
+        temp = thisExam.getEndDate().split("T");
+        String examEndDate = temp[0]+" "+temp[1];
+        
+        request.setAttribute("startDate", examStartDate);
+        request.setAttribute("endDate", examEndDate);
+        request.getRequestDispatcher("lecturerExamDetail.jsp").forward(request, response);
     } 
 
     /** 

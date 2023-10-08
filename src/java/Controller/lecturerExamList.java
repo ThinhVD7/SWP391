@@ -1,9 +1,9 @@
 package Controller;
 
-import Dal.DAO;
 import Dal.LecturerDAO;
 import Model.Account;
-import Model.Course;
+import Model.Class1;
+import Model.Exam;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,13 +11,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  *
  * @author ROG
  */
-public class lecturerHomepage extends HttpServlet {
+public class lecturerExamList extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +35,10 @@ public class lecturerHomepage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet lecturerHomepage</title>");  
+            out.println("<title>Servlet lecturerExamList</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet lecturerHomepage at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet lecturerExamList at " + request.getParameter("classID") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -69,9 +70,28 @@ public class lecturerHomepage extends HttpServlet {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
         ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
-        request.setAttribute("course", dao.loadAllCourses(user.getAccountID()));
-        request.getRequestDispatcher("lecturer-homepage.jsp").forward(request, response);
-    } 
+        Class1 thisClass = dao.loadAClass(request.getParameter("classID"));
+        //sessionThisClass
+        session.setAttribute("sessionThisClass", thisClass);
+        
+        List<Exam> examList = dao.loadAllExamofClass(thisClass.getClassID());
+        
+        HashMap<String, String> exam_startDate = new HashMap<String,String>();
+        HashMap<String, String> exam_endDate = new HashMap<String,String>();
+        String[] temp;
+        for (Exam exam : examList) 
+        {
+            temp = exam.getStartDate().split("T");
+            exam_startDate.put(exam.getExamID(),temp[0]);
+            temp = exam.getEndDate().split("T");
+            exam_endDate.put(exam.getExamID(),temp[0]);
+        }
+        request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
+        request.setAttribute("examList", examList);
+        request.setAttribute("examStartDate", exam_startDate);
+        request.setAttribute("examEndDate", exam_endDate);
+        request.getRequestDispatcher("lecturerExamList.jsp").forward(request, response);
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.

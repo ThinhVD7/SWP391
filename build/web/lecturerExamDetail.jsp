@@ -45,22 +45,28 @@
             padding: 15px;
             margin-left: 30px;
             margin-right: 30px;
-            margin-top: 30px;
+            margin-bottom: 30px;
+            /*margin-top: 10px;*/
+            position: relative;
             }
             
             .exam-detail {
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
             padding: 15px;
             margin: 20px auto;
-            width:80%;
+            width:55%;
             text-align: center; 
             font-size: 1em;
             overflow: hidden;
+            position: relative;
+/*            margin-left: 300px;
+            margin-right: 300px;*/
         }
 
-        .edit-exam-button {
+        .edit-exam-button 
+        {
             background-color: #299be4;
             color: #fff;
             border: none;
@@ -70,6 +76,28 @@
             cursor: pointer;
             margin-top: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+        }
+        .edit-exam-button:hover
+        {
+            background-color: #0073e6;
+        }
+        .edit-exam-button-bottom
+        {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+        }
+        .edit-exam-button-bottom:hover{
+            background-color: #0073e6;
         }
         /* Style for the pop-up */
         .popup {
@@ -107,6 +135,13 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
             z-index: 2;
+        }
+        
+         .bottom-right-p {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 0;
         }
         
         
@@ -167,7 +202,8 @@
 
         <section class="home">
 <!--seach and profile icon------------------------------------------------------------------------------------>
-            <div class="row pt-2">
+<div> <br> </div>
+<!--            <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form class="nosubmit">
@@ -179,7 +215,8 @@
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
-            </div>
+            </div>-->
+
             
             
 
@@ -200,35 +237,46 @@
         <div class="main-container">
             <div>
                 <a style="font-size: 36px; margin-bottom: 10px;">
-                    MAS291 Fall 2023
+                    ${sessionScope.sessionPageTitle}
             </div>
             <div>
                 <a style ="padding: 5px;"
-                    href="#">Home</a> / 
+                    href="home">Home</a> / 
                     <a style ="padding: 5px;" 
-                       href="#">MAS291</a> /
+                       href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
                         <a style ="padding: 5px;" 
-                           href="#">SE1732</a> /
+                           href="lecturerExamList?classID=${sessionScope.sessionThisClass.classID}">${sessionScope.sessionThisClass.className}</a> /
                             <a style ="padding: 5px;" 
-                               href="#">Progress Test 1</a>
+                               href="#">${sessionScope.sessionThisExam.examName}</a>
             </div>
             <div>
                 <a style ="padding:5px;">
             </div>
             <div>
                 
-                   <h3>Progress Test 1 </h3>           
+                   <h3>${sessionScope.sessionThisExam.examName} </h3>           
             </div>
             <div class="exam-detail">
-                <p>Start Date: 4/10/2023 to 6/10/2023</p>
+                <p>Start Date: ${requestScope.startDate}</p>
                 <br>
-                <p>Time limit: 30 minutes</p>
+                <p>End Date: ${requestScope.endDate}</p>
                 <br>
-                <p>Review Permission: Absolutely</p>
+                <p>Time limit: ${sessionScope.sessionThisExam.timeLimit} </p>
                 <br>
-                <button class="edit-exam-button">Edit Exam</button> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                <button class="edit-exam-button" ${exam.permission==1?"":"hidden"}>Review Exam</button>
+                <p>Review Permission: ${sessionScope.sessionThisExam.permission==1?"Absolutely":"Not Permitted"} </p>
+                <br>
+                <form action="action">
+                    <button class="edit-exam-button">Edit Exam</button> 
+                </form>
+                    
+<!--                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
             </div>
+            <div><br></div>
+                <div>
+                    <form action="lecturer">
+                        <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
+                    </form>
+                </div>
         </div>
              
 <!--end of main block------------------------------------------------------------------------------------------------->

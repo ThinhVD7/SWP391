@@ -51,8 +51,9 @@
             padding: 15px;
             margin-left: 30px;
             margin-right: 30px;
-            margin-top: 30px;
+            /*margin-top: 30px;*/
             overflow: hidden;
+            /*margin-bottom: 30px;*/
             }
             
             .class-detail 
@@ -75,8 +76,24 @@
                 flex: 1;
                 padding: 10px;
                 border-radius: 10px;
-                border: 2px solid #ccc;
+                /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);*/
+                /*border: 2px solid #ccc;*/
                 margin-right: 10px;
+/*                height: 540px;
+                overflow: auto;*/
+                /*width: 50%;*/
+                /*display:block;*/
+                
+            }
+            .exam-list 
+            {
+                flex: 1;
+                padding: 10px;
+                border-radius: 10px;
+                /*border: 2px solid #ccc;*/
+                margin-right: 10px;
+                height: 540px;
+                overflow: auto;
                 /*width: 50%;*/
                 /*display:block;*/
             }
@@ -99,41 +116,51 @@
                 margin-bottom: 20px;
                 background-color: #fff;
                 border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
                 margin-bottom: 20px;
                 padding: 15px;
                 overflow: hidden;
                 /*display: block;*/
             }
+            .exam-container:hover
+            {
+                background-color: #f5f5f5;
+            }
             
         
             .info-container 
             {
-                position: sticky;
+                position: relative;
                 top: 20px;
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
                 background-color: #fff;
                 padding: 10px;
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 overflow: hidden;
             }
         
             .edit-exam-button 
             {
-                position: static;
+                /*position: static;*/
                 background-color: #299be4;
                 color: #fff;
-                border: none;
+                 border: 2px solid #ccc;
                 border-radius: 5px;
                 padding: 10px 20px;
                 font-size: 16px;
                 cursor: pointer;
                 margin-top: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
                 align-self: center;
                 margin-top: auto;
+                position: absolute;
+                bottom: 10px;
+                right: 30%;
             }
+            .edit-exam-button:hover{
+            background-color: #0073e6;
+        }
 
 
         .bottom-right-p {
@@ -142,6 +169,172 @@
             right: 0;
             margin: 0;
         }
+        
+        .popup-button {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 3%;
+            right:5%;
+        }
+        
+        .popup-button:hover{
+            background-color: #0073e6;
+        }
+        
+        /* Style for the pop-up */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
+            backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
+            z-index: 1;
+        }
+
+        /* Style for the clear pop-up container */
+        .popup-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 2;
+        }
+        
+        .table-responsive {
+                margin: 30px 0;
+            }
+            .table-wrapper {
+                min-width: 1000px;
+                background: #fff;
+                padding: 20px 25px;
+                border-radius: 3px;
+                /*box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                height: 420px;
+                overflow: auto;
+            }
+            .table-title {
+                padding-bottom: 15px;
+                background: #299be4;
+                color: #fff;
+                padding: 16px 30px;
+                margin: -20px -25px 10px;
+                border-radius: 3px 3px 0 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            }
+            .table-title h2 {
+                margin: 5px 0 0;
+                font-size: 24px;
+            }
+            .table-title .btn {
+                color: #566787;
+                float: right;
+                font-size: 13px;
+                background: #fff;
+                border: none;
+                min-width: 50px;
+                border-radius: 2px;
+                border: none;
+                outline: none !important;
+                margin-left: 10px;
+            }
+            .table-title .btn:hover, .table-title .btn:focus {
+                color: #566787;
+                background: #f2f2f2;
+            }
+            .table-title .btn i {
+                float: left;
+                font-size: 21px;
+                margin-right: 5px;
+            }
+            .table-title .btn span {
+                float: left;
+                margin-top: 2px;
+            }
+            table.table tr th, table.table tr td {
+                border-color: #e9e9e9;
+                padding: 12px 15px;
+                vertical-align: middle;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            }
+            table.table tr th:first-child {
+                width: 60px;
+            }
+            table.table tr th:last-child {
+                width: 100px;
+            }
+            table.table-striped tbody tr:nth-of-type(odd) {
+                background-color: #fcfcfc;
+            }
+            table.table-striped.table-hover tbody tr:hover {
+                background: #f5f5f5;
+            }
+            table.table th i {
+                font-size: 13px;
+                margin: 0 5px;
+                cursor: pointer;
+            }
+            table.table td:last-child i {
+                opacity: 0.9;
+                font-size: 22px;
+                margin: 0 5px;
+            }
+            table.table td a {
+                font-weight: bold;
+                color: #566787;
+                display: inline-block;
+                text-decoration: none;
+            }
+            table.table td a:hover {
+                color: #2196F3;
+            }
+            table.table td a.settings {
+                color: #2196F3;
+            }
+            table.table td a.delete {
+                color: #F44336;
+            }
+            table.table td i {
+                font-size: 19px;
+            }
+            table.table .avatar {
+                border-radius: 50%;
+                vertical-align: middle;
+                margin-right: 10px;
+            }
+            .status {
+                font-size: 30px;
+                margin: 2px 2px 0 0;
+                display: inline-block;
+                vertical-align: middle;
+                line-height: 10px;
+            }
+            .text-success {
+                color: #10c469;
+            }
+            .text-info {
+                color: #62c9e8;
+            }
+            .text-warning {
+                color: #FFC107;
+            }
+            .text-danger {
+                color: #ff5b5b;
+            }
         
             
         </style>
@@ -191,8 +384,9 @@
             </div>
         </section>
         <section class="home">
+            <div><br></div>
 
-            <div class="row pt-2">
+<!--            <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form class="nosubmit">
@@ -204,7 +398,7 @@
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
-            </div>
+            </div>-->
 
             
 <!--            <div class="class-list">
@@ -220,16 +414,80 @@
 
 
     <div class="main-container">
+<!--pop up start----------------------------------------------------------------------------------------------->
+<!-- Blurred overlay -->
+        <div id="overlay" class="overlay"></div>
+        <div id="classEditPopup" class="overlay" onclick="closePopup()">
+            <div class="popup-container" onclick="event.stopPropagation();">
+                <h2>Student List</h2>
+                <button class ="popup-button" onclick="closePopup()">Close</button>
+                    
+    
+        <div class="container-xl">
+            <div class="table-responsive">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h2> <b>${sessionScope.sessionThisClass.className}</b></h2>
+                            </div>
+                            <div class="col-sm-7">
+<!--                                <a href="managerAssignLecturer" class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"> <span>Submit</span></a>
+                                -->
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>						
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>View Profile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="i" begin="1" end="30" step="1">
+<!--                            <tr>
+                                <td>${i}</td>
+                                <td><a href="#">ThanhDT59</a></td>
+                                <td>Do Tien Thanh</td>                        
+                                <td>thanhdt59@fe.edu.vn </td>
+                                <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
+                            </tr>-->
+                            </c:forEach>
+                            <c:forEach items = "${requestScope.studentList}" var="student" varStatus="x">
+                            <tr>
+                                <td>${x.count}</td>
+                                <td><a href="#">${student.accountID}</a></td>
+                                <td>${student.name}</td>                        
+                                <td>${student.email}</td>
+                                <td><a href="studentProfile?studentID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
+                            </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+                <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
+<!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
+            </div>
+        </div>
+<!--pop up end------------------------------------------------------------------------------------------------->
+
         <div style="font-size: 36px; margin-bottom: 10px;">
-                MAS291 Fall 2023
+                ${sessionScope.sessionPageTitle}
         </div>
         <div>
             <a style ="padding: 5px;"
-                href="#">Home</a> / 
+                href="home">Home</a> / 
                 <a style ="padding: 5px;" 
-                   href="#">MAS291</a> /
+                   href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
                     <a style ="padding: 5px;" 
-                       href="#">SE1732</a>
+                       href="#">${sessionScope.sessionThisClass.className}</a>
         </div>
 
         <div class ="class-detail" >
@@ -242,7 +500,42 @@
         
         <div class="left-div">
             <h2>Exam</h2>
-            
+            <div class ="exam-list">
+                <c:forEach items = "${requestScope.examList}" var="exam">
+                    <div class="exam-container">
+                    <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
+                    <h3>${exam.examName}</h3>
+                    <br>
+                    Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
+                    Click to view details
+            </div>
+                </c:forEach>
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="yes"> 
+                <h3>Progress Test 1</h3>
+                <br>
+                Start Date: 4/10/2023 to 6/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 2</h3>
+                <br>
+                Start Date: 12/10/2023 to 14/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Final Trial</h3>
+                <br>
+                Start Date: 16/10/2023 to 21/10/2023<br>
+                Click to view details
+                
+            </div>
             <div class="exam-container">
                 <a style="text-decoration: none;"  href="#"> 
                 <h3>Progress Test 1</h3>
@@ -269,6 +562,8 @@
                 Click to view details
                 
             </div>
+        </div>
+           
             
         </div>
              <div class="right-div">
@@ -276,10 +571,13 @@
             <div class="info-container">
                 <a style="font-size: 24px; font-style: inherit"></a>
                 <h2>Class Information</h2>
-                <p>Start Date: 1/10/2023 to 2/11/2023</p><br>
+                <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
                 <p>Lecturer: John Doe</p><br>
                 <p>Email: john.doe@example.com</p><br>
-                <button class="edit-exam-button" >View Students</button>
+                <br><br>
+<!--                <form action="action"> -->
+                    <button class="edit-exam-button" onclick="openPopup('SE1732')">View Students</button>
+<!--                </form>-->
             </div>
         </div>
         
@@ -294,6 +592,32 @@
         </section>
 
         <script>
+            // Function to open the edit class name pop-up
+            function openPopup(className) {
+                const overlay = document.getElementById('classEditPopup');
+//                const newClassNameInput = document.getElementById('newClassName');
+//                newClassNameInput.value = className;
+                overlay.style.display = 'block';
+            }
+
+            // Function to close the pop-up
+            function closePopup() {
+                const overlay = document.getElementById('classEditPopup');
+                overlay.style.display = 'none';
+            }
+
+            // Function to save the edited class name
+            function editClassName() {
+                const newClassNameInput = document.getElementById('newClassName');
+                const updatedClassName = newClassNameInput.value;
+
+                // Update the class name in your data or display
+                console.log('Updated Class Name:', updatedClassName);
+
+                // Close the pop-up
+                closePopup();
+            }
+            
             const btn_menu = document.querySelector(".btn-menu");
             const side_bar = document.querySelector(".sidebar");
 

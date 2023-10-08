@@ -1,9 +1,8 @@
 package Controller;
 
-import Dal.DAO;
 import Dal.LecturerDAO;
 import Model.Account;
-import Model.Course;
+import Model.Class1;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,13 +10,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
 
 /**
  *
  * @author ROG
  */
-public class lecturerHomepage extends HttpServlet {
+public class lecturerClasslist extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +34,10 @@ public class lecturerHomepage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet lecturerHomepage</title>");  
+            out.println("<title>Servlet lecturerClasslist</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet lecturerHomepage at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet lecturerClasslist at " + request.getAttribute("courseID") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -53,8 +53,7 @@ public class lecturerHomepage extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException 
-    {
+    throws ServletException, IOException {
         //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
         if(session == null||session.getAttribute("user") == null)
@@ -69,8 +68,23 @@ public class lecturerHomepage extends HttpServlet {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
         ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
-        request.setAttribute("course", dao.loadAllCourses(user.getAccountID()));
-        request.getRequestDispatcher("lecturer-homepage.jsp").forward(request, response);
+        String courseID = request.getParameter("courseID");
+        //sessionThisCourse
+        session.setAttribute("sessionThisCourse", dao.loadACourse(courseID));
+        //sessionPageTitle temporary
+        session.setAttribute("sessionPageTitle", dao.loadACourse(courseID).getCourseID()+" "+dao.loadACourse(courseID).getSemester());
+        List<Class1> classList = dao.loadAllClassesofCourse(user.getAccountID(), courseID);
+        HashMap<String, Integer> class_studentNumber = new HashMap<String,Integer>();
+        HashMap<String, Integer> class_examNumber = new HashMap<String,Integer>();
+        for (Class1 class1 : classList) 
+        {
+            class_studentNumber.put(class1.getClassID(), dao.numberofStudentofClass(class1.getClassID()));
+            class_examNumber.put(class1.getClassID(), dao.numberofExamofClass(class1.getClassID()));
+        }
+        request.setAttribute("studentNumber", class_studentNumber);
+        request.setAttribute("examNumber", class_examNumber);
+        request.setAttribute("classList", classList);
+        request.getRequestDispatcher("lecturerClasslist.jsp").forward(request, response);
     } 
 
     /** 

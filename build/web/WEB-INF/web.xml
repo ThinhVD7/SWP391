@@ -70,6 +70,18 @@
         <servlet-name>lecturerHomepage</servlet-name>
         <servlet-class>Controller.lecturerHomepage</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>lecturerClasslist</servlet-name>
+        <servlet-class>Controller.lecturerClasslist</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>lecturerExamList</servlet-name>
+        <servlet-class>Controller.lecturerExamList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>lecturerExamDetail</servlet-name>
+        <servlet-class>Controller.lecturerExamDetail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -129,6 +141,18 @@
     <servlet-mapping>
         <servlet-name>lecturerHomepage</servlet-name>
         <url-pattern>/lecturer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerClasslist</servlet-name>
+        <url-pattern>/lecturerClasslist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerExamList</servlet-name>
+        <url-pattern>/lecturerExamList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerExamDetail</servlet-name>
+        <url-pattern>/lecturerExamDetail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
