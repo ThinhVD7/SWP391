@@ -798,8 +798,8 @@
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 =======
                 <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
-                <p>Lecturer: John Doe</p><br>
-                <p>Email: john.doe@example.com</p><br>
+                <p>Lecturer: ${requestScope.lecturer.name}</p><br>
+                <p>Email: ${requestScope.lecturer.email}</p><br>
                 <br><br>
 <!--                <form action="action"> -->
                     <button class="edit-exam-button" onclick="openPopup('SE1732')">View Students</button>
