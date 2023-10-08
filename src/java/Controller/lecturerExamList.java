@@ -86,6 +86,7 @@ public class lecturerExamList extends HttpServlet {
             temp = exam.getEndDate().split("T");
             exam_endDate.put(exam.getExamID(),temp[0]);
         }
+        request.setAttribute("lecturer", dao.loadALecturerofClass(thisClass.getClassID()));
         request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
         request.setAttribute("examList", examList);
         request.setAttribute("examStartDate", exam_startDate);

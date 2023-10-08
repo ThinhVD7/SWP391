@@ -63,7 +63,7 @@ public class LecturerDAO extends DBContext{
                      }
                  catch(Exception e)
                      {
-                         status = "Error at load courses"+ e.getMessage();
+                         status = "Error at load a course"+ e.getMessage();
                      }
                  return null;
             }
@@ -85,7 +85,7 @@ public class LecturerDAO extends DBContext{
                      }
                  catch(Exception e)
                      {
-                         status = "Error at load courses"+ e.getMessage();
+                         status = "Error at load a class"+ e.getMessage();
                      }
                  return null;
             }
@@ -116,9 +116,33 @@ public class LecturerDAO extends DBContext{
                      }
                  catch(Exception e)
                      {
-                         status = "Error at load courses"+ e.getMessage();
+                         status = "Error at load a exam"+ e.getMessage();
                      }
                  return null;
+            }
+    
+    public Account loadALecturerofClass(String classID)
+            {
+                String sql = "SELECT account.Account_ID, account.Name, account.Email FROM account join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where Class_ID like ?";
+                try
+                     {
+                         PreparedStatement ps = connector.prepareStatement(sql);
+                         ps.setString(1, classID);
+
+                         ResultSet rs = ps.executeQuery();
+                         while(rs.next())
+                             {
+                                 return new Account(rs.getString(1), 
+                                         rs.getString(2),
+                                         rs.getString(3),
+                                            "");
+                             }
+                     }
+                 catch(Exception e)
+                     {
+                         status = "Error at load lecturer of a class"+ e.getMessage();
+                     }
+                return null;
             }
     
     public List<Course> loadAllCourses(String lecturerID)
@@ -187,7 +211,7 @@ public class LecturerDAO extends DBContext{
                      }
                  catch(Exception e)
                      {
-                         status = "Error at load classes"+ e.getMessage();
+                         status = "Error at load studentlist of a class"+ e.getMessage();
                      }
                  return accountList;
             }
@@ -259,7 +283,7 @@ public class LecturerDAO extends DBContext{
                      }
                  catch(Exception e)
                      {
-                         status = "Error at load classes"+ e.getMessage();
+                         status = "Error at load exam list"+ e.getMessage();
                      }
                  return examList;
             }

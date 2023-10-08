@@ -1,4 +1,3 @@
-+Xong các màn đánh dấu vàng
 +Đổi lại tên biến user trên session là Account user = sess....
 +Xóa otp cho login
 +Sửa chút home jsp student lecturer và manager nhưng home lecturer chưa có servlet
