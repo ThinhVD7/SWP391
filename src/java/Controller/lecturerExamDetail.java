@@ -15,7 +15,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+<<<<<<< HEAD
 import java.time.LocalDateTime;
+=======
+>>>>>>> 1e16890 (yellow completed)
 import java.util.HashMap;
 
 /**
@@ -68,6 +71,7 @@ public class lecturerExamDetail extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
         //check active status
         Account user = (Account)session.getAttribute("user");
         if(user.getStatus()==0)
@@ -76,6 +80,9 @@ public class lecturerExamDetail extends HttpServlet {
                 request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+=======
+        Account user = (Account)session.getAttribute("user");
+>>>>>>> 1e16890 (yellow completed)
         //check user's authority by role
         if(user.getRoleID()!=2)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
@@ -84,6 +91,7 @@ public class lecturerExamDetail extends HttpServlet {
         Exam thisExam = dao.loadAExam(request.getParameter("examID"));
         //session thisExam
         session.setAttribute("sessionThisExam", thisExam);
+<<<<<<< HEAD
         if(LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0)
             request.setAttribute("notAllowToEdit", "notAllowToEdit");
         
@@ -92,6 +100,18 @@ public class lecturerExamDetail extends HttpServlet {
         request.setAttribute("endDate", dao.getStringFormattedDate("dateTime", thisExam.getEndDate()));
         request.getRequestDispatcher("lecturerExamDetail.jsp").forward(request, response);
     }
+=======
+        String[] temp;
+        temp = thisExam.getStartDate().split("T");
+        String examStartDate = temp[0]+" "+temp[1];
+        temp = thisExam.getEndDate().split("T");
+        String examEndDate = temp[0]+" "+temp[1];
+        
+        request.setAttribute("startDate", examStartDate);
+        request.setAttribute("endDate", examEndDate);
+        request.getRequestDispatcher("lecturerExamDetail.jsp").forward(request, response);
+    } 
+>>>>>>> 1e16890 (yellow completed)
 
     /** 
      * Handles the HTTP <code>POST</code> method.

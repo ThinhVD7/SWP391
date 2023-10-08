@@ -11,7 +11,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+<<<<<<< HEAD
 import java.time.LocalDateTime;
+=======
+>>>>>>> 1e16890 (yellow completed)
 import java.util.HashMap;
 import java.util.List;
 
@@ -65,6 +68,7 @@ public class lecturerExamList extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
         //check active status
         Account user = (Account)session.getAttribute("user");
         if(user.getStatus()==0)
@@ -73,6 +77,9 @@ public class lecturerExamList extends HttpServlet {
                 request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+=======
+        Account user = (Account)session.getAttribute("user");
+>>>>>>> 1e16890 (yellow completed)
         //check user's authority by role
         if(user.getRoleID()!=2)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
@@ -86,6 +93,7 @@ public class lecturerExamList extends HttpServlet {
         
         HashMap<String, String> exam_startDate = new HashMap<String,String>();
         HashMap<String, String> exam_endDate = new HashMap<String,String>();
+<<<<<<< HEAD
         HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
         LocalDateTime today = LocalDateTime.now();
         String[] temp;
@@ -106,6 +114,17 @@ public class lecturerExamList extends HttpServlet {
         request.setAttribute("lecturer", dao.loadALecturerofClass(thisClass.getClassID()));
         request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
         request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
+=======
+        String[] temp;
+        for (Exam exam : examList) 
+        {
+            temp = exam.getStartDate().split("T");
+            exam_startDate.put(exam.getExamID(),temp[0]);
+            temp = exam.getEndDate().split("T");
+            exam_endDate.put(exam.getExamID(),temp[0]);
+        }
+        request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
+>>>>>>> 1e16890 (yellow completed)
         request.setAttribute("examList", examList);
         request.setAttribute("examStartDate", exam_startDate);
         request.setAttribute("examEndDate", exam_endDate);

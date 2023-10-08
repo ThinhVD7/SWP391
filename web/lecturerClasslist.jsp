@@ -52,24 +52,33 @@
             margin-left: 30px;
             margin-right: 30px;
 <<<<<<< HEAD
+<<<<<<< HEAD
             /*margin-top: 30px;*/
 =======
             margin-top: 30px;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            /*margin-top: 30px;*/
+>>>>>>> 1e16890 (yellow completed)
             overflow: hidden;
             justify-content: center;
         }
             .class-list {
 <<<<<<< HEAD
+<<<<<<< HEAD
                             /*display: flex;*/
 =======
                             display: flex;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                            /*display: flex;*/
+>>>>>>> 1e16890 (yellow completed)
 
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
+<<<<<<< HEAD
 <<<<<<< HEAD
 /*            margin-left: 200px;
             margin-right: 200px;*/
@@ -123,6 +132,52 @@
             align-self: center;
             justify-content: center;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+/*            margin-left: 200px;
+            margin-right: 200px;*/
+            margin-top: 30px;
+            margin: 20px auto;
+            width:55%;
+/*            align-self: center;
+            justify-content: center;*/
+            overflow: hidden;
+            }
+            
+            .left-div 
+            {
+                flex: 1;
+                padding: 10px;
+                border-radius: 10px;
+                /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);*/
+                border: 2px solid #ccc;
+                margin-right: 10px;
+/*                height: 540px;
+                overflow: auto;*/
+                /*width: 50%;*/
+                /*display:block;*/
+            }
+            .left-div{
+                background-color: #f5f5f5;
+            }
+            .right-div 
+            {
+                /*flex: 1;*/
+                background-color: #299be4;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                color: #fff;
+                padding: 15px;
+                border-radius: 10px;
+                /*border: 2px solid #ccc;*/
+                position: relative;
+                /*margin-right: 10px;*/
+                overflow: hidden;
+                /*display:block;*/
+                display: flex;
+                justify-content: center; /* Center horizontally */
+                align-items: center; /* Center vertically */
+/*                height: 100vh;*/
+                
+>>>>>>> 1e16890 (yellow completed)
             }
 
             .class-container {
@@ -133,6 +188,7 @@
                 /*width: 50%;*/
                 margin-bottom: 20px;
                 padding: 15px;
+<<<<<<< HEAD
 <<<<<<< HEAD
                 /*display: block;*/
             }
@@ -175,17 +231,51 @@
         }
 =======
                 display: block;
+=======
+                /*display: block;*/
+>>>>>>> 1e16890 (yellow completed)
             }
-            .class-info-container {
-                margin-bottom: 20px;
-                background-color: #fff;
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                width: 50%;
-                margin-bottom: 20px;
-                padding: 15px;
+            
+            .class-container:hover{
+                background-color: #f5f5f5;
             }
+<<<<<<< HEAD
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            .class-detail
+            {
+            flex:1;
+            background-color: #fff;
+            border-radius: 10px;
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);*/
+            padding: 10px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            display: flex;
+            overflow: hidden;
+            }
+            
+            .edit-exam-button 
+            {
+                /*position: static;*/
+                background-color: #299be4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                align-self: center;
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+            .edit-exam-button:hover{
+            background-color: #0073e6;
+        }
+>>>>>>> 1e16890 (yellow completed)
             
         </style>
     </head>
@@ -234,6 +324,7 @@
         </section>
         <section class="home">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div><br></div>
 =======
 
@@ -251,6 +342,9 @@
                 </div>
             </div>
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            <div><br></div>
+>>>>>>> 1e16890 (yellow completed)
 
             
 <!--            <div class="class-list">
@@ -269,6 +363,7 @@
         <div class="main">
             <div>
                 <a style="font-size: 36px; margin-bottom: 10px;">
+<<<<<<< HEAD
 <<<<<<< HEAD
                     ${sessionScope.sessionPageTitle}
             </div>
@@ -354,38 +449,95 @@
             
 =======
                     MAS291 Fall 2023
+=======
+                    ${sessionScope.sessionPageTitle}
+>>>>>>> 1e16890 (yellow completed)
             </div>
             <div>
-                <a style ="padding: 5px;"
-                    href="#">Home</a> / <a style ="padding: 5px;" href="#">MAS291</a>
+                <a href="home" style ="padding: 5px;" >Home</a> / <a style ="padding: 5px;" href="#">${sessionScope.sessionThisCourse.courseID}</a>
             </div>
             <div>
-                <a style ="padding:5px;">
+                <a style ="padding:5px;"><h2>Your classes of ${sessionScope.sessionPageTitle}</h2></a>
             </div>
             <div class="class-list">
-            <div class="class-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>SE1732</h3>
+                <c:forEach items="${requestScope.classList}" var="clas">
+                    <div class ="class-container">
+                    <div style="font-size: 36px; margin-bottom: 10px;">
+                    ${clas.className}
+                    </div>
+                    <div class="class-detail">
+                        <div class="left-div">
+                                <h5>Exam Created: ${requestScope.examNumber[clas.classID]}</h5>
+                                <h5>Number of Students: ${requestScope.studentNumber[clas.classID]}</h5>
+                        </div>
+                        <div class="right-div">
+                    <form action="lecturerExamList"> -->
+                        <button class="edit-exam-button" name="classID" value=${clas.classID}>Enter</button>
+                    </form>
+                        </div>
+                    </div>
+                </div>
+                </c:forEach>
+<!--                <div class ="class-container">
+                    <div style="font-size: 36px; margin-bottom: 10px;">
+                    SE1732
+                    </div>
+                    <div class="class-detail">
+                        <div class="left-div">
+                                <h5>Exam Created: 6</h5>
+                                <h5>Number of Students: 30</h5>
+                        </div>
+                        <div class="right-div">
+                             <form action="action"> 
+                    <button class="edit-exam-button">Enter</button>
+                </form>
+                        </div>
+                    </div>
+                </div>-->
+<!--                <div class ="class-container">
+                    <div style="font-size: 36px; margin-bottom: 10px;">
+                    SE1744
+                    </div>
+                    <div class="class-detail">
+                        <div class="left-div">
+                                <h5>Exam Created: 3</h5>
+                                <h5>Number of Students: 30</h5>
+                        </div>
+                        <div class="right-div">
+                             <form action="action"> 
+                    <button class="edit-exam-button">Enter</button>
+                </form>
+                        </div>
+                    </div>
+                </div>-->
+<!--                <div class ="class-container">
+                    <div style="font-size: 36px; margin-bottom: 10px;">
+                    SE1802
+                    </div>
+                    <div class="class-detail">
+                        <div class="left-div">
+                                <h5>Exam Created: 2</h5>
+                                <h5>Number of Students: 30</h5>
+                        </div>
+                        <div class="right-div">
+                             <form action="action"> 
+                    <button class="edit-exam-button">Enter</button>
+                </form>
+                        </div>
+                    </div>
+                </div>-->
                 
-            </div>
-
-            <div class="class-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>SE1744</h3>
                 
-            </div>
-
-            <div class="class-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>SE1802</h3>
-                
-            </div>
             </div>
                 
            
 
+<<<<<<< HEAD
             <!-- Add more class containers as needed -->
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            
+>>>>>>> 1e16890 (yellow completed)
         </div>
 
 

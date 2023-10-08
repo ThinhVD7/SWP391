@@ -51,25 +51,19 @@
             padding: 15px;
             margin-left: 30px;
             margin-right: 30px;
-<<<<<<< HEAD
-            /*margin-top: 30px;*/
-=======
             margin-top: 30px;
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             overflow: hidden;
             justify-content: center;
         }
             .class-list {
-<<<<<<< HEAD
-                            /*display: flex;*/
-=======
                             display: flex;
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
+/*            margin-left: 200px;
+            margin-right: 200px;*/
 <<<<<<< HEAD
 /*            margin-left: 200px;
             margin-right: 200px;*/
@@ -122,7 +116,6 @@
             width: 50%;
             align-self: center;
             justify-content: center;
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             }
 
             .class-container {
@@ -133,47 +126,6 @@
                 /*width: 50%;*/
                 margin-bottom: 20px;
                 padding: 15px;
-<<<<<<< HEAD
-                /*display: block;*/
-            }
-            
-            .class-container:hover{
-                background-color: #f5f5f5;
-            }
-            .class-detail
-            {
-            flex:1;
-            background-color: #fff;
-            border-radius: 10px;
-            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);*/
-            padding: 10px;
-            margin-left: 30px;
-            margin-right: 30px;
-            margin-top: 30px;
-            display: flex;
-            overflow: hidden;
-            }
-            
-            .edit-exam-button 
-            {
-                /*position: static;*/
-                background-color: #299be4;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                margin-top: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-                align-self: center;
-                margin-top: auto;
-                margin-bottom: auto;
-            }
-            .edit-exam-button:hover{
-            background-color: #0073e6;
-        }
-=======
                 display: block;
             }
             .class-info-container {
@@ -185,7 +137,6 @@
                 margin-bottom: 20px;
                 padding: 15px;
             }
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
             
         </style>
     </head>
@@ -233,9 +184,6 @@
             </div>
         </section>
         <section class="home">
-<<<<<<< HEAD
-            <div><br></div>
-=======
 
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
@@ -250,7 +198,6 @@
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
             
 <!--            <div class="class-list">
@@ -269,8 +216,7 @@
         <div class="main">
             <div>
                 <a style="font-size: 36px; margin-bottom: 10px;">
-<<<<<<< HEAD
-                    ${sessionScope.sessionPageTitle}
+                    MAS291 Fall 2023
             </div>
             <div>
                 <a href="home" style ="padding: 5px;" >Home</a> / <a style ="padding: 5px;" href="#">${sessionScope.sessionThisCourse.courseID}</a>
@@ -351,41 +297,7 @@
                 
            
 
-            
-=======
-                    MAS291 Fall 2023
-            </div>
-            <div>
-                <a style ="padding: 5px;"
-                    href="#">Home</a> / <a style ="padding: 5px;" href="#">MAS291</a>
-            </div>
-            <div>
-                <a style ="padding:5px;">
-            </div>
-            <div class="class-list">
-            <div class="class-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>SE1732</h3>
-                
-            </div>
-
-            <div class="class-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>SE1744</h3>
-                
-            </div>
-
-            <div class="class-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>SE1802</h3>
-                
-            </div>
-            </div>
-                
-           
-
             <!-- Add more class containers as needed -->
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         </div>
 
 

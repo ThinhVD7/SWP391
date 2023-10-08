@@ -46,17 +46,24 @@
             margin-left: 30px;
             margin-right: 30px;
 <<<<<<< HEAD
+<<<<<<< HEAD
             margin-bottom: 30px;
             /*margin-top: 10px;*/
             position: relative;
 =======
             margin-top: 30px;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            margin-bottom: 30px;
+            /*margin-top: 10px;*/
+            position: relative;
+>>>>>>> 1e16890 (yellow completed)
             }
             
             .exam-detail {
             background-color: #fff;
             border-radius: 10px;
+<<<<<<< HEAD
 <<<<<<< HEAD
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
             padding: 15px;
@@ -74,16 +81,27 @@
         {
 =======
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+=======
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+>>>>>>> 1e16890 (yellow completed)
             padding: 15px;
             margin: 20px auto;
-            width:80%;
+            width:55%;
             text-align: center; 
             font-size: 1em;
             overflow: hidden;
+            position: relative;
+/*            margin-left: 300px;
+            margin-right: 300px;*/
         }
 
+<<<<<<< HEAD
         .edit-exam-button {
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+        .edit-exam-button 
+        {
+>>>>>>> 1e16890 (yellow completed)
             background-color: #299be4;
             color: #fff;
             border: none;
@@ -95,6 +113,9 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1e16890 (yellow completed)
         .edit-exam-button:hover
         {
             background-color: #0073e6;
@@ -117,8 +138,11 @@
         .edit-exam-button-bottom:hover{
             background-color: #0073e6;
         }
+<<<<<<< HEAD
 =======
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+>>>>>>> 1e16890 (yellow completed)
         /* Style for the pop-up */
         .popup {
             display: none;
@@ -158,6 +182,9 @@
         }
         
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1e16890 (yellow completed)
          .bottom-right-p {
             position: absolute;
             bottom: 0;
@@ -165,8 +192,11 @@
             margin: 0;
         }
         
+<<<<<<< HEAD
 =======
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+>>>>>>> 1e16890 (yellow completed)
         
         </style>
     </head>
@@ -226,11 +256,16 @@
         <section class="home">
 <!--seach and profile icon------------------------------------------------------------------------------------>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <div> <br> </div>
 <!--            <div class="row pt-2">
 =======
             <div class="row pt-2">
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+<div> <br> </div>
+<!--            <div class="row pt-2">
+>>>>>>> 1e16890 (yellow completed)
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form class="nosubmit">
@@ -243,11 +278,16 @@
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             </div>-->
 
 =======
             </div>
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            </div>-->
+
+>>>>>>> 1e16890 (yellow completed)
             
             
 
@@ -269,6 +309,7 @@
             <div>
                 <a style="font-size: 36px; margin-bottom: 10px;">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     ${sessionScope.sessionPageTitle}
             </div>
             <div>
@@ -282,23 +323,31 @@
                                href="#">${sessionScope.sessionThisExam.examName}</a>
 =======
                     MAS291 Fall 2023
+=======
+                    ${sessionScope.sessionPageTitle}
+>>>>>>> 1e16890 (yellow completed)
             </div>
             <div>
                 <a style ="padding: 5px;"
-                    href="#">Home</a> / 
+                    href="home">Home</a> / 
                     <a style ="padding: 5px;" 
-                       href="#">MAS291</a> /
+                       href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
                         <a style ="padding: 5px;" 
-                           href="#">SE1732</a> /
+                           href="lecturerExamList?classID=${sessionScope.sessionThisClass.classID}">${sessionScope.sessionThisClass.className}</a> /
                             <a style ="padding: 5px;" 
+<<<<<<< HEAD
                                href="#">Progress Test 1</a>
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                               href="#">${sessionScope.sessionThisExam.examName}</a>
+>>>>>>> 1e16890 (yellow completed)
             </div>
             <div>
                 <a style ="padding:5px;">
             </div>
             <div>
                 
+<<<<<<< HEAD
 <<<<<<< HEAD
                    <h3>${sessionScope.sessionThisExam.examName} </h3>           
             </div>
@@ -328,18 +377,35 @@
                 </div>
 =======
                    <h3>Progress Test 1 </h3>           
+=======
+                   <h3>${sessionScope.sessionThisExam.examName} </h3>           
+>>>>>>> 1e16890 (yellow completed)
             </div>
             <div class="exam-detail">
-                <p>Start Date: 4/10/2023 to 6/10/2023</p>
+                <p>Start Date: ${requestScope.startDate}</p>
                 <br>
-                <p>Time limit: 30 minutes</p>
+                <p>End Date: ${requestScope.endDate}</p>
                 <br>
-                <p>Review Permission: Absolutely</p>
+                <p>Time limit: ${sessionScope.sessionThisExam.timeLimit} </p>
                 <br>
-                <button class="edit-exam-button">Edit Exam</button> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
-                <button class="edit-exam-button" ${exam.permission==1?"":"hidden"}>Review Exam</button>
+                <p>Review Permission: ${sessionScope.sessionThisExam.permission==1?"Absolutely":"Not Permitted"} </p>
+                <br>
+                <form action="action">
+                    <button class="edit-exam-button">Edit Exam</button> 
+                </form>
+                    
+<!--                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
             </div>
+<<<<<<< HEAD
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            <div><br></div>
+                <div>
+                    <form action="lecturer">
+                        <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
+                    </form>
+                </div>
+>>>>>>> 1e16890 (yellow completed)
         </div>
              
 <!--end of main block------------------------------------------------------------------------------------------------->

@@ -82,6 +82,7 @@
         <servlet-name>lecturerExamDetail</servlet-name>
         <servlet-class>Controller.lecturerExamDetail</servlet-class>
     </servlet>
+<<<<<<< HEAD
     <servlet>
         <servlet-name>studentExamList</servlet-name>
         <servlet-class>Controller.studentExamList</servlet-class>
@@ -174,6 +175,8 @@
         <servlet-name>lecturerAddExamFromBank</servlet-name>
         <servlet-class>Controller.lecturerAddExamFromBank</servlet-class>
     </servlet>
+=======
+>>>>>>> 1e16890 (yellow completed)
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -246,6 +249,7 @@
         <servlet-name>lecturerExamDetail</servlet-name>
         <url-pattern>/lecturerExamDetail</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>studentExamList</servlet-name>
         <url-pattern>/studentExamList</url-pattern>
@@ -338,6 +342,8 @@
         <servlet-name>lecturerAddExamFromBank</servlet-name>
         <url-pattern>/addFromBank</url-pattern>
     </servlet-mapping>
+=======
+>>>>>>> 1e16890 (yellow completed)
     <session-config>
         <session-timeout>
             30

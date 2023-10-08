@@ -62,6 +62,7 @@ public class lecturerClasslist extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
         //check active status
         Account user = (Account)session.getAttribute("user");
         if(user.getStatus()==0)
@@ -70,6 +71,9 @@ public class lecturerClasslist extends HttpServlet {
                 request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+=======
+        Account user = (Account)session.getAttribute("user");
+>>>>>>> 1e16890 (yellow completed)
         //check user's authority by role
         if(user.getRoleID()!=2)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
@@ -88,7 +92,10 @@ public class lecturerClasslist extends HttpServlet {
             class_studentNumber.put(class1.getClassID(), dao.numberofStudentofClass(class1.getClassID()));
             class_examNumber.put(class1.getClassID(), dao.numberofExamofClass(class1.getClassID()));
         }
+<<<<<<< HEAD
         session.setAttribute("classListTemp", classList);
+=======
+>>>>>>> 1e16890 (yellow completed)
         request.setAttribute("studentNumber", class_studentNumber);
         request.setAttribute("examNumber", class_examNumber);
         request.setAttribute("classList", classList);

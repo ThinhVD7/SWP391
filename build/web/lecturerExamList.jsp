@@ -52,6 +52,7 @@
             margin-left: 30px;
             margin-right: 30px;
 <<<<<<< HEAD
+<<<<<<< HEAD
             /*margin-top: 30px;*/
             overflow: hidden;
             /*margin-bottom: 30px;*/
@@ -59,6 +60,11 @@
             margin-top: 30px;
             overflow: hidden;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            /*margin-top: 30px;*/
+            overflow: hidden;
+            /*margin-bottom: 30px;*/
+>>>>>>> 1e16890 (yellow completed)
             }
             
             .class-detail 
@@ -81,6 +87,7 @@
                 flex: 1;
                 padding: 10px;
                 border-radius: 10px;
+<<<<<<< HEAD
 <<<<<<< HEAD
                 /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);*/
                 /*border: 2px solid #ccc;*/
@@ -105,6 +112,26 @@
                 border: 2px solid #ccc;
                 margin-right: 10px;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);*/
+                /*border: 2px solid #ccc;*/
+                margin-right: 10px;
+/*                height: 540px;
+                overflow: auto;*/
+                /*width: 50%;*/
+                /*display:block;*/
+                
+            }
+            .exam-list 
+            {
+                flex: 1;
+                padding: 10px;
+                border-radius: 10px;
+                /*border: 2px solid #ccc;*/
+                margin-right: 10px;
+                height: 540px;
+                overflow: auto;
+>>>>>>> 1e16890 (yellow completed)
                 /*width: 50%;*/
                 /*display:block;*/
             }
@@ -133,44 +160,63 @@
 =======
                 background-color: #fff;
                 border-radius: 10px;
+<<<<<<< HEAD
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+>>>>>>> 1e16890 (yellow completed)
                 margin-bottom: 20px;
                 padding: 15px;
                 overflow: hidden;
                 /*display: block;*/
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1e16890 (yellow completed)
             .exam-container:hover
             {
                 background-color: #f5f5f5;
             }
+<<<<<<< HEAD
 =======
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+>>>>>>> 1e16890 (yellow completed)
             
         
             .info-container 
             {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 position: relative;
 =======
                 position: sticky;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                position: relative;
+>>>>>>> 1e16890 (yellow completed)
                 top: 20px;
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
                 background-color: #fff;
                 padding: 10px;
 <<<<<<< HEAD
+<<<<<<< HEAD
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 =======
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+>>>>>>> 1e16890 (yellow completed)
                 overflow: hidden;
             }
         
             .edit-exam-button 
             {
+<<<<<<< HEAD
 <<<<<<< HEAD
                 /*position: static;*/
                 background-color: #299be4;
@@ -182,11 +228,18 @@
                 color: #fff;
                 border: none;
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                /*position: static;*/
+                background-color: #299be4;
+                color: #fff;
+                 border: 2px solid #ccc;
+>>>>>>> 1e16890 (yellow completed)
                 border-radius: 5px;
                 padding: 10px 20px;
                 font-size: 16px;
                 cursor: pointer;
                 margin-top: 10px;
+<<<<<<< HEAD
 <<<<<<< HEAD
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
                 align-self: center;
@@ -200,10 +253,22 @@
         }
 =======
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+=======
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+>>>>>>> 1e16890 (yellow completed)
                 align-self: center;
                 margin-top: auto;
+                position: absolute;
+                bottom: 10px;
+                right: 30%;
             }
+<<<<<<< HEAD
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            .edit-exam-button:hover{
+            background-color: #0073e6;
+        }
+>>>>>>> 1e16890 (yellow completed)
 
 
         .bottom-right-p {
@@ -214,6 +279,9 @@
         }
         
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 1e16890 (yellow completed)
         .popup-button {
             background-color: #299be4;
             color: #fff;
@@ -379,6 +447,7 @@
             .text-danger {
                 color: #ff5b5b;
             }
+<<<<<<< HEAD
             
             .add-exam-button {
                 background-color: #299be4;
@@ -402,6 +471,9 @@
         
 =======
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+        
+>>>>>>> 1e16890 (yellow completed)
             
         </style>
 </head>
@@ -451,6 +523,7 @@
         </section>
         <section class="home">
 <<<<<<< HEAD
+<<<<<<< HEAD
             <div><br></div>
 
 <!--            <div class="row pt-2">
@@ -458,6 +531,11 @@
 
             <div class="row pt-2">
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            <div><br></div>
+
+<!--            <div class="row pt-2">
+>>>>>>> 1e16890 (yellow completed)
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form class="nosubmit">
@@ -470,10 +548,14 @@
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             </div>-->
 =======
             </div>
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            </div>-->
+>>>>>>> 1e16890 (yellow completed)
 
             
 <!--            <div class="class-list">
@@ -490,10 +572,17 @@
 
     <div class="main-container">
 <<<<<<< HEAD
+<<<<<<< HEAD
 <!--pop up start----------------------------------------------------------------------------------------------->
 <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
         <div id="viewStudentListPopup" class="overlay" onclick="closePopup()">
+=======
+<!--pop up start----------------------------------------------------------------------------------------------->
+<!-- Blurred overlay -->
+        <div id="overlay" class="overlay"></div>
+        <div id="classEditPopup" class="overlay" onclick="closePopup()">
+>>>>>>> 1e16890 (yellow completed)
             <div class="popup-container" onclick="event.stopPropagation();">
                 <h2>Student List</h2>
                 <button class ="popup-button" onclick="closePopup()">Close</button>
@@ -539,7 +628,11 @@
                                 <td><a href="#">${student.accountID}</a></td>
                                 <td>${student.name}</td>                        
                                 <td>${student.email}</td>
+<<<<<<< HEAD
                                 <td><a href="viewProfileFromList?targetID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
+=======
+                                <td><a href="studentProfile?studentID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
+>>>>>>> 1e16890 (yellow completed)
                             </tr>
                             </c:forEach>
                         </tbody>
@@ -554,6 +647,7 @@
         </div>
 <!--pop up end------------------------------------------------------------------------------------------------->
 
+<<<<<<< HEAD
         <div style="font-size: 36px; margin-bottom: 10px;">
                 ${sessionScope.sessionPageTitle}
         </div>
@@ -565,17 +659,23 @@
                     <a style ="padding: 5px;" 
                        href="#">${sessionScope.sessionThisClass.className}</a>
 =======
+=======
+>>>>>>> 1e16890 (yellow completed)
         <div style="font-size: 36px; margin-bottom: 10px;">
-                MAS291 Fall 2023
+                ${sessionScope.sessionPageTitle}
         </div>
         <div>
             <a style ="padding: 5px;"
-                href="#">Home</a> / 
+                href="home">Home</a> / 
                 <a style ="padding: 5px;" 
-                   href="#">MAS291</a> /
+                   href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
                     <a style ="padding: 5px;" 
+<<<<<<< HEAD
                        href="#">SE1732</a>
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                       href="#">${sessionScope.sessionThisClass.className}</a>
+>>>>>>> 1e16890 (yellow completed)
         </div>
 
         <div class ="class-detail" >
@@ -616,7 +716,42 @@
 <!--            <div class="exam-container">
 =======
             <h2>Exam</h2>
-            
+            <div class ="exam-list">
+                <c:forEach items = "${requestScope.examList}" var="exam">
+                    <div class="exam-container">
+                    <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
+                    <h3>${exam.examName}</h3>
+                    <br>
+                    Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
+                    Click to view details
+            </div>
+                </c:forEach>
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="yes"> 
+                <h3>Progress Test 1</h3>
+                <br>
+                Start Date: 4/10/2023 to 6/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 2</h3>
+                <br>
+                Start Date: 12/10/2023 to 14/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Final Trial</h3>
+                <br>
+                Start Date: 16/10/2023 to 21/10/2023<br>
+                Click to view details
+                
+            </div>
             <div class="exam-container">
                 <a style="text-decoration: none;"  href="#"> 
                 <h3>Progress Test 1</h3>
@@ -651,7 +786,12 @@
 =======
                 
             </div>
+<<<<<<< HEAD
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+        </div>
+           
+>>>>>>> 1e16890 (yellow completed)
             
         </div>
              <div class="right-div">
@@ -659,6 +799,7 @@
             <div class="info-container">
                 <a style="font-size: 24px; font-style: inherit"></a>
                 <h2>Class Information</h2>
+<<<<<<< HEAD
 <<<<<<< HEAD
                 <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
                 <p>Lecturer: ${requestScope.lecturer.name}</p><br>
@@ -673,6 +814,15 @@
                 <p>Email: john.doe@example.com</p><br>
                 <button class="edit-exam-button" >View Students</button>
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+                <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
+                <p>Lecturer: John Doe</p><br>
+                <p>Email: john.doe@example.com</p><br>
+                <br><br>
+<!--                <form action="action"> -->
+                    <button class="edit-exam-button" onclick="openPopup('SE1732')">View Students</button>
+<!--                </form>-->
+>>>>>>> 1e16890 (yellow completed)
             </div>
         </div>
         
@@ -688,9 +838,15 @@
 
         <script>
 <<<<<<< HEAD
+<<<<<<< HEAD
             // Function to open the edit class name pop-up
             function openPopup() {
                 const overlay = document.getElementById('viewStudentListPopup');
+=======
+            // Function to open the edit class name pop-up
+            function openPopup(className) {
+                const overlay = document.getElementById('classEditPopup');
+>>>>>>> 1e16890 (yellow completed)
 //                const newClassNameInput = document.getElementById('newClassName');
 //                newClassNameInput.value = className;
                 overlay.style.display = 'block';
@@ -698,7 +854,11 @@
 
             // Function to close the pop-up
             function closePopup() {
+<<<<<<< HEAD
                 const overlay = document.getElementById('viewStudentListPopup');
+=======
+                const overlay = document.getElementById('classEditPopup');
+>>>>>>> 1e16890 (yellow completed)
                 overlay.style.display = 'none';
             }
 
@@ -714,8 +874,11 @@
                 closePopup();
             }
             
+<<<<<<< HEAD
 =======
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+>>>>>>> 1e16890 (yellow completed)
             const btn_menu = document.querySelector(".btn-menu");
             const side_bar = document.querySelector(".sidebar");
 

@@ -431,9 +431,6 @@
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
-<<<<<<< HEAD
-       
-=======
         /* Style for the pop-up */
         .popup {
             display: none;
@@ -447,7 +444,6 @@
             padding: 15px;
             z-index: 1;
         }
->>>>>>> 1e16890 (yellow completed)
         .overlay {
             display: none;
             position: fixed;

@@ -1,17 +1,18 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<<<<<<< HEAD
-<html>
-<head>
-    <title>Delete Records with Confirmation</title>
-    <style>
-        /* Style for the modal dialog */
-        .modal {
-=======
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@include file="all_component/allCss.jsp" %>
+    <head>
+
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Lecturer</title>
+        <%@include file="all_component/allCss.jsp" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <link rel="stylesheet" href="all_component/studentStyle.css" />
         
@@ -27,9 +28,9 @@
             href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
             rel="stylesheet"
             />
-    <title>Class List</title>
-    <style>
-        body {
+
+        <style>
+            body {
                 color: #566787;
                 background: #f5f5f5;
                 font-family: 'Varela Round', sans-serif;
@@ -43,7 +44,8 @@
                 background: #fff;
                 padding: 20px 25px;
                 border-radius: 3px;
-                box-shadow: 0 1px 1px rgba(0,0,0,.05);
+                /*box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             }
             .table-title {
                 padding-bottom: 15px;
@@ -52,6 +54,7 @@
                 padding: 16px 30px;
                 margin: -20px -25px 10px;
                 border-radius: 3px 3px 0 0;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
             }
             .table-title h2 {
                 margin: 5px 0 0;
@@ -86,6 +89,7 @@
                 border-color: #e9e9e9;
                 padding: 12px 15px;
                 vertical-align: middle;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             }
             table.table tr th:first-child {
                 width: 60px;
@@ -154,6 +158,7 @@
             .pagination {
                 float: right;
                 margin: 0 0 5px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             }
             .pagination li a {
                 border: none;
@@ -166,6 +171,7 @@
                 border-radius: 2px !important;
                 text-align: center;
                 padding: 0 6px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
             }
             .pagination li a:hover {
                 color: #666;
@@ -188,33 +194,54 @@
                 margin-top: 10px;
                 font-size: 13px;
             }
-/*        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }*/
+            form.nosubmit {
+                padding: 0;
+                border: none;
+            }
 
-        .subject-name {
-            font-size: 24px; /* Adjust the font size as needed */
-            margin-bottom: 10px;
-        }
+            input.nosubmit {
+                border: 1px solid #555;
+                border-radius: 25px;
+                width: 100%;
+                padding: 9px 4px 9px 40px;
+                background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E") no-repeat 13px center;
+            }
+            .card-title {
+                text-decoration: none;
 
-        .subject-info {
+            }
+            .class-list {
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
-            width: 50%; /* Take up half of the screen */
-            margin: 20px auto; /* Add margin for distance from top and center horizontally */
-            text-align: center; /* Center text in the subject info div */
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            }
+
+            .class-container {
+                margin-bottom: 20px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px;
+                padding: 15px;
+                display: block;
+                width: 50%;
+            }
+            .exam-detail {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin: 20px auto;
+            width:80%;
+            text-align: center; 
+            
         }
 
-        .view-material-button {
+        .edit-exam-button {
             background-color: #3366CC;
             color: #fff;
             border: none;
@@ -224,202 +251,94 @@
             cursor: pointer;
             margin-top: 10px;
         }
-
-        .class-list {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            width: 50%; /* Take up half of the screen */
-            margin: 20px auto; /* Add margin for distance from top and center horizontally */
-        }
-
-        .class-container {
-            /* Each class container takes the full width of the .class-list */
-        }
-
-        /* Style links for class containers */
-        .class-link {
-            text-decoration: none;
-            color: #333;
-        }
-
-        /* Add hover effect for links */
-        .class-link:hover {
-            color: #3366CC;
-        }
-
-        /* Shrink text in <p> tag relative to the parent <div> */
-        .subject-info p {
-            font-size: 100%; /* Initial font size */
-        }
-        .edit-button {
-            background-color: #66CC33;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-
-        /* Style for the pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 1;
-        }
-        .overlay {
->>>>>>> 1e16890 (yellow completed)
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-<<<<<<< HEAD
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-        .modal-content {
-            background-color: #fff;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-=======
-            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
-            backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
-            z-index: 1;
-        }
-
-        /* Style for the clear pop-up container */
-        .popup-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 2;
->>>>>>> 1e16890 (yellow completed)
-        }
-    </style>
-</head>
-<body>
-<<<<<<< HEAD
-    <table>
-        <thead>
-            <tr>
-                <th>Record ID</th>
-                <th>Record Name</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <c:forEach items="${records}" var="record">
-                <tr>
-                    <td>${record.id}</td>
-                    <td>${record.name}</td>
-                    <td>
-                        <button onclick="openConfirmationPopup(${record.id})">Delete</button>
-                    </td>
-                </tr>
-            </c:forEach>
-        </tbody>
-    </table>
-
-    <!-- Modal Confirmation Dialog -->
-    <div id="confirmationPopup" class="modal">
-        <div class="modal-content">
-            <p>Are you sure you want to delete this record?</p>
-            <button onclick="confirmDelete()">Yes</button>
-            <button onclick="closeConfirmationPopup()">No</button>
-        </div>
-    </div>
-
-    <script>
-        // JavaScript functions to show and hide the modal dialog
-        function openConfirmationPopup(recordId) {
-            document.getElementById("confirmationPopup").style.display = "block";
-            document.getElementById("confirmationPopup").setAttribute("data-record-id", recordId);
-        }
-
-        function closeConfirmationPopup() {
-            document.getElementById("confirmationPopup").style.display = "none";
-        }
-
-        function confirmDelete() {
-            var recordId = document.getElementById("confirmationPopup").getAttribute("data-record-id");
-            // Perform the record deletion here (e.g., via Ajax)
-            // var xhr = new XMLHttpRequest();
-            xhr.open("POST", "DeleteRecordServlet", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.onreadystatechange = function () 
-            {
-                if (xhr.readyState === 4 && xhr.status === 200) 
-                {
-                    // Handle the response from the server (if needed)
-                    var response = xhr.responseText;
-                    // Reload or update the page as necessary
-                    location.reload();
-                }
-            };
-            xhr.send("recordId=" + recordId);
-            // After successful deletion, you can remove the row from the table
-            // and close the confirmation popup
-            // ...
-
-            // Close the confirmation popup
-            closeConfirmationPopup();
-=======
-    <div class="subject-name">
-        Subject Name
-    </div>
-
-    <div class="subject-info">
-        <p>Subject Information Text</p>
-        <button class="view-material-button">View Material</button>
-    </div>
-
-    <div class="class-list">
-        <!--<a href="https://example.com/class1" class="class-link">-->
-            <div class="class-container">
-                <h1>Class Name 1</h1>
-                <button class="edit-button" onclick="openPopup('class91')">Edit</button>
+        
+        
+        
+        </style>
+    </head>
+    <body>
+        <section class="sidebar">
+            <div class="nav-header">
+                <p class="logo">Quiz Practice</p>
+                <i class="bx bx-menu btn-menu"></i>
             </div>
-        <div class="class-container">
-            <h1 class="class-name" onclick="openPopup('Class Name 1')">Class Name 1</h1>
-        </div>
-        
-        
+            <ul class="nav-links">
 
-        <!-- Add more class containers with edit buttons as needed -->
-    </div>
 
-    <div class="subject-path">
-        <a href="#">Home</a> / <a href="#">This Subject</a>
-    </div>
 
-        <!-- Edit Class Name Pop-up -->
-    <div id="classEditPopup" class="overlay" onclick="closePopup()">
-        <div class="popup-container" onclick="event.stopPropagation();">
-            <h2>Edit Class Name</h2>
-            <input type="text" id="newClassName" placeholder="New Class Name">
-            <button onclick="editClassName()">Save</button>
-            <button onclick="closePopup()">Cancel</button>
-             <div class="container-xl">
+
+                <li>
+                    <i class="bx bx-search search-btn"></i>
+                    <input type="text" placeholder="Search" />
+                    <span class="tooltip">Search</span>
+                </li>
+                <li>
+                    <a href="profile">
+                        <i class='bx bxs-user-account'></i>
+                        <span class="title">Profile</span>
+                    </a>
+                    <span class="tooltip">${sessionScope.user.name}</span>
+                </li>
+                <li>
+                    <a href="home">
+                        <i class="bx bx-home-alt-2"></i>
+                        <span class="title">Home</span>
+                    </a>
+                    <span class="tooltip">Home</span>
+                </li>
+                <li>
+                    <a href="Logout">
+                        <i class="bx bxs-devices"></i>
+                        <span class="title">Logout</span>
+                    </a>
+                    <span class="tooltip">Logout</span>
+                </li>
+                
+            </ul>
+            <div class="theme-wrapper">
+                <i class="bx bxs-moon theme-icon"></i>
+                <p>Dark Theme</p>
+                <div class="theme-btn">
+                    <span class="theme-ball"></span>
+                </div>
+            </div>
+        </section>
+        <section class="home">
+
+            <div class="row pt-2">
+                <div class="col-md-9 ml-2">
+                    <div class="input-group rounded">
+                        <form class="nosubmit">
+                            <input class="nosubmit" type="search" placeholder="Search">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ml-auto">
+                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                </div>
+            </div>
+            
+            
+        <div class="class-list">
+        <div> 
+                <a style="font-size: 36px; margin-bottom: 10px; width:50%">
+                    SE1732_MAS291
+            </div>
+            <div>
+                <a style ="padding: 5px;"
+                    href="#">Home</a> / 
+                    <a style ="padding: 5px;" 
+                       href="#">MAS291</a> /
+                        <a style ="padding: 5px;" 
+                           href="#">SE1732</a>
+            </div>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
+        <div class="container-xl">
             <div class="table-responsive">
                 <div class="table-wrapper">
                     <div class="table-title">
@@ -428,7 +347,7 @@
                                 <h2> </a><b>Lecturer</b></h2>
                             </div>
                             <div class="col-sm-7">
-                                <a href="managerAssignLecturer" class="btn btn-secondary"> <span>Submit</span></a>
+                                <a href="managerAssignLecturer" class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"> <span>Submit</span></a>
                                 
                             </div>
                         </div>
@@ -487,40 +406,54 @@
                                 </div>
                 </div>
             </div>
-        </div>   
+        </div>     
+        
         </div>
-    </div>
-    
-    <!-- Blurred overlay -->
-    <div id="overlay" class="overlay"></div>
+        </section>
 
-    <script>
-        // Function to open the edit class name pop-up
-        function openPopup(className) {
-            const overlay = document.getElementById('classEditPopup');
-            const newClassNameInput = document.getElementById('newClassName');
-            newClassNameInput.value = className;
-            overlay.style.display = 'block';
-        }
+        <script>
+            const btn_menu = document.querySelector(".btn-menu");
+            const side_bar = document.querySelector(".sidebar");
 
-        // Function to close the pop-up
-        function closePopup() {
-            const overlay = document.getElementById('classEditPopup');
-            overlay.style.display = 'none';
-        }
+            btn_menu.addEventListener("click", function () {
+                side_bar.classList.toggle("expand");
+                changebtn();
+            });
 
-        // Function to save the edited class name
-        function editClassName() {
-            const newClassNameInput = document.getElementById('newClassName');
-            const updatedClassName = newClassNameInput.value;
+            function changebtn() {
+                if (side_bar.classList.contains("expand")) {
+                    btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                } else {
+                    btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                }
+            }
 
-            // Update the class name in your data or display
-            console.log('Updated Class Name:', updatedClassName);
+            const btn_theme = document.querySelector(".theme-btn");
+            const theme_ball = document.querySelector(".theme-ball");
 
-            // Close the pop-up
-            closePopup();
->>>>>>> 1e16890 (yellow completed)
-        }
-    </script>
-</body>
+            const localData = localStorage.getItem("theme");
+
+            if (localData == null) {
+                localStorage.setItem("theme", "light");
+            }
+
+            if (localData == "dark") {
+                document.body.classList.add("dark-mode");
+                theme_ball.classList.add("dark");
+            } else if (localData == "light") {
+                document.body.classList.remove("dark-mode");
+                theme_ball.classList.remove("dark");
+            }
+
+            btn_theme.addEventListener("click", function () {
+                document.body.classList.toggle("dark-mode");
+                theme_ball.classList.toggle("dark");
+                if (document.body.classList.contains("dark-mode")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
+        </script>
+    </body>
 </html>

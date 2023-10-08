@@ -597,6 +597,7 @@ public class DAO extends DBContext {
         DAO d = new DAO();
         String two = d.encodeSHA1("123456");
         d.getAllCourse();
+        System.out.println(two);
         System.out.println(d.encodeSHA1("123456").equals(two));
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
