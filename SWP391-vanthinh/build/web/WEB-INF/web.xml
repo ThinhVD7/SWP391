@@ -70,6 +70,10 @@
         <servlet-name>managerViewClassList</servlet-name>
         <servlet-class>Controller.managerViewClassList</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>managerViewLecturer</servlet-name>
+        <servlet-class>Controller.managerViewLecturer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -129,6 +133,10 @@
     <servlet-mapping>
         <servlet-name>managerViewClassList</servlet-name>
         <url-pattern>/managerViewClassList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerViewLecturer</servlet-name>
+        <url-pattern>/managerViewLecturer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

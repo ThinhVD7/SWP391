@@ -671,7 +671,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                              <tr>
+<!--                              <tr>
                                     <td></td>
                                     <td><a href="#">MAS291_SE1714</a></td>
                                     <td>SE1714</td>                        
@@ -679,18 +679,18 @@
                                     <td>
                                         <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
                                     </td>
-                                </tr>
+                                </tr>-->
 
                         <tbody>
 
-                            <c:forEach items="${requestScope.listA}" var="u" varStatus="x" >
+                            <c:forEach items="${requestScope.class1}" var="u" varStatus="x" >
                                 <tr>
                                     <td>${x.count}</td>
-                                    <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
+                                    <td><a href="#">${u.classID}</a></td>
+                                    <td>${u.className}</td>                        
+                                    <td>${u.courseID} </td>
                                     <td>
-                                     <a href="#" class="classEditPopup" title="Delete" data-toggle="tooltip"><a onclick="closePopup()"><i class="material-icons">&#xE5C9;</i></a>
+                                    <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
                                     </td>
                                 </tr>
                             </c:forEach>

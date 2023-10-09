@@ -6,22 +6,20 @@
 package Controller;
 
 import Dal.ManagerDAO;
-import Model.Account;
-import Model.Class1;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
- * @author acer
+ * @author msi
  */
-public class managerViewClassList extends HttpServlet {
+@WebServlet(name="deteleCourse", urlPatterns={"/deteleCourse"})
+public class deteleCourse extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +36,10 @@ public class managerViewClassList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet managerViewClassList</title>");  
+            out.println("<title>Servlet deteleCourse</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet managerViewClassList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet deteleCourse at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,23 +56,7 @@ public class managerViewClassList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-       HttpSession session = request.getSession(false);
-        if(session == null||session.getAttribute("user") == null)
-        {
-            response.sendRedirect("index.html");
-            return;
-        }
-        ////////////////////////////////////////////////////////////////
-        Account user = (Account)session.getAttribute("user");
-        String cID = request.getParameter("courseID");
-        
-//        check user's authority by role
-        if(user.getRoleID()!=1)
-            request.getRequestDispatcher("pageNotFound").forward(request, response);
-            ManagerDAO dao=new ManagerDAO();
-            List<Class1> class1 = dao.getClassByCourseID(cID);
-            request.setAttribute("class1", class1);
-            request.getRequestDispatcher("manager-ViewClassList.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -87,7 +69,10 @@ public class managerViewClassList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        String courseId = request.getParameter("courseId");
+         ManagerDAO dao=new ManagerDAO();
+        dao.deleteCourse(courseId);
+        
     }
 
     /** 

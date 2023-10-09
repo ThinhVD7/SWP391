@@ -676,12 +676,12 @@
                                     </td>
                                 </tr>
 
-                            <c:forEach items="${requestScope.listA}" var="u" varStatus="x" >
+                            <c:forEach items="${requestScope.lecturer}" var="u" varStatus="x" >
                                 <tr>
                                     <td>${x.count}</td>
                                     <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
+                                    <td>${u.department}</td>                        
+                                    <td>${u.meetlink} </td>
                                     <td><a href="#"> icon </td>
                                     <td>
                                          <input type="checkbox" name="add" value="ON" />

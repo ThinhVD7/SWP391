@@ -8,6 +8,7 @@ package Controller;
 import Dal.ManagerDAO;
 import Model.Account;
 import Model.Class1;
+import Model.Lecturer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -21,7 +22,7 @@ import java.util.List;
  *
  * @author acer
  */
-public class managerViewClassList extends HttpServlet {
+public class managerViewLecturer extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -38,10 +39,10 @@ public class managerViewClassList extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet managerViewClassList</title>");  
+            out.println("<title>Servlet managerViewLecturer</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet managerViewClassList at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet managerViewLecturer at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,28 +67,13 @@ public class managerViewClassList extends HttpServlet {
         }
         ////////////////////////////////////////////////////////////////
         Account user = (Account)session.getAttribute("user");
-        String cID = request.getParameter("courseID");
-        
-//        check user's authority by role
+        //check user's authority by role
         if(user.getRoleID()!=1)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
             ManagerDAO dao=new ManagerDAO();
-            List<Class1> class1 = dao.getClassByCourseID(cID);
-            request.setAttribute("class1", class1);
+            List<Class1> lecturer = dao.getAllClass();
+            request.setAttribute("lecturer", lecturer);
             request.getRequestDispatcher("manager-ViewClassList.jsp").forward(request, response);
-    } 
-
-    /** 
-     * Handles the HTTP <code>POST</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /** 

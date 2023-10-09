@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
     response.setHeader("Pragma","no-cache"); //HTTP 1.0
@@ -37,11 +38,11 @@
                 text-decoration: none;
 
             }
-            
+
             .home{
                 position: relative;
             }
-            
+
             .addCourse{
                 position: absolute;
                 top: 0;
@@ -50,9 +51,9 @@
                 justify-content: center;
                 width: 100%;
                 height: 100%;
-                
+
             }
-            
+
             .addCourseContent{
                 padding: 60px;
                 border: 2px solid #ccc;
@@ -67,8 +68,9 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
+
             }
-            
+
             .addCourseTitle{
                 color: blue;
                 font-family: sans-serif;
@@ -78,14 +80,14 @@
                 font-size: 2.4rem;
                 margin-bottom: 20px;
             }
-            
+
             .form-field {
                 padding-left: 10px;
                 margin-bottom: 20px;
                 border-radius: 20px;
                 box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
             }
-            
+
             .form-field input {
                 width: 100%;
                 display: block;
@@ -97,7 +99,7 @@
                 padding: 10px 15px 10px 10px;
                 /* border: 1px solid red; */
             }
-            
+
             .closePopUp{
                 padding: 4px 12px;
                 background-color: orange;
@@ -107,24 +109,10 @@
                 transition: .4s;
                 margin-top: 10px;
                 border-radius: 5px;
-                
+
                 &:hover{
                     transform: scale(1.05);
-                }          
-            }
-                .closePopUp1{
-                padding: 4px 12px;
-                background-color: green;
-                border: 1px solid transparent;
-                color: #fff;
-                font-weight: 600;
-                transition: .4s;
-                margin-top: 10px;
-                border-radius: 5px;
-                
-                &:hover{
-                    transform: scale(1.05);
-                }          
+                }
             }
         </style>
     </head>
@@ -135,9 +123,6 @@
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
-
-
-
 
                 <li>
                     <i class="bx bx-search search-btn"></i>
@@ -248,7 +233,7 @@
             <div class="container-fluid mt-3">
                 <div class="row mt-5">
 
-                    <c:forEach items="${requestScope.course}" var="c">
+                    <c:forEach items="${requestScope.course}" var="c" varStatus="loop">
                         <!--                        <div class='course-item col-md-4 col-md-6 col-lg-3 pt-3'>
                                                     <div class="card">
                                                         <div class="card-body"> 
@@ -265,22 +250,22 @@
                         <div class="col col-sm-4 mt-4">
                             <div class="card">
                                 <div class="card-body">
-
-
-                                    <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                    <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                    <span style="float: right"> <a onclick="openEdit(11,22,3,4,5)"><i class="fa-solid fa-pen-to-square" style="color: #0be50e;"></i> </span>
-                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a onclick="openDelete()"><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                    <form >
+                                        <a style="text-decoration: none;"  href="/QuizNew/managerViewClassList?courseID=${c.courseID}">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
+                                        <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
+                                        <span style="float: right"> <a onclick="openEdit('${c.courseID}', '${c.courseName}', '${c.semester}', '4${c.startDate}', '${c.endDate}')"><i class="fa-solid fa-pen-to-square" style="color: #0be50e;"></i> </span>
+                                        <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
+                                        <span style="float: right"> <a onclick="closeEdit()">
+                                                <i onclick="delCousera('${c.courseID}')" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
-
-
                 </div>
             </div>
+
             <div class="addCourse" id="addCourse" style="display: none;">
                 <div class="addCourseContent">
                     <h3 class="addCourseTitle" id="titleCourse">Add course</h3> 
@@ -299,118 +284,178 @@
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
                         <p>Start Day</p>
-                        <input type="date" name="courseId" id="courseId" placeholder="course-ID" required="">
+                        <input type="date" name="courseId" id="startDay" placeholder="course-ID" required="">
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
                         <p>End Day</p>
-                        <input type="date" name="courseId" id="courseId" placeholder="course-ID" required="">
+                        <input type="date" name="courseId" id="endDay" placeholder="course-ID" required="">
                     </div>
-                    <button class="closePopUp" type="submit" >Submit</button>
-                    <button class="closePopUp" onclick="closePopUp1()">Close</button>
-                </div>
-            </div>
-            <div class="addCourse" id="deleterCouse" style="display: none;">
-                <div class="addCourseContent">
-                    <h3 class="addCourseTitle" id="titleCourse">Delete course</h3> 
-                    <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
-                    <button class="closePopUp1" type="submit" >Yes</button>
-                    <button class="closePopUp1" type="submit" >No</button>
+                    <button class="closePopUp" onclick="getInfoAddCourse()" type="submit" >Submit</button>
                     <button class="closePopUp" onclick="closePopUp()">Close</button>
                 </div>
             </div>
 
-
-
-
-
-
-
-
         </section>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            const btn_menu = document.querySelector(".btn-menu");
-            const side_bar = document.querySelector(".sidebar");
 
-            btn_menu.addEventListener("click", function () {
-                side_bar.classList.toggle("expand");
-                changebtn();
-            });
+                        if('${sessionScope.logPrint}' === '1'){
+                            alert("Id Course này đã tồn tại");
+                        }        
 
-            function changebtn() {
-                if (side_bar.classList.contains("expand")) {
-                    btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
-                } else {
-                    btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
-                }
-            }
-            
-            function openPopUp(){
-                const divPopUp = document.querySelector("#addCourse");
-                document.getElementById('titleCourse').innerHTML = 'Add Course';
-                divPopUp.style.display = 'block';
-                document.getElementById("courseId").value = '';
-                document.getElementById("courseName").value = '';
-                document.getElementById("semseter").value = '';
-            }
-            
-            function closePopUp(){
-                const divPopUp = document.querySelector("#addCourse");
-                divPopUp.style.display = 'none';
-            }
+                        const btn_menu = document.querySelector(".btn-menu");
+                        const side_bar = document.querySelector(".sidebar");
+                        var idCourse;
+                        var status;
 
-            function openEdit(id, name, semester, start, end){
-                 const divPopUp = document.querySelector("#addCourse");
-                const showBtn = document.querySelector("show");
-                divPopUp.style.display = 'block';
-                document.getElementById('titleCourse').innerHTML = 'Edit Course';
-                document.getElementById("courseId").value = id;
-                document.getElementById("courseName").value = name;
-                document.getElementById("semseter").value = semester;
-                
-            }
-            function closePopUp1(){
-                 const divPopUp = document.querySelector("#addCourse");
-                divPopUp.style.display = 'none';
-            }
-            function openDelete(){
-                const divPopUp = document.querySelector("#deleterCouse");
-                const showBtn = document.querySelector("show");
-                divPopUp.style.display = 'block';
-                
-            }
-            function closePopUp(){
-                 const divPopUp = document.querySelector("#deleterCouse");
-                divPopUp.style.display = 'none';
-            }
+                        btn_menu.addEventListener("click", function () {
+                            side_bar.classList.toggle("expand");
+                            changebtn();
+                        });
+                        
+                        function changebtn() {
+                            if (side_bar.classList.contains("expand")) {
+                                btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                            } else {
+                                btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                            }
+                        }
 
-            const btn_theme = document.querySelector(".theme-btn");
-            const theme_ball = document.querySelector(".theme-ball");
+                        function openPopUp() {
+                            const divPopUp = document.querySelector("#addCourse");
+                            document.getElementById('titleCourse').innerHTML = 'Add Course';
+                            divPopUp.style.display = 'block';
+                            document.getElementById("courseId").value = '';
+                            document.getElementById("courseName").value = '';
+                            document.getElementById("semseter").value = '';
+                            status = 1;
+                        }
 
-            const localData = localStorage.getItem("theme");
+                        function formatDate(date) {
+                            const d = new Date(date);
+                            const month = '' + (d.getMonth() + 1);
+                            const day = '' + d.getDate();
+                            const year = d.getFullYear();
 
-            if (localData == null) {
-                localStorage.setItem("theme", "light");
-            }
+                            return [month.padStart(2, '0'), day.padStart(2, '0'), year].join('/');
+                        }
 
-            if (localData == "dark") {
-                document.body.classList.add("dark-mode");
-                theme_ball.classList.add("dark");
-            } else if (localData == "light") {
-                document.body.classList.remove("dark-mode");
-                theme_ball.classList.remove("dark");
-            }
+                        function getInfoAddCourse() {
+                            let courseIdMain = document.getElementById('courseId').value;
+                            let courseId = document.getElementById('courseId').value;
+                            let courseName = document.getElementById("courseName").value;
+                            let semseter = document.getElementById("semseter").value;
+                            let startDay = document.getElementById("startDay").value;
+                            let endDay = document.getElementById("endDay").value;
 
-            btn_theme.addEventListener("click", function () {
-                document.body.classList.toggle("dark-mode");
-                theme_ball.classList.toggle("dark");
-                if (document.body.classList.contains("dark-mode")) {
-                    localStorage.setItem("theme", "dark");
-                } else {
-                    localStorage.setItem("theme", "light");
-                }
-            });
+                            var today = new Date();
+
+                            if (formatDate(startDay) < formatDate(today)) {
+                                alert("Ngày bắt đầu không hợp lệ");
+                            } else if (formatDate(endDay) < formatDate(startDay)) {
+                                alert("Ngày kết thúc lớn hơn ngày bắt đầu");
+                            } else {
+                                if (status == 1) {
+                                    interacCousera(courseIdMain ,courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'add');
+                                } else if (status == 2) {
+                                    interacCousera(idCourse, courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'update');
+                                }
+                            }
+                        }
+
+                        var contextPath = "<%= request.getContextPath()%>";
+
+                        function interacCousera(courseIdMain, courseId, courseName, semseter, startDay, endDay, action) {
+                            $.ajax({
+                                url: contextPath + "/managerHome",
+                                type: "POST",
+                                data: {
+                                    courseIdMain: courseIdMain,
+                                    courseId: courseId,
+                                    courseName: courseName,
+                                    semseter: semseter,
+                                    startDay: startDay,
+                                    endDay: endDay,
+                                    action: action
+                                },
+                                success: function (response) {
+                                    window.location.reload();
+                                },
+                                error: function (xhr, status, error) {
+
+                                }
+                            });
+                        }
+
+                        function delCousera(courseId) {
+                            $.ajax({
+                                url: contextPath + "/deteleCourse",
+                                type: "POST",
+                                data: {
+                                    courseId: courseId
+                                },
+                                success: function (response) {
+                                    window.location.reload();
+                                },
+                                error: function (xhr, status, error) {
+
+                                }
+                            });
+                        }
+
+
+                        function closePopUp() {
+                            const divPopUp = document.querySelector("#addCourse");
+                            divPopUp.style.display = 'none';
+                        }
+
+                        function openEdit(id, name, semester, start, end) {
+                            const divPopUp = document.querySelector("#addCourse");
+                            const showBtn = document.querySelector("show");
+                            idCourse = id;
+                            divPopUp.style.display = 'block';
+                            document.getElementById('titleCourse').innerHTML = 'Edit Course';
+                            document.getElementById("courseId").value = id;
+                            document.getElementById("courseName").value = name;
+                            document.getElementById("semseter").value = semester;                      
+                            status = 2;
+                        }
+                        
+
+                        function closeEdit() {
+                            const divPopUp = document.querySelector("#addCourse");
+                            divPopUp.style.display = 'none';
+                        }
+
+                        const btn_theme = document.querySelector(".theme-btn");
+                        const theme_ball = document.querySelector(".theme-ball");
+
+                        const localData = localStorage.getItem("theme");
+
+                        if (localData == null) {
+                            localStorage.setItem("theme", "light");
+                        }
+
+                        if (localData == "dark") {
+                            document.body.classList.add("dark-mode");
+                            theme_ball.classList.add("dark");
+                        } else if (localData == "light") {
+                            document.body.classList.remove("dark-mode");
+                            theme_ball.classList.remove("dark");
+                        }
+
+                        btn_theme.addEventListener("click", function () {
+                            document.body.classList.toggle("dark-mode");
+                            theme_ball.classList.toggle("dark");
+                            if (document.body.classList.contains("dark-mode")) {
+                                localStorage.setItem("theme", "dark");
+                            } else {
+                                localStorage.setItem("theme", "light");
+                            }
+                        });
         </script>
+
     </body>
 </html>

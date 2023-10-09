@@ -1,4 +1,4 @@
- package Dal;
+package Dal;
 
 import Model.Account;
 import Model.Lecturer;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 import java.security.MessageDigest;
 import org.apache.tomcat.util.codec.binary.Base64;
 
-public class DAO extends DBContext {
+public class ManagerDAO extends DBContext {
 
     Connection connector;
     public List<Account> account = new ArrayList<>();
@@ -29,10 +29,11 @@ public class DAO extends DBContext {
     public List<Lecturer> lecturer = new ArrayList<>();
     public List<Course> course = new ArrayList<>();
     public List<Class1> classes = new ArrayList<>();
+    
     private String status = "yes";
     public String test;
 
-    public DAO() {
+    public ManagerDAO() {
         try {
             connector = new DBContext().getConnection();
             System.out.println("Connected");
@@ -43,6 +44,83 @@ public class DAO extends DBContext {
         }
     }
     
+    public boolean getCreateCouse(Course c) {
+
+        String sql = "INSERT INTO `course` "
+                + "(`Course_ID`, `CourseName`, `Semester`, `StartDate`, `EndDate`) \n"
+                + "VALUES (?, ? , ? , ?, ?)";
+        try {
+            PreparedStatement st = connector.prepareStatement(sql);
+            st.setString(1, c.getCourseID());
+            st.setString(2, c.getCourseName());
+            st.setString(3, c.getSemester());
+            st.setString(4, c.getStartDate());
+            st.setString(5, c.getEndDate());
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+        public boolean getCourseId(String Course_ID) {
+
+        boolean dk = false;
+
+        String sql = "select course.Course_ID "
+                + "from course where course.Course_ID=?";
+        try {
+            PreparedStatement st = connector.prepareStatement(sql);
+            st.setString(1, Course_ID);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                if (rs.getString("Course_ID").equalsIgnoreCase(Course_ID)) {
+                    dk = true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return dk;
+    }
+
+    public boolean updateInfo(Course a, String Course_ID) {
+
+        String sql = "UPDATE `course`\n"
+                + "SET\n"
+                + "`Course_ID` = ?,\n"
+                + "`CourseName` =?,\n"
+                + "`Semester` = ?,\n"
+                + "`StartDate` = ?,\n"
+                + "`EndDate` = ?\n"
+                + "WHERE `Course_ID` = ?;";
+        try {
+            PreparedStatement st = connector.prepareStatement(sql);
+            st.setString(1, a.getCourseID());
+            st.setString(2, a.getCourseName());
+            st.setString(3, a.getSemester());
+            st.setString(4, a.getStartDate());
+            st.setString(5, a.getEndDate());
+            st.setString(6, Course_ID);
+            st.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public void deleteCourse(String Course_ID) {
+        String sql = "DELETE FROM `course`\n"
+                + "      WHERE `Course_ID` = ?;";
+        try {
+            PreparedStatement st = connector.prepareStatement(sql);
+            st.setString(1, Course_ID);
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
     //result get saved to database,
     //future comparing password to the database saved one have to be encoded to compare
     public String encodeSHA1(String password)
@@ -167,41 +245,6 @@ public class DAO extends DBContext {
         return null;
     }
 
-    public void why() {
-        try {
-            if (connector != null) {
-                System.out.println("Connected");
-                DatabaseMetaData dm = (DatabaseMetaData) connector.getMetaData();
-                System.out.println("Driver name: " + dm.getDriverName());
-                System.out.println("Driver version: " + dm.getDriverVersion());
-                System.out.println("Product name: "
-                        + dm.getDatabaseProductName());
-                System.out.println("Product version: "
-                        + dm.getDatabaseProductVersion());
-                PreparedStatement ps = connector.prepareStatement("select * from account");
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    System.out.println(rs.getString(2));
-                }
-            }
-        } catch (SQLException e) {
-
-        }
-    }
-
-    public boolean resetPassword(Account user) {
-        try {
-            String sql = "UPDATE account SET Password = ? WHERE Email = ?";
-            PreparedStatement ps = connector.prepareStatement(sql);
-            ps.setString(1, user.getPassword());
-            ps.setString(2, user.getEmail());
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return false;
-    }
 
     public List<Class1> getClass(String studentId) {
         String sql = "select a.Student_ID,a.Class_ID,b.ClassName,c.Semester,c.Course_ID from studentinwhichclass a join class b on \n"
@@ -267,53 +310,35 @@ public class DAO extends DBContext {
         }
         return course;
     }
-
-    public void changePassword(String pass, String user) {
+    
+    public ArrayList<Class1> getClassByCourseID(String cID){
         try {
-            String sql = "UPDATE account SET Password = ? WHERE Email = ?";
-            PreparedStatement ps = connector.prepareStatement(sql);
-            ps.setString(1, pass);
-            ps.setString(2, user);
-            ps.executeUpdate();
-        } catch (Exception e) {
+            ArrayList<Class1> list = new ArrayList<Class1>();
+            String strSelect = "SELECT * FROM class WHERE Course_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+             ps.setString(1, cID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Class1 c = new Class1();
+                c.setClassID(rs.getString(1));
+                c.setClassName(rs.getString(2));
+                c.setCourseID(rs.getString(3));
+
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException e) {
             System.out.println(e);
         }
+        return null;
     }
-
-    public boolean addAccount(String id, String name, String email, String password, int role, int status, int gender, String phno) {
-        try {
-            String sql = "INSERT INTO account\n"
-                    + "(Account_ID,\n"
-                    + "Name,\n"
-                    + "Email,\n"
-                    + "Password,\n"
-                    + "Role_ID,\n"
-                    + "Status,\n"
-                    + "Gender,\n"
-                    + "PhoneNumber)\n"
-                    + "VALUES(?,?,?,?,?,?,?,?)";
-
-            PreparedStatement ps = connector.prepareStatement(sql);
-            ps.setString(1, id);
-            ps.setString(2, name);
-            ps.setString(3, email);
-            ps.setString(4, password);
-            ps.setInt(5, role);
-            ps.setInt(6, status);
-            ps.setInt(7, gender);
-            ps.setString(8, phno);
-            ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return false;
-    }
-
     public static void main(String[] args) {
-        DAO d = new DAO();
-        String two = d.encodeSHA1("123456");
-        System.out.println(d.encodeSHA1("123456").equals(two));
+        ManagerDAO d = new ManagerDAO();
+        String cid = "ACC101";
+        ArrayList<Class1> list = d.getClassByCourseID(cid);
+        for (Class1 class1 : list) {
+            System.out.println(class1.toString());
+        }
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }
