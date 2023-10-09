@@ -9,6 +9,7 @@ import Dal.ManagerDAO;
 import Model.Account;
 import Model.Class1;
 import Model.Lecturer;
+import Model.Student;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,6 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -67,14 +69,26 @@ public class managerViewLecturer extends HttpServlet {
         }
         ////////////////////////////////////////////////////////////////
         Account user = (Account)session.getAttribute("user");
-        //check user's authority by role
+        String cid = request.getParameter("CID");
+        String courseID = request.getParameter("courseID");
+//        check user's authority by role
         if(user.getRoleID()!=1)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
             ManagerDAO dao=new ManagerDAO();
-            List<Class1> lecturer = dao.getAllClass();
+            List<Lecturer> lecturer = dao.getlecturerByClass(cid);
+            List<Student> student = dao.getstudentByClass(cid);
+            List<Lecturer> addlecturer = dao.getAllCourselecturer();
+            List<Student> addstudent = dao.getAllCoursestudent();
+            
+            Class1 classInformation = dao.getClassByID(cid);
             request.setAttribute("lecturer", lecturer);
-            request.getRequestDispatcher("manager-ViewClassList.jsp").forward(request, response);
-    }
+            request.setAttribute("student", student);
+            request.setAttribute("addlecturer", addlecturer);
+            request.setAttribute("addstudent", addstudent);
+            request.setAttribute("courseID", courseID);
+            request.setAttribute("classInfo", classInformation);
+            request.getRequestDispatcher("manager-ClassDetail.jsp").forward(request, response);
+    } 
 
     /** 
      * Returns a short description of the servlet.

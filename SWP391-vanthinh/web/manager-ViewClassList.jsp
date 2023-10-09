@@ -686,7 +686,7 @@
                             <c:forEach items="${requestScope.class1}" var="u" varStatus="x" >
                                 <tr>
                                     <td>${x.count}</td>
-                                    <td><a href="#">${u.classID}</a></td>
+                                    <td><a href="managerViewLecturer?CID=${u.classID}&courseID=${requestScope.courseID} ">${u.classID}</a></td>
                                     <td>${u.className}</td>                        
                                     <td>${u.courseID} </td>
                                     <td>

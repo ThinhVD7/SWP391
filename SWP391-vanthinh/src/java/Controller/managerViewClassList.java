@@ -73,6 +73,8 @@ public class managerViewClassList extends HttpServlet {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
             ManagerDAO dao=new ManagerDAO();
             List<Class1> class1 = dao.getClassByCourseID(cID);
+            
+            request.setAttribute("courseID",cID);
             request.setAttribute("class1", class1);
             request.getRequestDispatcher("manager-ViewClassList.jsp").forward(request, response);
     } 

@@ -659,13 +659,13 @@
                                 <th>ID</th>						
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>View Profile</th>
+                           
                                 <th>Add</th>
                             </tr>
                         </thead>
                         <tbody>
                             
-                            <tr>
+<!--                            <tr>
                                     <td>1</td>
                                     <td><a href="#">ThanhDT59</a></td>
                                     <td>Do Tien Thanh</td>                        
@@ -674,15 +674,15 @@
                                     <td>
                                         <input type="checkbox" name="add" value="ON" />
                                     </td>
-                                </tr>
+                                </tr>-->
 
-                            <c:forEach items="${requestScope.lecturer}" var="u" varStatus="x" >
+                            <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
                                 <tr>
                                     <td>${x.count}</td>
                                     <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.department}</td>                        
-                                    <td>${u.meetlink} </td>
-                                    <td><a href="#"> icon </td>
+                                    <td>${u.name}</td>                        
+                                    <td>${u.email} </td>
+                                   
                                     <td>
                                          <input type="checkbox" name="add" value="ON" />
                                     </td>
@@ -721,32 +721,22 @@
                                 <th>ID</th>						
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>View Profile</th>
+                               
                                 <th>Add</th>
                             </tr>
                         </thead>
                         <tbody>
                             
-                            <tr>
-                                    <td>1</td>
-                                    <td><a href="#">ThanhDT59</a></td>
-                                    <td>Do Tien Thanh</td>                        
-                                    <td>thanhdt59@fe.edu.vn </td>
-                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                    <td>
-                                        <input type="checkbox" name="add" value="ON" />
-                                    </td>
-                                </tr>
-
-                            <c:forEach items="${requestScope.listA}" var="u" varStatus="x" >
+                           
+                            <c:forEach items="${requestScope.addstudent}" var="u" varStatus="x" >
                                 <tr>
                                     <td>${x.count}</td>
                                     <td><a href="#">${u.accountID}</a></td>
                                     <td>${u.name}</td>                        
                                     <td>${u.email} </td>
-                                    <td><a href="#"> icon </td>
+                                    
                                     <td>
-                                          <input type="checkbox" name="add" value="ON" />
+                                         <input type="checkbox" name="add" value="ON" />
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -766,16 +756,16 @@
 
         <div> 
             <a style="font-size: 36px; margin-bottom: 10px; width:50%">
-                SE1732_MAS291
+                ${requestScope.classInfo.className}
                 <button class="edit-button" onclick="openPopup('SE1732')">Edit Name</button>
         </div>
             <div>
                 <a style ="padding: 5px;"
                     href="#">Home</a> / 
                     <a style ="padding: 5px;" 
-                       href="#">MAS291</a> /
+                       href="managerViewClassList?courseID=${requestScope.courseID}">${requestScope.courseID}</a> /
                         <a style ="padding: 5px;" 
-                           href="#">SE1732</a>
+                           >${requestScope.classInfo.className}</a>
             </div>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
@@ -803,30 +793,21 @@
                                 <th>ID</th>						
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>View Profile</th>
+                               
                                 <th>Action</th>
                             </tr>
                         </thead>
-                              <tr>
-                                    <td>1</td>
-                                    <td><a href="#">ThanhDT59</a></td>
-                                    <td>Do Tien Thanh</td>                        
-                                    <td>thanhdt59@fe.edu.vn </td>
-                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                    <td>
-                                        <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>
+                             
 
                         <tbody>
 
-                            <c:forEach items="${requestScope.listA}" var="u" varStatus="x" >
+                            <c:forEach items="${requestScope.lecturer}" var="u" varStatus="x" >
                                 <tr>
                                     <td>${x.count}</td>
                                     <td><a href="#">${u.accountID}</a></td>
                                     <td>${u.name}</td>                        
                                     <td>${u.email} </td>
-                                    <td><a href="#"> icon </td>
+                                    
                                     <td>
                                     <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
                                     </td>
@@ -873,11 +854,11 @@
                                 <th>ID</th>						
                                 <th>Name</th>
                                 <th>Email</th>
-                                <th>View Profile</th>
+                           
                                 <th>Action</th>
                             </tr>
                         </thead>
-                               <tr>
+<!--                               <tr>
                                     <td>1</td>
                                     <td><a href="#">Thinhnvhe163468</a></td>
                                     <td>nguyen van thinh</td>                        
@@ -886,16 +867,16 @@
                                     <td>
                                     <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
                                     </td>
-                                </tr>
+                                </tr>-->
                         <tbody>
 
-                            <c:forEach items="${requestScope.listA}" var="u" varStatus="x" >
+                            <c:forEach items="${requestScope.student}" var="u" varStatus="x" >
                                 <tr>
                                     <td>${x.count}</td>
                                     <td><a href="#">${u.accountID}</a></td>
                                     <td>${u.name}</td>                        
                                     <td>${u.email} </td>
-                                    <td><a href="#"> <i class='bx bxs-user-account'></i></td>
+                                   
                                     
                                     <td>
                                      <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>

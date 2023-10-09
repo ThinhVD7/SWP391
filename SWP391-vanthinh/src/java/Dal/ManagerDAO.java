@@ -332,13 +332,108 @@ public class ManagerDAO extends DBContext {
         }
         return null;
     }
+        public ArrayList<Lecturer> getlecturerByClass(String cID){
+        try {
+            ArrayList<Lecturer> list = new ArrayList<Lecturer>();
+            String strSelect = "select account.Account_ID, account.Name, account.Email from account join lecturer on account.Account_ID = lecturer.Lecturer_ID join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where lecturerinwhichclass.Class_ID = ?;";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+             ps.setString(1, cID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Lecturer c = new Lecturer();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
+
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+             public ArrayList<Student> getstudentByClass(String cID){
+        try {
+            ArrayList<Student> list = new ArrayList<Student>();
+            String strSelect = "select account.Account_ID, account.Name, account.Email from account join student on "
+                    + "account.Account_ID = student.Student_ID join studentinwhichclass on "
+                    + "account.Account_ID = studentinwhichclass.Student_ID where studentinwhichclass.Class_ID=?;";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+             ps.setString(1, cID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student c = new Student();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
+
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+     public List<Lecturer> getAllCourselecturer() {
+        try {
+            String strSelect ="select account.Account_ID, account.Name, account.Email from account join lecturer on account.Account_ID = lecturer.Lecturer_ID;";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Lecturer c = new Lecturer();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
+                
+                lecturer.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return lecturer;
+    }
+         public List<Student> getAllCoursestudent() {
+        try {
+            String strSelect = "select account.Account_ID, account.Name, account.Email from account join student on account.Account_ID = student.Student_ID;";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Student c = new Student();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
+                
+                student.add(c);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return student;
+    }
+         public Class1 getClassByID(String cid){
+              String sql = "SELECT * FROM class where Class_ID = ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, cid);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(1);
+                Class1 c = new Class1(rs.getString(1), rs.getString(2), rs.getString(3));
+                return c;
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+         }
+
     public static void main(String[] args) {
         ManagerDAO d = new ManagerDAO();
-        String cid = "ACC101";
-        ArrayList<Class1> list = d.getClassByCourseID(cid);
-        for (Class1 class1 : list) {
-            System.out.println(class1.toString());
-        }
+        String cid = "SE1732_MAS291";
+        Class1 c = d.getClassByID(cid);
+        System.out.println(c.toString());
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }
