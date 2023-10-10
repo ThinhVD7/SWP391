@@ -138,26 +138,26 @@ body {
     <body className='snippet-body'>
     <div class="wrapper">                               
         <div class="logo">
-            <img src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg" alt="">
+            <a href="home"><img src="https://inkythuatso.com/uploads/thumbnails/800/2021/11/logo-fpt-inkythuatso-1-01-01-14-33-35.jpg" alt="" width="100%" height="100%"></a>
         </div>
         <div class="text-center mt-4 name">
             Login
         </div>
-        <form class="p-3 mt-3" action ="Login" method ="get">
+        <form class="p-3 mt-3" action ="Login" method ="post">
              <p class="text-danger">${mess}</p>
             
             <div class="form-field d-flex align-items-center">
                 <span class="far fa-user"></span>
-                <input type="text" name="username" id="username" placeholder="Username">
+                <input type="text" name="username" id="username" placeholder="Username" required="">
             </div>
             <div class="form-field d-flex align-items-center">
                 <span class="fas fa-key"></span>
-                <input type="password" name="password" id="pwd" placeholder="Password">
+                <input type="password" name="password" id="pwd" placeholder="Password" required="">
             </div>
             <button class="btn mt-3">Login</button>
         </form>
         <div class="text-center fs-6">
-            <a href="forget-password.jsp">Forget password?</a> or <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:9999/QuizNew/GoogleLogin&response_type=code
+            <a href="ForgetPassword">Forget password?</a> or <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:9999/QuizNew/GoogleLogin&response_type=code
     &client_id=262459911259-pcp2tvuq27ff6rc1ltgu2h9faahah2l9.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
         </div>
     </div>

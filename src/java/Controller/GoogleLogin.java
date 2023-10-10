@@ -44,7 +44,7 @@ public class GoogleLogin extends HttpServlet {
         PrintWriter pr = response.getWriter();
         Account a;
         a = dao.getUser(email);
-        request.getSession().setAttribute("acc", a);
+        request.getSession().setAttribute("user", a);
 
         if (a == null) {
             request.setAttribute("mess", "Your email is not accepted!!");

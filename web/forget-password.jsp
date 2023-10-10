@@ -27,7 +27,7 @@
         <meta name="format-detection" content="telephone=no">
 
         <!-- FAVICONS ICON ============================================= -->
-       
+
 
         <!-- PAGE TITLE HERE ============================================= -->
         <title>Forget Password </title>
@@ -67,13 +67,16 @@
                             <h2 class="title-head">Forget <span>Password</span></h2>
                             <p>Login Your Account <a href="Login">Click here</a></p>
                         </div>	
-                        <form class="contact-bx">
+                        <form class="contact-bx" action="ForgetPassword" method="POST">
+                            <p class="text-danger">${err}</p>
+                            <p class="text-danger">${mess}</p>
+                            <p class="text-danger">${OTPmess}</p>
                             <div class="row placeani">
                                 <div class="col-lg-12">
                                     <div class="form-group">
                                         <div class="input-group">
                                             <label>Your Email Address</label>
-                                            <input name="dzName" type="email" required="" class="form-control">
+                                            <input name="email" type="email" required="" class="form-control">
                                         </div>
                                     </div>
                                 </div>

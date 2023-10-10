@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import Dal.DAO;
 import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,9 +15,9 @@ import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author DMX
+ * @author tanki
  */
-public class ValidateOTP extends HttpServlet {
+public class HomeController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,51 +31,24 @@ public class ValidateOTP extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        int value = Integer.parseInt(request.getParameter("otp"));
         HttpSession session = request.getSession();
-        //block check if user have logged in, if not then return to home
-        if(session == null||session.getAttribute("user") == null)
-        {
+        Account user = (Account) session.getAttribute("user");
+        if (user == null) {
             response.sendRedirect("index.html");
-            return;
-        }
-        ////////////////////////////////////////////////////////////////
-        int otp = (int) session.getAttribute("otp");
-
-        if (value == otp) {
-//            request.setAttribute("email", request.getParameter("email"));
-            String email = (String) session.getAttribute("email");
-
-//            request.setAttribute("email", request.getParameter("email"));
-            DAO dao = new DAO();
-            Account a;
-            a = dao.getUser(email);
-            request.getSession().setAttribute("user", a);
-            //      response.sendRedirect("indexStudent.jsp");
-
-            int roleId = (int) session.getAttribute("roleId");
-
-            if (roleId == 0) {
-                request.getSession().setAttribute("user", a);
-
+        } else {
+            int role = (int) user.getRoleID();
+            if (role == 0) {
                 response.sendRedirect("admin");
-            } else if (roleId == 1) {
-                request.getSession().setAttribute("user", a);
-
+            }
+            if (role == 1) {
                 response.sendRedirect("managerHome");
-            } else if (roleId == 2) {
-                request.getSession().setAttribute("user", a);
-
-                response.sendRedirect("lecturer-homepage.jsp");
-            } else {
-                request.getSession().setAttribute("user", a);
-
+            }
+            if (role == 2) {
+                response.sendRedirect("lecturer");
+            }
+            if (role == 3) {
                 response.sendRedirect("student");
             }
-
-        } else {
-            request.setAttribute("OTPmess", "WRONG OTP!");
-            request.getRequestDispatcher("OTP.jsp").forward(request, response);
         }
     }
 
