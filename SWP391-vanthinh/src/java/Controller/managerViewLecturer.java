@@ -87,7 +87,16 @@ public class managerViewLecturer extends HttpServlet {
             request.setAttribute("addstudent", addstudent);
             request.setAttribute("courseID", courseID);
             request.setAttribute("classInfo", classInformation);
+            request.setAttribute("classID", cid);
             request.getRequestDispatcher("manager-ClassDetail.jsp").forward(request, response);
+    } 
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        String lecturerAdd = request.getParameter("add");
+        String classID = request.getParameter("classID");
+        response.getWriter().print(lecturerAdd + " " + classID);
     } 
 
     /** 

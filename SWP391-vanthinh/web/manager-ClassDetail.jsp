@@ -14,7 +14,7 @@
         <%@include file="all_component/allCss.jsp" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <link rel="stylesheet" href="all_component/studentStyle.css" />
-        
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -205,13 +205,13 @@
 
             }
             .class-list {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin-left: 30px;
-            margin-right: 30px;
-            margin-top: 30px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                margin-left: 30px;
+                margin-right: 30px;
+                margin-top: 30px;
             }
 
             .class-container {
@@ -225,30 +225,30 @@
                 width: 50%;
             }
             .exam-detail {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin: 20px auto;
-            width:80%;
-            text-align: center; 
-            
-        }
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                margin: 20px auto;
+                width:80%;
+                text-align: center;
 
-        .edit-exam-button {
-            background-color: #3366CC;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
-        }
-        
-        
-        body {
+            }
+
+            .edit-exam-button {
+                background-color: #3366CC;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+            }
+
+
+            body {
                 color: #566787;
                 background: #f5f5f5;
                 font-family: 'Varela Round', sans-serif;
@@ -410,52 +410,52 @@
                 margin-top: 10px;
                 font-size: 13px;
             }
-            
-        .edit-button {
-            background-color: #299be4;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        .popup-button {
-            background-color: #299be4;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-             /* Style for the pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 1;
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
-            backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
-            z-index: 1;
-        }
-                        .addCourse{
+
+            .edit-button {
+                background-color: #299be4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                font-size: 14px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+            .popup-button {
+                background-color: #299be4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                font-size: 10px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+            /* Style for the pop-up */
+            .popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 1;
+            }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
+                backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
+                z-index: 1;
+            }
+            .addCourse{
                 position: absolute;
                 top: 0;
                 display: flex;
@@ -463,9 +463,9 @@
                 justify-content: center;
                 width: 100%;
                 height: 100%;
-                
+
             }
-            
+
             .addCourseContent{
                 padding: 60px;
                 border: 2px solid #ccc;
@@ -480,9 +480,9 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                
+
             }
-            
+
             .addCourseTitle{
                 color: blue;
                 font-family: sans-serif;
@@ -498,7 +498,7 @@
                 border-radius: 20px;
                 box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
             }
-            
+
             .form-field input {
                 width: 100%;
                 display: block;
@@ -519,12 +519,12 @@
                 transition: .4s;
                 margin-top: 10px;
                 border-radius: 5px;
-                
+
                 &:hover{
                     transform: scale(1.05);
-                }          
+                }
             }
-                        .closePopUp1{
+            .closePopUp1{
                 padding: 4px 12px;
                 background-color: green;
                 border: 1px solid transparent;
@@ -533,24 +533,24 @@
                 transition: .4s;
                 margin-top: 10px;
                 border-radius: 5px;
-                
+
                 &:hover{
                     transform: scale(1.05);
-                }          
+                }
             }
 
-        /* Style for the clear pop-up container */
-        .popup-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 2;
-        }
+            /* Style for the clear pop-up container */
+            .popup-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 2;
+            }
         </style>
     </head>
     <body>
@@ -590,7 +590,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-                
+
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -615,297 +615,300 @@
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
-            
-            
-        <div class="class-list">
-<!--pop up--------------------------------------------------------------------------------------------------->
-             <div id="classEditPopup" class="overlay" onclick="closePopup()">
-            <div class="popup-container" onclick="event.stopPropagation();">
-                <h2>Edit Class Name</h2>
-                <input type="text" id="newClassName" placeholder="New Class Name">
-                <button class ="popup-button" onclick="editClassName()">Save</button>
-                <button class ="popup-button" onclick="closePopup()">Cancel</button>
-            </div>
-   <!--Delete pop up----------------------------->
-             </div>
-             <div class="addCourse" id="deleterCouse" style="display: none;">
-                <div class="addCourseContent">
-                    <h3 class="addCourseTitle" id="titleCourse">Delete</h3> 
-                    <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
-                    <button class="closePopUp1" type="submit" >Yes</button>
-                    <button class="closePopUp1" type="submit" >No</button>
-                    <button class="closePopUp" onclick="closePopUp()">Close</button>
+
+
+            <div class="class-list">
+                <!--pop up--------------------------------------------------------------------------------------------------->
+                <div id="classEditPopup" class="overlay" onclick="closePopup()">
+                    <div class="popup-container" onclick="event.stopPropagation();">
+                        <h2>Edit Class Name</h2>
+                        <input type="text" id="newClassName" placeholder="New Class Name">
+                        <button class ="popup-button" onclick="editClassName()">Save</button>
+                        <button class ="popup-button" onclick="closePopup()">Cancel</button>
+                    </div>
+                    <!--Delete pop up----------------------------->
                 </div>
-            </div>
-<!--Assign Lecturer-->
-             <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
-            <div class="popup-container" onclick="event.stopPropagation();">
-                <h2>Assign Lecturer</h2>
-                <input type="text" id="search" placeholder="New Class Name">
-                <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>Lecturer</b></h2>
+                <div class="addCourse" id="deleterCouse" style="display: none;">
+                    <div class="addCourseContent">
+                        <h3 class="addCourseTitle" id="titleCourse">Delete</h3> 
+                        <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
+                        <button class="closePopUp1" type="submit" >Yes</button>
+                        <button class="closePopUp1" type="submit" >No</button>
+                        <button class="closePopUp" onclick="closePopUp()">Close</button>
+                    </div>
+                </div>
+                <!--Assign Lecturer-->
+                <form action="managerViewLecturer" method="post">
+
+                    <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
+                        <div class="popup-container" onclick="event.stopPropagation();">
+                            <h2>Assign Lecturer</h2>
+                            <input type="text" id="search" placeholder="New Class Name">
+                            <div class="container-xl">
+                                <div class="table-responsive">
+                                    <div class="table-wrapper">
+                                        <div class="table-title">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <h2> </a><b>Lecturer</b></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ID</th>						
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+
+                                                    <th>Add</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                                <!--                            <tr>
+                                                                                    <td>1</td>
+                                                                                    <td><a href="#">ThanhDT59</a></td>
+                                                                                    <td>Do Tien Thanh</td>                        
+                                                                                    <td>thanhdt59@fe.edu.vn </td>
+                                                                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
+                                                                                    <td>
+                                                                                        <input type="checkbox" name="add" value="ON" />
+                                                                                    </td>
+                                                                                </tr>-->
+                                            <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                                <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
+                                                    <tr>
+                                                        <td>${x.count}</td>
+                                                        <td><a href="#">${u.accountID}</a></td>
+                                                        <td>${u.name}</td>                        
+                                                        <td>${u.email} </td>
+
+                                                        <td>
+                                                            <input type="checkbox" name="add" value=${u.accountID} />
+                                                        </td>
+                                                    </tr>
+                                                </c:forEach>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
+                            <button class ="popup-button" onclick="editClassName()">Save</button>
+                            <button class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</button>
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ID</th>						
-                                <th>Name</th>
-                                <th>Email</th>
-                           
-                                <th>Add</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-<!--                            <tr>
-                                    <td>1</td>
-                                    <td><a href="#">ThanhDT59</a></td>
-                                    <td>Do Tien Thanh</td>                        
-                                    <td>thanhdt59@fe.edu.vn </td>
-                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                    <td>
-                                        <input type="checkbox" name="add" value="ON" />
-                                    </td>
-                                </tr>-->
+                </form>
+                <!--Assign Student------------------------->
+                <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 
+                    <div class="popup-container" onclick="event.stopPropagation();">
+                        <h2>Assign Student</h2>
+                        <input type="text" id="search" placeholder="New Class Name">
+                        <div class="container-xl">
+                            <div class="table-responsive">
+                                <div class="table-wrapper">
+                                    <div class="table-title">
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                <h2> </a><b>Student</b></h2>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <table class="table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>ID</th>						
+                                                <th>Name</th>
+                                                <th>Email</th>
 
-                            <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
-                                <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
-                                   
-                                    <td>
-                                         <input type="checkbox" name="add" value="ON" />
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                                                <th>Add</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
 
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-                <button class ="popup-button" onclick="editClassName()">Save</button>
-                <button class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</button>
-            </div>
-             </div>
-<!--Assign Student------------------------->
-             <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 
-            <div class="popup-container" onclick="event.stopPropagation();">
-                <h2>Assign Student</h2>
-                <input type="text" id="search" placeholder="New Class Name">
-                <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>Student</b></h2>
+                                            <c:forEach items="${requestScope.addstudent}" var="u" varStatus="x" >
+                                                <tr>
+                                                    <td>${x.count}</td>
+                                                    <td><a href="#">${u.accountID}</a></td>
+                                                    <td>${u.name}</td>                        
+                                                    <td>${u.email} </td>
+
+                                                    <td>
+                                                        <input type="checkbox" name="add" value="ON" />
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
+                        <button class ="popup-button" type="submit">Save</button>
+                        <span class ="popup-button" onclick="closeAssignStudentPopup()">Cancel</span>
                     </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ID</th>						
-                                <th>Name</th>
-                                <th>Email</th>
-                               
-                                <th>Add</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                           
-                            <c:forEach items="${requestScope.addstudent}" var="u" varStatus="x" >
-                                <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
-                                    
-                                    <td>
-                                         <input type="checkbox" name="add" value="ON" />
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                </div>
 
+                <!--pop up--------------------------------------------------------------------------------------------------->
 
-                        </tbody>
-                    </table>
-                 </div>
-            </div>
-        </div>
-                <button class ="popup-button" onclick="editClassName()">Save</button>
-                <button class ="popup-button" onclick="closeAssignStudentPopup()">Cancel</button>
-            </div>
-             </div>
-
-<!--pop up--------------------------------------------------------------------------------------------------->
-
-        <div> 
-            <a style="font-size: 36px; margin-bottom: 10px; width:50%">
-                ${requestScope.classInfo.className}
-                <button class="edit-button" onclick="openPopup('SE1732')">Edit Name</button>
-        </div>
-            <div>
-                <a style ="padding: 5px;"
-                    href="#">Home</a> / 
+                <div> 
+                    <a style="font-size: 36px; margin-bottom: 10px; width:50%">
+                        ${requestScope.classInfo.className}
+                        <button class="edit-button" onclick="openPopup('SE1732')">Edit Name</button>
+                </div>
+                <div>
+                    <a style ="padding: 5px;"
+                       href="#">Home</a> / 
                     <a style ="padding: 5px;" 
                        href="managerViewClassList?courseID=${requestScope.courseID}">${requestScope.courseID}</a> /
-                        <a style ="padding: 5px;" 
-                           >${requestScope.classInfo.className}</a>
-            </div>
-<%
-    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
-    response.setHeader("Pragma","no-cache"); //HTTP 1.0
-    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
-%>
-        <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>Lecturer</b></h2>
+                    <a style ="padding: 5px;" 
+                       >${requestScope.classInfo.className}</a>
+                </div>
+                <%
+                    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+                    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+                    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+                %>
+                <div class="container-xl">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h2> </a><b>Lecturer</b></h2>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <button onclick="openAssignLecturerPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-7">
-                                <button onclick="openAssignLecturerPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
-                                
-                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ID</th>						
+                                        <th>Name</th>
+                                        <th>Email</th>
+
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+
+                                    <c:forEach items="${requestScope.lecturer}" var="u" varStatus="x" >
+                                        <tr>
+                                            <td>${x.count}</td>
+                                            <td><a href="#">${u.accountID}</a></td>
+                                            <td>${u.name}</td>                        
+                                            <td>${u.email} </td>
+
+                                            <td>
+                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+
+                                </tbody>
+                            </table>
+                            <!--                    <div class="clearfix">
+                                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                                                    <ul class="pagination">
+                                                        <li class="page-item disabled"><a href="#">Previous</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                                                    </ul>
+                                                </div>-->
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ID</th>						
-                                <th>Name</th>
-                                <th>Email</th>
-                               
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                             
-
-                        <tbody>
-
-                            <c:forEach items="${requestScope.lecturer}" var="u" varStatus="x" >
-                                <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
-                                    
-                                    <td>
-                                    <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                </div>     
+                <div class="container-xl">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h2> </a><b>Student</b></h2>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <button onclick="openAssignStudentPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Student</span></button>
 
 
-                        </tbody>
-                    </table>
-                    <!--                    <div class="clearfix">
-                                            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                            <ul class="pagination">
-                                                <li class="page-item disabled"><a href="#">Previous</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                            </ul>
-                                        </div>-->
-                </div>
-            </div>
-        </div>     
-        <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>Student</b></h2>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-7">
-                                <button onclick="openAssignStudentPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Student</span></button>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>ID</th>						
+                                        <th>Name</th>
+                                        <th>Email</th>
 
-                                
-                            </div>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <!--                               <tr>
+                                                                    <td>1</td>
+                                                                    <td><a href="#">Thinhnvhe163468</a></td>
+                                                                    <td>nguyen van thinh</td>                        
+                                                                    <td>thinhnvhe163468@fpt.edu.vn </td>
+                                                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
+                                                                    <td>
+                                                                    <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
+                                                                    </td>
+                                                                </tr>-->
+                                <tbody>
+
+                                    <c:forEach items="${requestScope.student}" var="u" varStatus="x" >
+                                        <tr>
+                                            <td>${x.count}</td>
+                                            <td><a href="#">${u.accountID}</a></td>
+                                            <td>${u.name}</td>                        
+                                            <td>${u.email} </td>
+
+
+                                            <td>
+                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+
+                                </tbody>
+                            </table>
+                            <!--                    <div class="clearfix">
+                                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                                                    <ul class="pagination">
+                                                        <li class="page-item disabled"><a href="#">Previous</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                                                    </ul>
+                                                </div>-->
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ID</th>						
-                                <th>Name</th>
-                                <th>Email</th>
-                           
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-<!--                               <tr>
-                                    <td>1</td>
-                                    <td><a href="#">Thinhnvhe163468</a></td>
-                                    <td>nguyen van thinh</td>                        
-                                    <td>thinhnvhe163468@fpt.edu.vn </td>
-                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                    <td>
-                                    <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>-->
-                        <tbody>
-
-                            <c:forEach items="${requestScope.student}" var="u" varStatus="x" >
-                                <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
-                                   
-                                    
-                                    <td>
-                                     <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-
-
-                        </tbody>
-                    </table>
-                    <!--                    <div class="clearfix">
-                                            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                            <ul class="pagination">
-                                                <li class="page-item disabled"><a href="#">Previous</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                            </ul>
-                                        </div>-->
-                </div>
+                </div>     
             </div>
-        </div>     
-        </div>
         </section>
-<!-- Blurred overlay -->
-    <div id="overlay" class="overlay"></div>
+        <!-- Blurred overlay -->
+        <div id="overlay" class="overlay"></div>
         <script>
             // Function to open the edit class name pop-up
             function openPopup(className) {
@@ -914,11 +917,11 @@
                 newClassNameInput.value = className;
                 overlay.style.display = 'block';
             }
-              function openDelete(){
+            function openDelete() {
                 const divPopUp = document.querySelector("#deleterCouse");
                 const showBtn = document.querySelector("show");
                 divPopUp.style.display = 'block';
-                
+
             }
             function openAssignLecturerPopup(className) {
                 const overlay = document.getElementById('assignLecturerPopup');
@@ -926,7 +929,7 @@
                 newClassNameInput.value = className;
                 overlay.style.display = 'block';
             }
-             function openAssignStudentPopup(className) {
+            function openAssignStudentPopup(className) {
                 const overlay = document.getElementById('assignStudentrPopup');
                 const newClassNameInput = document.getElementById('search');
                 newClassNameInput.value = className;
@@ -938,8 +941,8 @@
                 const overlay = document.getElementById('classEditPopup');
                 overlay.style.display = 'none';
             }
-              function closePopUp(){
-                 const divPopUp = document.querySelector("#deleterCouse");
+            function closePopUp() {
+                const divPopUp = document.querySelector("#deleterCouse");
                 divPopUp.style.display = 'none';
             }
             function closeAssignLecturerPopup() {

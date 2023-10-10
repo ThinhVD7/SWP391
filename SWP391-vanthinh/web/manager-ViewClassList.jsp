@@ -14,7 +14,7 @@
         <%@include file="all_component/allCss.jsp" %>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <link rel="stylesheet" href="all_component/studentStyle.css" />
-        
+
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -205,13 +205,13 @@
 
             }
             .class-list {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin-left: 30px;
-            margin-right: 30px;
-            margin-top: 30px;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                margin-left: 30px;
+                margin-right: 30px;
+                margin-top: 30px;
             }
 
             .class-container {
@@ -225,30 +225,30 @@
                 width: 50%;
             }
             .exam-detail {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            margin: 20px auto;
-            width:80%;
-            text-align: center; 
-            
-        }
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                margin: 20px auto;
+                width:80%;
+                text-align: center;
 
-        .edit-exam-button {
-            background-color: #3366CC;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            margin-top: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
-        }
-        
-        
-        body {
+            }
+
+            .edit-exam-button {
+                background-color: #3366CC;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+            }
+
+
+            body {
                 color: #566787;
                 background: #f5f5f5;
                 font-family: 'Varela Round', sans-serif;
@@ -410,52 +410,52 @@
                 margin-top: 10px;
                 font-size: 13px;
             }
-            
-        .edit-button {
-            background-color: #299be4;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-        .popup-button {
-            background-color: #299be4;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            padding: 5px 10px;
-            font-size: 10px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-        }
-             /* Style for the pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 1;
-        }
-        .overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
-            backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
-            z-index: 1;
-        }
-                    .addCourse{
+
+            .edit-button {
+                background-color: #299be4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                font-size: 14px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+            .popup-button {
+                background-color: #299be4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 5px 10px;
+                font-size: 10px;
+                cursor: pointer;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            }
+            /* Style for the pop-up */
+            .popup {
+                display: none;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 1;
+            }
+            .overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
+                backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
+                z-index: 1;
+            }
+            .addCourse{
                 position: absolute;
                 top: 0;
                 display: flex;
@@ -463,9 +463,9 @@
                 justify-content: center;
                 width: 100%;
                 height: 100%;
-                
+
             }
-            
+
             .addCourseContent{
                 padding: 60px;
                 border: 2px solid #ccc;
@@ -480,9 +480,9 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                
+
             }
-            
+
             .addCourseTitle{
                 color: blue;
                 font-family: sans-serif;
@@ -498,7 +498,7 @@
                 border-radius: 20px;
                 box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
             }
-            
+
             .form-field input {
                 width: 100%;
                 display: block;
@@ -519,10 +519,10 @@
                 transition: .4s;
                 margin-top: 10px;
                 border-radius: 5px;
-                
+
                 &:hover{
                     transform: scale(1.05);
-                }          
+                }
             }
             .closePopUp1{
                 padding: 4px 12px;
@@ -533,23 +533,23 @@
                 transition: .4s;
                 margin-top: 10px;
                 border-radius: 5px;
-                
+
                 &:hover{
                     transform: scale(1.05);
-                }          
+                }
             }
-        /* Style for the clear pop-up container */
-        .popup-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 2;
-        }
+            /* Style for the clear pop-up container */
+            .popup-container {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 2;
+            }
         </style>
     </head>
     <body>
@@ -589,7 +589,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-                
+
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -614,118 +614,128 @@
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
-            
-            
-        <div class="class-list">
-<!--pop up--------------------------------------------------------------------------------------------------->
-            <div class="addCourse" id="deleterCouse" style="display: none;">
-                <div class="addCourseContent">
-                    <h3 class="addCourseTitle" id="titleCourse">Delete Class</h3> 
-                    <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
-                    <button class="closePopUp1" type="submit" >Yes</button>
-                    <button class="closePopUp1" type="submit" >No</button>
-                    <button class="closePopUp" onclick="closePopUp()">Close</button>
-                </div>
-            </div>
-<!--Assign Lecturer-->
-                      <div class="addCourse" id="addCourse" style="display: none;">
-                <div class="addCourseContent">
-                    <h3 class="addCourseTitle" id="titleCourse">Add Class</h3> 
-                    <div class="form-field d-flex align-items-center"> 
-                        <!--<span class="far fa-user"></span>-->
-                        <input type="text" name="courseName" id="courseName" placeholder="ClassName" required="">
+
+
+            <div class="class-list">
+                <!--pop up--------------------------------------------------------------------------------------------------->
+                <div class="addCourse" id="deleterCouse" style="display: none;">
+                    <div class="addCourseContent">
+                        <h3 class="addCourseTitle" id="titleCourse">Delete Class</h3> 
+                        <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
+                        <button class="closePopUp1" type="submit" >Yes</button>
+                        <button class="closePopUp1" type="submit" >No</button>
+                        <button class="closePopUp" onclick="closePopUp()">Close</button>
                     </div>
-                    <button class="closePopUp" type="submit" >Submit</button>
-                    <button class="closePopUp" onclick="closePopUp1()">Close</button>
                 </div>
-            </div>
-<!--pop up--------------------------------------------------------------------------------------------------->
+                <!--Assign Lecturer-->
+                <div class="addCourse" id="addCourse" style="display: none;">
+                    <div class="addCourseContent">
+                        <form action="managerViewClassList" method="POST">
+                            <h3 class="addCourseTitle" id="titleCourse">Add Class</h3> 
+                            <div class="form-field d-flex align-items-center"> 
+                                <!--<span class="far fa-user"></span>-->
+                                <input type="text" name="classID" id="classID" placeholder="Class ID" required="">
+                            </div>
+                            <div class="form-field d-flex align-items-center"> 
+                                <!--<span class="far fa-user"></span>-->
+                                <input type="text" name="className" id="className" placeholder="ClassName" required="">
+                            </div>
+                            <div class="form-field d-flex align-items-center"> 
+                                <!--<span class="far fa-user"></span>-->
+                                <input type="text" name="courseID" id="courseID" placeholder="courseID" required="">
+                            </div>
+                            <button class="closePopUp" type="submit" >Submit</button>
+                            <button class="closePopUp" onclick="closePopUp1()">Close</button>
+                        </form>
+                    </div>
+                </div>
+                <!--pop up--------------------------------------------------------------------------------------------------->
 
 
-<%
-    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
-    response.setHeader("Pragma","no-cache"); //HTTP 1.0
-    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
-%>
-        <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>View Class List</b></h2>
+                <%
+                    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+                    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+                    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+                %>
+                <div class="container-xl">
+                    <div class="table-responsive">
+                        <div class="table-wrapper">
+                            <div class="table-title">
+                                <div class="row">
+                                    <div class="col-sm-5">
+                                        <h2> </a><b>View Class List</b></h2>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <button onclick="openPopUp()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Class</span></button>
+
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-7">
-                                <button onclick="openPopUp()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Class</span></button>
-                                
-                            </div>
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Class_ID</th>						
+                                        <th>Class Name</th>
+                                        <th>Course_ID</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <!--                              <tr>
+                                                                    <td></td>
+                                                                    <td><a href="#">MAS291_SE1714</a></td>
+                                                                    <td>SE1714</td>                        
+                                                                    <td>MAS291 </td>
+                                                                    <td>
+                                                                        <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
+                                                                    </td>
+                                                                </tr>-->
+
+                                <tbody>
+
+                                    <c:forEach items="${requestScope.class1}" var="u" varStatus="x" >
+                                        <tr>
+                                            <td>${x.count}</td>
+                                            <td><a href="managerViewLecturer?CID=${u.classID}&courseID=${requestScope.courseID} ">${u.classID}</a></td>
+                                            <td>${u.className}</td>                        
+                                            <td>${u.courseID} </td>
+                                            <td>
+                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+
+                                </tbody>
+                            </table>
+                            <!--                    <div class="clearfix">
+                                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
+                                                    <ul class="pagination">
+                                                        <li class="page-item disabled"><a href="#">Previous</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
+                                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
+                                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                                                    </ul>
+                                                </div>-->
                         </div>
                     </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Class_ID</th>						
-                                <th>Class Name</th>
-                                <th>Course_ID</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-<!--                              <tr>
-                                    <td></td>
-                                    <td><a href="#">MAS291_SE1714</a></td>
-                                    <td>SE1714</td>                        
-                                    <td>MAS291 </td>
-                                    <td>
-                                        <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>-->
-
-                        <tbody>
-
-                            <c:forEach items="${requestScope.class1}" var="u" varStatus="x" >
-                                <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="managerViewLecturer?CID=${u.classID}&courseID=${requestScope.courseID} ">${u.classID}</a></td>
-                                    <td>${u.className}</td>                        
-                                    <td>${u.courseID} </td>
-                                    <td>
-                                    <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-
-
-                        </tbody>
-                    </table>
-                    <!--                    <div class="clearfix">
-                                            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                            <ul class="pagination">
-                                                <li class="page-item disabled"><a href="#">Previous</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                            </ul>
-                                        </div>-->
-                </div>
+                </div>        
             </div>
-        </div>        
-        </div>
         </section>
-<!-- Blurred overlay -->
-    <div id="overlay" class="overlay"></div>
+        <!-- Blurred overlay -->
+        <div id="overlay" class="overlay"></div>
         <script>
             // Function to open the edit class name pop-up
-              function openDelete(){
+            function openDelete() {
                 const divPopUp = document.querySelector("#deleterCouse");
                 const showBtn = document.querySelector("show");
                 divPopUp.style.display = 'block';
-                
+
             }
-            function openPopUp(){
+            function openPopUp() {
                 const divPopUp = document.querySelector("#addCourse");
                 divPopUp.style.display = 'block';
                 document.getElementById("Class_ID").value = '';
@@ -734,12 +744,12 @@
             }
 
             // Function to close the pop-up
-              function closePopUp(){
-                 const divPopUp = document.querySelector("#deleterCouse");
+            function closePopUp() {
+                const divPopUp = document.querySelector("#deleterCouse");
                 divPopUp.style.display = 'none';
             }
-            function closePopUp1(){
-                 const divPopUp = document.querySelector("#addCourse");
+            function closePopUp1() {
+                const divPopUp = document.querySelector("#addCourse");
                 divPopUp.style.display = 'none';
             }
 

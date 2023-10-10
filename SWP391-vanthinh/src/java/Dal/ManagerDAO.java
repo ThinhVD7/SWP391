@@ -428,7 +428,29 @@ public class ManagerDAO extends DBContext {
         }
         return null;
          }
+         
+        
+    public ArrayList<Lecturer> getLecturerWhichClass(String cID){
+        try {
+            ArrayList<Lecturer> list = new ArrayList<Lecturer>();
+            String strSelect = "INSERT INTO lecturerinwhichclass (Lecturer_ID, Class_ID) VALUES ('hien_ac123477', 'SE1732_MAS291');";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+             ps.setString(1, cID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Lecturer c = new Lecturer();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
 
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
     public static void main(String[] args) {
         ManagerDAO d = new ManagerDAO();
         String cid = "SE1732_MAS291";
