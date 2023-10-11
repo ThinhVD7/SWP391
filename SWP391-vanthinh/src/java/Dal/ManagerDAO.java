@@ -462,7 +462,6 @@ public class ManagerDAO extends DBContext {
              ps.setString(2, lID);
              ps.setString(3, bID);
             ps.executeUpdate();
-           
         } catch (SQLException e) {            
           System.out.println(e);
         }

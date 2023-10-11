@@ -89,8 +89,32 @@ public class managerViewClassList extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
-    }
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        String cID = request.getParameter("courseID");
+        String className = request.getParameter("className");
+        String classID =  className+"_"+cID;
+        
+        
+//        check user's authority by role
+        if(user.getRoleID()!=1)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+            ManagerDAO dao=new ManagerDAO();
+            List<Class1> class1 = dao.getClassByCourseID(cID);
+            dao.AddClass(classID,className,cID);
+            request.setAttribute("classID", classID);
+            request.setAttribute("className", className);
+            request.setAttribute("courseID",cID);
+            request.setAttribute("class1", class1);
+            request.setAttribute("classID", classID);
+            request.getRequestDispatcher("manager-ViewClassList.jsp").forward(request, response);
+    } 
 
     /** 
      * Returns a short description of the servlet.

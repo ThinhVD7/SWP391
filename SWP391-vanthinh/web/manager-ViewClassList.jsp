@@ -628,20 +628,24 @@
                     </div>
                 </div>
                 <!--Assign Lecturer-->
+                <form action="managerViewClassList" method="POST">
                 <div class="addCourse" id="addCourse" style="display: none;">
                     <div class="addCourseContent">
-                        <form action="managerViewClassList" method="POST">
                             <h3 class="addCourseTitle" id="titleCourse">Add Class</h3> 
                             <span name="classID" > ${requestScope.classID}<span/>
                             <div class="form-field d-flex align-items-center"> 
                                 <!--<span class="far fa-user"></span>-->
                                 <input type="text" name="className" id="className" placeholder="ClassName" required="">
+                                <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                <input name="className" value="${requestScope.className}" style="display: none"/>
+                                <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
                             </div>
                             <button class="closePopUp" type="submit" >Submit</button>
                             <button class="closePopUp" onclick="closePopUp1()">Close</button>
-                        </form>
                     </div>
                 </div>
+               </form>
+
                 <!--pop up--------------------------------------------------------------------------------------------------->
 
 

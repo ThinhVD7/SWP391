@@ -181,7 +181,7 @@
                     <h3> Delete Course</h3> 
                     <h6> You clicked delete on accident didn't you?</h6>
                     <button class="closePopUp" onclick="closeDeletePopUp()" >Yes</button>
-                    <button class="closePopUp" onclick="delCousera('')" >No</button>
+                    <button class="closePopUp" onclick="delCousera()" >No</button>
                     <button class="closePopUp" onclick="closeDeletePopUp()">Close</button>
                 </div>
             </div>
@@ -300,6 +300,7 @@
                         function openDelete(courseId) {
                             const divPopUp = document.querySelector("#deleteCourse");
                             const showBtn = document.querySelector("show");
+                            
                             divPopUp.style.display = 'block';
                         }
                         
@@ -392,7 +393,7 @@
                             const divPopUp = document.querySelector("#addCourse");
                             divPopUp.style.display = 'none';
                         }
-                        function closeDeletePopUp() {
+                        function closeDeletePopUp(courseId) {
                             const divPopUp = document.querySelector("#deleteCourse");
                             divPopUp.style.display = 'none';
                         }

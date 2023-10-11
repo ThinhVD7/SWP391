@@ -677,7 +677,7 @@
                                                                                         <input type="checkbox" name="add" value="ON" />
                                                                                     </td>
                                                                                 </tr>-->
-                                            <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                          <input name="classID" value="${requestScope.classID}" style="display: none"/>
                                             <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
                                             <input name="status" value="1" style="display: none"/>
 
