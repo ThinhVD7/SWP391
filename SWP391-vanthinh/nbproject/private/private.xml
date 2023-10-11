@@ -4,10 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/web/manager-ClassDetail.jsp</file>
+            <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/src/java/Controller/addAccount.java</file>
             <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/src/java/Controller/managerViewLecturer.java</file>
             <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/web/manager-Homepage.jsp</file>
+            <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/src/java/Controller/studentHome.java</file>
             <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/src/java/Controller/deteleCourse.java</file>
-            <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/src/java/Controller/managerViewClassList.java</file>
             <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/web/manager-ViewClassList.jsp</file>
             <file>file:/C:/Users/acer/SWP391/SWP391-vanthinh/src/java/Dal/ManagerDAO.java</file>
         </group>

@@ -632,17 +632,10 @@
                     <div class="addCourseContent">
                         <form action="managerViewClassList" method="POST">
                             <h3 class="addCourseTitle" id="titleCourse">Add Class</h3> 
-                            <div class="form-field d-flex align-items-center"> 
-                                <!--<span class="far fa-user"></span>-->
-                                <input type="text" name="classID" id="classID" placeholder="Class ID" required="">
-                            </div>
+                            <span name="classID" > ${requestScope.classID}<span/>
                             <div class="form-field d-flex align-items-center"> 
                                 <!--<span class="far fa-user"></span>-->
                                 <input type="text" name="className" id="className" placeholder="ClassName" required="">
-                            </div>
-                            <div class="form-field d-flex align-items-center"> 
-                                <!--<span class="far fa-user"></span>-->
-                                <input type="text" name="courseID" id="courseID" placeholder="courseID" required="">
                             </div>
                             <button class="closePopUp" type="submit" >Submit</button>
                             <button class="closePopUp" onclick="closePopUp1()">Close</button>

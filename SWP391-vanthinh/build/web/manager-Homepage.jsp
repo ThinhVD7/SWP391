@@ -114,6 +114,19 @@
                     transform: scale(1.05);
                 }
             }
+            
+             /* Style for the pop-up */
+            .popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 2;
+            }
         </style>
     </head>
     <body>
@@ -150,41 +163,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-                <!--                <li>
-                                    <a href="#">
-                                        <i class="bx bx-phone-call"></i>
-                                        <span class="title">Calls</span>
-                                    </a>
-                                    <span class="tooltip">Calls</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-bookmark"></i>
-                                        <span class="title">Bookmarks</span>
-                                    </a>
-                                    <span class="tooltip">Bookmarks</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-wallet-alt"></i>
-                                        <span class="title">Wallet</span>
-                                    </a>
-                                    <span class="tooltip">Wallet</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bxs-devices"></i>
-                                        <span class="title">Devices</span>
-                                    </a>
-                                    <span class="tooltip">Devices</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-cog"></i>
-                                        <span class="title">Setting</span>
-                                    </a>
-                                    <span class="tooltip">Setting</span>
-                                </li>-->
+             
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -195,6 +174,17 @@
             </div>
         </section>
         <section class="home">
+            
+        <!--pop up--------------------------------------------------------------------------------------------------->
+            <div class="addCourse" id="deleteCourse" style="display: none;">
+                <div class="popup">
+                    <h3> Delete Course</h3> 
+                    <h6> You clicked delete on accident didn't you?</h6>
+                    <button class="closePopUp" onclick="closeDeletePopUp()" >Yes</button>
+                    <button class="closePopUp" onclick="delCousera('')" >No</button>
+                    <button class="closePopUp" onclick="closeDeletePopUp()">Close</button>
+                </div>
+            </div>
 
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
@@ -221,11 +211,6 @@
                 </div>
 
 
-                <!--                <div class="col-md-3 mw-20 mh-20 p-3" style="border: solid wheat;border-radius: 20px">
-                                    <a href="#">  <div>
-                                            <i class="fa fa-plus-circle fa-xl" aria-hidden="true"></i> <p>Add Course</p>
-                                        </div> </a>
-                                </div>-->
             </div>
 
 
@@ -234,30 +219,18 @@
                 <div class="row mt-5">
 
                     <c:forEach items="${requestScope.course}" var="c" varStatus="loop">
-                        <!--                        <div class='course-item col-md-4 col-md-6 col-lg-3 pt-3'>
-                                                    <div class="card">
-                                                        <div class="card-body"> 
-                                                            <a href="">
-                                                                <h4 class="card-title">${c.courseName}</h4>  
-                                                            </a>
-                                                            <h7 class="card-subtitle mb-2 text-muted">Semester:${c.semester}</h7>
-                                                            <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6>
-                                                            <a href="#" class="card-link">Enter course</a>
-                                                            <a href="#" class="card-link"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
                         <div class="col col-sm-4 mt-4">
                             <div class="card">
                                 <div class="card-body">
                                     <form >
-                                        <a style="text-decoration: none;"  href="/QuizNew/managerViewClassList?courseID=${c.courseID}">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
+                                        <a style="text-decoration: none;"  href="managerViewClassList?courseID=${c.courseID}">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
                                         <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                        <span style="float: right"> <a onclick="openEdit('${c.courseID}', '${c.courseName}', '${c.semester}', '4${c.startDate}', '${c.endDate}')"><i class="fa-solid fa-pen-to-square" style="color: #0be50e;"></i> </span>
+                                        <span style="float: right"> <a onclick="openEdit('${c.courseID}', '${c.courseName}', '${c.semester}', '4${c.startDate}', '${c.endDate}')"><i class="fa-solid fa-pen-to-square" style="color: #0be50e;"></i></a> </span>
                                         <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
                                         <span style="float: right"> <a onclick="closeEdit()">
-                                                <i onclick="delCousera('${c.courseID}')" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                                <!--<i onclick="delCousera('${c.courseID}')" onclick="openDelete()" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>-->
+                                                <i onclick="openDelete('${c.courseID}')" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
                                     </form>
                                 </div>
                             </div>
@@ -322,6 +295,15 @@
                                 btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                             }
                         }
+                        
+                        
+                        function openDelete(courseId) {
+                            const divPopUp = document.querySelector("#deleteCourse");
+                            const showBtn = document.querySelector("show");
+                            divPopUp.style.display = 'block';
+                        }
+                        
+                       
 
                         function openPopUp() {
                             const divPopUp = document.querySelector("#addCourse");
@@ -339,7 +321,7 @@
                             const day = '' + d.getDate();
                             const year = d.getFullYear();
 
-                            return [month.padStart(2, '0'), day.padStart(2, '0'), year].join('/');
+                            return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('/');
                         }
 
                         function getInfoAddCourse() {
@@ -408,6 +390,10 @@
 
                         function closePopUp() {
                             const divPopUp = document.querySelector("#addCourse");
+                            divPopUp.style.display = 'none';
+                        }
+                        function closeDeletePopUp() {
+                            const divPopUp = document.querySelector("#deleteCourse");
                             divPopUp.style.display = 'none';
                         }
 

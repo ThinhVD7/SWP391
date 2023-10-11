@@ -430,32 +430,47 @@ public class ManagerDAO extends DBContext {
          }
          
         
-    public ArrayList<Lecturer> getLecturerWhichClass(String cID){
+    public void insetLecturerIntoClass(String cID, String lID){
         try {
-            ArrayList<Lecturer> list = new ArrayList<Lecturer>();
-            String strSelect = "INSERT INTO lecturerinwhichclass (Lecturer_ID, Class_ID) VALUES ('hien_ac123477', 'SE1732_MAS291');";
+            String strSelect = "INSERT INTO lecturerinwhichclass (Lecturer_ID, Class_ID) VALUES (?, ?);";
             PreparedStatement ps = connector.prepareStatement(strSelect);
              ps.setString(1, cID);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Lecturer c = new Lecturer();
-                c.setAccountID(rs.getString(1));
-                c.setName(rs.getString(2));
-                c.setEmail(rs.getString(3));
-
-                list.add(c);
-            }
-            return list;
+             ps.setString(2, lID);
+            ps.executeUpdate();
+            
         } catch (SQLException e) {
             System.out.println(e);
         }
-        return null;
     }
+        public void insetStudentIntoClass(String cID, String lID){
+        try {
+            String strSelect = "INSERT INTO studentinwhichclass (Student_ID, Class_ID) VALUES (?, ?);";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+             ps.setString(1, cID);
+             ps.setString(2, lID);
+             ps.executeUpdate();
+           
+        } catch (SQLException e) {            
+          System.out.println(e);
+        }
+    }
+        public void AddClass(String cID, String lID,String bID){
+        try {
+            String strSelect = "INSERT INTO class (Class_ID, ClassName, Course_ID) VALUES (?, ?, ?);";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+             ps.setString(1, cID);
+             ps.setString(2, lID);
+             ps.setString(3, bID);
+            ps.executeUpdate();
+           
+        } catch (SQLException e) {            
+          System.out.println(e);
+        }
+    }
+        
     public static void main(String[] args) {
         ManagerDAO d = new ManagerDAO();
-        String cid = "SE1732_MAS291";
-        Class1 c = d.getClassByID(cid);
-        System.out.println(c.toString());
+      //  d.insetStudentIntoClass("thinhvd_se_11111", "SE1744_MAS291");
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }

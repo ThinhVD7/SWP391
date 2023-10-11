@@ -678,18 +678,21 @@
                                                                                     </td>
                                                                                 </tr>-->
                                             <input name="classID" value="${requestScope.classID}" style="display: none"/>
-                                                <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
-                                                    <tr>
-                                                        <td>${x.count}</td>
-                                                        <td><a href="#">${u.accountID}</a></td>
-                                                        <td>${u.name}</td>                        
-                                                        <td>${u.email} </td>
+                                            <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
+                                            <input name="status" value="1" style="display: none"/>
 
-                                                        <td>
-                                                            <input type="checkbox" name="add" value=${u.accountID} />
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
+
+                                            <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
+                                                <tr>
+                                                    <td>${x.count}</td>
+                                                    <td><a href="#">${u.accountID}</a></td>
+                                                    <td>${u.name}</td>                        
+                                                    <td>${u.email} </td>
+                                                    <td>
+                                                        <input type="checkbox" name="add" value=${u.accountID} />
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
 
 
                                             </tbody>
@@ -703,33 +706,38 @@
                     </div>
                 </form>
                 <!--Assign Student------------------------->
-                <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 
-                    <div class="popup-container" onclick="event.stopPropagation();">
-                        <h2>Assign Student</h2>
-                        <input type="text" id="search" placeholder="New Class Name">
-                        <div class="container-xl">
-                            <div class="table-responsive">
-                                <div class="table-wrapper">
-                                    <div class="table-title">
-                                        <div class="row">
-                                            <div class="col-sm-5">
-                                                <h2> </a><b>Student</b></h2>
+                <form action="managerViewLecturer" method="post">
+
+                    <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 
+                        <div class="popup-container" onclick="event.stopPropagation();">
+                            <h2>Assign Student</h2>
+                            <input type="text" id="search" placeholder="New Class Name">
+                            <div class="container-xl">
+                                <div class="table-responsive">
+                                    <div class="table-wrapper">
+                                        <div class="table-title">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <h2> </a><b>Student</b></h2>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>ID</th>						
-                                                <th>Name</th>
-                                                <th>Email</th>
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ID</th>						
+                                                    <th>Name</th>
+                                                    <th>Email</th>
 
-                                                <th>Add</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
+                                                    <th>Add</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
 
+                                            <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                            <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
+                                            <input name="status" value="0" style="display: none"/>
 
                                             <c:forEach items="${requestScope.addstudent}" var="u" varStatus="x" >
                                                 <tr>
@@ -739,21 +747,22 @@
                                                     <td>${u.email} </td>
 
                                                     <td>
-                                                        <input type="checkbox" name="add" value="ON" />
+                                                        <input type="checkbox" name="add" value=${u.accountID} />
                                                     </td>
                                                 </tr>
                                             </c:forEach>
 
 
-                                        </tbody>
-                                    </table>
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
+                            <button class ="popup-button" onclick="editClassName()">Save</button>
+                            <span class ="popup-button" onclick="closeAssignStudentPopup()">Cancel</span>
                         </div>
-                        <button class ="popup-button" type="submit">Save</button>
-                        <span class ="popup-button" onclick="closeAssignStudentPopup()">Cancel</span>
                     </div>
-                </div>
+                </form>
 
                 <!--pop up--------------------------------------------------------------------------------------------------->
 
