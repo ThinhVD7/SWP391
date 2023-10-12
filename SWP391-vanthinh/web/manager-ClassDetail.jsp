@@ -677,7 +677,7 @@
                                                                                         <input type="checkbox" name="add" value="ON" />
                                                                                     </td>
                                                                                 </tr>-->
-                                          <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                            <input name="classID" value="${requestScope.classID}" style="display: none"/>
                                             <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
                                             <input name="status" value="1" style="display: none"/>
 
@@ -981,7 +981,28 @@
                 side_bar.classList.toggle("expand");
                 changebtn();
             });
-
+//            function delLecturer(lecturerId) {
+//                var dk = confirm('Bạn có muốn xóa không ?');
+//
+//                if (dk) {
+//                    $.ajax({
+//                        url: contextPath + "/deleteLecturer",
+//                        type: "POST",
+//                        data: {
+//                            lecturerId:lecturerId
+//                        },
+//                        success: function (response) {
+//                            window.location.reload();
+//                        },
+//                        error: function (xhr, status, error) {
+//
+//                        }
+//                    });
+//                } else {
+//
+//                }
+//
+//            }
             function changebtn() {
                 if (side_bar.classList.contains("expand")) {
                     btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");

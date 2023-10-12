@@ -689,7 +689,7 @@
                                                                 </tr>-->
 
                                 <tbody>
-
+                                <form >
                                     <c:forEach items="${requestScope.class1}" var="u" varStatus="x" >
                                         <tr>
                                             <td>${x.count}</td>
@@ -701,6 +701,7 @@
                                             </td>
                                         </tr>
                                     </c:forEach>
+                                </form>
 
 
                                 </tbody>
@@ -749,6 +750,28 @@
                 const divPopUp = document.querySelector("#addCourse");
                 divPopUp.style.display = 'none';
             }
+//            function delClass(classId) {
+//                            var dk = confirm('Bạn có muốn xóa không ?');
+//
+//                            if (dk) {
+//                                $.ajax({
+//                                    url: contextPath + "/deleteClass",
+//                                    type: "POST",
+//                                    data: {
+//                                        classId: classId
+//                                    },
+//                                    success: function (response) {
+//                                        window.location.reload();
+//                                    },
+//                                    error: function (xhr, status, error) {
+//
+//                                    }
+//                                });
+//                            } else{
+//                                
+//                            }
+//
+//                        }
 
             // Function to save the edited class name
             function editClassName() {

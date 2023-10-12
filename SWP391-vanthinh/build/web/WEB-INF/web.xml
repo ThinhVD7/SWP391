@@ -78,6 +78,14 @@
         <servlet-name>addClass</servlet-name>
         <servlet-class>Controller.addClass</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteClass</servlet-name>
+        <servlet-class>Controller.deleteClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>deleteLecturer</servlet-name>
+        <servlet-class>Controller.deleteLecturer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -145,6 +153,14 @@
     <servlet-mapping>
         <servlet-name>addClass</servlet-name>
         <url-pattern>/addClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteClass</servlet-name>
+        <url-pattern>/deleteClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteLecturer</servlet-name>
+        <url-pattern>/deleteLecturer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -466,7 +466,40 @@ public class ManagerDAO extends DBContext {
           System.out.println(e);
         }
     }
-        
+        public void deleteClassbyID(String classID)
+            {
+                String deleteClass = "";
+                try 
+                {
+                    deleteClass = "delete from lecturerinwhichclass where Class_ID = ?";
+                    PreparedStatement ps = connector.prepareStatement(deleteClass);
+                    ps = connector.prepareStatement(deleteClass);
+                    ps.setString(1, classID);
+                    ps.executeUpdate();
+                    deleteClass = "delete from studentinwhichclass where Class_ID = ?";
+                    ps = connector.prepareStatement(deleteClass);
+                    ps.setString(1, classID);
+                    ps.executeUpdate();
+                    deleteClass = "delete from class where Class_ID = ?";
+                    ps = connector.prepareStatement(deleteClass);
+                    ps.setString(1, classID);
+                    ps.executeUpdate();
+                } 
+                catch (Exception e) 
+                {
+                    System.out.println(e);
+                }
+            }
+            public void deleteLecturer(String Lecturer_ID) {
+        String sql = "delete from lecturerinwhichclass where Class_ID = ?";
+        try {
+            PreparedStatement st = connector.prepareStatement(sql);
+            st.setString(1, Lecturer_ID);
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
     public static void main(String[] args) {
         ManagerDAO d = new ManagerDAO();
       //  d.insetStudentIntoClass("thinhvd_se_11111", "SE1744_MAS291");

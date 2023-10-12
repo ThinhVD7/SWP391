@@ -230,7 +230,7 @@
                                         <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
                                         <span style="float: right"> <a onclick="closeEdit()">
                                                 <!--<i onclick="delCousera('${c.courseID}')" onclick="openDelete()" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>-->
-                                                <i onclick="openDelete('${c.courseID}')" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                                <i onclick="delCousera('${c.courseID}')" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
                                     </form>
                                 </div>
                             </div>
@@ -297,12 +297,12 @@
                         }
                         
                         
-                        function openDelete(courseId) {
-                            const divPopUp = document.querySelector("#deleteCourse");
-                            const showBtn = document.querySelector("show");
-                            
-                            divPopUp.style.display = 'block';
-                        }
+//                        function openDelete(courseId) {
+//                            const divPopUp = document.querySelector("#deleteCourse");
+//                            const showBtn = document.querySelector("show");
+//                            
+//                            divPopUp.style.display = 'block';
+//                        }
                         
                        
 
@@ -373,19 +373,26 @@
                         }
 
                         function delCousera(courseId) {
-                            $.ajax({
-                                url: contextPath + "/deteleCourse",
-                                type: "POST",
-                                data: {
-                                    courseId: courseId
-                                },
-                                success: function (response) {
-                                    window.location.reload();
-                                },
-                                error: function (xhr, status, error) {
+                            var dk = confirm('Bạn có muốn xóa không ?');
 
-                                }
-                            });
+                            if (dk) {
+                                $.ajax({
+                                    url: contextPath + "/deteleCourse",
+                                    type: "POST",
+                                    data: {
+                                        courseId: courseId
+                                    },
+                                    success: function (response) {
+                                        window.location.reload();
+                                    },
+                                    error: function (xhr, status, error) {
+
+                                    }
+                                });
+                            } else{
+                                
+                            }
+
                         }
 
 
