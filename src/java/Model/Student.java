@@ -21,7 +21,7 @@ public class Student extends Account{
         this.schoolYear = schoolYear;
     }
 
-    public Student(String accountID, String name, String email, String password, int roleID, int status, float gender, int phoneNumber, String major, String schoolYear) {
+    public Student(String accountID, String name, String email, String password, int roleID, int status, float gender, String phoneNumber, String major, String schoolYear) {
         super(accountID, name, email, password, roleID, status, gender, phoneNumber);
         this.major = major;
         this.schoolYear = schoolYear;
@@ -101,11 +101,11 @@ public class Student extends Account{
         this.gender = gender;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

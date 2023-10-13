@@ -9,11 +9,11 @@ public class Account {
     public int roleID;
     public int status ;
     public float gender;
-    public int phoneNumber;
+    public String phoneNumber;
 
     public Account() {}
 
-    public Account(String accountID, String name, String email, String password, int roleID, int status, float gender, int phoneNumber) {
+    public Account(String accountID, String name, String email, String password, int roleID, int status, float gender, String phoneNumber) {
         this.accountID = accountID;
         this.name = name;
         this.email = email;
@@ -88,11 +88,11 @@ public class Account {
         this.gender = gender;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     

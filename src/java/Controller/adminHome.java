@@ -42,7 +42,7 @@ public class adminHome extends HttpServlet {
             out.println("<title>Servlet admin</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet admin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet admin at " + request.getParameter("editMess") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -70,7 +70,14 @@ public class adminHome extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
+        //check active status
         Account user = (Account)session.getAttribute("user");
+        if(user.getStatus()==0)
+            {
+                session.removeAttribute("user");
+                request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
         //check user's authority by role
         if(user.getRoleID()!=0)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
@@ -101,7 +108,7 @@ public class adminHome extends HttpServlet {
 //}
 ////////////////////////////////////////////////////////////////////////////////////
            
-        
+            session.removeAttribute("targetAccount");
             DAO dao = new DAO();
             List<Account> listA = dao.getAllAcount();
             request.setAttribute("listA", listA);

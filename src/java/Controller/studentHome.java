@@ -5,6 +5,7 @@
 package Controller;
 
 import Dal.DAO;
+import Dal.LecturerDAO;
 import Model.Account;
 import Model.Class1;
 import java.io.IOException;
@@ -102,7 +103,9 @@ public class studentHome extends HttpServlet {
 //out.println("</html>");
 //}
 ////////////////////////////////////////////////////////////////////////////////////
+        LecturerDAO daoTemp = new LecturerDAO();
         List<Class1> userClasses = dao.getClass(user.accountID);
+        request.setAttribute("courseInfo", daoTemp.loadAllStudentCourse(user.accountID));
         request.setAttribute("classes", userClasses);
         request.getRequestDispatcher("student-homepage.jsp").forward(request, response);
 

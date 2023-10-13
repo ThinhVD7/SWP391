@@ -14,7 +14,7 @@ public class Lecturer extends Account {
         this.meetlink = meetlink;
     }
 
-    public Lecturer(String accountID, String name, String email, String password, int roleID, int status, float gender, int phoneNumber, String department, String meetlink) {
+    public Lecturer(String accountID, String name, String email, String password, int roleID, int status, float gender, String phoneNumber, String department, String meetlink) {
         super(accountID, name, email, password, roleID, status, gender, phoneNumber);
         this.department = department;
         this.meetlink = meetlink;
@@ -92,11 +92,11 @@ public class Lecturer extends Account {
         this.gender = gender;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     

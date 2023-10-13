@@ -261,7 +261,7 @@
                 <br>
                 <p>End Date: ${requestScope.endDate}</p>
                 <br>
-                <p>Time limit: ${sessionScope.sessionThisExam.timeLimit} </p>
+                <p>Time limit: ${requestScope.timeLimit} </p>
                 <br>
                 <p>Review Permission: ${sessionScope.sessionThisExam.permission==1?"Absolutely":"Not Permitted"} </p>
                 <br>

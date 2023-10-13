@@ -58,7 +58,7 @@
                                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Account Information:</h3>
 
 
-                                <form id="form" action="addAccount" method="post">
+                                <form id="form" action=${sessionScope.targetAccount != null ?"adminEditAccount":"addAccount"} method="post">
 
                                     <div class="row">
                                         <div class="col-md-6 mb-4">

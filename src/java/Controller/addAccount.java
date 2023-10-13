@@ -74,7 +74,19 @@ public class addAccount extends HttpServlet {
             response.sendRedirect("index.html");
             return;
         }
+        //check active status
+        Account user = (Account)session.getAttribute("user");
+        if(user.getStatus()==0)
+            {
+                session.removeAttribute("user");
+                request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+        //check user's authority by role
+        if(user.getRoleID()!=0)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
         ////////////////////////////////////////////////////////////////
+        
         session.removeAttribute("idErr");
         session.removeAttribute("nameErr");
         session.removeAttribute("phoneErr");
@@ -121,7 +133,7 @@ public class addAccount extends HttpServlet {
         String emailErr = valid.emailValid(email);
         String idErr = "";
         if (dao.getUserById(id) != null) {
-            idErr = "Id existed!";
+            idErr = "ID existed!";
         }
         if (!nameErr.isEmpty() || !phoneErr.isEmpty() || !emailErr.isEmpty() || !idErr.isEmpty()) {
             session.setAttribute("idErr", idErr);
