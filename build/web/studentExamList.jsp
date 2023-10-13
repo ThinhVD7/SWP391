@@ -76,10 +76,6 @@
                 flex: 1;
                 padding: 10px;
                 border-radius: 10px;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1e16890 (yellow completed)
                 /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);*/
                 /*border: 2px solid #ccc;*/
                 margin-right: 10px;
@@ -95,22 +91,9 @@
                 padding: 10px;
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
-<<<<<<< HEAD
-                margin-top: 10px;
-=======
->>>>>>> 1e16890 (yellow completed)
                 margin-right: 10px;
                 height: 540px;
                 overflow: auto;
-=======
-                border: 2px solid #ccc;
-                margin-right: 10px;
-<<<<<<< HEAD
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-                height: 540px;
-                overflow: auto;
->>>>>>> 0d94aba (minor)
                 /*width: 50%;*/
                 /*display:block;*/
             }
@@ -131,95 +114,43 @@
             {
                 flex:1;
                 margin-bottom: 20px;
-<<<<<<< HEAD
-                margin-top: 30px;
                 background-color: #fff;
                 border-radius: 10px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
-=======
-                background-color: #fff;
-                border-radius: 10px;
-<<<<<<< HEAD
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
->>>>>>> 1e16890 (yellow completed)
                 margin-bottom: 20px;
                 padding: 15px;
                 overflow: hidden;
                 /*display: block;*/
             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1e16890 (yellow completed)
             .exam-container:hover
             {
                 background-color: #f5f5f5;
             }
-<<<<<<< HEAD
-=======
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
->>>>>>> 1e16890 (yellow completed)
             
         
             .info-container 
             {
-<<<<<<< HEAD
-<<<<<<< HEAD
                 position: relative;
-=======
-                position: sticky;
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-                position: relative;
->>>>>>> 1e16890 (yellow completed)
                 top: 20px;
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
                 background-color: #fff;
                 padding: 10px;
-<<<<<<< HEAD
-<<<<<<< HEAD
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-=======
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
->>>>>>> 1e16890 (yellow completed)
                 overflow: hidden;
             }
         
             .edit-exam-button 
             {
-<<<<<<< HEAD
-<<<<<<< HEAD
                 /*position: static;*/
                 background-color: #299be4;
                 color: #fff;
                  border: 2px solid #ccc;
-=======
-                position: static;
-                background-color: #299be4;
-                color: #fff;
-                border: none;
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-                /*position: static;*/
-                background-color: #299be4;
-                color: #fff;
-                 border: 2px solid #ccc;
->>>>>>> 1e16890 (yellow completed)
                 border-radius: 5px;
                 padding: 10px 20px;
                 font-size: 16px;
                 cursor: pointer;
                 margin-top: 10px;
-<<<<<<< HEAD
-<<<<<<< HEAD
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
                 align-self: center;
                 margin-top: auto;
@@ -230,24 +161,6 @@
             .edit-exam-button:hover{
             background-color: #0073e6;
         }
-=======
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
-=======
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
->>>>>>> 1e16890 (yellow completed)
-                align-self: center;
-                margin-top: auto;
-                position: absolute;
-                bottom: 10px;
-                right: 30%;
-            }
-<<<<<<< HEAD
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-            .edit-exam-button:hover{
-            background-color: #0073e6;
-        }
->>>>>>> 1e16890 (yellow completed)
 
 
         .bottom-right-p {
@@ -257,10 +170,6 @@
             margin: 0;
         }
         
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 1e16890 (yellow completed)
         .popup-button {
             background-color: #299be4;
             color: #fff;
@@ -426,33 +335,7 @@
             .text-danger {
                 color: #ff5b5b;
             }
-<<<<<<< HEAD
-            
-            .add-exam-button {
-                background-color: #299be4;
-                color: #fff;
-                border: 2px solid #ccc;
-                border-radius: 5px;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                margin-bottom: 500px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-                align-self: center;
-                /*margin-top: auto;*/
-                position: static;
-                top: 150px;
-                right: 600px;
-            }
-            .add-exam-button:hover{
-                background-color: #0073e6;
-            }
         
-=======
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-        
->>>>>>> 1e16890 (yellow completed)
             
         </style>
 </head>
@@ -501,20 +384,9 @@
             </div>
         </section>
         <section class="home">
-<<<<<<< HEAD
-<<<<<<< HEAD
             <div><br></div>
 
 <!--            <div class="row pt-2">
-=======
-
-            <div class="row pt-2">
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-            <div><br></div>
-
-<!--            <div class="row pt-2">
->>>>>>> 1e16890 (yellow completed)
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form class="nosubmit">
@@ -526,15 +398,7 @@
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
             </div>-->
-=======
-            </div>
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-            </div>-->
->>>>>>> 1e16890 (yellow completed)
 
             
 <!--            <div class="class-list">
@@ -550,22 +414,10 @@
 
 
     <div class="main-container">
-<<<<<<< HEAD
-<<<<<<< HEAD
 <!--pop up start----------------------------------------------------------------------------------------------->
 <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
         <div id="viewStudentListPopup" class="overlay" onclick="closePopup()">
-=======
-<!--pop up start----------------------------------------------------------------------------------------------->
-<!-- Blurred overlay -->
-        <div id="overlay" class="overlay"></div>
-<<<<<<< HEAD
-        <div id="classEditPopup" class="overlay" onclick="closePopup()">
->>>>>>> 1e16890 (yellow completed)
-=======
-        <div id="viewStudentListPopup" class="overlay" onclick="closePopup()">
->>>>>>> b809fd8 (one half lecturer and std)
             <div class="popup-container" onclick="event.stopPropagation();">
                 <h2>Student List</h2>
                 <button class ="popup-button" onclick="closePopup()">Close</button>
@@ -597,13 +449,13 @@
                         </thead>
                         <tbody>
                             <c:forEach var="i" begin="1" end="30" step="1">
-                            <tr>
+<!--                            <tr>
                                 <td>${i}</td>
                                 <td><a href="#">ThanhDT59</a></td>
                                 <td>Do Tien Thanh</td>                        
                                 <td>thanhdt59@fe.edu.vn </td>
                                 <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                            </tr>
+                            </tr>-->
                             </c:forEach>
                             <c:forEach items = "${requestScope.studentList}" var="student" varStatus="x">
                             <tr>
@@ -611,15 +463,7 @@
                                 <td><a href="#">${student.accountID}</a></td>
                                 <td>${student.name}</td>                        
                                 <td>${student.email}</td>
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 <td><a href="viewProfileFromList?targetID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
-=======
-                                <td><a href="studentProfile?studentID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
->>>>>>> 1e16890 (yellow completed)
-=======
-                                <td><a href="viewProfileFromList?targetID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
->>>>>>> b809fd8 (one half lecturer and std)
                             </tr>
                             </c:forEach>
                         </tbody>
@@ -634,7 +478,6 @@
         </div>
 <!--pop up end------------------------------------------------------------------------------------------------->
 
-<<<<<<< HEAD
         <div style="font-size: 36px; margin-bottom: 10px;">
                 ${sessionScope.sessionPageTitle}
         </div>
@@ -642,27 +485,7 @@
             <a style ="padding: 5px;"
                 href="home">Home</a> / 
                 <a style ="padding: 5px;" 
-                   href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
-                    <a style ="padding: 5px;" 
-                       href="#">${sessionScope.sessionThisClass.className}</a>
-=======
-=======
->>>>>>> 1e16890 (yellow completed)
-        <div style="font-size: 36px; margin-bottom: 10px;">
-                ${sessionScope.sessionPageTitle}
-        </div>
-        <div>
-            <a style ="padding: 5px;"
-                href="home">Home</a> / 
-                <a style ="padding: 5px;" 
-                   href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
-                    <a style ="padding: 5px;" 
-<<<<<<< HEAD
-                       href="#">SE1732</a>
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-                       href="#">${sessionScope.sessionThisClass.className}</a>
->>>>>>> 1e16890 (yellow completed)
+                       href="#">${sessionScope.sessionThisClass.className} - ${sessionScope.sessionThisClass.courseID}</a>
         </div>
 
         <div class ="class-detail" >
@@ -674,34 +497,6 @@
              <!-- Right div (Class information) -->
         
         <div class="left-div">
-<<<<<<< HEAD
-            
-                
-            <h2>Exam</h2>
-            
-            <div class ="exam-list">
-                <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
-                
-                <c:forEach items = "${requestScope.examList}" var="exam">
-                    <div class="exam-container">
-                    <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
-                        <h3>${exam.examName}</h3>
-                        <br>
-                        Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
-                        Click to view details
-                    </a>
-                        <div class="float-right" style= ${requestScope.deleteNotAllowMap[exam.examID]?"display:none":""}>
-                        <a class="delete" onclick="confirmDelete(${exam.examID})" title="Delete" data-toggle="tooltip">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </a>
-                    </div>
-            </div>
-                </c:forEach>
-                
-            
-
-<!--            <div class="exam-container">
-=======
             <h2>Exam</h2>
             <div class ="exam-list">
                 <c:forEach items = "${requestScope.examList}" var="exam">
@@ -758,30 +553,15 @@
             </div>
 
             <div class="exam-container">
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
                 <a style="text-decoration: none;"  href="#"> 
                 <h3>Final Trial</h3>
                 <br>
                 Start Date: 16/10/2023 to 21/10/2023<br>
                 Click to view details
-<<<<<<< HEAD
-            </div>-->
-        </div>
-            
-            
-           
-=======
                 
             </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-=======
         </div>
->>>>>>> 1e16890 (yellow completed)
            
->>>>>>> 0d94aba (minor)
             
         </div>
              <div class="right-div">
@@ -789,8 +569,6 @@
             <div class="info-container">
                 <a style="font-size: 24px; font-style: inherit"></a>
                 <h2>Class Information</h2>
-<<<<<<< HEAD
-<<<<<<< HEAD
                 <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
                 <p>Lecturer: ${requestScope.lecturer.name}</p><br>
                 <p>Email: ${requestScope.lecturer.email}</p><br>
@@ -798,21 +576,6 @@
 <!--                <form action="action"> -->
                     <button class="edit-exam-button" onclick="openPopup()">View Students</button>
 <!--                </form>-->
-=======
-                <p>Start Date: 1/10/2023 to 2/11/2023</p><br>
-                <p>Lecturer: John Doe</p><br>
-                <p>Email: john.doe@example.com</p><br>
-                <button class="edit-exam-button" >View Students</button>
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
-                <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
-                <p>Lecturer: ${requestScope.lecturer.name}</p><br>
-                <p>Email: ${requestScope.lecturer.email}</p><br>
-                <br><br>
-<!--                <form action="action"> -->
-                    <button class="edit-exam-button" onclick="openPopup()">View Students</button>
-<!--                </form>-->
->>>>>>> 1e16890 (yellow completed)
             </div>
         </div>
         
@@ -827,21 +590,9 @@
         </section>
 
         <script>
-<<<<<<< HEAD
-<<<<<<< HEAD
             // Function to open the edit class name pop-up
             function openPopup() {
                 const overlay = document.getElementById('viewStudentListPopup');
-=======
-            // Function to open the edit class name pop-up
-<<<<<<< HEAD
-            function openPopup(className) {
-                const overlay = document.getElementById('classEditPopup');
->>>>>>> 1e16890 (yellow completed)
-=======
-            function openPopup() {
-                const overlay = document.getElementById('viewStudentListPopup');
->>>>>>> b809fd8 (one half lecturer and std)
 //                const newClassNameInput = document.getElementById('newClassName');
 //                newClassNameInput.value = className;
                 overlay.style.display = 'block';
@@ -849,15 +600,7 @@
 
             // Function to close the pop-up
             function closePopup() {
-<<<<<<< HEAD
-<<<<<<< HEAD
                 const overlay = document.getElementById('viewStudentListPopup');
-=======
-                const overlay = document.getElementById('classEditPopup');
->>>>>>> 1e16890 (yellow completed)
-=======
-                const overlay = document.getElementById('viewStudentListPopup');
->>>>>>> b809fd8 (one half lecturer and std)
                 overlay.style.display = 'none';
             }
 
@@ -873,11 +616,6 @@
                 closePopup();
             }
             
-<<<<<<< HEAD
-=======
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
-=======
->>>>>>> 1e16890 (yellow completed)
             const btn_menu = document.querySelector(".btn-menu");
             const side_bar = document.querySelector(".sidebar");
 
@@ -893,30 +631,6 @@
                     btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                 }
             }
-<<<<<<< HEAD
-            
-            function confirmDelete(examID) {
-                var confirmDelete = confirm("Are you sure you want to delete this exam?");
-                if (confirmDelete) {
-                    // Make an AJAX request to delete the exam
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "lecturerDeleteExam?examID=" + examID, true);
-
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            // Handle the response from the servlet
-                            var response = xhr.responseText;
-                            alert("Exam with ID " + examID + " deleted.");
-                            location.reload();
-                        }
-                    };
-
-                    // Send the request
-                    xhr.send();
-                }
-            }
-=======
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
 
             const btn_theme = document.querySelector(".theme-btn");
             const theme_ball = document.querySelector(".theme-ball");
@@ -944,10 +658,6 @@
                     localStorage.setItem("theme", "light");
                 }
             });
-<<<<<<< HEAD
-            
-=======
->>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
         </script>
     </body>
 </html>

@@ -122,7 +122,10 @@
                                     <a style="text-decoration: none;"  href="lecturerClasslist?courseID=${c.courseID}">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
                                     <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6>        </div>
+                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6>  
+                                    <a href="lecturerClasslist?courseID=${c.courseID}" class="card-link">Enter course</a>
+                                    
+                                </div>
                             </div>
                         </div>
                     </c:forEach>

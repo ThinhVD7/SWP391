@@ -501,13 +501,72 @@
             <div class ="exam-list">
                 <c:forEach items = "${requestScope.examList}" var="exam">
                     <div class="exam-container">
+<<<<<<< HEAD
                     <a style="text-decoration: none;"  href="studentExamDetail?examID=${exam.examID}"> 
+=======
+                    <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
+>>>>>>> b809fd8 (one half lecturer and std)
                     <h3>${exam.examName}</h3>
                     <br>
                     Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
                     Click to view details
             </div>
                 </c:forEach>
+<<<<<<< HEAD
+=======
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="yes"> 
+                <h3>Progress Test 1</h3>
+                <br>
+                Start Date: 4/10/2023 to 6/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 2</h3>
+                <br>
+                Start Date: 12/10/2023 to 14/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Final Trial</h3>
+                <br>
+                Start Date: 16/10/2023 to 21/10/2023<br>
+                Click to view details
+                
+            </div>
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 1</h3>
+                <br>
+                Start Date: 4/10/2023 to 6/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Progress Test 2</h3>
+                <br>
+                Start Date: 12/10/2023 to 14/10/2023<br>
+                Click to view details
+                
+            </div>
+
+            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Final Trial</h3>
+                <br>
+                Start Date: 16/10/2023 to 21/10/2023<br>
+                Click to view details
+                
+            </div>
+>>>>>>> b809fd8 (one half lecturer and std)
         </div>
            
             

@@ -72,6 +72,9 @@ public class lecturerExamDetail extends HttpServlet {
         }
         ////////////////////////////////////////////////////////////////
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
         //check active status
         Account user = (Account)session.getAttribute("user");
         if(user.getStatus()==0)
@@ -80,9 +83,12 @@ public class lecturerExamDetail extends HttpServlet {
                 request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+<<<<<<< HEAD
 =======
         Account user = (Account)session.getAttribute("user");
 >>>>>>> 1e16890 (yellow completed)
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
         //check user's authority by role
         if(user.getRoleID()!=2)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
@@ -91,6 +97,7 @@ public class lecturerExamDetail extends HttpServlet {
         Exam thisExam = dao.loadAExam(request.getParameter("examID"));
         //session thisExam
         session.setAttribute("sessionThisExam", thisExam);
+<<<<<<< HEAD
 <<<<<<< HEAD
         if(LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0)
             request.setAttribute("notAllowToEdit", "notAllowToEdit");
@@ -106,9 +113,13 @@ public class lecturerExamDetail extends HttpServlet {
         String examStartDate = temp[0]+" "+temp[1];
         temp = thisExam.getEndDate().split("T");
         String examEndDate = temp[0]+" "+temp[1];
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
         
-        request.setAttribute("startDate", examStartDate);
-        request.setAttribute("endDate", examEndDate);
+        
+        request.setAttribute("timeLimit", dao.getStringFormattedDate("timeLimit", thisExam.getTimeLimit()));
+        request.setAttribute("startDate", dao.getStringFormattedDate("dateTime", thisExam.getStartDate()));
+        request.setAttribute("endDate", dao.getStringFormattedDate("dateTime", thisExam.getEndDate()));
         request.getRequestDispatcher("lecturerExamDetail.jsp").forward(request, response);
     } 
 >>>>>>> 1e16890 (yellow completed)

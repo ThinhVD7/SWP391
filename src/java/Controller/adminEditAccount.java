@@ -160,8 +160,13 @@ public class adminEditAccount extends HttpServlet {
         } 
         else 
         {
+<<<<<<< HEAD
             String isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
             if (isSuccess.equals("success")) 
+=======
+            boolean isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
+            if (isSuccess) 
+>>>>>>> b809fd8 (one half lecturer and std)
             {
                 sendMail(email, 0);
                 session.removeAttribute("idErr");
@@ -179,7 +184,11 @@ public class adminEditAccount extends HttpServlet {
                 request.setAttribute("role", role);
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
             }
+<<<<<<< HEAD
             else
+=======
+            else 
+>>>>>>> b809fd8 (one half lecturer and std)
             {
                 request.setAttribute("id", id);
                 request.setAttribute("name", name);
@@ -188,8 +197,11 @@ public class adminEditAccount extends HttpServlet {
                 request.setAttribute("phno", phno);
                 request.setAttribute("status", status);
                 request.setAttribute("role", role);
+<<<<<<< HEAD
                 if(isSuccess.contains("already"))
                     request.setAttribute("mess", "This account already attended a course that was in session!");
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
                 request.setAttribute("mess", "Edit account unsuccessfully. Please try again!");
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
             }

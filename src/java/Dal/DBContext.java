@@ -11,8 +11,13 @@ import java.sql.SQLException;
 public class DBContext {
     private final String DB_URL = "jdbc:mysql://localhost3306/";
     private static final String USER = "root";
+<<<<<<< HEAD
     private static final String PASSWORD = "Hoalac@99";
     private static final String DATABASE = "quiz9.5";
+=======
+    private static final String PASSWORD = "qqqqqqqq";
+    private static final String DATABASE = "quiz9";
+>>>>>>> b809fd8 (one half lecturer and std)
     public Connection getConnection()throws Exception 
             
     {         

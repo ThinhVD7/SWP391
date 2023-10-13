@@ -357,6 +357,7 @@
                 <p>End Date: ${requestScope.endDate}</p>
                 <br>
                 <p>Time limit: ${requestScope.timeLimit} </p>
+<<<<<<< HEAD
                 <br>
                 <p>Review Permission: ${sessionScope.sessionThisExam.permission==1?"Absolutely":"Not Permitted"} </p>
                 <br>
@@ -387,6 +388,8 @@
                 <p>End Date: ${requestScope.endDate}</p>
                 <br>
                 <p>Time limit: ${sessionScope.sessionThisExam.timeLimit} </p>
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
                 <br>
                 <p>Review Permission: ${sessionScope.sessionThisExam.permission==1?"Absolutely":"Not Permitted"} </p>
                 <br>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <<<<<<< HEAD
+<<<<<<< HEAD
 <html>
 <head>
     <title>Delete Records with Confirmation</title>
@@ -8,27 +9,13 @@
         .modal {
 =======
 <html lang="en">
+=======
+<html>
+>>>>>>> b809fd8 (one half lecturer and std)
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%@include file="all_component/allCss.jsp" %>
-        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        <link rel="stylesheet" href="all_component/studentStyle.css" />
-        
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
-
-        <link
-            href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-            rel="stylesheet"
-            />
-    <title>Class List</title>
+    <title>Delete Records with Confirmation</title>
     <style>
+<<<<<<< HEAD
         body {
                 color: #566787;
                 background: #f5f5f5;
@@ -278,12 +265,17 @@
         }
         .overlay {
 >>>>>>> 1e16890 (yellow completed)
+=======
+        /* Style for the modal dialog */
+        .modal {
+>>>>>>> b809fd8 (one half lecturer and std)
             display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+<<<<<<< HEAD
 <<<<<<< HEAD
             background-color: rgba(0, 0, 0, 0.5);
         }
@@ -300,25 +292,36 @@
             background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
             backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
             z-index: 1;
+=======
+            background-color: rgba(0, 0, 0, 0.5);
+>>>>>>> b809fd8 (one half lecturer and std)
         }
-
-        /* Style for the clear pop-up container */
-        .popup-container {
-            position: fixed;
+        .modal-content {
+            background-color: #fff;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+<<<<<<< HEAD
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
             z-index: 2;
 >>>>>>> 1e16890 (yellow completed)
+=======
+            padding: 20px;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+>>>>>>> b809fd8 (one half lecturer and std)
         }
     </style>
 </head>
 <body>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
     <table>
         <thead>
             <tr>
@@ -339,6 +342,7 @@
             </c:forEach>
         </tbody>
     </table>
+<<<<<<< HEAD
 
     <!-- Modal Confirmation Dialog -->
     <div id="confirmationPopup" class="modal">
@@ -387,139 +391,61 @@
     <div class="subject-name">
         Subject Name
     </div>
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
 
-    <div class="subject-info">
-        <p>Subject Information Text</p>
-        <button class="view-material-button">View Material</button>
-    </div>
-
-    <div class="class-list">
-        <!--<a href="https://example.com/class1" class="class-link">-->
-            <div class="class-container">
-                <h1>Class Name 1</h1>
-                <button class="edit-button" onclick="openPopup('class91')">Edit</button>
-            </div>
-        <div class="class-container">
-            <h1 class="class-name" onclick="openPopup('Class Name 1')">Class Name 1</h1>
-        </div>
-        
-        
-
-        <!-- Add more class containers with edit buttons as needed -->
-    </div>
-
-    <div class="subject-path">
-        <a href="#">Home</a> / <a href="#">This Subject</a>
-    </div>
-
-        <!-- Edit Class Name Pop-up -->
-    <div id="classEditPopup" class="overlay" onclick="closePopup()">
-        <div class="popup-container" onclick="event.stopPropagation();">
-            <h2>Edit Class Name</h2>
-            <input type="text" id="newClassName" placeholder="New Class Name">
-            <button onclick="editClassName()">Save</button>
-            <button onclick="closePopup()">Cancel</button>
-             <div class="container-xl">
-            <div class="table-responsive">
-                <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>Lecturer</b></h2>
-                            </div>
-                            <div class="col-sm-7">
-                                <a href="managerAssignLecturer" class="btn btn-secondary"> <span>Submit</span></a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>ID</th>						
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>View Profile</th>
-                                <th>Add</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                            <tr>
-                                    <td>1</td>
-                                    <td><a href="#">ThanhDT59</a></td>
-                                    <td>Do Tien Thanh</td>                        
-                                    <td>thanhdt59@fe.edu.vn </td>
-                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                    <td>
-                                        <input type="checkbox" name="add" value="ON" />
-                                    </td>
-                                </tr>
-
-                            <c:forEach items="${requestScope.listA}" var="u" varStatus="x" >
-                                <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="#">${u.accountID}</a></td>
-                                    <td>${u.name}</td>                        
-                                    <td>${u.email} </td>
-                                    <td><a href="#"> icon </td>
-                                    <td>
-                                         <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
-                                </tr>
-                            </c:forEach>
-
-
-                        </tbody>
-                    </table>
-                                <div class="clearfix">
-                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                    <ul class="pagination">
-                                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                    </ul>
-                                </div>
-                </div>
-            </div>
-        </div>   
+    <!-- Modal Confirmation Dialog -->
+    <div id="confirmationPopup" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to delete this record?</p>
+            <button onclick="confirmDelete()">Yes</button>
+            <button onclick="closeConfirmationPopup()">No</button>
         </div>
     </div>
-    
-    <!-- Blurred overlay -->
-    <div id="overlay" class="overlay"></div>
 
     <script>
-        // Function to open the edit class name pop-up
-        function openPopup(className) {
-            const overlay = document.getElementById('classEditPopup');
-            const newClassNameInput = document.getElementById('newClassName');
-            newClassNameInput.value = className;
-            overlay.style.display = 'block';
+        // JavaScript functions to show and hide the modal dialog
+        function openConfirmationPopup(recordId) {
+            document.getElementById("confirmationPopup").style.display = "block";
+            document.getElementById("confirmationPopup").setAttribute("data-record-id", recordId);
         }
 
-        // Function to close the pop-up
-        function closePopup() {
-            const overlay = document.getElementById('classEditPopup');
-            overlay.style.display = 'none';
+        function closeConfirmationPopup() {
+            document.getElementById("confirmationPopup").style.display = "none";
         }
 
-        // Function to save the edited class name
-        function editClassName() {
-            const newClassNameInput = document.getElementById('newClassName');
-            const updatedClassName = newClassNameInput.value;
+        function confirmDelete() {
+            var recordId = document.getElementById("confirmationPopup").getAttribute("data-record-id");
+            // Perform the record deletion here (e.g., via Ajax)
+            // var xhr = new XMLHttpRequest();
+            xhr.open("POST", "DeleteRecordServlet", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function () 
+            {
+                if (xhr.readyState === 4 && xhr.status === 200) 
+                {
+                    // Handle the response from the server (if needed)
+                    var response = xhr.responseText;
+                    // Reload or update the page as necessary
+                    location.reload();
+                }
+            };
+            xhr.send("recordId=" + recordId);
+            // After successful deletion, you can remove the row from the table
+            // and close the confirmation popup
+            // ...
 
+<<<<<<< HEAD
             // Update the class name in your data or display
             console.log('Updated Class Name:', updatedClassName);
 
             // Close the pop-up
             closePopup();
 >>>>>>> 1e16890 (yellow completed)
+=======
+            // Close the confirmation popup
+            closeConfirmationPopup();
+>>>>>>> b809fd8 (one half lecturer and std)
         }
     </script>
 </body>

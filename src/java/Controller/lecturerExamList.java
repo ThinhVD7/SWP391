@@ -69,6 +69,9 @@ public class lecturerExamList extends HttpServlet {
         }
         ////////////////////////////////////////////////////////////////
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
         //check active status
         Account user = (Account)session.getAttribute("user");
         if(user.getStatus()==0)
@@ -77,9 +80,12 @@ public class lecturerExamList extends HttpServlet {
                 request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+<<<<<<< HEAD
 =======
         Account user = (Account)session.getAttribute("user");
 >>>>>>> 1e16890 (yellow completed)
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
         //check user's authority by role
         if(user.getRoleID()!=2)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
@@ -119,9 +125,9 @@ public class lecturerExamList extends HttpServlet {
         for (Exam exam : examList) 
         {
             temp = exam.getStartDate().split("T");
-            exam_startDate.put(exam.getExamID(),temp[0]);
+            exam_startDate.put(exam.getExamID(),dao.getStringFormattedDate("date", temp[0]));
             temp = exam.getEndDate().split("T");
-            exam_endDate.put(exam.getExamID(),temp[0]);
+            exam_endDate.put(exam.getExamID(),dao.getStringFormattedDate("date", temp[0]));
         }
         request.setAttribute("lecturer", dao.loadALecturerofClass(thisClass.getClassID()));
         request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));

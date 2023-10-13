@@ -581,8 +581,12 @@
 <!--pop up start----------------------------------------------------------------------------------------------->
 <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
+<<<<<<< HEAD
         <div id="classEditPopup" class="overlay" onclick="closePopup()">
 >>>>>>> 1e16890 (yellow completed)
+=======
+        <div id="viewStudentListPopup" class="overlay" onclick="closePopup()">
+>>>>>>> b809fd8 (one half lecturer and std)
             <div class="popup-container" onclick="event.stopPropagation();">
                 <h2>Student List</h2>
                 <button class ="popup-button" onclick="closePopup()">Close</button>
@@ -614,13 +618,13 @@
                         </thead>
                         <tbody>
                             <c:forEach var="i" begin="1" end="30" step="1">
-<!--                            <tr>
+                            <tr>
                                 <td>${i}</td>
                                 <td><a href="#">ThanhDT59</a></td>
                                 <td>Do Tien Thanh</td>                        
                                 <td>thanhdt59@fe.edu.vn </td>
                                 <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                            </tr>-->
+                            </tr>
                             </c:forEach>
                             <c:forEach items = "${requestScope.studentList}" var="student" varStatus="x">
                             <tr>
@@ -629,10 +633,14 @@
                                 <td>${student.name}</td>                        
                                 <td>${student.email}</td>
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 <td><a href="viewProfileFromList?targetID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
 =======
                                 <td><a href="studentProfile?studentID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
 >>>>>>> 1e16890 (yellow completed)
+=======
+                                <td><a href="viewProfileFromList?targetID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
+>>>>>>> b809fd8 (one half lecturer and std)
                             </tr>
                             </c:forEach>
                         </tbody>
@@ -820,7 +828,7 @@
                 <p>Email: ${requestScope.lecturer.email}</p><br>
                 <br><br>
 <!--                <form action="action"> -->
-                    <button class="edit-exam-button" onclick="openPopup('SE1732')">View Students</button>
+                    <button class="edit-exam-button" onclick="openPopup()">View Students</button>
 <!--                </form>-->
 >>>>>>> 1e16890 (yellow completed)
             </div>
@@ -844,9 +852,14 @@
                 const overlay = document.getElementById('viewStudentListPopup');
 =======
             // Function to open the edit class name pop-up
+<<<<<<< HEAD
             function openPopup(className) {
                 const overlay = document.getElementById('classEditPopup');
 >>>>>>> 1e16890 (yellow completed)
+=======
+            function openPopup() {
+                const overlay = document.getElementById('viewStudentListPopup');
+>>>>>>> b809fd8 (one half lecturer and std)
 //                const newClassNameInput = document.getElementById('newClassName');
 //                newClassNameInput.value = className;
                 overlay.style.display = 'block';
@@ -855,10 +868,14 @@
             // Function to close the pop-up
             function closePopup() {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 const overlay = document.getElementById('viewStudentListPopup');
 =======
                 const overlay = document.getElementById('classEditPopup');
 >>>>>>> 1e16890 (yellow completed)
+=======
+                const overlay = document.getElementById('viewStudentListPopup');
+>>>>>>> b809fd8 (one half lecturer and std)
                 overlay.style.display = 'none';
             }
 

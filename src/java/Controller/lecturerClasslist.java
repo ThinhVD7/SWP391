@@ -63,6 +63,9 @@ public class lecturerClasslist extends HttpServlet {
         }
         ////////////////////////////////////////////////////////////////
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
         //check active status
         Account user = (Account)session.getAttribute("user");
         if(user.getStatus()==0)
@@ -71,9 +74,12 @@ public class lecturerClasslist extends HttpServlet {
                 request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
                 request.getRequestDispatcher("Login.jsp").forward(request, response);
             }
+<<<<<<< HEAD
 =======
         Account user = (Account)session.getAttribute("user");
 >>>>>>> 1e16890 (yellow completed)
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
         //check user's authority by role
         if(user.getRoleID()!=2)
             request.getRequestDispatcher("pageNotFound").forward(request, response);

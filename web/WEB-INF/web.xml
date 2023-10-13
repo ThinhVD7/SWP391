@@ -83,6 +83,9 @@
         <servlet-class>Controller.lecturerExamDetail</servlet-class>
     </servlet>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
     <servlet>
         <servlet-name>studentExamList</servlet-name>
         <servlet-class>Controller.studentExamList</servlet-class>
@@ -103,6 +106,7 @@
         <servlet-name>adminDeleteAccount</servlet-name>
         <servlet-class>Controller.adminDeleteAccount</servlet-class>
     </servlet>
+<<<<<<< HEAD
     <servlet>
         <servlet-name>lecturerAddEditExam</servlet-name>
         <servlet-class>Controller.lecturerAddEditExam</servlet-class>
@@ -177,6 +181,8 @@
     </servlet>
 =======
 >>>>>>> 1e16890 (yellow completed)
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -250,6 +256,9 @@
         <url-pattern>/lecturerExamDetail</url-pattern>
     </servlet-mapping>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
     <servlet-mapping>
         <servlet-name>studentExamList</servlet-name>
         <url-pattern>/studentExamList</url-pattern>
@@ -270,6 +279,7 @@
         <servlet-name>adminDeleteAccount</servlet-name>
         <url-pattern>/adminDeleteAccount</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>lecturerAddEditExam</servlet-name>
         <url-pattern>/lecturerAddEditExam</url-pattern>
@@ -344,6 +354,8 @@
     </servlet-mapping>
 =======
 >>>>>>> 1e16890 (yellow completed)
+=======
+>>>>>>> b809fd8 (one half lecturer and std)
     <session-config>
         <session-timeout>
             30
