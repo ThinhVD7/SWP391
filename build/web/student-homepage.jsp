@@ -158,10 +158,10 @@
                         <div class='col col-sm-4 mt-4'>
 =======
 
-            <div class="container">
-                <div class="list-course row mt-5">
+            <div class="container-fluid mt-3">
+                <div class="row mt-5">
                     <c:forEach items="${requestScope.classes}" var="c">
-                    <%--<c:forEach var="i" begin="1" end="30" step="1">--%>
+                    <c:forEach var="i" begin="1" end="30" step="1">
                         <div class='course-item col-md-4 col-sm-6 col-lg-3 pt-3'>
 >>>>>>> b809fd8 (one half lecturer and std)
                             <div class="card">
@@ -170,26 +170,37 @@
                                         <h4 class="card-title">${c.courseID}</h4>  
                                     </a>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> fb4605f (push from netbean with minorfix studenthomepage)
                                         <h6 class="card-subtitle mb-2 text-muted">Class: ${c.className}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">Semester: ${requestScope.courseInfo[c.courseID].semester}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">From: ${courseInfo[c.courseID].startDate}&nbsp;To: ${courseInfo[c.courseID].endDate}</h6>  
                                     <a style ="position: absolute; bottom: 15px; right: 20px;" href="studentExamList?classID=${c.classID}" class="card-link">Enter course</a>
+<<<<<<< HEAD
 =======
                                         <h7 class="card-subtitle mb-2 text-muted">Class: ${c.className}</h7><br>
                                     <!--<h7 class="card-subtitle mb-2 text-muted">Semester: ${couseInfo[c.courseID].semester}</h7><br>-->
                                     <!--<h6 class="card-subtitle mb-2 text-muted">From:${couseInfo[c.courseID].startDate} To: ${couseInfo[c.courseID].endDate}</h6>-->  
                                     <a href="studentExamList?classID=${c.classID}" class="card-link">Enter course</a>
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+>>>>>>> fb4605f (push from netbean with minorfix studenthomepage)
                                     <a href="#" class="card-link"></a>
                                 </div>
                             </div>
                         </div>
+<<<<<<< HEAD
                     <%--</c:forEach>--%>
                     </c:forEach>
 <<<<<<< HEAD
 =======
                     <%--</c:forEach>--%>
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+                    </c:forEach>
+                    </c:forEach>
+>>>>>>> fb4605f (push from netbean with minorfix studenthomepage)
                 </div>
             </div>
      

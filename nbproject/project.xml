@@ -3,7 +3,11 @@
     <type>org.netbeans.modules.web.project</type>
     <configuration>
         <data xmlns="http://www.netbeans.org/ns/web-project/3">
+<<<<<<< HEAD
             <name>QuizAC</name>
+=======
+            <name>QuizNew-NamThanh</name>
+>>>>>>> fb4605f (push from netbean with minorfix studenthomepage)
             <minimum-ant-version>1.6.5</minimum-ant-version>
             <web-module-libraries>
                 <library dirs="200">
