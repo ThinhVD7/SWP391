@@ -628,7 +628,7 @@
                     </div>
                     <!--Delete pop up----------------------------->
                 </div>
-                <div class="addCourse" id="deleterCouse" style="display: none;">
+<!--                <div class="addCourse" id="deleterCouse" style="display: none;">
                     <div class="addCourseContent">
                         <h3 class="addCourseTitle" id="titleCourse">Delete</h3> 
                         <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
@@ -636,12 +636,12 @@
                         <button class="closePopUp1" type="submit" >No</button>
                         <button class="closePopUp" onclick="closePopUp()">Close</button>
                     </div>
-                </div>
+                </div>-->
                 <!--Assign Lecturer-->
-                <form action="managerViewLecturer" method="post">
-
+<!--                <form action="managerViewLecturer" method="post">
                     <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
                         <div class="popup-container" onclick="event.stopPropagation();">
+
                             <h2>Assign Lecturer</h2>
                             <input type="text" id="search" placeholder="New Class Name">
                             <div class="container-xl">
@@ -666,17 +666,6 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                                <!--                            <tr>
-                                                                                    <td>1</td>
-                                                                                    <td><a href="#">ThanhDT59</a></td>
-                                                                                    <td>Do Tien Thanh</td>                        
-                                                                                    <td>thanhdt59@fe.edu.vn </td>
-                                                                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                                                                    <td>
-                                                                                        <input type="checkbox" name="add" value="ON" />
-                                                                                    </td>
-                                                                                </tr>-->
                                             <input name="classID" value="${requestScope.classID}" style="display: none"/>
                                             <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
                                             <input name="status" value="1" style="display: none"/>
@@ -704,10 +693,66 @@
                             <button class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</button>
                         </div>
                     </div>
+                </form>-->
+          <!--Assign Lecturer-->
+                <form action="managerViewLecturer" method="post">
+                    <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
+                        <div class="popup-container" onclick="event.stopPropagation();">
+                            <h2>Assign Lecturer</h2>
+                            <input type="text" id="search" placeholder="New Class Name">
+                            <div class="container-xl">
+                                <div class="table-responsive">
+                                    <div class="table-wrapper">
+                                        <div class="table-title">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <h2> </a><b>Lecturer</b></h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <table class="table table-striped table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>ID</th>						
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+
+                                                    <th>Add</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                            <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
+                                            <input name="status" value="1" style="display: none"/>
+
+                                            <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
+                                                <tr>
+                                                    <td>${x.count}</td>
+                                                    <td><a href="#">${u.accountID}</a></td>
+                                                    <td>${u.name}</td>                        
+                                                    <td>${u.email} </td>
+
+                                                    <td>
+                                                        <input type="checkbox" name="add" value=${u.accountID} />
+                                                    </td>
+                                                </tr>
+                                            </c:forEach>
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class ="popup-button" onclick="editClassName()">Save</button>
+                            <span class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</span>
+                        </div>
+                    </div>
                 </form>
                 <!--Assign Student------------------------->
                 <form action="managerViewLecturer" method="post">
-
                     <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 
                         <div class="popup-container" onclick="event.stopPropagation();">
                             <h2>Assign Student</h2>
@@ -792,10 +837,12 @@
                                     <div class="col-sm-5">
                                         <h2> </a><b>Lecturer</b></h2>
                                     </div>
-                                    <div class="col-sm-7">
-                                        <button onclick="openAssignLecturerPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
+                                    <c:if test="${requestScope.enableAdd <= 0}">
+                                        <div class="col-sm-7">
+                                            <button onclick="openAssignLecturerPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
 
-                                    </div>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                             <table class="table table-striped table-hover">
@@ -821,7 +868,7 @@
                                             <td>${u.email} </td>
 
                                             <td>
-                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
+                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delLecturer('${u.accountID}')"> <i class="material-icons">&#xE5C9;</i></a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -870,47 +917,24 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <!--                               <tr>
-                                                                    <td>1</td>
-                                                                    <td><a href="#">Thinhnvhe163468</a></td>
-                                                                    <td>nguyen van thinh</td>                        
-                                                                    <td>thinhnvhe163468@fpt.edu.vn </td>
-                                                                    <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                                                    <td>
-                                                                    <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                                                    </td>
-                                                                </tr>-->
-                                <tbody>
 
-                                    <c:forEach items="${requestScope.student}" var="u" varStatus="x" >
-                                        <tr>
-                                            <td>${x.count}</td>
-                                            <td><a href="#">${u.accountID}</a></td>
-                                            <td>${u.name}</td>                        
-                                            <td>${u.email} </td>
+                                <c:forEach items="${requestScope.student}" var="u" varStatus="x" >
+                                    <tr>
+                                        <td>${x.count}</td>
+                                        <td><a href="#">${u.accountID}</a></td>
+                                        <td>${u.name}</td>                        
+                                        <td>${u.email} </td>
 
 
-                                            <td>
-                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+                                        <td>
+                                            <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delStudent('${u.accountID}')"> <i class="material-icons">&#xE5C9;</i></a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
 
 
                                 </tbody>
                             </table>
-                            <!--                    <div class="clearfix">
-                                                    <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                                    <ul class="pagination">
-                                                        <li class="page-item disabled"><a href="#">Previous</a></li>
-                                                        <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                                        <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                        <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                                        <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                        <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                        <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                                    </ul>
-                                                </div>-->
                         </div>
                     </div>
                 </div>     
@@ -981,28 +1005,52 @@
                 side_bar.classList.toggle("expand");
                 changebtn();
             });
-//            function delLecturer(lecturerId) {
-//                var dk = confirm('Bạn có muốn xóa không ?');
-//
-//                if (dk) {
-//                    $.ajax({
-//                        url: contextPath + "/deleteLecturer",
-//                        type: "POST",
-//                        data: {
-//                            lecturerId:lecturerId
-//                        },
-//                        success: function (response) {
-//                            window.location.reload();
-//                        },
-//                        error: function (xhr, status, error) {
-//
-//                        }
-//                    });
-//                } else {
-//
-//                }
-//
-//            }
+            function delLecturer(lecturerId) {
+                var dk = confirm('Bạn có muốn xóa không ?');
+                var lecturerId = lecturerId;
+                if (dk) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "deleteLecturer", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function ()
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            // Handle the response from the server (if needed)
+                            var response = xhr.responseText;
+                            // Reload or update the page as necessary
+                            location.reload();
+                        }
+                    };
+                    xhr.send("lecturerId=" + lecturerId);
+                } else {
+
+                }
+
+            }
+            function delStudent(studentID) {
+                var dk = confirm('Bạn có muốn xóa không ?');
+                var studentID = studentID;
+                if (dk) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "deleteStudent", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function ()
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            // Handle the response from the server (if needed)
+                            var response = xhr.responseText;
+                            // Reload or update the page as necessary
+                            location.reload();
+                        }
+                    };
+                    xhr.send("studentID=" + studentID);
+                } else {
+
+                }
+
+            }
             function changebtn() {
                 if (side_bar.classList.contains("expand")) {
                     btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");

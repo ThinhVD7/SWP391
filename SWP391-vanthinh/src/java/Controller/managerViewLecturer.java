@@ -81,15 +81,32 @@ public class managerViewLecturer extends HttpServlet {
         List<Student> student = dao.getstudentByClass(cid);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
         List<Student> addstudent = dao.getAllCoursestudent();
+        List<Student> result = new ArrayList<>();
+        for (Student student1 : addstudent) {
+            boolean status = true;
+            for (Student student2 : student) {
+                if (student1.getAccountID().equals(student2.getAccountID())) {
+                    status = true;
+                    break;
+                } else {
+                    status = false;
+                }
+            }
+            if (status == false) {
+                result.add(student1);
+            }
+        }
 
         Class1 classInformation = dao.getClassByID(cid);
         request.setAttribute("lecturer", lecturer);
+        request.setAttribute("enableAdd", lecturer.size());
         request.setAttribute("student", student);
         request.setAttribute("addlecturer", addlecturer);
         request.setAttribute("addstudent", addstudent);
         request.setAttribute("courseID", courseID);
         request.setAttribute("classInfo", classInformation);
         request.setAttribute("classID", cid);
+        request.setAttribute("resultAddStudent", result);
         request.getRequestDispatcher("manager-ClassDetail.jsp").forward(request, response);
     }
 
@@ -122,8 +139,24 @@ public class managerViewLecturer extends HttpServlet {
         List<Student> student = dao.getstudentByClass(classID);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
         List<Student> addstudent = dao.getAllCoursestudent();
+        List<Student> result = new ArrayList<>();
+        for (Student student1 : addstudent) {
+            boolean status1 = true;
+            for (Student student2 : student) {
+                if (student1.getAccountID().equals(student2.getAccountID())) {
+                    status1 = true;
+                    break;
+                } else {
+                    status1 = false;
+                }
+            }
+            if (status1 == false) {
+                result.add(student1);
+            }
+        }
 
         Class1 classInformation = dao.getClassByID(classID);
+        request.setAttribute("resultAddStudent", result);
         request.setAttribute("lecturer", lecturer);
         request.setAttribute("numberLecturer", lecturer.size());
         request.setAttribute("student", student);

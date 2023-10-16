@@ -17,7 +17,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author acer
  */
-public class deleteClass extends HttpServlet {
+public class deleteStudent extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -34,10 +34,10 @@ public class deleteClass extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet deleteClass</title>");  
+            out.println("<title>Servlet deleteStudent</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet deleteClass at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet deleteStudent at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -67,9 +67,9 @@ public class deleteClass extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String classId = request.getParameter("classId");
+         String studentID = request.getParameter("studentID");
          ManagerDAO dao=new ManagerDAO();
-        dao.deleteClassbyID(classId);
+         dao.deleteStudent(studentID);
     }
 
     /** 

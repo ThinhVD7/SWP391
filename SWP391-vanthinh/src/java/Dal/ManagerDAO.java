@@ -110,17 +110,7 @@ public class ManagerDAO extends DBContext {
         return false;
     }
 
-    public void deleteCourse(String Course_ID) {
-        String sql = "DELETE FROM `course`\n"
-                + "      WHERE `Course_ID` = ?;";
-        try {
-            PreparedStatement st = connector.prepareStatement(sql);
-            st.setString(1, Course_ID);
-            st.executeUpdate();
-        } catch (SQLException e) {
 
-        }
-    }
     //result get saved to database,
     //future comparing password to the database saved one have to be encoded to compare
     public String encodeSHA1(String password)
@@ -491,7 +481,7 @@ public class ManagerDAO extends DBContext {
                 }
             }
             public void deleteLecturer(String Lecturer_ID) {
-        String sql = "delete from lecturerinwhichclass where Class_ID = ?";
+        String sql = "delete from lecturerinwhichclass where Lecturer_ID = ?";
         try {
             PreparedStatement st = connector.prepareStatement(sql);
             st.setString(1, Lecturer_ID);
@@ -500,9 +490,45 @@ public class ManagerDAO extends DBContext {
 
         }
     }
+        public void deleteStudent(String Student_ID) {
+        String sql = "delete from studentinwhichclass where Student_ID = ?";
+        try {
+            PreparedStatement st = connector.prepareStatement(sql);
+            st.setString(1, Student_ID);
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+         public void deleteCourse(String Course_ID) {
+             
+           String deleteCourse = "";
+        try {
+                    deleteCourse = "delete from lecturerinwhichclass where Class_ID = ?";
+                    PreparedStatement ps = connector.prepareStatement(deleteCourse);
+                    ps = connector.prepareStatement(deleteCourse);
+                    ps.setString(1, deleteCourse);
+                    ps.executeUpdate();
+                    deleteCourse = "delete from studentinwhichclass where Class_ID = ?";
+                    ps = connector.prepareStatement(deleteCourse);
+                    ps.setString(1, deleteCourse);
+                    ps.executeUpdate();
+                    deleteCourse = "delete from class where Class_ID = ?";
+                    ps = connector.prepareStatement(deleteCourse);
+                    ps.setString(1, deleteCourse);
+                    ps.executeUpdate();
+                    deleteCourse = "delete from course where Course_ID = ?";
+                    ps = connector.prepareStatement(deleteCourse);
+                    ps.setString(1, Course_ID);
+                    ps.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     public static void main(String[] args) {
         ManagerDAO d = new ManagerDAO();
-      //  d.insetStudentIntoClass("thinhvd_se_11111", "SE1744_MAS291");
+          d.deleteCourse("asda");
+        d.insetStudentIntoClass("thinhvd_se_11111", "SE1744_MAS291");
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }

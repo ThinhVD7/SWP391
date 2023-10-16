@@ -86,6 +86,10 @@
         <servlet-name>deleteLecturer</servlet-name>
         <servlet-class>Controller.deleteLecturer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>deleteStudent</servlet-name>
+        <servlet-class>Controller.deleteStudent</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -161,6 +165,10 @@
     <servlet-mapping>
         <servlet-name>deleteLecturer</servlet-name>
         <url-pattern>/deleteLecturer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>deleteStudent</servlet-name>
+        <url-pattern>/deleteStudent</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

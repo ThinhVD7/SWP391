@@ -71,7 +71,7 @@ public class deteleCourse extends HttpServlet {
     throws ServletException, IOException {
         String courseId = request.getParameter("courseId");
          ManagerDAO dao=new ManagerDAO();
-        dao.deleteCourse(courseId);
+          dao.deleteCourse(courseId);
         
     }
 

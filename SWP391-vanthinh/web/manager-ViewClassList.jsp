@@ -629,22 +629,22 @@
                 </div>
                 <!--Assign Lecturer-->
                 <form action="managerViewClassList" method="POST">
-                <div class="addCourse" id="addCourse" style="display: none;">
-                    <div class="addCourseContent">
+                    <div class="addCourse" id="addCourse" style="display: none;">
+                        <div class="addCourseContent">
                             <h3 class="addCourseTitle" id="titleCourse">Add Class</h3> 
                             <span name="classID" > ${requestScope.classID}<span/>
-                            <div class="form-field d-flex align-items-center"> 
-                                <!--<span class="far fa-user"></span>-->
-                                <input type="text" name="className" id="className" placeholder="ClassName" required="">
-                                <input name="classID" value="${requestScope.classID}" style="display: none"/>
-                                <input name="className" value="${requestScope.className}" style="display: none"/>
-                                <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
-                            </div>
-                            <button class="closePopUp" type="submit" >Submit</button>
-                            <button class="closePopUp" onclick="closePopUp1()">Close</button>
+                                <div class="form-field d-flex align-items-center"> 
+                                    <!--<span class="far fa-user"></span>-->
+                                    <input type="text" name="className" id="className" placeholder="ClassName" required="">
+                                    <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                    <input name="className" value="${requestScope.className}" style="display: none"/>
+                                    <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
+                                </div>
+                                <button  class="closePopUp" type="submit" >Submit</button>
+                                <button class="closePopUp" onclick="closePopUp1()">Close</button>
+                        </div>
                     </div>
-                </div>
-               </form>
+                </form>
 
                 <!--pop up--------------------------------------------------------------------------------------------------->
 
@@ -697,7 +697,7 @@
                                             <td>${u.className}</td>                        
                                             <td>${u.courseID} </td>
                                             <td>
-                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
+                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delClass('${u.classID}')"> <i class="material-icons">&#xE5C9;</i></a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -739,6 +739,7 @@
                 document.getElementById("Class_ID").value = '';
                 document.getElementById("ClassName").value = '';
                 document.getElementById("Course_ID").value = '';
+                location.reload();
             }
 
             // Function to close the pop-up
@@ -750,28 +751,30 @@
                 const divPopUp = document.querySelector("#addCourse");
                 divPopUp.style.display = 'none';
             }
-//            function delClass(classId) {
-//                            var dk = confirm('Bạn có muốn xóa không ?');
-//
-//                            if (dk) {
-//                                $.ajax({
-//                                    url: contextPath + "/deleteClass",
-//                                    type: "POST",
-//                                    data: {
-//                                        classId: classId
-//                                    },
-//                                    success: function (response) {
-//                                        window.location.reload();
-//                                    },
-//                                    error: function (xhr, status, error) {
-//
-//                                    }
-//                                });
-//                            } else{
-//                                
-//                            }
-//
-//                        }
+            function delClass(classId) {
+                var dk = confirm('Bạn có muốn xóa không ?');
+
+                if (dk) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "deleteClass", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function ()
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            // Handle the response from the server (if needed)
+                            var response = xhr.responseText;
+                            // Reload or update the page as necessary
+                            location.reload();
+                        }
+                    };
+                    xhr.send("classId=" + classId);
+
+                } else {
+
+                }
+
+            }
 
             // Function to save the edited class name
             function editClassName() {
