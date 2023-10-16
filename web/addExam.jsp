@@ -160,6 +160,8 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 padding: 15px;
                 z-index: 2;
+                width: 75%;
+                height: 75%;
             }
             .table-responsive {
                 margin: 30px 0;
@@ -315,21 +317,22 @@
             }
 
             .wrapper{
-                width: 100%;
+                width: 100%    ;
                 background: #fff;
                 margin: 20px auto;
                 border-radius: 3px;
             }
 
             .wrapper .tabs ul{
-                width: 100%;
-                height: 60px;
+                width: 1200px;
+                height: 40px;
                 display: flex;
+
             }
 
             .wrapper .tabs ul li{
                 width: 33%;
-                height: 65px;
+                height: 40px;
                 padding: 0 20px;
                 text-align: center;
                 background: #dbe3eb;
@@ -349,16 +352,16 @@
                 border-top-right-radius: 3px;
             }
 
-            .wrapper .tabs ul li img{
-                width: 35px;
-                height: 35px;
-                display: block;
-                margin: 0 auto 3px;
-            }
+            /*            .wrapper .tabs ul li img{
+                            width: 35px;
+                            height: 35px;
+                            display: block;
+                            margin: 0 auto 3px;
+                        }*/
 
             .wrapper .content{
                 padding: 30px;
-                height: 260px;
+                height: 800px;
                 border-bottom: 6px solid #44c8fe;
                 border-radius: 3px;
             }
@@ -385,6 +388,52 @@
                 --color-hover: rgba(32, 59, 232);
                 --transition: all 0.2s ease;
             }
+            #my-form {
+                height: 600px;
+                align-content: center;
+                justify-items: center;
+            }
+
+            input[type="text"]{
+                padding: 10px;
+                margin: 10px auto;
+                display: block;
+                border-radius: 5px;
+                border: 1px solid lightgrey;
+                background: none;
+                width: 274px;
+                color: black;
+            }
+
+            input[type="text"]:focus {
+                outline: none;
+            }
+
+            .controls {
+                width: 294px;
+                margin: 15px auto;
+            }
+            .controls .li {
+                cursor: pointer;
+            }
+
+            #remove_fields {
+                float: right;
+            }
+            .controls a i.fa-minus {
+                margin-right: 5px;
+            }
+            a {
+                color: black;
+                text-decoration: none;
+            }
+
+            #score {
+                display: block;
+            }
+
+
+
 
         </style>
     </head>
@@ -397,7 +446,7 @@
             <ul class="nav-links">
                 <li>
                     <i class="bx bx-search search-btn"></i>
-                    <input type="text" placeholder="Search" />
+                    <input type="" placeholder="Search" />
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
@@ -586,8 +635,46 @@
 
                                     <div class="content">
                                         <div class="tab_content tab_1">
-                                            <form id="addManually" action="" method="post">
-                                                  
+                                            <!--<form id="addManually" action="" method="post">-->
+
+                                            <form id="my-form" action="/your-action-here">
+
+                                                <div class="wrapper">
+
+
+                                                    <input type="text" name="title" class="survey_options" placeholder="Question" required="">
+
+                                                    <div id="container">
+                                                        <div class="form-inline">
+                                                            <div class="form-group col-sm-7">
+                                                                <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
+                                                            </div>
+                                                            <div class="form-group col-sm-4">
+                                                                Question's type: 
+                                                                <input type="radio" id="isMultiplechoice" name="questionType" value="multi" class="survey_options">
+                                                                  <label for="isMultiplechoice">Multichoice</label>
+                                                                <input type="radio" id="isOnechoice" name="questionType" value="onechoice" class="survey_options">
+                                                                  <label for="isOnechoice">1 choice</label>
+                                                                <select name="score" class="survey_options ml-3" id="score">
+                                                                    <option value="25">25</option>
+                                                                    <option value="50">50</option>
+                                                                    <option value="75">75</option>
+                                                                    <option value="100">100</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="controls">
+                                                        <a  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                                        <a  id="remove_fields" ><i class="fa fa-plus"></i>Remove Field</a>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="form-group row">
+                                                    <input class="btn btn-primary btn-sm align-items-center col-3" style="margin: 0 auto; display: block;border-radius:20px " type="submit" value="Add Question" />
+                                                </div>
                                             </form>
 
 
@@ -729,7 +816,7 @@
                                 alert("Date must be in the future.");
                                 return;
                             }
-                            if(fromDate > toDate) {
+                            if (fromDate > toDate) {
                                 alert("From Date must before To Date.");
                                 return;
                             }
@@ -738,17 +825,98 @@
                                 alert("To date must be before " + xDate.toDateString());
                                 return;
                             }
-                            if(fromDate <= xDate) {
+                            if (fromDate <= xDate) {
                                 alert("Start Date must after: " + yDate.toDateString());
                                 return;
                             }
-                            
+
 
                             // If the validation passes, you can submit the form
                             this.submit();
                         });
 
 
+                        document.getElementById('add_more_fields').addEventListener('click', function (event) {
+                            event.preventDefault();
+                            var inputCounter = 1;
+                            var container = document.getElementById('container');
+                            // Create a new div element
+                            var newDiv = document.createElement('div');
+                            newDiv.className = 'form-inline';
+                            // Generate a unique ID for the new div
+                            var uniqueId = Date.now();
+                            newDiv.id = uniqueId;
+                            // Add the HTML content to the new div
+                            newDiv.innerHTML = `
+        <div class="form-group col-sm-7">
+            <input type="text" name="survey_options_${inputCounter}" class="survey_options" size="50" placeholder="Answer:" required="">
+        </div>
+        <div class="form-group col-sm-4">
+            Question's type: 
+            <input type="radio" id="isMultiplechoice" name="questionType_${inputCounter}" value="multi" class="survey_options">
+            <label for="isMultiplechoice" class="survey_options">Multichoice</label>
+            <input type="radio" id="isOnechoice" name="questionType_${inputCounter}" value="onechoice" class="survey_options">
+            <label for="isOnechoice" class="survey_options">1 choice</label>
+            <select name="score_${inputCounter}" class="survey_options ml-3" id="score">
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="75">75</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+    `;
+
+                            inputCounter++;
+                            // Find the select element
+                            var selectElement = newDiv.querySelector('select[name="score"]');
+
+                            // Add an event listener to the radio buttons
+                            newDiv.querySelector('#isMultiplechoice').addEventListener('click', function () {
+                                selectElement.style.display = 'block';
+                            });
+                            newDiv.querySelector('#isOnechoice').addEventListener('click', function () {
+                                selectElement.style.display = 'none';
+                            });
+
+
+                            // Append the new div to the container
+                            container.appendChild(newDiv);
+                            //Add an event listener to the radio inputs in the new div
+                                    newDiv.querySelector(`#isMultiplechoice_${inputCounter}`).addEventListener("change", function () {
+                                var selectElement = newDiv.querySelector(`#score_${inputCounter}`);
+                                selectElement.style.display = this.checked ? "block" : "none";
+                            });
+                        });
+
+
+
+
+//                        var survey_options = document.getElementById('survey_options');
+//                        var add_more_fields = document.getElementById('add_more_fields');
+//                        var remove_fields = document.getElementById('remove_fields');
+//
+//                        add_more_fields.onclick = function () {
+//                            var newField = document.createElement('input');
+//                            newField.setAttribute('type', 'text');
+//                            newField.setAttribute('name', 'survey_options[]');
+//                            newField.setAttribute('class', 'survey_options');
+//                            newField.setAttribute('size', 50);
+//                            newField.setAttribute('placeholder', 'Answer');
+//                            newField.setAttribute('required', '');
+//                            survey_options.appendChild(newField);
+//
+//                        }
+//
+//                        remove_fields.onclick = function () {
+//                            var input_tags = survey_options.getElementsByTagName('input');
+//                            if (input_tags.length > 2) {
+//                                survey_options.removeChild(input_tags[(input_tags.length) - 1]);
+//                            }
+//                        }
+
+
+
         </script>
+
     </body>
 </html>
