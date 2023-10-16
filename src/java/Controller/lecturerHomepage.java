@@ -1,10 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
+import Dal.DAO;
+import Dal.LecturerDAO;
 import Model.Account;
+import Model.Course;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,12 +11,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
- * @author tanki
+ * @author ROG
  */
-public class HomeController extends HttpServlet {
+public class lecturerHomepage extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,24 +31,17 @@ public class HomeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("user");
-        if (acc == null) {
-            response.sendRedirect("index.html");
-        } else {
-            int role = (int) acc.getRoleID();
-            if (role == 0) {
-                response.sendRedirect("admin");
-            }
-            if (role == 1) {
-                response.sendRedirect("managerHome");
-            }
-            if (role == 2) {
-                response.sendRedirect("lecturer");
-            }
-            if (role == 3) {
-                response.sendRedirect("student");
-            }
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet lecturerHomepage</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet lecturerHomepage at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -64,7 +57,28 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //block check if user have logged in, if not then return to index
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        //check active status
+        Account user = (Account) session.getAttribute("user");
+        if (user.getStatus() == 0) {
+            session.removeAttribute("user");
+            request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }
+        //check user's authority by role
+        if (user.getRoleID() != 2) {
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        }
+        ///////////////////////////////
+        LecturerDAO dao = new LecturerDAO();
+        request.setAttribute("course", dao.loadAllCourses(user.getAccountID()));
+        request.getRequestDispatcher("lecturer-homepage.jsp").forward(request, response);
     }
 
     /**

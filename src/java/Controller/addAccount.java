@@ -5,6 +5,7 @@
 package Controller;
 
 import Dal.DAO;
+import Model.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -66,7 +67,29 @@ public class addAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
+        }
+        //check active status
+        Account user = (Account) session.getAttribute("user");
+        if (user.getStatus() == 0) {
+            session.removeAttribute("user");
+            request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+            request.getRequestDispatcher("Login.jsp").forward(request, response);
+        }
+        //check user's authority by role
+        if (user.getRoleID() != 0) {
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        }
+        ////////////////////////////////////////////////////////////////
+
+        session.removeAttribute("idErr");
+        session.removeAttribute("nameErr");
+        session.removeAttribute("phoneErr");
+        session.removeAttribute("emailErr");
         request.getRequestDispatcher("addAccount.jsp").forward(request, response);
 
     }
@@ -82,8 +105,13 @@ public class addAccount extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        HttpSession session = request.getSession();
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
         session.removeAttribute("idErr");
         session.removeAttribute("nameErr");
         session.removeAttribute("phoneErr");
@@ -102,7 +130,7 @@ public class addAccount extends HttpServlet {
         String emailErr = valid.emailValid(email);
         String idErr = "";
         if (dao.getUserById(id) != null) {
-            idErr = "Id existed!";
+            idErr = "ID existed!";
         }
         if (!nameErr.isEmpty() || !phoneErr.isEmpty() || !emailErr.isEmpty() || !idErr.isEmpty()) {
             session.setAttribute("idErr", idErr);

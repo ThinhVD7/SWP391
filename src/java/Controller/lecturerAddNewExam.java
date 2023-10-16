@@ -4,7 +4,8 @@
  */
 package Controller;
 
-import Model.Account;
+import Dal.LecturerDAO;
+import Model.Class1;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author tanki
  */
-public class HomeController extends HttpServlet {
+public class lecturerAddNewExam extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,24 +32,17 @@ public class HomeController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        Account acc = (Account) session.getAttribute("user");
-        if (acc == null) {
-            response.sendRedirect("index.html");
-        } else {
-            int role = (int) acc.getRoleID();
-            if (role == 0) {
-                response.sendRedirect("admin");
-            }
-            if (role == 1) {
-                response.sendRedirect("managerHome");
-            }
-            if (role == 2) {
-                response.sendRedirect("lecturer");
-            }
-            if (role == 3) {
-                response.sendRedirect("student");
-            }
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet lecturerAddNewExam</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet lecturerAddNewExam at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -64,7 +58,8 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+        request.getRequestDispatcher("addExam.jsp").forward(request, response);
     }
 
     /**
@@ -78,7 +73,33 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+//        processRequest(request, response);
+
+        //block check if user have logged in, if not then return to home
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
+        }
+
+        String examName = request.getParameter("examName");
+        String timeLimit = request.getParameter("timeLimit");
+        String fromDate = request.getParameter("fromDate");
+        String toDate = request.getParameter("toDate");
+        String permission = request.getParameter("permission");
+        
+        
+        
+        Class1 thisClass = (Class1) session.getAttribute("sessionThisClass");
+        String classId = thisClass.getClassID();
+        LecturerDAO dao = new LecturerDAO();
+        String examId = examName + '_' + classId;
+        if (dao.addExam(examId, classId, examName, timeLimit, fromDate, toDate, Integer.parseInt(permission))) {
+            response.sendRedirect("lecturerExamList?classID=" + classId);
+
+        } else {
+            response.sendRedirect("pageNotFound");
+        }
     }
 
     /**

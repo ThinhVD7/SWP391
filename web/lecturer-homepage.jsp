@@ -6,6 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 <html lang="en">
     <head>
 
@@ -44,7 +49,7 @@
     <body>
         <section class="sidebar">
             <div class="nav-header">
-                <p class="logo">FPTQuiz</p>
+                <p class="logo">Quiz Practice</p>
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
@@ -58,11 +63,11 @@
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="profile">
                         <i class='bx bxs-user-account'></i>
                         <span class="title">Profile</span>
                     </a>
-                    <span class="tooltip">${user.name}</span>
+                    <span class="tooltip">${sessionScope.user.name}</span>
                 </li>
                 <li>
                     <a href="home">
@@ -71,41 +76,14 @@
                     </a>
                     <span class="tooltip">Home</span>
                 </li>
-                <!--                <li>
-                                    <a href="#">
-                                        <i class="bx bx-phone-call"></i>
-                                        <span class="title">Calls</span>
-                                    </a>
-                                    <span class="tooltip">Calls</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-bookmark"></i>
-                                        <span class="title">Bookmarks</span>
-                                    </a>
-                                    <span class="tooltip">Bookmarks</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-wallet-alt"></i>
-                                        <span class="title">Wallet</span>
-                                    </a>
-                                    <span class="tooltip">Wallet</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bxs-devices"></i>
-                                        <span class="title">Devices</span>
-                                    </a>
-                                    <span class="tooltip">Devices</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-cog"></i>
-                                        <span class="title">Setting</span>
-                                    </a>
-                                    <span class="tooltip">Setting</span>
-                                </li>-->
+                <li>
+                    <a href="Logout">
+                        <i class="bx bxs-devices"></i>
+                        <span class="title">Logout</span>
+                    </a>
+                    <span class="tooltip">Logout</span>
+                </li>
+
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -127,62 +105,30 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a href="profile.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-9">
-
-                </div>    
-            </div>
-
 
 
             <div class="container-fluid mt-3">
                 <div class="row mt-5">
 
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>   <div class="col col-sm-4 mt-4">
-                        <div class="card">
-                            <div class="card-body">
-                                <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                            </div>
-                        </div>
-                    </div>
+                    <c:forEach items="${requestScope.course}" var="c">
+                        <div class="col col-sm-4 mt-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <a style="text-decoration: none;"  href="lecturerClasslist?courseID=${c.courseID}">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
+                                    <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6>  
+                                    <a href="lecturerClasslist?courseID=${c.courseID}" class="card-link">Enter course</a>
 
-
+                                </div>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
-
-
-
-
-
-
-
-
         </section>
 
         <script>
