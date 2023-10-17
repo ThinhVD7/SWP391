@@ -641,28 +641,23 @@
 
                                                 <div class="wrapper">
 
+                                                    <div class="form-inline">
+                                                        <div class="form-group col-sm-7">
+                                                            <input type="text" name="title" class="survey_options" placeholder="Question" required="">
+                                                        </div>
+                                                        <div class="form-group col-sm-3 mr-4">
 
-                                                    <input type="text" name="title" class="survey_options" placeholder="Question" required="">
+                                                            Question Type:
+                                                            <select name="questionType" class="survey_options ml-3" id="questionType">
+                                                                <option value="1">Multiple Choice</option>
+                                                                <option value="0">One Choice</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
                                                     <div id="container">
-                                                        <div class="form-inline">
-                                                            <div class="form-group col-sm-7">
-                                                                <input type="text" name="survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
-                                                            </div>
-                                                            <div class="form-group col-sm-4">
-                                                                Question's type: 
-                                                                <input type="radio" id="isMultiplechoice" name="questionType" value="multi" class="survey_options">
-                                                                  <label for="isMultiplechoice">Multichoice</label>
-                                                                <input type="radio" id="isOnechoice" name="questionType" value="onechoice" class="survey_options">
-                                                                  <label for="isOnechoice">1 choice</label>
-                                                                <select name="score" class="survey_options ml-3" id="score">
-                                                                    <option value="25">25</option>
-                                                                    <option value="50">50</option>
-                                                                    <option value="75">75</option>
-                                                                    <option value="100">100</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
+
+                                                        <!--Answer will added here-->
 
                                                     </div>
                                                     <div class="controls">
@@ -836,83 +831,120 @@
                         });
 
 
+
+
+
+
+                        var count = 1;
                         document.getElementById('add_more_fields').addEventListener('click', function (event) {
                             event.preventDefault();
-                            var inputCounter = 1;
-                            var container = document.getElementById('container');
-                            // Create a new div element
-                            var newDiv = document.createElement('div');
-                            newDiv.className = 'form-inline';
-                            // Generate a unique ID for the new div
-                            var uniqueId = Date.now();
-                            newDiv.id = uniqueId;
-                            // Add the HTML content to the new div
-                            newDiv.innerHTML = `
+                            var x = document.getElementById('questionType');
+                            if (x.value == 1) {
+                                var container = document.getElementById('container');
+                                // Create a new div element
+                                var newDiv = document.createElement('div');
+                                newDiv.className = 'form-inline';
+                                // Generate a unique ID for the new div
+//                            var uniqueId = 'formDiv_' + Date.now();
+                                newDiv.id = count;
+                                // Add the HTML content to the new div
+                                newDiv.innerHTML = `
         <div class="form-group col-sm-7">
-            <input type="text" name="survey_options_${inputCounter}" class="survey_options" size="50" placeholder="Answer:" required="">
+            <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
         </div>
-        <div class="form-group col-sm-4">
-            Question's type: 
-            <input type="radio" id="isMultiplechoice" name="questionType_${inputCounter}" value="multi" class="survey_options">
-            <label for="isMultiplechoice" class="survey_options">Multichoice</label>
-            <input type="radio" id="isOnechoice" name="questionType_${inputCounter}" value="onechoice" class="survey_options">
-            <label for="isOnechoice" class="survey_options">1 choice</label>
-            <select name="score_${inputCounter}" class="survey_options ml-3" id="score">
+        <div class="form-group col-sm-3">
+            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score";">
+                <option value="0">0</option>
+                <option value="20">20</option>
                 <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="75">75</option>
+                <option value="33">33</option>
+               <option value="50">50</option>
                 <option value="100">100</option>
             </select>
         </div>
+              <div class="form-group col-sm-2">
+          <a  id="remove" ><i class="fa fa-plus"></i>Remove Field</a>
+        </div>
+            
+            
+            
     `;
+                                // Append the new div to the container
+                                container.appendChild(newDiv);
+                                count = count + 1;
+                            } else {
+                                var container = document.getElementById('container');
+                                // Create a new div element
+                                var newDiv = document.createElement('div');
+                                newDiv.className = 'form-inline';
+                                // Generate a unique ID for the new div
+//                            var uniqueId = 'formDiv_' + Date.now();
+                                newDiv.id = count;
+                                // Add the HTML content to the new div
+                                newDiv.innerHTML = `
+             <div class="form-group col-sm-3">
+            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score";">
+                <option value="0">0</option>
+                <option value="100">100</option>
+            </select>
+        </div>
+            <div class="form-group col-sm-2">
+          <a  id="remove" ><i class="fa fa-plus"></i>Remove Field</a>
+        </div>
+    `;
+                                // Append the new div to the container
+                                container.appendChild(newDiv);
+                                count = count + 1;
+                            }
 
-                            inputCounter++;
-                            // Find the select element
-                            var selectElement = newDiv.querySelector('select[name="score"]');
-
-                            // Add an event listener to the radio buttons
-                            newDiv.querySelector('#isMultiplechoice').addEventListener('click', function () {
-                                selectElement.style.display = 'block';
-                            });
-                            newDiv.querySelector('#isOnechoice').addEventListener('click', function () {
-                                selectElement.style.display = 'none';
-                            });
 
 
-                            // Append the new div to the container
-                            container.appendChild(newDiv);
-                            //Add an event listener to the radio inputs in the new div
-                                    newDiv.querySelector(`#isMultiplechoice_${inputCounter}`).addEventListener("change", function () {
-                                var selectElement = newDiv.querySelector(`#score_${inputCounter}`);
-                                selectElement.style.display = this.checked ? "block" : "none";
-                            });
+                            // Add an event listener to the checkbox to toggle the select's visibility
+//                            var checkbox = newDiv.querySelector(`[name="${count}_checkbox"]`);
+//                            var select = newDiv.querySelector(`#${count}_score`);
+//                            checkbox.addEventListener('change', function () {
+//                                select.style.display = checkbox.checked ? 'inline' : 'none';
+//                            });
+                        });
+
+
+                        document.getElementById('remove_fields').addEventListener('click', function () {
+                            var container = document.getElementById('container');
+
+                            // Get the last added div in the container
+                            var lastDiv = container.lastChild;
+
+                            // Check if the last div exists and remove it
+                            if (lastDiv) {
+                                container.removeChild(lastDiv);
+                            }
                         });
 
 
 
 
-//                        var survey_options = document.getElementById('survey_options');
-//                        var add_more_fields = document.getElementById('add_more_fields');
-//                        var remove_fields = document.getElementById('remove_fields');
-//
-//                        add_more_fields.onclick = function () {
-//                            var newField = document.createElement('input');
-//                            newField.setAttribute('type', 'text');
-//                            newField.setAttribute('name', 'survey_options[]');
-//                            newField.setAttribute('class', 'survey_options');
-//                            newField.setAttribute('size', 50);
-//                            newField.setAttribute('placeholder', 'Answer');
-//                            newField.setAttribute('required', '');
-//                            survey_options.appendChild(newField);
-//
-//                        }
-//
-//                        remove_fields.onclick = function () {
-//                            var input_tags = survey_options.getElementsByTagName('input');
-//                            if (input_tags.length > 2) {
-//                                survey_options.removeChild(input_tags[(input_tags.length) - 1]);
-//                            }
-//                        }
+
+
+                        $("input:checkbox").on('click', function () {
+                            // in the handler, 'this' refers to the box clicked on
+                            var $box = $(this);
+                            if ($box.is(":checked")) {
+                                // the name of the box is retrieved using the .attr() method
+                                // as it is assumed and expected to be immutable
+                                var group = "input:checkbox[name='" + $box.attr("name") + "']";
+                                // the checked state of the group/box on the other hand will change
+                                // and the current value is retrieved using .prop() method
+                                $(group).prop("checked", false);
+                                $box.prop("checked", true);
+                            } else {
+                                $box.prop("checked", false);
+                            }
+                        });
+
+
+
+
+
 
 
 
