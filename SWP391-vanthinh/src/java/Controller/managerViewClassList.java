@@ -103,17 +103,21 @@ public class managerViewClassList extends HttpServlet {
         
         
 //        check user's authority by role
-        if(user.getRoleID()!=1)
+        if(user.getRoleID()!=1){
             request.getRequestDispatcher("pageNotFound").forward(request, response);
+        }
             ManagerDAO dao=new ManagerDAO();
             List<Class1> class1 = dao.getClassByCourseID(cID);
-            dao.AddClass(classID,className,cID);
-            request.setAttribute("classID", classID);
-            request.setAttribute("className", className);
-            request.setAttribute("courseID",cID);
-            request.setAttribute("class1", class1);
-            request.setAttribute("classID", classID);
-            request.getRequestDispatcher("manager-ViewClassList.jsp").forward(request, response);
+            dao.AddClass(classID,className,cID);       
+            response.sendRedirect("managerViewClassList?courseID="+cID);
+         
+//            request.setAttribute("classID", classID);
+//            request.setAttribute("className", className);
+//            request.setAttribute("courseID",cID);
+//            request.setAttribute("class1", class1);
+//            request.getRequestDispatcher("manager-ViewClassList.jsp").forward(request, response);
+           
+        
     } 
 
     /** 

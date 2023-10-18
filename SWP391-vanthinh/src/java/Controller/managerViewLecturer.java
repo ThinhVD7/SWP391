@@ -98,6 +98,7 @@ public class managerViewLecturer extends HttpServlet {
         }
 
         Class1 classInformation = dao.getClassByID(cid);
+        request.setAttribute("cid", cid);
         request.setAttribute("lecturer", lecturer);
         request.setAttribute("enableAdd", lecturer.size());
         request.setAttribute("student", student);
@@ -117,6 +118,7 @@ public class managerViewLecturer extends HttpServlet {
         String studentAdd = request.getParameter("add");
         String classID = request.getParameter("classID");
         String courseID = request.getParameter("courseID");
+        String cid = request.getParameter("cid");
         int status = Integer.parseInt(request.getParameter("status"));
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
@@ -167,7 +169,8 @@ public class managerViewLecturer extends HttpServlet {
         request.setAttribute("classID", classID);
 
         // response.getWriter().print(courseID + " " + lecturerAdd);
-        request.getRequestDispatcher("manager-ClassDetail.jsp").forward(request, response);
+        //request.getRequestDispatcher("manager-ClassDetail.jsp").forward(request, response);
+        response.sendRedirect("managerViewLecturer?CID="+cid+"&courseID="+courseID);
     }
 
     /**

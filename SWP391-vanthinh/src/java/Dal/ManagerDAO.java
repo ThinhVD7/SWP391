@@ -525,6 +525,32 @@ public class ManagerDAO extends DBContext {
             System.out.println(e);
         }
     }
+      public void updateClass(String cID, String lID,String bID){
+        try {
+            String strSelect = "UPDATE class SET ClassName = '?' WHERE Class_ID = '?' and Course_ID='?';";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+             ps.setString(1, cID);
+             ps.setString(2, lID);
+             ps.setString(3, bID);
+            ps.executeUpdate();
+        } catch (SQLException e) {            
+          System.out.println(e);
+        }
+    }
+//        public boolean updateClass( String Class_ID,String ClassName) {
+//
+//        String sql = "UPDATE class SET ClassName = ? WHERE Class_ID = ?;";
+//        try {
+//            PreparedStatement st = connector.prepareStatement(sql);
+//            st.setString(1,ClassName);
+//            st.setString(2,Class_ID);
+//            st.executeUpdate();
+//            return true;
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return false;
+//    }     
     public static void main(String[] args) {
         ManagerDAO d = new ManagerDAO();
           d.deleteCourse("asda");

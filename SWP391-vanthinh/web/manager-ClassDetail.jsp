@@ -256,6 +256,7 @@
             }
             .table-responsive {
                 margin: 30px 0;
+
             }
             .table-wrapper {
                 min-width: 1000px;
@@ -264,6 +265,7 @@
                 border-radius: 3px;
                 /*box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+
             }
             .table-title {
                 padding-bottom: 15px;
@@ -550,6 +552,11 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 padding: 15px;
                 z-index: 2;
+                overflow: auto;
+                height: 500px;
+
+
+
             }
         </style>
     </head>
@@ -560,9 +567,6 @@
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
-
-
-
 
                 <li>
                     <i class="bx bx-search search-btn"></i>
@@ -619,82 +623,86 @@
 
             <div class="class-list">
                 <!--pop up--------------------------------------------------------------------------------------------------->
+                <!--<form action="managerViewLecturer" method="post">-->
                 <div id="classEditPopup" class="overlay" onclick="closePopup()">
                     <div class="popup-container" onclick="event.stopPropagation();">
                         <h2>Edit Class Name</h2>
+<!--                        <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                        <input name="className" value="${requestScope.className}" style="display: none"/>
+                        <input name="courseID" value="${requestScope.courseID}" style="display: none"/>-->
                         <input type="text" id="newClassName" placeholder="New Class Name">
                         <button class ="popup-button" onclick="editClassName()">Save</button>
                         <button class ="popup-button" onclick="closePopup()">Cancel</button>
                     </div>
-                    <!--Delete pop up----------------------------->
                 </div>
-<!--                <div class="addCourse" id="deleterCouse" style="display: none;">
-                    <div class="addCourseContent">
-                        <h3 class="addCourseTitle" id="titleCourse">Delete</h3> 
-                        <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
-                        <button class="closePopUp1" type="submit" >Yes</button>
-                        <button class="closePopUp1" type="submit" >No</button>
-                        <button class="closePopUp" onclick="closePopUp()">Close</button>
-                    </div>
-                </div>-->
-                <!--Assign Lecturer-->
-<!--                <form action="managerViewLecturer" method="post">
-                    <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
-                        <div class="popup-container" onclick="event.stopPropagation();">
-
-                            <h2>Assign Lecturer</h2>
-                            <input type="text" id="search" placeholder="New Class Name">
-                            <div class="container-xl">
-                                <div class="table-responsive">
-                                    <div class="table-wrapper">
-                                        <div class="table-title">
-                                            <div class="row">
-                                                <div class="col-sm-5">
-                                                    <h2> </a><b>Lecturer</b></h2>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <table class="table table-striped table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>ID</th>						
-                                                    <th>Name</th>
-                                                    <th>Email</th>
-
-                                                    <th>Add</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            <input name="classID" value="${requestScope.classID}" style="display: none"/>
-                                            <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
-                                            <input name="status" value="1" style="display: none"/>
-
-
-                                            <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
-                                                <tr>
-                                                    <td>${x.count}</td>
-                                                    <td><a href="#">${u.accountID}</a></td>
-                                                    <td>${u.name}</td>                        
-                                                    <td>${u.email} </td>
-                                                    <td>
-                                                        <input type="checkbox" name="add" value=${u.accountID} />
-                                                    </td>
-                                                </tr>
-                                            </c:forEach>
-
-
-                                            </tbody>
-                                        </table>
+                <!--</form>-->
+                <!--                <div class="addCourse" id="deleterCouse" style="display: none;">
+                                    <div class="addCourseContent">
+                                        <h3 class="addCourseTitle" id="titleCourse">Delete</h3> 
+                                        <h6 class="addCourseTitle1" id="titleCourse1">You may want to delete ?</h6>
+                                        <button class="closePopUp1" type="submit" >Yes</button>
+                                        <button class="closePopUp1" type="submit" >No</button>
+                                        <button class="closePopUp" onclick="closePopUp()">Close</button>
                                     </div>
-                                </div>
-                            </div>
-                            <button class ="popup-button" onclick="editClassName()">Save</button>
-                            <button class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</button>
-                        </div>
-                    </div>
-                </form>-->
-          <!--Assign Lecturer-->
+                                </div>-->
+                <!--Assign Lecturer-->
+                <!--                <form action="managerViewLecturer" method="post">
+                                    <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
+                                        <div class="popup-container" onclick="event.stopPropagation();">
+                
+                                            <h2>Assign Lecturer</h2>
+                                            <input type="text" id="search" placeholder="New Class Name">
+                                            <div class="container-xl">
+                                                <div class="table-responsive">
+                                                    <div class="table-wrapper">
+                                                        <div class="table-title">
+                                                            <div class="row">
+                                                                <div class="col-sm-5">
+                                                                    <h2> </a><b>Lecturer</b></h2>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <table class="table table-striped table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>ID</th>						
+                                                                    <th>Name</th>
+                                                                    <th>Email</th>
+                
+                                                                    <th>Add</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <input name="classID" value="${requestScope.classID}" style="display: none"/>
+                                                            <input name="courseID" value="${requestScope.courseID}" style="display: none"/>
+                                                            <input name="status" value="1" style="display: none"/>
+                
+                
+                <c:forEach items="${requestScope.addlecturer}" var="u" varStatus="x" >
+                    <tr>
+                        <td>${x.count}</td>
+                        <td><a href="#">${u.accountID}</a></td>
+                        <td>${u.name}</td>                        
+                        <td>${u.email} </td>
+                        <td>
+                            <input type="checkbox" name="add" value=${u.accountID} />
+                        </td>
+                    </tr>
+                </c:forEach>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<button class ="popup-button" onclick="editClassName()">Save</button>
+<button class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</button>
+</div>
+</div>
+</form>-->
+                <!--Assign Lecturer-->
                 <form action="managerViewLecturer" method="post">
                     <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
                         <div class="popup-container" onclick="event.stopPropagation();">
@@ -746,16 +754,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <input name="cid" value="${requestScope.cid}" hidden="">
                             <button class ="popup-button" onclick="editClassName()">Save</button>
                             <span class ="popup-button" onclick="closeAssignLecturerPopup()">Cancel</span>
                         </div>
                     </div>
                 </form>
+
                 <!--Assign Student------------------------->
                 <form action="managerViewLecturer" method="post">
                     <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 
                         <div class="popup-container" onclick="event.stopPropagation();">
-                            <h2>Assign Student</h2>
+                            <h2>Assign Student</h2>              
                             <input type="text" id="search" placeholder="New Class Name">
                             <div class="container-xl">
                                 <div class="table-responsive">
@@ -792,7 +802,7 @@
                                                     <td>${u.email} </td>
 
                                                     <td>
-                                                        <input type="checkbox" name="add" value=${u.accountID} />
+                                                        <input type="checkbox" name="add" value="${u.accountID}" />
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -803,6 +813,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <input name="cid" value="${requestScope.cid}" hidden=""></h1>
                             <button class ="popup-button" onclick="editClassName()">Save</button>
                             <span class ="popup-button" onclick="closeAssignStudentPopup()">Cancel</span>
                         </div>
@@ -814,11 +825,10 @@
                 <div> 
                     <a style="font-size: 36px; margin-bottom: 10px; width:50%">
                         ${requestScope.classInfo.className}
-                        <button class="edit-button" onclick="openPopup('SE1732')">Edit Name</button>
+                        <button class="edit-button" onclick="openPopup()">Edit Name</button>
                 </div>
                 <div>
-                    <a style ="padding: 5px;"
-                       href="#">Home</a> / 
+                   
                     <a style ="padding: 5px;" 
                        href="managerViewClassList?courseID=${requestScope.courseID}">${requestScope.courseID}</a> /
                     <a style ="padding: 5px;" 
@@ -839,7 +849,7 @@
                                     </div>
                                     <c:if test="${requestScope.enableAdd <= 0}">
                                         <div class="col-sm-7">
-                                            <button onclick="openAssignLecturerPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
+                                            <button onclick="openAssignLecturerPopup()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
 
                                         </div>
                                     </c:if>
@@ -900,7 +910,7 @@
                                         <h2> </a><b>Student</b></h2>
                                     </div>
                                     <div class="col-sm-7">
-                                        <button onclick="openAssignStudentPopup('SE1732')"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Student</span></button>
+                                        <button onclick="openAssignStudentPopup()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Student</span></button>
 
 
                                     </div>
