@@ -243,28 +243,137 @@ public class LecturerDAO extends DBContext {
     }
 
     //add exam
-    public boolean addExam(String examId, String classId, String examName, String timeLimit, String startDate, String endDate, int permission) {
+    public boolean addExam(String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
         try {
             String sql = "INSERT INTO exam\n"
-                    + "(Exam_ID,\n"
-                    + "Class_ID,\n"
+                    + "(Class_ID,\n"
                     + "ExamName,\n"
+                    + "QuestionNumber,\n"
                     + "StartDate,\n"
                     + "EndDate,\n"
                     + "TimeLimit,\n"
+                    + "AttempsAllowed,\n"
+                    + "ExamDetail,\n"
+                    + "MaxScore,\n"
                     + "Permission)\n"
-                    + "VALUES(?,?,?,?,?,?,?)";
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = connector.prepareStatement(sql);
-            ps.setString(1, examId);
-            ps.setString(2, classId);
-            ps.setString(3, examName);
+            ps.setString(1, classId);
+            ps.setString(2, examName);
+            ps.setString(3, questionNumber);
             ps.setString(4, startDate);
             ps.setString(5, endDate);
             ps.setString(6, timeLimit);
-            ps.setInt(7, permission);
+            ps.setString(7, attemp);
+            ps.setString(8, examDetail);
+            ps.setString(9, examScore);
+            ps.setInt(10, permission);
             ps.executeUpdate();
-             return true;
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    //update exam
+    public boolean updateExam(String examId,String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
+        try {
+            String sql = "update exam set Class_ID = ?,ExamName = ?,QuestionNumber = ?,StartDate = ?,EndDate = ?,TimeLimit = ?,AttempsAllowed = ?,ExamDetail = ?, MaxScore = ?,Permission = ? where Exam_ID = ?";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classId);
+            ps.setString(2, examName);
+            ps.setString(3, questionNumber);
+            ps.setString(4, startDate);
+            ps.setString(5, endDate);
+            ps.setString(6, timeLimit);
+            ps.setString(7, attemp);
+            ps.setString(8, examDetail);
+            ps.setString(9, examScore);
+            ps.setInt(10, permission);
+            ps.setString(11, examId);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    public boolean addQuestion(String Title, String questionContent, String type, float mark) {
+        try {
+            String sql = "INSERT INTO question\n"
+                    + "(Title,\n"
+                    + "QuestionContent,\n"
+                    + "Type,\n"
+                    + "Mark)\n"
+                    + "VALUES(?,?,?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Title);
+            ps.setString(2, questionContent);
+            ps.setString(3, type);
+            ps.setFloat(4, mark);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    public Question getLastestQuestion() {
+        String sql = "SELECT * FROM question ORDER BY Question_ID DESC limit 1;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
+    public Exam getExam(String examID) {
+        String sql = "SELECT * FROM exam where Exam_ID = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getFloat(10), rs.getInt(11));
+
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
+    public boolean addChoice(String Question_ID, String ChoiceContent, String ScorePercentage) {
+        try {
+            String sql = "INSERT INTO choicesofquestion\n"
+                    + "(Question_ID,\n"
+                    + "ChoiceContent,\n"
+                    + "ScorePercentage)\n"
+                    + "VALUES(?,?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Question_ID);
+            ps.setString(2, ChoiceContent);
+            ps.setString(3, ScorePercentage);
+            ps.executeUpdate();
+            return true;
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -274,61 +383,62 @@ public class LecturerDAO extends DBContext {
 
     public static void main(String[] args) {
         LecturerDAO dao = new LecturerDAO();
+//        dao.addQuestion("Cau 1", "1+1=?", "1", 10);
+        dao.addExam("SE1732_MAS291", "newExam", "10", "10", "2023-09-20T10:10:00", "2023-09-30T10:10:00", "1", "nothing", "10", 1);
 
-        //test add exam
-        dao.addExam("id1", "SE1732_MAS291", "PT2", "60", "2023-04-28T16:25:49.000", "2023-04-28T16:25:49.000", 1);
-
-        //test user
-        Account acc = dao.getUser("nampthe171400@fpt.edu.vn");
-        System.out.println(acc.getEmail());
-
-        //test load a course
-        System.out.println(dao.loadACourse("JPD134").getCourseID() + " " + dao.loadACourse("JPD134").getSemester());
-
-        //test load all course
-        dao.loadAllCourses("minhvnt_he_176043");
-
-        //test load all class of a course
-        List<Class1> classList = dao.loadAllClassesofCourse("minhvnt_he_176043", "MAS291");
-        for (int i = 0; i < classList.size(); i++) {
-            System.out.println(classList.get(i).getClassName() + classList.get(i).getClassID());
-        }
-
-        //test load all courses of lecturer
-        List<Course> list = dao.loadAllCourses("minhvnt_he_176043");
-        if (list == null) {
-            System.out.println("null");
-        }
-        for (int i = 0; i < list.size(); i++) {
-            System.out.println(list.get(i).getCourseID());
-        }
-
-        //test load all exam of a class
-        List<Exam> examList = dao.loadAllExamofClass("SE1732_MAS291");
-        for (int i = 0; i < examList.size(); i++) {
-            System.out.println(examList.get(i).getExamName() + examList.get(i).getClassID());
-        }
-
-        //test number of student
-        System.out.println(dao.numberofStudentofClass("SE1732_MAS291"));
-
-        //test number of exam
-        System.out.println(dao.numberofExamofClass("SE1732_MAS291"));
-
-        HashMap<String, Integer> class_studentNumber = new HashMap<String, Integer>();
-        HashMap<String, Integer> class_examNumber = new HashMap<String, Integer>();
-        for (Class1 class1 : classList) {
-            class_studentNumber.put(class1.getClassID(), dao.numberofStudentofClass(class1.getClassID()));
-            class_examNumber.put(class1.getClassID(), dao.numberofExamofClass(class1.getClassID()));
-        }
-
-        System.out.println(class_studentNumber);
-        System.out.println(class_examNumber);
-
-        LocalDateTime dateTime = LocalDateTime.now();
-        //default format
-        System.out.println("Default format of LocalDateTime=" + dateTime);
-
+//        //test add exam
+        //        dao.addExam("id1", "SE1732_MAS291", "PT2", "60", "2023-04-28T16:25:49.000", "2023-04-28T16:25:49.000", 1);
+        //
+        //        //test user
+        //        Account acc = dao.getUser("nampthe171400@fpt.edu.vn");
+        //        System.out.println(acc.getEmail());
+        //
+        //        //test load a course
+        //        System.out.println(dao.loadACourse("JPD134").getCourseID() + " " + dao.loadACourse("JPD134").getSemester());
+        //
+        //        //test load all course
+        //        dao.loadAllCourses("minhvnt_he_176043");
+        //
+        //        //test load all class of a course
+        //        List<Class1> classList = dao.loadAllClassesofCourse("minhvnt_he_176043", "MAS291");
+        //        for (int i = 0; i < classList.size(); i++) {
+        //            System.out.println(classList.get(i).getClassName() + classList.get(i).getClassID());
+        //        }
+        //
+        //        //test load all courses of lecturer
+        //        List<Course> list = dao.loadAllCourses("minhvnt_he_176043");
+        //        if (list == null) {
+        //            System.out.println("null");
+        //        }
+        //        for (int i = 0; i < list.size(); i++) {
+        //            System.out.println(list.get(i).getCourseID());
+        //        }
+        //
+        //        //test load all exam of a class
+        //        List<Exam> examList = dao.loadAllExamofClass("SE1732_MAS291");
+        //        for (int i = 0; i < examList.size(); i++) {
+        //            System.out.println(examList.get(i).getExamName() + examList.get(i).getClassID());
+        //        }
+        //
+        //        //test number of student
+        //        System.out.println(dao.numberofStudentofClass("SE1732_MAS291"));
+        //
+        //        //test number of exam
+        //        System.out.println(dao.numberofExamofClass("SE1732_MAS291"));
+        //
+        //        HashMap<String, Integer> class_studentNumber = new HashMap<String, Integer>();
+        //        HashMap<String, Integer> class_examNumber = new HashMap<String, Integer>();
+        //        for (Class1 class1 : classList) {
+        //            class_studentNumber.put(class1.getClassID(), dao.numberofStudentofClass(class1.getClassID()));
+        //            class_examNumber.put(class1.getClassID(), dao.numberofExamofClass(class1.getClassID()));
+        //        }
+        //
+        //        System.out.println(class_studentNumber);
+        //        System.out.println(class_examNumber);
+        //
+        //        LocalDateTime dateTime = LocalDateTime.now();
+        //        //default format
+        //        System.out.println("Default format of LocalDateTime=" + dateTime);
     }
 
 }

@@ -5,6 +5,7 @@
     response.setHeader("Pragma","no-cache"); //HTTP 1.0
     response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 %>
+
 <html lang="en">
     <head>
 
@@ -499,7 +500,7 @@
                     <div class="row align-items-center">
 
                         <div class="mx-auto col-10 col-md-8 col-lg-6">
-                            <form action="AddNewExam" method="post" class="">
+                            <form action="${sessionScope.exam != null ? "editExam":"AddNewExam"}" method="post" class="">
                                 <a style ="padding:5px;"><h2 style="text-align: center">Add New Exam</h2></a>
                                 <input hidden="true" value="${sessionScope.sessionThisCourse.startDate}" id="startDate" >
                                 <input hidden="true" value="${sessionScope.sessionThisCourse.endDate}" id="endDate" >
@@ -507,25 +508,37 @@
                                 <div class="form-group row">
                                     <label for="examName" class="col-sm-3 col-form-label" style="font-weight: bold">Exam's Name:</label>
                                     <div class="col-sm-5">
-                                        <input type="text" name="examName" class="form-control" id="examName" placeholder="" required="">
+                                        <input type="text" name="examName" class="form-control" id="examName" placeholder="" value="${examName}" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="questionNumber" class="col-sm-3 col-form-label" style="font-weight: bold">Question Number:</label>
+                                    <div class="col-sm-5">
+                                        <input type="number" name="questionNumber" class="form-control" id="questionNumber" placeholder="" value="${questionNumber}" required="">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="maxScore" class="col-sm-3 col-form-label" style="font-weight: bold">Max Score:</label>
+                                    <div class="col-sm-5">
+                                        <input type="number" name="maxScore" class="form-control" id="maxScore" placeholder="" value="${maxScore}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="0" placeholder="0" required=""> (minutes)
+                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="0" placeholder="0" value="${timeLimit}" required=""> (minutes)
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        From: <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" placeholder="" required="">
+                                        From: <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        To: <input type="datetime-local" name="toDate" class="form-control" id="toDate" placeholder="" required="">
+                                        To: <input type="datetime-local" name="toDate" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -533,9 +546,25 @@
                                     <div class="col-md-6">
                                         <select id="permission" name="permission" class="mt-2 pl-5 pr-5" required="">
                                             <option value="" disabled selected="selected"></option>
-                                            <option value="1">Allow</option>
-                                            <option value="0">Not Allow</option>
+                                            <option ${permission == 1?"selected":""} value="1">Allow</option>
+                                            <option ${permission == 0?"selected":""} value="0">Not Allow</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="attemp" class="col-sm-4 col-form-label" style="font-weight: bold">Set attemp permission:</label>
+                                    <div class="col-md-6">
+                                        <select id="attemp" name="attemp" class="mt-2 pl-5 pr-5" required="">
+                                            <option value="" disabled selected="selected"></option>
+                                            <option ${attemp == 1?"selected":""} value="1">Allow</option>
+                                            <option ${attemp == 0?"selected":""} value="0">Not Allow</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="examDetail" class="col-sm-3 col-form-label" style="font-weight: bold">Exam Description:</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" name="examDetail" class="form-control" id="examDetail" placeholder="" value="${examDetail}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -551,6 +580,9 @@
                             <div class="mx-auto col-10 col-md-8 col-lg-6">
                                 <form action="AddNewExam" method="post" class="">
                                     <a style ="padding:5px;"><h3 style="text-align: center">Questions</h3></a>
+                                    <p class="text-danger" style="text-align: center">${err}</p>
+                                    <p class="text-success" style="text-align: center">${ok}</p>
+
 
 
 
@@ -563,30 +595,30 @@
                                 </form>
                                 <div class ="question-list">
 
-                                    <c:forEach items ="${requestScope.questionList}" var="question">
+                                    <c:forEach items ="${listQ}">
                                         <div class ="question-container">
-                                            yess
+                                            ${listQ.content}
                                         </div>
 
                                     </c:forEach>
-                                    <div class ="question-container">
-                                        Cau 1
-                                    </div>
-                                    <div class ="question-container">
-                                        Cau 2
-                                    </div>
-                                    <div class ="question-container">
-                                        Cau 3
-                                    </div>
-                                    <div class ="question-container">
-                                        Cau 1
-                                    </div>
-                                    <div class ="question-container">
-                                        Cau 2
-                                    </div>
-                                    <div class ="question-container">
-                                        Cau 3
-                                    </div>
+                                    <!--                                    <div class ="question-container">
+                                                                           
+                                                                        </div>
+                                                                        <div class ="question-container">
+                                                                            Cau 2
+                                                                        </div>
+                                                                        <div class ="question-container">
+                                                                            Cau 3
+                                                                        </div>
+                                                                        <div class ="question-container">
+                                                                            Cau 1
+                                                                        </div>
+                                                                        <div class ="question-container">
+                                                                            Cau 2
+                                                                        </div>
+                                                                        <div class ="question-container">
+                                                                            Cau 3
+                                                                        </div>-->
 
                                 </div>
 
@@ -637,13 +669,26 @@
                                         <div class="tab_content tab_1">
                                             <!--<form id="addManually" action="" method="post">-->
 
-                                            <form id="my-form" action="/your-action-here">
+                                            <form id="my-form" action="addQuestion" method="post">
 
                                                 <div class="wrapper">
+                                                    <div class="form-inline">
 
+                                                        <div class="form-group col-sm-7">
+                                                            <input type="text" name="title" class="survey_options" placeholder="Title" required="">
+
+                                                        </div>
+                                                        <div class="form-group col-sm-5">
+
+                                                            Question Mark:
+                                                            <input type="number" name="mark" class="survey_options" placeholder="Question mark" required="">                     
+
+                                                        </div>
+
+                                                    </div>
                                                     <div class="form-inline">
                                                         <div class="form-group col-sm-7">
-                                                            <input type="text" name="title" class="survey_options" placeholder="Question" required="">
+                                                            <input type="text" name="content" class="survey_options" placeholder="Question Content" required="">                     
                                                         </div>
                                                         <div class="form-group col-sm-3 mr-4">
 
@@ -653,6 +698,8 @@
                                                                 <option value="0">One Choice</option>
                                                             </select>
                                                         </div>
+
+
                                                     </div>
 
                                                     <div id="container">
@@ -666,7 +713,7 @@
                                                     </div>
                                                 </div>
 
-
+                                                <input type="hidden" id="hiddenInput" name="newDivCount" value="">
                                                 <div class="form-group row">
                                                     <input class="btn btn-primary btn-sm align-items-center col-3" style="margin: 0 auto; display: block;border-radius:20px " type="submit" value="Add Question" />
                                                 </div>
@@ -721,12 +768,10 @@
 
                         const btn_menu = document.querySelector(".btn-menu");
                         const side_bar = document.querySelector(".sidebar");
-
                         btn_menu.addEventListener("click", function () {
                             side_bar.classList.toggle("expand");
                             changebtn();
                         });
-
                         function changebtn() {
                             if (side_bar.classList.contains("expand")) {
                                 btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
@@ -737,9 +782,7 @@
 
                         const btn_theme = document.querySelector(".theme-btn");
                         const theme_ball = document.querySelector(".theme-ball");
-
                         const localData = localStorage.getItem("theme");
-
                         if (localData == null) {
                             localStorage.setItem("theme", "light");
                         }
@@ -761,23 +804,18 @@
                                 localStorage.setItem("theme", "light");
                             }
                         });
-
-
                         $(document).ready(function () {
                             $(".content .tab_content").hide();
                             $(".content .tab_content:first-child").show();
-
                             $("ul li").click(function () {
 
                                 $("ul li").removeClass("active");
                                 $(this).addClass("active");
-
                                 var current_tab = $(this).attr("data-list");
                                 $(".content .tab_content").hide();
                                 $("." + current_tab).show();
                             })
                         });
-
                         /*-------------------------------------------------------------------------------------------*/
 //                        document.addEventListener("DOMContentLoaded", function () {
 //                            const form = document.querySelector(".exam-form");
@@ -805,8 +843,6 @@
                             var toDate = new Date(document.getElementById('toDate').value);
                             var xDate = new Date(document.getElementById('startDate').value);
                             var yDate = new Date(document.getElementById('endDate').value);
-
-
                             if (fromDate <= new Date() || toDate <= new Date()) {
                                 alert("Date must be in the future.");
                                 return;
@@ -829,118 +865,103 @@
                             // If the validation passes, you can submit the form
                             this.submit();
                         });
+                        var count = 0;
 
-
-
-
-
-
-                        var count = 1;
                         document.getElementById('add_more_fields').addEventListener('click', function (event) {
                             event.preventDefault();
                             var x = document.getElementById('questionType');
-                            if (x.value == 1) {
-                                var container = document.getElementById('container');
-                                // Create a new div element
-                                var newDiv = document.createElement('div');
-                                newDiv.className = 'form-inline';
-                                // Generate a unique ID for the new div
-//                            var uniqueId = 'formDiv_' + Date.now();
-                                newDiv.id = count;
-                                // Add the HTML content to the new div
-                                newDiv.innerHTML = `
-        <div class="form-group col-sm-7">
+                            var container = document.getElementById('container');
+
+                            // Create a new div element
+                            var newDiv = document.createElement('div');
+                            newDiv.className = 'form-inline count';
+
+                            // Generate a unique ID for the new div
+                            newDiv.id = count;
+
+
+                            // Define the default options for the count_score select
+                            var countScoreOptions = `
+        <option value="0">0</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="33">33</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    `;
+
+                            if (x.value == 0) {
+                                // For "Multiple Choice"
+                                countScoreOptions = `
+            <option value="0">0</option>
+            <option value="100">100</option>
+        `;
+                            }
+
+                            // Add the HTML content to the new div
+                            newDiv.innerHTML = `
+        <div class="form-group col-sm-7 index">
             <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
         </div>
         <div class="form-group col-sm-3">
-            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score";">
-                <option value="0">0</option>
-                <option value="20">20</option>
-                <option value="25">25</option>
-                <option value="33">33</option>
-               <option value="50">50</option>
-                <option value="100">100</option>
+        Score Percentage:
+            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score">
+        
+            ` + countScoreOptions + `
             </select>
         </div>
-              <div class="form-group col-sm-2">
-          <a  id="remove" ><i class="fa fa-plus"></i>Remove Field</a>
-        </div>
-            
-            
-            
+  
     `;
-                                // Append the new div to the container
-                                container.appendChild(newDiv);
-                                count = count + 1;
-                            } else {
-                                var container = document.getElementById('container');
-                                // Create a new div element
-                                var newDiv = document.createElement('div');
-                                newDiv.className = 'form-inline';
-                                // Generate a unique ID for the new div
-//                            var uniqueId = 'formDiv_' + Date.now();
-                                newDiv.id = count;
-                                // Add the HTML content to the new div
-                                newDiv.innerHTML = `
-             <div class="form-group col-sm-3">
-            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score";">
-                <option value="0">0</option>
-                <option value="100">100</option>
-            </select>
-        </div>
-            <div class="form-group col-sm-2">
-          <a  id="remove" ><i class="fa fa-plus"></i>Remove Field</a>
-        </div>
-    `;
-                                // Append the new div to the container
-                                container.appendChild(newDiv);
-                                count = count + 1;
-                            }
+
+                            // Append the new div to the container
+                            container.appendChild(newDiv);
+                            count = container.children.length;
+
+                            var hiddenInput = document.getElementById('hiddenInput');
+                            hiddenInput.value = count;
 
 
-
-                            // Add an event listener to the checkbox to toggle the select's visibility
-//                            var checkbox = newDiv.querySelector(`[name="${count}_checkbox"]`);
-//                            var select = newDiv.querySelector(`#${count}_score`);
-//                            checkbox.addEventListener('change', function () {
-//                                select.style.display = checkbox.checked ? 'inline' : 'none';
-//                            });
                         });
 
+
+
+//// Add an event listener to the questionType select to change the count_score select's options
+//                        document.getElementById('questionType').addEventListener('change', function () {
+//                            var countScoreOptions = `
+//        <option value="0">0</option>
+//        <option value="20">20</option>
+//        <option value="25">25</option>
+//        <option value="33">33</option>
+//        <option value="50">50</option>
+//        <option value="100">100</option>
+//    `;
+//
+//                            if (this.value == 0) {
+//                                // For "Multiple Choice"
+//                                countScoreOptions = `
+//            <option value="0">0</option>
+//            <option value="100">100</option>
+//        `;
+//                            }
+//
+//
+//                        });
 
                         document.getElementById('remove_fields').addEventListener('click', function () {
                             var container = document.getElementById('container');
-
                             // Get the last added div in the container
                             var lastDiv = container.lastChild;
-
                             // Check if the last div exists and remove it
                             if (lastDiv) {
                                 container.removeChild(lastDiv);
+                                // Update the count based on the number of newDivs in the container
+                                count = container.children.length;
+
+                                // Update the hidden input value with the count
+                                var hiddenInput = document.getElementById('hiddenInput');
+                                hiddenInput.value = count;
                             }
                         });
-
-
-
-
-
-
-                        $("input:checkbox").on('click', function () {
-                            // in the handler, 'this' refers to the box clicked on
-                            var $box = $(this);
-                            if ($box.is(":checked")) {
-                                // the name of the box is retrieved using the .attr() method
-                                // as it is assumed and expected to be immutable
-                                var group = "input:checkbox[name='" + $box.attr("name") + "']";
-                                // the checked state of the group/box on the other hand will change
-                                // and the current value is retrieved using .prop() method
-                                $(group).prop("checked", false);
-                                $box.prop("checked", true);
-                            } else {
-                                $box.prop("checked", false);
-                            }
-                        });
-
 
 
 

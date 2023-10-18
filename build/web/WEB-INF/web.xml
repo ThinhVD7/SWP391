@@ -106,6 +106,14 @@
         <servlet-name>lecturerAddNewExam</servlet-name>
         <servlet-class>Controller.lecturerAddNewExam</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>addQuestion</servlet-name>
+        <servlet-class>Controller.addQuestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>editExam</servlet-name>
+        <servlet-class>Controller.editExam</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>lecturerAddNewExam</servlet-name>
         <url-pattern>/AddNewExam</url-pattern>
@@ -201,6 +209,14 @@
     <servlet-mapping>
         <servlet-name>adminDeleteAccount</servlet-name>
         <url-pattern>/adminDeleteAccount</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>addQuestion</servlet-name>
+        <url-pattern>/addQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>editExam</servlet-name>
+        <url-pattern>/editExam</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

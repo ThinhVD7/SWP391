@@ -500,7 +500,7 @@
                     <div class="row align-items-center">
 
                         <div class="mx-auto col-10 col-md-8 col-lg-6">
-                            <form action="${sessionScope.exam != null ? "editExam":"AddNewExam"}" method="post" class="">
+                            <form action="AddNewExam" method="post" class="">
                                 <a style ="padding:5px;"><h2 style="text-align: center">Add New Exam</h2></a>
                                 <input hidden="true" value="${sessionScope.sessionThisCourse.startDate}" id="startDate" >
                                 <input hidden="true" value="${sessionScope.sessionThisCourse.endDate}" id="endDate" >
@@ -508,37 +508,25 @@
                                 <div class="form-group row">
                                     <label for="examName" class="col-sm-3 col-form-label" style="font-weight: bold">Exam's Name:</label>
                                     <div class="col-sm-5">
-                                        <input type="text" name="examName" class="form-control" id="examName" placeholder="" value="${examName}" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="questionNumber" class="col-sm-3 col-form-label" style="font-weight: bold">Question Number:</label>
-                                    <div class="col-sm-5">
-                                        <input type="number" name="questionNumber" class="form-control" id="questionNumber" placeholder="" value="${questionNumber}" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="maxScore" class="col-sm-3 col-form-label" style="font-weight: bold">Max Score:</label>
-                                    <div class="col-sm-5">
-                                        <input type="number" name="maxScore" class="form-control" id="maxScore" placeholder="" value="${maxScore}" required="">
+                                        <input type="text" name="examName" class="form-control" id="examName" placeholder="" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="0" placeholder="0" value="${timeLimit}" required=""> (minutes)
+                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="0" placeholder="0" required=""> (minutes)
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        From: <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
+                                        From: <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" placeholder="" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        To: <input type="datetime-local" name="toDate" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
+                                        To: <input type="datetime-local" name="toDate" class="form-control" id="toDate" placeholder="" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -546,25 +534,9 @@
                                     <div class="col-md-6">
                                         <select id="permission" name="permission" class="mt-2 pl-5 pr-5" required="">
                                             <option value="" disabled selected="selected"></option>
-                                            <option ${permission == 1?"selected":""} value="1">Allow</option>
-                                            <option ${permission == 0?"selected":""} value="0">Not Allow</option>
+                                            <option value="1">Allow</option>
+                                            <option value="0">Not Allow</option>
                                         </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="attemp" class="col-sm-4 col-form-label" style="font-weight: bold">Set attemp permission:</label>
-                                    <div class="col-md-6">
-                                        <select id="attemp" name="attemp" class="mt-2 pl-5 pr-5" required="">
-                                            <option value="" disabled selected="selected"></option>
-                                            <option ${attemp == 1?"selected":""} value="1">Allow</option>
-                                            <option ${attemp == 0?"selected":""} value="0">Not Allow</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="examDetail" class="col-sm-3 col-form-label" style="font-weight: bold">Exam Description:</label>
-                                    <div class="col-sm-5">
-                                        <input type="text" name="examDetail" class="form-control" id="examDetail" placeholder="" value="${examDetail}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">

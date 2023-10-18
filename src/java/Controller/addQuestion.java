@@ -5,7 +5,7 @@
 package Controller;
 
 import Dal.LecturerDAO;
-import Model.Class1;
+import Model.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,12 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author tanki
  */
-public class lecturerAddNewExam extends HttpServlet {
+public class addQuestion extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +39,10 @@ public class lecturerAddNewExam extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet lecturerAddNewExam</title>");
+            out.println("<title>Servlet addQuestion</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet lecturerAddNewExam at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addQuestion at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,8 +60,7 @@ public class lecturerAddNewExam extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        request.getRequestDispatcher("addExam.jsp").forward(request, response);
+        request.getRequestDispatcher("AddNewExam").forward(request, response);
     }
 
     /**
@@ -81,26 +82,54 @@ public class lecturerAddNewExam extends HttpServlet {
             response.sendRedirect("index.html");
             return;
         }
+        List<Question> list_Q = new ArrayList<>();
 
-        String examName = request.getParameter("examName");
-        String questionNumber = request.getParameter("questionNumber");
-        String maxScore = request.getParameter("maxScore");
-        String timeLimit = request.getParameter("timeLimit");
-        String fromDate = request.getParameter("fromDate");
-        String attemp = request.getParameter("attemp");
-        String toDate = request.getParameter("toDate");
-        String permission = request.getParameter("permission");
-        String examDetail = request.getParameter("examDetail");
-        Class1 thisClass = (Class1) session.getAttribute("sessionThisClass");
-        String classId = thisClass.getClassID();
+        String title = request.getParameter("title");
+        String content = request.getParameter("content");
+        String type = request.getParameter("questionType");
+        String mark = request.getParameter("mark");
+
+        String[] choiceId = null;
         LecturerDAO dao = new LecturerDAO();
-//        String examId = examName + '_' + classId;
-        if (dao.addExam(classId, examName, questionNumber, timeLimit, fromDate, toDate, attemp, examDetail, maxScore, Integer.parseInt(permission))) {
-            response.sendRedirect("lecturerExamList?classID=" + classId);
+        try {
+            if (dao.addQuestion(title, content, type, Float.parseFloat(mark))) {
+                String rCount = request.getParameter("newDivCount");
+                int count = Integer.parseInt(rCount);
 
-        } else {
-            response.sendRedirect("pageNotFound");
+                String[] choiceContent = new String[count];
+                String[] choiceScore = new String[count];
+                Question q = dao.getLastestQuestion();
+
+                for (int i = 0; i < count; i++) {
+                    choiceContent[i] = request.getParameter(i + "_survey_options[]");
+                    choiceScore[i] = request.getParameter(i + "_score");
+                }
+                for (int i = 0; i < count; i++) {
+                    if (!dao.addChoice(q.getQuestionID(), choiceContent[i], choiceScore[i])) {
+                        request.setAttribute("EROR", "err");
+
+                        request.getRequestDispatcher("addExam.jsp").forward(request, response);
+                    }
+
+                }
+                request.setAttribute("New question is added", "ok");
+                request.setAttribute("newQuestion", q);
+                list_Q.add(q);
+                session.setAttribute("listQ", list_Q);
+                
+
+                request.getRequestDispatcher("addExam.jsp").forward(request, response);
+            } else {
+                request.setAttribute("EROR", "err");
+                request.getRequestDispatcher("AddNewExam").forward(request, response);
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
+        //1_survey_options[]
+        //2_score
     }
 
     /**

@@ -6,6 +6,7 @@ package Controller;
 
 import Dal.LecturerDAO;
 import Model.Class1;
+import Model.Exam;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -18,7 +19,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author tanki
  */
-public class lecturerAddNewExam extends HttpServlet {
+public class editExam extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +38,10 @@ public class lecturerAddNewExam extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet lecturerAddNewExam</title>");
+            out.println("<title>Servlet editExam</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet lecturerAddNewExam at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet editExam at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,6 +60,27 @@ public class lecturerAddNewExam extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
+        }
+        LecturerDAO dao = new LecturerDAO();
+        String examID = request.getParameter("tId");
+        Exam exam = dao.getExam(examID);
+        session.setAttribute("exam", exam);
+        session.setAttribute("examID", examID);
+        request.setAttribute("examName", exam.getExamName());
+        request.setAttribute("classID", exam.getClassID());
+        request.setAttribute("questionNumber", exam.getQuestionNumber());
+        request.setAttribute("startDate", exam.getStartDate());
+        request.setAttribute("endDate", exam.getEndDate());
+        request.setAttribute("timeLimit", Integer.parseInt(exam.getTimeLimit()));
+        request.setAttribute("attemp", exam.getAttempsAllowed());
+        request.setAttribute("examDetail", exam.getExamDetail());
+        request.setAttribute("maxScore", exam.getMaxScore());
+        request.setAttribute("permission", exam.getPermission());
         request.getRequestDispatcher("addExam.jsp").forward(request, response);
     }
 
@@ -74,14 +96,12 @@ public class lecturerAddNewExam extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-
-        //block check if user have logged in, if not then return to home
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("index.html");
             return;
         }
-
+        Exam exam = (Exam) session.getAttribute("exam");
         String examName = request.getParameter("examName");
         String questionNumber = request.getParameter("questionNumber");
         String maxScore = request.getParameter("maxScore");
@@ -94,8 +114,8 @@ public class lecturerAddNewExam extends HttpServlet {
         Class1 thisClass = (Class1) session.getAttribute("sessionThisClass");
         String classId = thisClass.getClassID();
         LecturerDAO dao = new LecturerDAO();
-//        String examId = examName + '_' + classId;
-        if (dao.addExam(classId, examName, questionNumber, timeLimit, fromDate, toDate, attemp, examDetail, maxScore, Integer.parseInt(permission))) {
+        String examId = exam.getExamID();
+        if (dao.updateExam(examId, classId, examName, questionNumber, timeLimit, fromDate, toDate, attemp, examDetail, maxScore, Integer.parseInt(permission))) {
             response.sendRedirect("lecturerExamList?classID=" + classId);
 
         } else {
