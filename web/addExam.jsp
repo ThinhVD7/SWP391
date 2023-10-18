@@ -516,22 +516,24 @@
                                         <input type="text" name="examName" class="form-control" id="examName" placeholder="" value="${examName}" required="">
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="questionNumber" class="col-sm-3 col-form-label" style="font-weight: bold">Question Number:</label>
-                                    <div class="col-sm-5">
-                                        <input type="number" name="questionNumber" class="form-control" id="questionNumber" placeholder="" value="${questionNumber}" required="">
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="maxScore" class="col-sm-3 col-form-label" style="font-weight: bold">Max Score:</label>
-                                    <div class="col-sm-5">
-                                        <input type="number" name="maxScore" class="form-control" id="maxScore" placeholder="" value="${maxScore}" required="">
-                                    </div>
-                                </div>
+
+
+                                <!--                                <div class="form-group row">
+                                                                    <label for="questionNumber" class="col-sm-3 col-form-label" style="font-weight: bold">Question Number:</label>
+                                                                    <div class="col-sm-5">
+                                                                        <input type="number" name="questionNumber" class="form-control" id="questionNumber" placeholder="" value="${questionNumber}" required="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <label for="maxScore" class="col-sm-3 col-form-label" style="font-weight: bold">Max Score:</label>
+                                                                    <div class="col-sm-5">
+                                                                        <input type="number" name="maxScore" class="form-control" id="maxScore" placeholder="" value="${maxScore}" required="">
+                                                                    </div>
+                                                                </div>-->
                                 <div class="form-group row">
                                     <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="0" placeholder="0" value="${timeLimit}" required=""> (minutes)
+                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="0" placeholder="0" min="0" value="${timeLimit}" required=""> (minutes)
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -556,16 +558,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group row">
-                                    <label for="attemp" class="col-sm-4 col-form-label" style="font-weight: bold">Set attemp permission:</label>
-                                    <div class="col-md-6">
-                                        <select id="attemp" name="attemp" class="mt-2 pl-5 pr-5" required="">
-                                            <option value="" disabled selected="selected"></option>
-                                            <option ${attemp == 1?"selected":""} value="1">Allow</option>
-                                            <option ${attemp == 0?"selected":""} value="0">Not Allow</option>
-                                        </select>
-                                    </div>
-                                </div>
+
                                 <div class="form-group row">
                                     <label for="examDetail" class="col-sm-3 col-form-label" style="font-weight: bold">Exam Description:</label>
                                     <div class="col-sm-5">
@@ -602,13 +595,13 @@
 
                                 </form>
                                 <div class ="question-list">
-                                    
-                                    <c:forEach items ="${listQ}">
+
+                                    <c:forEach items ="${sessionScope.listQ}" var="c">
                                         <div class ="question-container">
-                                            ${listQ.content}
+                                            ${c.title}
                                         </div>
                                     </c:forEach>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -841,11 +834,11 @@
                             }
 
                             if (toDate >= yDate) {
-                                alert("To date must be before " + xDate.toDateString());
+                                alert("To date must be before " + yDate.toDateString());
                                 return;
                             }
                             if (fromDate <= xDate) {
-                                alert("Start Date must after: " + yDate.toDateString());
+                                alert("Start Date must after: " + xDate.toDateString());
                                 return;
                             }
 
@@ -953,6 +946,23 @@
 
 
 
+                        document.getElementById('my-form').addEventListener('submit', function (event) {
+                            // Get all the "Score Percentage" select elements
+                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                            var totalScore = 0;
+
+                            // Calculate the total score
+                            scoreElements.forEach(function (scoreElement) {
+                                totalScore += parseInt(scoreElement.value);
+                            });
+
+                            // Check if the total score is greater than 100
+                            if (totalScore > 100) {
+                                // Prevent the form from being submitted
+                                event.preventDefault();
+                                alert('The total score cannot exceed 100%.');
+                            }
+                        });
 
 
 

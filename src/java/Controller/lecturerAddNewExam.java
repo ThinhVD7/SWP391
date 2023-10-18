@@ -91,11 +91,8 @@ public class lecturerAddNewExam extends HttpServlet {
         session.removeAttribute("exam");
 
         String examName = request.getParameter("examName");
-        String questionNumber = request.getParameter("questionNumber");
-        String maxScore = request.getParameter("maxScore");
         String timeLimit = request.getParameter("timeLimit");
         String fromDate = request.getParameter("fromDate");
-        String attemp = request.getParameter("attemp");
         String toDate = request.getParameter("toDate");
         String permission = request.getParameter("permission");
         String examDetail = request.getParameter("examDetail");
@@ -103,7 +100,7 @@ public class lecturerAddNewExam extends HttpServlet {
         String classId = thisClass.getClassID();
         LecturerDAO dao = new LecturerDAO();
 //        String examId = examName + '_' + classId;
-        if (dao.addExam(classId, examName, questionNumber, timeLimit, fromDate, toDate, attemp, examDetail, maxScore, Integer.parseInt(permission))) {
+        if (dao.addExam(classId, examName, timeLimit, fromDate, toDate, examDetail, Integer.parseInt(permission))) {
             Exam exam = dao.getLastExam();
             response.sendRedirect("editExam?tId=" + exam.getExamID());
 

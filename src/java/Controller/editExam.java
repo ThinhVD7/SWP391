@@ -7,6 +7,7 @@ package Controller;
 import Dal.LecturerDAO;
 import Model.Class1;
 import Model.Exam;
+import Model.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -73,14 +75,16 @@ public class editExam extends HttpServlet {
         session.setAttribute("examID", examID);
         request.setAttribute("examName", exam.getExamName());
         request.setAttribute("classID", exam.getClassID());
-        request.setAttribute("questionNumber", exam.getQuestionNumber());
+//        request.setAttribute("questionNumber", exam.getQuestionNumber());
         request.setAttribute("startDate", exam.getStartDate());
         request.setAttribute("endDate", exam.getEndDate());
         request.setAttribute("timeLimit", Integer.parseInt(exam.getTimeLimit()));
-        request.setAttribute("attemp", exam.getAttempsAllowed());
+//        request.setAttribute("attemp", exam.getAttempsAllowed());
         request.setAttribute("examDetail", exam.getExamDetail());
-        request.setAttribute("maxScore", exam.getMaxScore());
+//        request.setAttribute("maxScore", exam.getMaxScore());
         request.setAttribute("permission", exam.getPermission());
+        List<Question> listQ = dao.getListQuestionByExamID(examID);
+        session.setAttribute("listQ", listQ);
         request.getRequestDispatcher("addExam.jsp").forward(request, response);
     }
 
@@ -103,11 +107,11 @@ public class editExam extends HttpServlet {
         }
         Exam exam = (Exam) session.getAttribute("exam");
         String examName = request.getParameter("examName");
-        String questionNumber = request.getParameter("questionNumber");
-        String maxScore = request.getParameter("maxScore");
+//        String questionNumber = request.getParameter("questionNumber");
+//        String maxScore = request.getParameter("maxScore");
         String timeLimit = request.getParameter("timeLimit");
         String fromDate = request.getParameter("fromDate");
-        String attemp = request.getParameter("attemp");
+//        String attemp = request.getParameter("attemp");
         String toDate = request.getParameter("toDate");
         String permission = request.getParameter("permission");
         String examDetail = request.getParameter("examDetail");
@@ -115,7 +119,7 @@ public class editExam extends HttpServlet {
         String classId = thisClass.getClassID();
         LecturerDAO dao = new LecturerDAO();
         String examId = exam.getExamID();
-        if (dao.updateExam(examId, classId, examName, questionNumber, timeLimit, fromDate, toDate, attemp, examDetail, maxScore, Integer.parseInt(permission))) {
+        if (dao.updateExam(examId, classId, examName, timeLimit, fromDate, toDate, examDetail, Integer.parseInt(permission))) {
             response.sendRedirect("lecturerExamList?classID=" + classId);
             session.removeAttribute("exam");
 

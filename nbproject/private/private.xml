@@ -4,7 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Code/Repo/SWP391/src/java/Controller/lecturerAddNewExam.java</file>
+            <file>file:/D:/Code/Repo/SWP391/src/java/Controller/addQuestion.java</file>
             <file>file:/D:/Code/Repo/SWP391/web/addExam.jsp</file>
+            <file>file:/D:/Code/Repo/SWP391/src/java/Controller/addAccount.java</file>
+            <file>file:/D:/Code/Repo/SWP391/src/java/Controller/Login.java</file>
+            <file>file:/D:/Code/Repo/SWP391/src/java/Controller/editExam.java</file>
+            <file>file:/D:/Code/Repo/SWP391/src/java/Dal/LecturerDAO.java</file>
+            <file>file:/D:/Code/Repo/SWP391/web/Login.jsp</file>
         </group>
     </open-files>
 </project-private>
