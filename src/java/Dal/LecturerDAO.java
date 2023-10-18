@@ -17,7 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class LecturerDAO extends DBContext {
-    
+
     Connection connector;
     public List<Account> accountList = new ArrayList<>();
     public List<Student> studentList = new ArrayList<>();
@@ -29,7 +29,7 @@ public class LecturerDAO extends DBContext {
     public List<Question> questionList = new ArrayList<>();
     private String status = "yes";
     public String test;
-    
+
     public LecturerDAO() {
         try {
             connector = new DBContext().getConnection();
@@ -40,13 +40,13 @@ public class LecturerDAO extends DBContext {
             test = " Not Connected";
         }
     }
-    
+
     public Course loadACourse(String courseID) {
         String sql = "SELECT * FROM course where Course_ID like ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, courseID);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 return new Course(rs.getString(1),
@@ -60,13 +60,13 @@ public class LecturerDAO extends DBContext {
         }
         return null;
     }
-    
+
     public Class1 loadAClass(String classID) {
         String sql = "SELECT * FROM class where Class_ID like ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, classID);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 return new Class1(rs.getString(1),
@@ -78,13 +78,13 @@ public class LecturerDAO extends DBContext {
         }
         return null;
     }
-    
+
     public Exam loadAExam(String examID) {
         String sql = "SELECT * FROM exam where Exam_ID like ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, examID);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 return new Exam(rs.getString(1),
@@ -104,13 +104,13 @@ public class LecturerDAO extends DBContext {
         }
         return null;
     }
-    
+
     public List<Course> loadAllCourses(String lecturerID) {
         String sql = "SELECT * FROM course INNER JOIN (select distinct Course_ID from class join lecturerinwhichclass on class.Class_ID = lecturerinwhichclass.Class_ID where Lecturer_ID = ?) AS Subquery ON course.Course_ID = Subquery.Course_ID";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, lecturerID);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 courseList.add(new Course(rs.getString(1),
@@ -124,7 +124,7 @@ public class LecturerDAO extends DBContext {
         }
         return courseList;
     }
-    
+
     public List<Class1> loadAllClassesofCourse(String lecturerID, String courseID) {
         List<String> result = new ArrayList();
         String sql = "SELECT distinct class.Class_ID, class.ClassName, class.Course_ID FROM class join lecturerinwhichclass on lecturerinwhichclass.Lecturer_ID like ? where class.Course_ID like ?";
@@ -132,7 +132,7 @@ public class LecturerDAO extends DBContext {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, lecturerID);
             ps.setString(2, courseID);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 classList.add(new Class1(rs.getString(1),
@@ -144,14 +144,14 @@ public class LecturerDAO extends DBContext {
         }
         return classList;
     }
-    
+
     public List<Account> loadStudentListofClass(String classID) {
         List<String> result = new ArrayList();
         String sql = "select account.Account_ID, account.Name, account.Email from account join studentinwhichclass on account.Account_ID = studentinwhichclass.Student_ID where studentinwhichclass.Class_ID like ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, classID);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 accountList.add(new Account(rs.getString(1), rs.getString(2), rs.getString(3), ""));
@@ -161,7 +161,7 @@ public class LecturerDAO extends DBContext {
         }
         return accountList;
     }
-    
+
     public int numberofStudentofClass(String classID) {
         int count = 0;
         String sql = "select student.Student_ID from student join studentinwhichclass on studentinwhichclass.Student_ID = student.Student_ID where Class_ID like ?";
@@ -177,7 +177,7 @@ public class LecturerDAO extends DBContext {
         }
         return count;
     }
-    
+
     public int numberofExamofClass(String classID) {
         int count = 0;
         String sql = "select Exam_ID from exam where Class_ID like ?";
@@ -193,13 +193,13 @@ public class LecturerDAO extends DBContext {
         }
         return count;
     }
-    
+
     public List<Exam> loadAllExamofClass(String classID) {
         String sql = "SELECT * from exam where Class_ID like ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, classID);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 examList.add(new Exam(rs.getString(1),
@@ -219,7 +219,7 @@ public class LecturerDAO extends DBContext {
         }
         return examList;
     }
-    
+
     public Account getUser(String email) {
         String sql = "select * from account where Email = ?";
         try {
@@ -255,7 +255,7 @@ public class LecturerDAO extends DBContext {
                     + "ExamDetail,\n"
                     + "Permission)\n"
                     + "VALUES(?,?,?,?,?,?,?)";
-            
+
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, classId);
             ps.setString(2, examName);
@@ -270,14 +270,14 @@ public class LecturerDAO extends DBContext {
             System.out.println(e);
         }
         return false;
-        
+
     }
 
     //update exam
     public boolean updateExam(String examId, String classId, String examName, String timeLimit, String startDate, String endDate, String examDetail, int permission) {
         try {
             String sql = "update exam set Class_ID = ?,ExamName = ?,StartDate = ?,EndDate = ?,TimeLimit = ?,ExamDetail = ?,Permission = ? where Exam_ID = ?";
-            
+
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, classId);
             ps.setString(2, examName);
@@ -293,13 +293,13 @@ public class LecturerDAO extends DBContext {
             System.out.println(e);
         }
         return false;
-        
+
     }
-    
+
     public boolean updateExamScore(String examId, String maxScore, String QuestionNumber) {
         try {
             String sql = "update exam set MaxScore = ?,QuestionNumber = ? where Exam_ID = ?";
-            
+
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, maxScore);
             ps.setString(2, QuestionNumber);
@@ -310,9 +310,9 @@ public class LecturerDAO extends DBContext {
             System.out.println(e);
         }
         return false;
-        
+
     }
-    
+
     public boolean addQuestion(String Title, String questionContent, String type, float mark) {
         try {
             String sql = "INSERT INTO question\n"
@@ -321,7 +321,7 @@ public class LecturerDAO extends DBContext {
                     + "Type,\n"
                     + "Mark)\n"
                     + "VALUES(?,?,?,?)";
-            
+
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, Title);
             ps.setString(2, questionContent);
@@ -333,16 +333,16 @@ public class LecturerDAO extends DBContext {
             System.out.println(e);
         }
         return false;
-        
+
     }
-    
+
     public List<Question> getListQuestionByExamID(String examId) {
         String sql = "SELECT b.* FROM `quiz9.5`.questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
-        
+
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, examId);
-            
+
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 questionList.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6)));
@@ -352,7 +352,7 @@ public class LecturerDAO extends DBContext {
         }
         return questionList;
     }
-    
+
     public Question getLastestQuestion() {
         String sql = "SELECT * FROM question ORDER BY Question_ID DESC limit 1;";
         try {
@@ -367,7 +367,7 @@ public class LecturerDAO extends DBContext {
         }
         return null;
     }
-    
+
     public Exam getLastExam() {
         String sql = "SELECT * FROM exam ORDER BY Exam_ID DESC limit 1;";
         try {
@@ -382,7 +382,7 @@ public class LecturerDAO extends DBContext {
         }
         return null;
     }
-    
+
     public Exam getExam(String examID) {
         String sql = "SELECT * FROM exam where Exam_ID = ?;";
         try {
@@ -393,14 +393,14 @@ public class LecturerDAO extends DBContext {
                 test = rs.getString(4);
                 return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
                         rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getFloat(10), rs.getInt(11));
-                
+
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
         }
         return null;
     }
-    
+
     public boolean addChoice(String Question_ID, String ChoiceContent, String ScorePercentage) {
         try {
             String sql = "INSERT INTO choicesofquestion\n"
@@ -408,7 +408,7 @@ public class LecturerDAO extends DBContext {
                     + "ChoiceContent,\n"
                     + "ScorePercentage)\n"
                     + "VALUES(?,?,?)";
-            
+
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, Question_ID);
             ps.setString(2, ChoiceContent);
@@ -419,16 +419,16 @@ public class LecturerDAO extends DBContext {
             System.out.println(e);
         }
         return false;
-        
+
     }
-    
+
     public boolean addBank(String Exam_ID, String Question_ID) {
         try {
             String sql = "INSERT INTO questioninwhichexam\n"
                     + "(Exam_ID,\n"
                     + "Question_ID)\n"
                     + "VALUES(?,?)";
-            
+
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, Exam_ID);
             ps.setString(2, Question_ID);
@@ -438,9 +438,9 @@ public class LecturerDAO extends DBContext {
             System.out.println(e);
         }
         return false;
-        
+
     }
-    
+
     public void deleteExamByID(String examID) {
         String sql = "";
         try {
@@ -461,14 +461,27 @@ public class LecturerDAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
+    public void deleteQuestionExam(String questionId) {
+        String sql = "";
+        try {
+            sql = "delete from questioninwhichexam where Question_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, questionId);
+            ps.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public static void main(String[] args) {
         LecturerDAO dao = new LecturerDAO();
-        
-        System.out.println(dao.getListQuestionByExamID("9").get(0).getTitle());
-        
-//        dao.addQuestion("Cau 1", "1+1=?", "1", 10);
 
+        System.out.println(dao.getListQuestionByExamID("9").get(0).getTitle());
+
+//        dao.addQuestion("Cau 1", "1+1=?", "1", 10);
 //        //test add exam
         //        dao.addExam("id1", "SE1732_MAS291", "PT2", "60", "2023-04-28T16:25:49.000", "2023-04-28T16:25:49.000", 1);
         //
@@ -523,5 +536,5 @@ public class LecturerDAO extends DBContext {
         //        //default format
         //        System.out.println("Default format of LocalDateTime=" + dateTime);
     }
-    
+
 }

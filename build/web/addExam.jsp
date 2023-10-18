@@ -598,7 +598,18 @@
 
                                     <c:forEach items ="${sessionScope.listQ}" var="c">
                                         <div class ="question-container">
-                                            ${c.title}
+
+                                            <div class="row">
+                                                <div class="col-sm-3"><a href="">${c.title}:   </a></div> 
+                                                <div class="col-sm-4"> ${c.content}</div>
+                                                <div class="col-sm-3"> Mark:${c.mark}</div>
+                                                <div class="col-sm-2">
+                                                    <a class="delete" onclick="confirmDelete(${c.questionID})" title="Delete" data-toggle="tooltip">
+                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </c:forEach>
 
@@ -965,7 +976,26 @@
                         });
 
 
+                        function confirmDelete(questionID) {
+                            var confirmDelete = confirm("Are you sure you want to remove this question?");
+                            if (confirmDelete) {
+                                // Make an AJAX request to delete the exam
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "removeQuestionExam?questionID=" + questionID, true);
 
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4 && xhr.status === 200) {
+                                        // Handle the response from the servlet
+                                        var response = xhr.responseText;
+                                        alert("Question with ID " + questionID + " deleted.");
+                                        location.reload();
+                                    }
+                                };
+
+                                // Send the request
+                                xhr.send();
+                            }
+                        }
 
         </script>
 

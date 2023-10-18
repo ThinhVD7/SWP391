@@ -118,6 +118,10 @@
         <servlet-name>lecturerDeleteExam</servlet-name>
         <servlet-class>Controller.lecturerDeleteExam</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>removeQuestionExam</servlet-name>
+        <servlet-class>Controller.removeQuestionExam</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>lecturerAddNewExam</servlet-name>
         <url-pattern>/AddNewExam</url-pattern>
@@ -225,6 +229,10 @@
     <servlet-mapping>
         <servlet-name>lecturerDeleteExam</servlet-name>
         <url-pattern>/lecturerDeleteExam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>removeQuestionExam</servlet-name>
+        <url-pattern>/removeQuestionExam</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
