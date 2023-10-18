@@ -501,7 +501,9 @@
 
                         <div class="mx-auto col-10 col-md-8 col-lg-6">
                             <form action="${sessionScope.exam != null ? "editExam":"AddNewExam"}" method="post" class="">
-                                <a style ="padding:5px;"><h2 style="text-align: center">Add New Exam</h2></a>
+                                <a style ="padding:5px;"><h2 style="text-align: center">${sessionScope.exam != null ? "Edit Exam":"Add New Exam"}</h2></a>
+                                <p class="text-danger" style="text-align: center">${mess}</p>
+
                                 <input hidden="true" value="${sessionScope.sessionThisCourse.startDate}" id="startDate" >
                                 <input hidden="true" value="${sessionScope.sessionThisCourse.endDate}" id="endDate" >
 
@@ -568,17 +570,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <input class="btn btn-primary btn-lg align-items-center col-6" style="margin: 0 auto; display: block;border-radius:20px " type="submit" value="Submit" />
+                                    <input class="btn btn-primary btn-lg align-items-center col-6" style="margin: 0 auto; display: block;border-radius:20px " type="submit" value="${sessionScope.exam != null ? "Save":"Submit"}" />
                                 </div>
 
                             </form>
                         </div>
                     </div>
-                    <div class ="left-div">
+                                    <div class ="left-div" style="display: ${sessionScope.exam != null ? "":"none"}">
                         <div class="row align-items-center">
 
                             <div class="mx-auto col-10 col-md-8 col-lg-6">
-                                <form action="AddNewExam" method="post" class="">
+                                <form action="${sessionScope.exam != null ? "editExam":"AddNewExam"}" method="post" class="">
                                     <a style ="padding:5px;"><h3 style="text-align: center">Questions</h3></a>
                                     <p class="text-danger" style="text-align: center">${err}</p>
                                     <p class="text-success" style="text-align: center">${ok}</p>
@@ -588,7 +590,10 @@
 
                                     <a style="text-decoration: none">
                                         <div class="form-group row">
-                                            <input class="btn btn-primary btn-lg align-items-center col-6" style="margin: 0 auto; display: block;border-radius:20px" type="button"  value="Add Question(s)" onclick="openPopup('SE1732')" />
+                                            <input class="btn btn-primary btn-lg align-items-center col-6" 
+                                                   style="margin: 0 auto; display: block;border-radius:20px;display: ${sessionScope.exam != null ? "":"none"}" type="button"  value="Add Question(s)" onclick="openPopup('SE1732')" />
+                                            
+                                            
                                         </div> </a>
 
 
@@ -634,8 +639,8 @@
             <!--pop up start----------------------------------------------------------------------------------------------->
             <!-- Blurred overlay -->
             <div id="overlay" class="overlay"></div>
-            <div id="classEditPopup" class="overlay" onclick="closePopup()">
-                <div class="popup-container" onclick="event.stopPropagation();">
+            <div id="classEditPopup" class="overlay" onclick="closePopup()" style="display:${sessionScope.exam != null ? "":"none"} ">
+                <div class="popup-container" onclick="event.stopPropagation()">
                     <h2>Add Question</h2>
                     <button class ="popup-button" onclick="closePopup()">Close</button>
 

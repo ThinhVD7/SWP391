@@ -5,6 +5,8 @@
 package Controller;
 
 import Dal.LecturerDAO;
+import Model.Class1;
+import Model.Exam;
 import Model.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -83,6 +85,12 @@ public class addQuestion extends HttpServlet {
             return;
         }
         List<Question> list_Q = new ArrayList<>();
+        LecturerDAO dao = new LecturerDAO();
+
+        if (session.getAttribute("exam") == null) { //neu chua tao exam thi tao exam truoc roi moi add question
+            request.setAttribute("mess", "You must input all field !");
+            request.getRequestDispatcher("addExam.jsp").forward(request, response);
+        }
 
         String title = request.getParameter("title");
         String content = request.getParameter("content");
@@ -90,12 +98,12 @@ public class addQuestion extends HttpServlet {
         String mark = request.getParameter("mark");
 
         String[] choiceId = null;
-        LecturerDAO dao = new LecturerDAO();
+//        LecturerDAO dao = new LecturerDAO();
         try {
             if (dao.addQuestion(title, content, type, Float.parseFloat(mark))) {
                 String rCount = request.getParameter("newDivCount");
                 int count = Integer.parseInt(rCount);
-
+                int checkScore = 0;
                 String[] choiceContent = new String[count];
                 String[] choiceScore = new String[count];
                 Question q = dao.getLastestQuestion();
@@ -105,25 +113,31 @@ public class addQuestion extends HttpServlet {
                     choiceScore[i] = request.getParameter(i + "_score");
                 }
                 for (int i = 0; i < count; i++) {
-                    if (!dao.addChoice(q.getQuestionID(), choiceContent[i], choiceScore[i])) {
-                        request.setAttribute("EROR", "err");
+                    checkScore += Integer.parseInt(choiceScore[i]);
+                }
+
+                for (int i = 0; i < count; i++) {
+
+                    if (!dao.addChoice(q.getQuestionID(), choiceContent[i], choiceScore[i]) || checkScore > 100) {
+                        request.setAttribute("err", "ERROR, Try again!");
 
                         request.getRequestDispatcher("addExam.jsp").forward(request, response);
                     }
 
                 }
-                request.setAttribute("New question is added", "ok");
-                request.setAttribute("newQuestion", q);
-                list_Q.add(q);
-                session.setAttribute("listQ", list_Q);
-                
+                Exam e = (Exam) session.getAttribute("exam");
+                if (dao.addBank(e.getExamID(), q.getQuestionID())) {
+                    session.setAttribute("exam", e);
+                    response.sendRedirect("editExam?tId=" + e.getExamID());
+//                    request.getRequestDispatcher("addExam.jsp").forward(request, response);
+                }
 
-                request.getRequestDispatcher("addExam.jsp").forward(request, response);
             } else {
                 request.setAttribute("EROR", "err");
                 request.getRequestDispatcher("AddNewExam").forward(request, response);
 
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

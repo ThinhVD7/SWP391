@@ -279,7 +279,7 @@ public class LecturerDAO extends DBContext {
     }
 
     //update exam
-    public boolean updateExam(String examId,String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
+    public boolean updateExam(String examId, String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
         try {
             String sql = "update exam set Class_ID = ?,ExamName = ?,QuestionNumber = ?,StartDate = ?,EndDate = ?,TimeLimit = ?,AttempsAllowed = ?,ExamDetail = ?, MaxScore = ?,Permission = ? where Exam_ID = ?";
 
@@ -342,6 +342,21 @@ public class LecturerDAO extends DBContext {
         return null;
     }
 
+    public Exam getLastExam() {
+        String sql = "SELECT * FROM exam ORDER BY Exam_ID DESC limit 1;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getFloat(10), rs.getInt(11));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
     public Exam getExam(String examID) {
         String sql = "SELECT * FROM exam where Exam_ID = ?;";
         try {
@@ -379,6 +394,46 @@ public class LecturerDAO extends DBContext {
         }
         return false;
 
+    }
+
+    public boolean addBank(String Exam_ID, String Question_ID) {
+        try {
+            String sql = "INSERT INTO questioninwhichexam\n"
+                    + "(Exam_ID,\n"
+                    + "Question_ID)\n"
+                    + "VALUES(?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Exam_ID);
+            ps.setString(2, Question_ID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    public void deleteExamByID(String examID) {
+        String sql = "";
+        try {
+            sql = "delete from exam where Exam_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ps.executeUpdate();
+            sql = "delete from bank where Exam_ID = ?";
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ps.executeUpdate();
+            sql = "delete from studentresult where Exam_ID = ?";
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     public static void main(String[] args) {

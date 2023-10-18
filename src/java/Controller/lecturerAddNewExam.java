@@ -6,6 +6,7 @@ package Controller;
 
 import Dal.LecturerDAO;
 import Model.Class1;
+import Model.Exam;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -59,6 +60,12 @@ public class lecturerAddNewExam extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
+        }
+        session.removeAttribute("exam");
         request.getRequestDispatcher("addExam.jsp").forward(request, response);
     }
 
@@ -81,6 +88,7 @@ public class lecturerAddNewExam extends HttpServlet {
             response.sendRedirect("index.html");
             return;
         }
+        session.removeAttribute("exam");
 
         String examName = request.getParameter("examName");
         String questionNumber = request.getParameter("questionNumber");
@@ -96,7 +104,8 @@ public class lecturerAddNewExam extends HttpServlet {
         LecturerDAO dao = new LecturerDAO();
 //        String examId = examName + '_' + classId;
         if (dao.addExam(classId, examName, questionNumber, timeLimit, fromDate, toDate, attemp, examDetail, maxScore, Integer.parseInt(permission))) {
-            response.sendRedirect("lecturerExamList?classID=" + classId);
+            Exam exam = dao.getLastExam();
+            response.sendRedirect("editExam?tId=" + exam.getExamID());
 
         } else {
             response.sendRedirect("pageNotFound");

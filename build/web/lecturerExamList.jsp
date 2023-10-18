@@ -530,7 +530,11 @@
                                     <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
                                         Click to view details
                                     </a>
-
+                                    <div class="float-right">
+                                        <a class="delete" onclick="confirmDelete(${exam.examID})" title="Delete" data-toggle="tooltip">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </c:forEach>
                             <a style="text-decoration: none;color: white" href="AddNewExam" class="add-exam-button" value="">Add Exam</a>
@@ -631,6 +635,31 @@
                     localStorage.setItem("theme", "light");
                 }
             });
+
+
+
+            function confirmDelete(examID) {
+                var confirmDelete = confirm("Are you sure you want to delete this exam?");
+                if (confirmDelete) {
+                    // Make an AJAX request to delete the exam
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "lecturerDeleteExam?examID=" + examID, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Handle the response from the servlet
+                            var response = xhr.responseText;
+                            alert("Exam with ID " + examID + " deleted.");
+                            location.reload();
+                        }
+                    };
+
+                    // Send the request
+                    xhr.send();
+                }
+            }
+
+
         </script>
     </body>
 </html>

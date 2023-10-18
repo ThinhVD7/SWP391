@@ -117,6 +117,7 @@ public class editExam extends HttpServlet {
         String examId = exam.getExamID();
         if (dao.updateExam(examId, classId, examName, questionNumber, timeLimit, fromDate, toDate, attemp, examDetail, maxScore, Integer.parseInt(permission))) {
             response.sendRedirect("lecturerExamList?classID=" + classId);
+            session.removeAttribute("exam");
 
         } else {
             response.sendRedirect("pageNotFound");
