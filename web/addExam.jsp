@@ -174,12 +174,12 @@
                 border-radius: 3px;
                 /*box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-                height: 420px;
+                height: 800px;
                 overflow: auto;
             }
             .table-title {
                 padding-bottom: 15px;
-                background: #299be4;
+                background: #6c757d;
                 color: #fff;
                 padding: 16px 30px;
                 margin: -20px -25px 10px;
@@ -322,6 +322,9 @@
                 background: #fff;
                 margin: 20px auto;
                 border-radius: 3px;
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: bold;
+
             }
 
             .wrapper .tabs ul{
@@ -576,7 +579,7 @@
                             </form>
                         </div>
                     </div>
-                                    <div class ="left-div" style="display: ${sessionScope.exam != null ? "":"none"}">
+                    <div class ="left-div" style="display: ${sessionScope.exam != null ? "":"none"}">
                         <div class="row align-items-center">
 
                             <div class="mx-auto col-10 col-md-8 col-lg-6">
@@ -592,41 +595,21 @@
                                         <div class="form-group row">
                                             <input class="btn btn-primary btn-lg align-items-center col-6" 
                                                    style="margin: 0 auto; display: block;border-radius:20px;display: ${sessionScope.exam != null ? "":"none"}" type="button"  value="Add Question(s)" onclick="openPopup('SE1732')" />
-                                            
-                                            
+
+
                                         </div> </a>
 
 
                                 </form>
                                 <div class ="question-list">
-
+                                    
                                     <c:forEach items ="${listQ}">
                                         <div class ="question-container">
                                             ${listQ.content}
                                         </div>
-
                                     </c:forEach>
-                                    <!--                                    <div class ="question-container">
-                                                                           
-                                                                        </div>
-                                                                        <div class ="question-container">
-                                                                            Cau 2
-                                                                        </div>
-                                                                        <div class ="question-container">
-                                                                            Cau 3
-                                                                        </div>
-                                                                        <div class ="question-container">
-                                                                            Cau 1
-                                                                        </div>
-                                                                        <div class ="question-container">
-                                                                            Cau 2
-                                                                        </div>
-                                                                        <div class ="question-container">
-                                                                            Cau 3
-                                                                        </div>-->
-
+                                    
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -713,8 +696,8 @@
 
                                                     </div>
                                                     <div class="controls">
-                                                        <a  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-                                                        <a  id="remove_fields" ><i class="fa fa-plus"></i>Remove Field</a>
+                                                        <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                                        <a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>
                                                     </div>
                                                 </div>
 
