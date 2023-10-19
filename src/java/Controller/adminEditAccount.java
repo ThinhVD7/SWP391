@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controller;
 
 import Dal.DAO;
@@ -25,40 +26,37 @@ import javax.mail.internet.MimeMessage;
 
 /**
  *
- * @author tanki
+ * @author ROG
  */
-public class addAccount extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+public class adminEditAccount extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet addAccount</title>");
+            out.println("<title>Servlet adminEditAccount</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet addAccount at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet adminEditAccount at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -66,8 +64,8 @@ public class addAccount extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-       //block check if user have logged in, if not then return to home
+    throws ServletException, IOException {
+        //block check if user have logged in, if not then return to home
         HttpSession session = request.getSession(false);
         if(session == null||session.getAttribute("user") == null)
         {
@@ -86,24 +84,32 @@ public class addAccount extends HttpServlet {
         if(user.getRoleID()!=0)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
         ////////////////////////////////////////////////////////////////
-        
+        DAO dao = new DAO();
+        Account target = dao.getUserById(request.getParameter("targetID"));
+        //set target account
+        session.setAttribute("targetAccount", target);
+        request.setAttribute("id", target.getAccountID());
+        request.setAttribute("name", target.getName());
+        request.setAttribute("gender", target.getGender());
+        request.setAttribute("email", target.getEmail());
+        request.setAttribute("phno", target.getPhoneNumber());
+        request.setAttribute("status", target.getStatus());
+        request.setAttribute("role", target.getRoleID());
         session.removeAttribute("idErr");
         session.removeAttribute("nameErr");
         session.removeAttribute("phoneErr");
         session.removeAttribute("emailErr");
         request.getRequestDispatcher("addAccount.jsp").forward(request, response);
-        
     }
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+ @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
@@ -115,6 +121,7 @@ public class addAccount extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
+        Account target = (Account)session.getAttribute("targetAccount");
         session.removeAttribute("idErr");
         session.removeAttribute("nameErr");
         session.removeAttribute("phoneErr");
@@ -130,12 +137,13 @@ public class addAccount extends HttpServlet {
         validation valid = new validation();
         String nameErr = valid.nameValid(name);
         String phoneErr = valid.phoneValid(phno);
-        String emailErr = valid.emailValid(email);
+        String emailErr = valid.editEmailValid(email, target.getEmail());
         String idErr = "";
-        if (dao.getUserById(id) != null) {
+        if (dao.getUserById(id) != null && !id.equals(target.getAccountID())) {
             idErr = "ID existed!";
         }
-        if (!nameErr.isEmpty() || !phoneErr.isEmpty() || !emailErr.isEmpty() || !idErr.isEmpty()) {
+        if (!nameErr.isEmpty() || !phoneErr.isEmpty() || !emailErr.isEmpty() || !idErr.isEmpty()) 
+        {
             session.setAttribute("idErr", idErr);
             session.setAttribute("nameErr", nameErr);
             session.setAttribute("phoneErr", phoneErr);
@@ -149,23 +157,40 @@ public class addAccount extends HttpServlet {
             request.setAttribute("role", role);
             request.getRequestDispatcher("addAccount.jsp").forward(request, response);
 
-        } else {
-            int role1 = Integer.parseInt(role);
-            int gender1 = Integer.parseInt(gender);
-            int status1 = Integer.parseInt(status);
-
-            int password = Random();
-            sendMail(email, password);
-            boolean isAddAccountSucess = dao.addAccount(id, name, email, DAO.encodeSHA1(String.valueOf(password)), role1, status1, gender1, phno);
-            if (isAddAccountSucess) {
+        } 
+        else 
+        {
+            String isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
+            if (isSuccess.equals("success")) 
+            {
+                sendMail(email, 0);
                 session.removeAttribute("idErr");
                 session.removeAttribute("nameErr");
                 session.removeAttribute("phoneErr");
                 session.removeAttribute("emailErr");
-                request.setAttribute("mess1", "Add Account success. Password sent!");
+                request.setAttribute("mess1", "Edit account successful. Notice Email sent!");
+                session.setAttribute("targetAccount", dao.getUserById(id));
+                request.setAttribute("id", id);
+                request.setAttribute("name", name);
+                request.setAttribute("gender", gender);
+                request.setAttribute("email", email);
+                request.setAttribute("phno", phno);
+                request.setAttribute("status", status);
+                request.setAttribute("role", role);
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
-            } else {
-                request.setAttribute("mess", "Cannot add account. Please try again!");
+            }
+            else
+            {
+                request.setAttribute("id", id);
+                request.setAttribute("name", name);
+                request.setAttribute("gender", gender);
+                request.setAttribute("email", email);
+                request.setAttribute("phno", phno);
+                request.setAttribute("status", status);
+                request.setAttribute("role", role);
+                if(isSuccess.contains("already"))
+                    request.setAttribute("mess", "This account already attended a course that was in session!");
+                request.setAttribute("mess", "Edit account unsuccessfully. Please try again!");
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
             }
 
@@ -210,7 +235,12 @@ public class addAccount extends HttpServlet {
                 // subject
                 message.setSubject("Welcome!");
                 // content
-                message.setText("Your password is: " + otpvalue);
+                if(otpvalue ==0)
+                {
+                    message.setText("The admin has played with your account, please check your account information");
+                }
+                else
+                    message.setText("Your password is: " + otpvalue);
                 // send message
                 Transport.send(message);
                 System.out.println("message sent successfully");

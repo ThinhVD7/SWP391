@@ -16,11 +16,11 @@ public class validation {
 
     public String nameValid(String name) {
         String nameErr = "";
-        String regex = "^\\w+( +\\w+)*$";
+        String regex = "^[A-Za-z]+([ -][A-Za-z]+)*$";
         if (name.matches("[0-9]*")) {
             nameErr += "Name must not contains number";
         } else if (!name.matches(regex)) {
-            nameErr += "Name must not contains special character";
+            nameErr += "Name must not contains special character nor number";
         }
         return nameErr;
     }
@@ -52,6 +52,16 @@ public class validation {
         if (!email.matches(regex)) {
             emailErr = " Invalid email address format. ";
         } else if (dao.getUser(email) != null) {
+            emailErr = " Email address already exists. ";
+        }
+        return emailErr;
+    }
+    public String editEmailValid(String email, String oldEmail) {
+        String emailErr = "";
+        String regex = "^[A-Za-z0-9+_.-]+@(fpt|fe)\\.edu\\.vn$";
+        if (!email.matches(regex)) {
+            emailErr = " Invalid email address format. ";
+        } else if (dao.getUser(email) != null && !email.equals(oldEmail) ) {
             emailErr = " Email address already exists. ";
         }
         return emailErr;

@@ -133,31 +133,26 @@
 
 
 
-
-            <div class="container">
-                <div class="list-course row mt-5">
-
+            <div class="container-fluid mt-3">
+                <div class="row mt-5">
                     <c:forEach items="${requestScope.classes}" var="c">
+                    <c:forEach var="i" begin="1" end="30" step="1">
                         <div class='course-item col-md-4 col-sm-6 col-lg-3 pt-3'>
                             <div class="card">
                                 <div class="card-body"> 
-                                    <a href="">
+                                    <a href="studentExamList?classID=${c.classID}">
                                         <h4 class="card-title">${c.courseID}</h4>  
                                     </a>
-                                    <h7 class="card-subtitle mb-2 text-muted">Class:${c.className}</h7>
-                                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                    <a href="#" class="card-link">Enter course</a>
+                                        <h6 class="card-subtitle mb-2 text-muted">Class: ${c.className}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${requestScope.courseInfo[c.courseID].semester}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">From: ${courseInfo[c.courseID].startDate}&nbsp;To: ${courseInfo[c.courseID].endDate}</h6>  
+                                    <a style ="position: absolute; bottom: 15px; right: 20px;" href="studentExamList?classID=${c.classID}" class="card-link">Enter course</a>
                                     <a href="#" class="card-link"></a>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
-
-
-
-
-
-
+                    </c:forEach>
                 </div>
             </div>
 

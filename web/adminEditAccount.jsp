@@ -58,13 +58,13 @@
                                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Account Information:</h3>
 
 
-                                <form id="form" action=${sessionScope.targetAccount != null ?"adminEditAccount":"addAccount"} method="post">
+                                <form id="form" action="adminEditAccount?" method="post">
 
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
-                                                ID<input type="text" id="id" class="form-control form-control-lg" name="id" required="" value="${requestScope.id}" />
+                                                ID<input type="text" id="id" class="form-control form-control-lg" name="id" required="" value="${id}" />
                                                 <label class="form-label" for="id"><p class="text-danger">${idErr}</p></label>
                                             </div>
 
@@ -72,7 +72,7 @@
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
-                                                Name<input type="text" id="name" class="form-control form-control-lg"  name="name" required="" value="${requestScope.name}"/>
+                                                Name<input type="text" id="name" class="form-control form-control-lg"  name="name" required="" value="${name}"/>
                                                 <label class="form-label" for="name"><p class="text-danger">${nameErr}</p></label>
                                             </div>
 
@@ -83,7 +83,7 @@
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                             <div class="form-outline datepicker w-100">
-                                                Email<input type="text" class="form-control form-control-lg" id="email" name="email" required="" value="${requestScope.email}" />
+                                                Email<input type="text" class="form-control form-control-lg" id="email" name="email" required="" value="${email}" />
                                                 <label for="email" class="form-label"><p class="text-danger">${emailErr}</p></label>
                                             </div>
 
@@ -118,7 +118,7 @@
                                         <div class="col-md-6 mb-4 pb-2">
 
                                             <div class="form-outline">
-                                                Phone Number<input type="text" id="phoneNumber" class="form-control form-control-lg" name="phno" required="" value="${requestScope.phno}" />
+                                                Phone Number<input type="text" id="phoneNumber" class="form-control form-control-lg" name="phno" required="" value="${phno}" />
                                                 <label class="form-label" for="phoneNumber"><p class="text-danger">${phoneErr}</p> </label>
                                             </div>
 
@@ -130,7 +130,7 @@
                                                                                             <label class="form-label" for="phoneNumber">Phone Number</label>
                                                                                         </div>-->
                                             Status: <select class="select form-control-md" name="status">
-                                                <option value="" disabled>Status</option>
+                                                <option value="${status}" disabled>Status</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
                                             </select>
@@ -141,7 +141,7 @@
                                         <div class="col-12">
 
                                             Role: <select class="select form-control-md" name="role">
-                                                <option value="" disabled>Role</option>
+                                                <option value="${role}" disabled>Role</option>
                                                 <option value="0">Admin</option>
                                                 <option value="1">Manager</option>
                                                 <option value="2">Lecturer</option>

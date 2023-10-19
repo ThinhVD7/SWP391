@@ -76,6 +76,13 @@ public class Login extends HttpServlet {
         //block check if user have logged in, if true then return to home
         if(session.getAttribute("user") != null)
         {
+            Account userCheck = (Account)session.getAttribute("user");
+            if(userCheck.getStatus()==0)
+                {
+                    session.removeAttribute("user");
+                    request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
             response.sendRedirect("home");
             return;
         }
@@ -89,6 +96,12 @@ public class Login extends HttpServlet {
         } 
         else 
         {
+            if(acc.getStatus()==0)
+                {
+                    session.removeAttribute("user");
+                    request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
 //            int otpvalue = Random();
 //            sendMail(username, otpvalue);
 //            request.getRequestDispatcher("OTP.jsp").forward(request, response);

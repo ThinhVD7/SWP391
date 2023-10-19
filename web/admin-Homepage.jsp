@@ -180,6 +180,42 @@
                 margin-top: 10px;
                 font-size: 13px;
             }
+            .popup-button {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 20px;
+            cursor: pointer;
+            margin-right: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+       
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
+            backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
+            z-index: 1;
+        }
+
+        /* Style for the clear pop-up container */
+        .popup-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 2;
+        }
         </style>
         <script>
             $(document).ready(function () {
@@ -193,13 +229,24 @@
     response.setHeader("Pragma","no-cache"); //HTTP 1.0
     response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
 %>
+        <div id="deletePopup" class="overlay" onclick="closePopup()">
+            <div class="popup-container" onclick="event.stopPropagation();">
+                <h2>Did you just accidentally hit delete button on a random account didn't you sleezeball</h2>
+                <p>Are you sure you want to delete this account with ID: <span id="deleteIDplace"></span>?</p>
+                    <button class ="popup-button" onclick="deleteAccount()">No</button>                    
+             
+                <button class ="popup-button" onclick="closePopup()">Yes</button>
+            </div>
+        </div>    
+        
         <div class="container-xl">
+         
             <div class="table-responsive">
                 <div class="table-wrapper">
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-5">
-                                <h2> <a style="text-decoration: none;color: white" href="home"><i class="fa-solid fa-house "></i> </a> Account <b>Management</b></h2>
+                                <h2> <a style="text-decoration: none;color: white" href="home"><i class="fa-solid fa-house "></i> </a><b>Account Management</b></h2>
                             </div>
                             <div class="col-sm-7">
                                 <a href="addAccount" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>
@@ -246,8 +293,8 @@
                                         <td><span class="status text-danger">&bull;</span> Inactive</td>
                                     </c:if>
                                     <td>
-                                        <a href="#" class="settings" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
-                                        <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
+                                        <a href="adminEditAccount?targetID=${u.accountID}" class="settings" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE8B8;</i></a>
+                                        <a  class="delete" onclick="openPopup('${u.accountID}')" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE5C9;</i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -269,6 +316,57 @@
                                         </div>-->
                 </div>
             </div>
-        </div>     
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <<script>
+            // Function to open pop-up
+            function openPopup(deleteID) {
+//                var dk = confirm(deleteID);
+                document.getElementById('deleteIDplace').textContent = deleteID;
+                document.getElementById('deletePopup').style.display = "block";
+                document.getElementById('deletePopup').setAttribute("deletedID", deleteID);
+//                overlay.style.display = 'block';
+            }
+            // Function to close the pop-up
+            function closePopup() {
+                const overlay = document.getElementById('deletePopup');
+                overlay.style.display = 'none';
+            }
+            
+            function deleteAccount()
+            {
+                var deletedID = document.getElementById("deletePopup").getAttribute("deletedID");
+                var dk = confirm("This account will be deleted, and you have to take full responsibility");
+//                var dk = confirm(deletedID);
+//                $.ajax({
+//                        url: contextPath + "/adminDeteleAccount",
+//                        type: "POST",
+//                        data: {
+//                            deletedID1: deletedID
+//                        },
+//                        success: function (response) {
+//                            window.location.reload();
+//                        },
+//                        error: function (xhr, status, error) {
+//                            closePopup();
+//                        }
+//                    });
+//                closePopup();
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", "adminDeleteAccount", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function () 
+                {
+                    if (xhr.readyState === 4 && xhr.status === 200) 
+                    {
+                        // Handle the response from the server (if needed)
+                        var response = xhr.responseText;
+                        // Reload or update the page as necessary
+                        location.reload();
+                    }
+                };
+                xhr.send("deletedID=" + deletedID);
+            }
+        </script>
     </body>
 </html>

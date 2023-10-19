@@ -45,7 +45,7 @@ public class DAO extends DBContext {
     
     //result get saved to database,
     //future comparing password to the database saved one have to be encoded to compare
-    public String encodeSHA1(String password)
+    public static String encodeSHA1(String password)
             {
                 String result="";
                 try
@@ -56,7 +56,7 @@ public class DAO extends DBContext {
                     }
                 catch(Exception e)
                     {
-                        status = "Error at encodeSHA1"+e.getMessage();
+                        System.out.println(e);
                     }
                 return result;
             }
@@ -88,7 +88,7 @@ public class DAO extends DBContext {
                         rs.getInt(5),
                         rs.getInt(6),
                         rs.getFloat(7),
-                        rs.getInt(8));
+                        rs.getString(8));
                 account.add(a);
             }
         } catch (SQLException e) {
@@ -101,6 +101,7 @@ public class DAO extends DBContext {
         String sql = "select * from account where Email = ? and Password = ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
+//            password = DAO.encodeSHA1(password);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -113,7 +114,7 @@ public class DAO extends DBContext {
                         rs.getInt(5),
                         rs.getInt(6),
                         rs.getFloat(7),
-                        rs.getInt(8));
+                        rs.getString(8));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -136,7 +137,7 @@ public class DAO extends DBContext {
                         rs.getInt(5),
                         rs.getInt(6),
                         rs.getFloat(7),
-                        rs.getInt(8));
+                        rs.getString(8));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -159,7 +160,7 @@ public class DAO extends DBContext {
                         rs.getInt(5),
                         rs.getInt(6),
                         rs.getFloat(7),
-                        rs.getInt(8));
+                        rs.getString(8));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -244,6 +245,7 @@ public class DAO extends DBContext {
             PreparedStatement ps = connector.prepareStatement(strSelect);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                System.out.println("");
                 Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                 course.add(c);
             }
@@ -303,19 +305,198 @@ public class DAO extends DBContext {
             ps.setInt(7, gender);
             ps.setString(8, phno);
             ps.executeUpdate();
+            if(role == 3)
+                {
+                    sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?)";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.executeUpdate();
+                    
+                }
+            else if(role ==2)
+                {
+                    sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?)";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.executeUpdate();
+                }
             return true;
         } catch (Exception e) {
             System.out.println(e);
         }
         return false;
     }
+    public String updateAccount(String id, String newID, String name, String email, int role, int status, int gender, String phno) {
+            //check role student or lecturer
+//            String condition = "select Role_ID from account where Account_ID like ?";
+            String sql = "update account set Account_ID = ?,Name = ?,Email = ?,Role_ID = ?,Status = ?,Gender = ?,PhoneNumber = ?where Account_ID = ?";
+        try 
+        {
+            PreparedStatement ps = connector.prepareStatement(sql);
+//            ps.setString(1, id);
+//            ps.executeQuery();
+//            int checkRole = 4;
+//            boolean wasActive = false;
+//            ResultSet rs = ps.executeQuery();
+//            while(rs.next())
+//                {
+//                    checkRole = rs.getInt(1);
+//                }
+//            //update role is changed and old role is student or lecturer
+//            if(checkRole != role && (checkRole == 3 || checkRole == 2))
+//                {
+//                    if(checkRole == 3)
+//                        {
+//                            condition = "select "
+//                        }
+//                }
+//                    
+//                    
+            //update account        
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, newID);
+            ps.setString(2, name);
+            ps.setString(3, email);
+            ps.setInt(4, role);
+            ps.setInt(5, status);
+            ps.setInt(6, gender);
+            ps.setString(7, phno);
+            ps.setString(8, id);
+            ps.executeUpdate();
+            
+            //insert into certain role tables
+            if(role == 3)
+                {
+                    sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?)";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.executeUpdate();
+                }
+            else if(role ==2)
+                {
+                    sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?)";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.executeUpdate();
+                }
+            return "success";
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }
+        return "failed";
+    }
+    
+    public void deleteAccountbyID(String accountID)
+            {
+                String deleteAccount = "delete from account where Account_ID = ?";
+//                String sqlCondition = "select Role_ID from account where Account_ID = ?";
+//                int roleID = 0;
+                try 
+                {
+                    PreparedStatement ps = connector.prepareStatement(deleteAccount);
+//                    ps.setString(1, accountID);
+//                    ps.executeQuery();
+//                    ResultSet rs = ps.executeQuery();
+//                    while(rs.next())
+//                        {
+//                            roleID = rs.getInt(1);
+//                        }
+//                    //lecturer role
+//                    if(roleID == 2)
+//                        {
+//                            deleteAccount = "delete from lecturerinwhichclass where Lecturer_ID = ?";
+//                            ps = connector.prepareStatement(deleteAccount);
+//                            ps.setString(1, accountID);
+//                            ps.executeUpdate();
+//                            deleteAccount = "delete from lecturer where Lecturer_ID = ?";
+//                            ps = connector.prepareStatement(deleteAccount);
+//                            ps.setString(1, accountID);
+//                            ps.executeUpdate();
+//                        }
+//                    //student role
+//                    if(roleID == 3)
+//                    {
+//                        
+//                        deleteAccount = "delete from studentinwhichclass where Student_ID = ?";
+//                        ps = connector.prepareStatement(deleteAccount);
+//                        ps.setString(1, accountID);
+//                        ps.executeUpdate();
+//                        deleteAccount = "delete from student where Student_ID = ?";
+//                        ps = connector.prepareStatement(deleteAccount);
+//                        ps.setString(1, accountID);
+//                        ps.executeUpdate();
+//                    }
+                    deleteAccount = "delete from account where Account_ID = ?";
+                    ps = connector.prepareStatement(deleteAccount);
+                    ps.setString(1, accountID);
+                    ps.executeUpdate();
+                } 
+                catch (Exception e) 
+                {
+                    System.out.println(e);
+                }
+            }
+    public void deleteClassbyID(String classID)
+            {
+                String deleteClass = "";
+                try 
+                {
+                    deleteClass = "delete from lecturerinwhichclass where Class_ID = ?";
+                    PreparedStatement ps = connector.prepareStatement(deleteClass);
+                    ps = connector.prepareStatement(deleteClass);
+                    ps.setString(1, classID);
+                    ps.executeUpdate();
+                    deleteClass = "delete from studentinwhichclass where Class_ID = ?";
+                    ps = connector.prepareStatement(deleteClass);
+                    ps.setString(1, classID);
+                    ps.executeUpdate();
+                    deleteClass = "delete from class where Class_ID = ?";
+                    ps = connector.prepareStatement(deleteClass);
+                    ps.setString(1, classID);
+                    ps.executeUpdate();
+                } 
+                catch (Exception e) 
+                {
+                    System.out.println(e);
+                }
+            }
+    public void deleteCoursebyID(String courseID)
+            {
+                String deleteCourse = "delete from course where Course_ID = ?";
+                try 
+                {
+                    PreparedStatement ps = connector.prepareStatement(deleteCourse);
+                    ps.setString(1, courseID);
+                    ps.executeUpdate();
+                } 
+                catch (Exception e) 
+                {
+                    System.out.println(e);
+                }
+            }
 
     public static void main(String[] args) {
         DAO d = new DAO();
-        String two = d.encodeSHA1("123456");
+        String two = d.encodeSHA1("1691939");
+//        d.getAllCourse();
+        System.out.println(two);
         System.out.println(d.encodeSHA1("123456").equals(two));
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
-
+//        d.deleteAccountbyID("nampt_he_171400");
+        d.deleteClassbyID("yes");
+        d.deleteCoursebyID("MAS291");
+        //System.out.println(d.addAccount("nampt_he_171400", two, two, two, 0, 3, 0, "12"));
+        //System.out.println((d.getAccountLogin("nampthe171400@fpt.edu.vn", "1691939")!=null)?"success":"it null");
     }
 
 }

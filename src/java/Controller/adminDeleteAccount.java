@@ -1,18 +1,18 @@
 package Controller;
 
+import Dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author ROG
  */
-public class profile extends HttpServlet {
+public class adminDeleteAccount extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,10 +29,10 @@ public class profile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet profile</title>");  
+            out.println("<title>Servlet adminDeleteAccount</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet profile at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet adminDeleteAccount at " + request.getParameter("deletedID") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -49,15 +49,7 @@ public class profile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        //block check if user have logged in, if not then return to home
-        HttpSession session = request.getSession(false);
-        if(session == null||session.getAttribute("user") == null)
-        {
-            response.sendRedirect("index.html");
-            return;
-        }
-        ////////////////////////////////////////////////////////////////
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        processRequest(request, response);
     } 
 
     /** 
@@ -70,7 +62,10 @@ public class profile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        DAO dao=new DAO();
+        dao.deleteAccountbyID(request.getParameter("deletedID"));
+//        request.setAttribute("deletedID", request.getParameter("deletedID"));
+//        processRequest(request, response);
     }
 
     /** 
