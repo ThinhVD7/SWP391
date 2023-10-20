@@ -47,8 +47,8 @@
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
                 padding: 15px;
                 z-index: 2;
-                width: 75%;
-                height: 75%;
+                width: 100%;
+                height: 100%;
             }
             .table-responsive {
                 margin: 30px 0;

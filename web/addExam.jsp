@@ -699,7 +699,10 @@
                                                         <!--Answer will added here-->
 
                                                     </div>
-                                             
+                                                    <div class="controls">
+                                                        <a  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                                        <a  id="remove_fields" ><i class="fa fa-plus"></i>Remove Field</a>
+                                                    </div>
                                                 </div>
 
                                                 <input type="hidden" id="hiddenInput" name="newDivCount" value="">
@@ -756,7 +759,7 @@
                     <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
                 </div>
             </div>
-              
+
         </section>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
@@ -774,11 +777,11 @@
                             const overlay = document.getElementById('classEditPopup');
                             overlay.style.display = 'none';
                         }
-                        
-                        
-                        
-                        
-     
+
+
+
+
+
 
 
                         const btn_menu = document.querySelector(".btn-menu");

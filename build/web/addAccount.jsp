@@ -130,12 +130,12 @@
                                     <div class="row">
                                         <div class="col-12">
 
-                                            <select class="select form-control-md" name="role">
+                                           Role: <select class="select form-control-md" name="role">
                                                 <option value="" disabled>Role</option>
-                                                <option value="0">Admin</option>
-                                                <option value="1">Manager</option>
-                                                <option value="2">Lecturer</option>
-                                                <option value="3">Student</option>
+                                                <option ${requestScope.role == 0 ? "selected":""} value="0">Admin</option>
+                                                <option ${requestScope.role == 1 ? "selected":""} value="1">Manager</option>
+                                                <option ${requestScope.role == 2 ? "selected":""} value="2">Lecturer</option>
+                                                <option ${requestScope.role == 3 ? "selected":""} value="3">Student</option>
 
 
                                             </select>
