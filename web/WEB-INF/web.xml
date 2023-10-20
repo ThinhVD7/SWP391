@@ -122,6 +122,10 @@
         <servlet-name>removeQuestionExam</servlet-name>
         <servlet-class>Controller.removeQuestionExam</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateQuestion</servlet-name>
+        <servlet-class>Controller.updateQuestion</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>lecturerAddNewExam</servlet-name>
         <url-pattern>/AddNewExam</url-pattern>
@@ -233,6 +237,10 @@
     <servlet-mapping>
         <servlet-name>removeQuestionExam</servlet-name>
         <url-pattern>/removeQuestionExam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateQuestion</servlet-name>
+        <url-pattern>/updateQuestion</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

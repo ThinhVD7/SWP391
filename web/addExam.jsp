@@ -600,7 +600,7 @@
                                         <div class ="question-container">
 
                                             <div class="row">
-                                                <div class="col-sm-3"><a href="">${c.title}:   </a></div> 
+                                                <div class="col-sm-3"><a href="updateQuestion?questionId=${c.questionID}">${c.title}:</a></div> 
                                                 <div class="col-sm-4"> ${c.content}</div>
                                                 <div class="col-sm-3"> Mark:${c.mark}</div>
                                                 <div class="col-sm-2">
@@ -667,7 +667,7 @@
                                                     <div class="form-inline">
 
                                                         <div class="form-group col-sm-7">
-                                                            <input type="text" name="title" class="survey_options" placeholder="Title" required="">
+                                                            <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="">
 
                                                         </div>
                                                         <div class="form-group col-sm-5">
@@ -699,10 +699,7 @@
                                                         <!--Answer will added here-->
 
                                                     </div>
-                                                    <div class="controls">
-                                                        <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-                                                        <a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>
-                                                    </div>
+                                             
                                                 </div>
 
                                                 <input type="hidden" id="hiddenInput" name="newDivCount" value="">
@@ -714,7 +711,30 @@
 
                                         </div>
                                         <div class="tab_content tab_2">
-                                            It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <select name="class-name" class="" id="class-name">
+                                                        <c:forEach items="${sessionScope.classListTemp}" var="c">
+                                                            <option value="${c.classID}}">${c.className}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <select name="exam-name" class="" id="exam-name">
+                                                        <c:forEach items="${sessionScope.classListTemp}" var="c">
+                                                            <option value="${c.classID}}">${c.className}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+
                                         </div>
                                         <div class="tab_content tab_3">
                                             Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
@@ -736,9 +756,7 @@
                     <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
                 </div>
             </div>
-
-
-
+              
         </section>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
@@ -756,6 +774,11 @@
                             const overlay = document.getElementById('classEditPopup');
                             overlay.style.display = 'none';
                         }
+                        
+                        
+                        
+                        
+     
 
 
                         const btn_menu = document.querySelector(".btn-menu");

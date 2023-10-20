@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class LecturerDAO extends DBContext {
 
     Connection connector;
+    public List<ChoiceQuestion> choiceList = new ArrayList<>();
     public List<Account> accountList = new ArrayList<>();
     public List<Student> studentList = new ArrayList<>();
     public List<Lecturer> lecturerList = new ArrayList<>();
@@ -77,6 +78,25 @@ public class LecturerDAO extends DBContext {
             status = "Error at load courses" + e.getMessage();
         }
         return null;
+    }
+
+    public List<Class1> getClassByCourseId(String courseId) {
+        String sql = "SELECT * FROM class where Course_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, courseId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                classList.add(new Class1(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3)));
+
+            }
+        } catch (Exception e) {
+            status = "Error at load courses" + e.getMessage();
+        }
+        return classList;
     }
 
     public Exam loadAExam(String examID) {
@@ -336,6 +356,25 @@ public class LecturerDAO extends DBContext {
 
     }
 
+    public boolean updateQuestion(String questionId, String Title, String questionContent, String type, float mark) {
+        try {
+            String sql = "update question set Title = ?,QuestionContent = ?,Type = ?,Mark = ? where Question_ID = ?";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Title);
+            ps.setString(2, questionContent);
+            ps.setString(3, type);
+            ps.setFloat(4, mark);
+            ps.setString(5, questionId);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
     public List<Question> getListQuestionByExamID(String examId) {
         String sql = "SELECT b.* FROM `quiz9.5`.questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
 
@@ -366,6 +405,39 @@ public class LecturerDAO extends DBContext {
             status = "Error at get Account " + e.getMessage();
         }
         return null;
+    }
+
+    public Question getQuestionById(String qId) {
+        String sql = "SELECT * FROM question where Question_ID = ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, qId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
+    public List<ChoiceQuestion> getChoiceOfQuestion(String questionId) {
+        String sql = "SELECT * from choicesofquestion where Question_ID = ?";
+
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, questionId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                choiceList.add(new ChoiceQuestion(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+            }
+        } catch (Exception e) {
+            status = "Error at load classes" + e.getMessage();
+        }
+        return choiceList;
     }
 
     public Exam getLastExam() {
@@ -422,6 +494,25 @@ public class LecturerDAO extends DBContext {
 
     }
 
+    public boolean updateChoice(String Question_ID, String ChoiceContent, String ScorePercentage, String choice_ID) {
+        try {
+            String sql = "update choicesofquestion set ChoiceContent = ?,ScorePercentage = ? where Question_ID = ? and Choice_ID = ?";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, ChoiceContent);
+            ps.setString(2, ScorePercentage);
+            ps.setString(3, Question_ID);
+            ps.setString(4, choice_ID);
+
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
     public boolean addBank(String Exam_ID, String Question_ID) {
         try {
             String sql = "INSERT INTO questioninwhichexam\n"
@@ -449,7 +540,7 @@ public class LecturerDAO extends DBContext {
             ps = connector.prepareStatement(sql);
             ps.setString(1, examID);
             ps.executeUpdate();
-            sql = "delete from bank where Exam_ID = ?";
+            sql = "delete from questioninwhichexam where Exam_ID = ?";
             ps = connector.prepareStatement(sql);
             ps.setString(1, examID);
             ps.executeUpdate();
@@ -479,7 +570,7 @@ public class LecturerDAO extends DBContext {
     public static void main(String[] args) {
         LecturerDAO dao = new LecturerDAO();
 
-        System.out.println(dao.getListQuestionByExamID("9").get(0).getTitle());
+        System.out.println(dao.getChoiceOfQuestion("1").get(0).getChoiceContent());
 
 //        dao.addQuestion("Cau 1", "1+1=?", "1", 10);
 //        //test add exam
