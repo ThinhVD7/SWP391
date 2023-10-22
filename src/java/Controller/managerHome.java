@@ -6,6 +6,7 @@
 package Controller;
 
 import Dal.DAO;
+import Dal.ManagerDAO;
 import Model.Account;
 import Model.Course;
 import java.io.IOException;
@@ -15,6 +16,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -74,6 +78,19 @@ public class managerHome extends HttpServlet {
         ///////////////////////////////
         DAO dao = new DAO();
         List<Course> course = dao.getAllCourse();
+        //after fix database
+//        LocalDate today = LocalDate.now();
+//        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String,Boolean>();
+//        for (Course course1 : course) 
+//        {
+//            if(today.compareTo(LocalDate.parse(course1.getStartDate()))>-1&&today.compareTo(LocalDate.parse(course1.getEndDate()))<0)
+//                {
+//                     deleteNotAllowMap.put(course1.getCourseID(), true);
+//                }
+//            else
+//                deleteNotAllowMap.put(course1.getCourseID(), false);
+//        }
+//        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
         request.setAttribute("course", course);
         request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
     }
@@ -88,7 +105,31 @@ public class managerHome extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //String courseId = "chu co eo j";
+        String courseIdMain = request.getParameter("courseIdMain");
+        String courseId = request.getParameter("courseId");
+        String courseName = request.getParameter("courseName");
+        String semseter = request.getParameter("semseter");
+        String startDay = request.getParameter("startDay");
+        String endDay = request.getParameter("endDay");
+        String action = request.getParameter("action");
+
+        ManagerDAO obj = new ManagerDAO();
+        ManagerDAO obj1 = new ManagerDAO();
+        HttpSession session = request.getSession();
+        
+        if (action.equals("add")) {
+            if (obj.getCourseId(courseId)) {
+                session.setAttribute("logPrint", 1);
+            } else {
+                session.removeAttribute("logPrint");
+                Course c = new Course(courseId, courseName, semseter, startDay, endDay);  
+                obj1.getCreateCouse(c);
+            }
+        } else if (action.equals("update")) {
+            Course c = new Course(courseId, courseName, semseter, startDay, endDay);  
+            obj.updateInfo(c, courseIdMain);
+        }
     }
 
     /** 

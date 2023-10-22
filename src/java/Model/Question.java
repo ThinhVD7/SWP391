@@ -8,14 +8,14 @@ public class Question {
     private String type;
     private String choices;
     private String choicePercentages;
-    private String answer;
+    private int answer;
     private int shuffleChoices;
     private float mark;
 
     public Question() {
     }
 
-    public Question(String questionID, String title, String content, String type, String choices, String choicePercentages, String answer, int shuffleChoices, float mark) {
+    public Question(String questionID, String title, String content, String type, String choices, String choicePercentages, int answer, int shuffleChoices, float mark) {
         this.questionID = questionID;
         this.title = title;
         this.content = content;
@@ -23,6 +23,15 @@ public class Question {
         this.choices = choices;
         this.choicePercentages = choicePercentages;
         this.answer = answer;
+        this.shuffleChoices = shuffleChoices;
+        this.mark = mark;
+    }
+    
+    public Question(String questionID, String title, String content, String type, int shuffleChoices, float mark) {
+        this.questionID = questionID;
+        this.title = title;
+        this.content = content;
+        this.type = type;
         this.shuffleChoices = shuffleChoices;
         this.mark = mark;
     }
@@ -75,11 +84,11 @@ public class Question {
         this.choicePercentages = choicePercentages;
     }
 
-    public String getAnswer() {
+    public int getAnswer() {
         return answer;
     }
 
-    public void setAnswer(String answer) {
+    public void setAnswer(int answer) {
         this.answer = answer;
     }
 

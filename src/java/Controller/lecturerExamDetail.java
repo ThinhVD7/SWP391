@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 /**
@@ -83,13 +84,14 @@ public class lecturerExamDetail extends HttpServlet {
         Exam thisExam = dao.loadAExam(request.getParameter("examID"));
         //session thisExam
         session.setAttribute("sessionThisExam", thisExam);
-        
+        if(LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0)
+            request.setAttribute("notAllowToEdit", "notAllowToEdit");
         
         request.setAttribute("timeLimit", dao.getStringFormattedDate("timeLimit", thisExam.getTimeLimit()));
         request.setAttribute("startDate", dao.getStringFormattedDate("dateTime", thisExam.getStartDate()));
         request.setAttribute("endDate", dao.getStringFormattedDate("dateTime", thisExam.getEndDate()));
         request.getRequestDispatcher("lecturerExamDetail.jsp").forward(request, response);
-    } 
+    }
 
     /** 
      * Handles the HTTP <code>POST</code> method.

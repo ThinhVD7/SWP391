@@ -246,7 +246,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-5">
-                                <h2> <a style="text-decoration: none;color: white" href="home"><i class="fa-solid fa-house "></i> </a> Account <b>Management</b></h2>
+                                <h2> <a style="text-decoration: none;color: red" href="home"><i class="fa-solid fa-house "></i> </a><b>Account Management</b></h2>
                             </div>
                             <div class="col-sm-7">
                                 <a href="addAccount" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>

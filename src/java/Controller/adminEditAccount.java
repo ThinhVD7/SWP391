@@ -160,8 +160,8 @@ public class adminEditAccount extends HttpServlet {
         } 
         else 
         {
-            boolean isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
-            if (isSuccess) 
+            String isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
+            if (isSuccess.equals("success")) 
             {
                 sendMail(email, 0);
                 session.removeAttribute("idErr");
@@ -179,7 +179,7 @@ public class adminEditAccount extends HttpServlet {
                 request.setAttribute("role", role);
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
             }
-            else 
+            else
             {
                 request.setAttribute("id", id);
                 request.setAttribute("name", name);
@@ -188,6 +188,8 @@ public class adminEditAccount extends HttpServlet {
                 request.setAttribute("phno", phno);
                 request.setAttribute("status", status);
                 request.setAttribute("role", role);
+                if(isSuccess.contains("already"))
+                    request.setAttribute("mess", "This account already attended a course that was in session!");
                 request.setAttribute("mess", "Edit account unsuccessfully. Please try again!");
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
             }

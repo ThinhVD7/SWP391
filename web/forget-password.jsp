@@ -68,9 +68,9 @@
                             <p>Login Your Account <a href="Login">Click here</a></p>
                         </div>	
                         <form class="contact-bx" action="ForgetPassword" method="POST">
-                            <p class="text-danger">${err}</p>
-                            <p class="text-danger">${mess}</p>
-                            <p class="text-danger">${OTPmess}</p>
+                            <p class="text-success">${err}</p>
+                            <p class="text-success">${mess}</p>
+                            <p class="text-success">${OTPmess}</p>
                             <div class="row placeani">
                                 <div class="col-lg-12">
                                     <div class="form-group">

@@ -136,7 +136,7 @@
             <div class="container-fluid mt-3">
                 <div class="row mt-5">
                     <c:forEach items="${requestScope.classes}" var="c">
-                    <c:forEach var="i" begin="1" end="30" step="1">
+                    <%--<c:forEach var="i" begin="1" end="30" step="1">--%>
                         <div class='course-item col-md-4 col-sm-6 col-lg-3 pt-3'>
                             <div class="card">
                                 <div class="card-body"> 
@@ -151,7 +151,7 @@
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
+                    <%--</c:forEach>--%>
                     </c:forEach>
                 </div>
             </div>

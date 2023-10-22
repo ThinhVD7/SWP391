@@ -88,6 +88,7 @@ public class lecturerClasslist extends HttpServlet {
             class_studentNumber.put(class1.getClassID(), dao.numberofStudentofClass(class1.getClassID()));
             class_examNumber.put(class1.getClassID(), dao.numberofExamofClass(class1.getClassID()));
         }
+        session.setAttribute("classListTemp", classList);
         request.setAttribute("studentNumber", class_studentNumber);
         request.setAttribute("examNumber", class_examNumber);
         request.setAttribute("classList", classList);

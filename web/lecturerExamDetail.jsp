@@ -265,9 +265,12 @@
                 <br>
                 <p>Review Permission: ${sessionScope.sessionThisExam.permission==1?"Absolutely":"Not Permitted"} </p>
                 <br>
-                <form action="action">
+<!--                <form action="action">
                     <button class="edit-exam-button">Edit Exam</button> 
-                </form>
+                </form>-->
+                <a href="lecturerEditExam?tId=${sessionThisExam.examID}">
+                    <button class="edit-exam-button" ${requestScope.notAllowToEdit!=null?"hidden":""}>Edit Exam</button> 
+                </a>
                     
 <!--                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
             </div>

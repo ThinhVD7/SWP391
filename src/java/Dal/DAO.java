@@ -5,6 +5,8 @@ import Model.Lecturer;
 import Model.Student;
 import Model.Course;
 import Model.Class1;
+import Model.Question;
+import Model.StudentResult;
 import java.sql.Connection;
 import java.sql.*;
 import java.util.HashMap;
@@ -45,7 +47,7 @@ public class DAO extends DBContext {
     
     //result get saved to database,
     //future comparing password to the database saved one have to be encoded to compare
-    public String encodeSHA1(String password)
+    public static String encodeSHA1(String password)
             {
                 String result="";
                 try
@@ -56,7 +58,7 @@ public class DAO extends DBContext {
                     }
                 catch(Exception e)
                     {
-                        status = "Error at encodeSHA1"+e.getMessage();
+                        System.out.println(e);
                     }
                 return result;
             }
@@ -101,6 +103,7 @@ public class DAO extends DBContext {
         String sql = "select * from account where Email = ? and Password = ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
+//            password = DAO.encodeSHA1(password);
             ps.setString(1, email);
             ps.setString(2, password);
             ResultSet rs = ps.executeQuery();
@@ -304,18 +307,59 @@ public class DAO extends DBContext {
             ps.setInt(7, gender);
             ps.setString(8, phno);
             ps.executeUpdate();
-            
+            if(role == 3)
+                {
+                    sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?)";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.executeUpdate();
+                    
+                }
+            else if(role ==2)
+                {
+                    sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?)";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.executeUpdate();
+                }
             return true;
         } catch (Exception e) {
             System.out.println(e);
         }
         return false;
     }
-    public boolean updateAccount(String id, String newID, String name, String email, int role, int status, int gender, String phno) {
-        try {
+    public String updateAccount(String id, String newID, String name, String email, int role, int status, int gender, String phno) {
+            //check role student or lecturer
+//            String condition = "select Role_ID from account where Account_ID like ?";
             String sql = "update account set Account_ID = ?,Name = ?,Email = ?,Role_ID = ?,Status = ?,Gender = ?,PhoneNumber = ?where Account_ID = ?";
-
+        try 
+        {
             PreparedStatement ps = connector.prepareStatement(sql);
+//            ps.setString(1, id);
+//            ps.executeQuery();
+//            int checkRole = 4;
+//            boolean wasActive = false;
+//            ResultSet rs = ps.executeQuery();
+//            while(rs.next())
+//                {
+//                    checkRole = rs.getInt(1);
+//                }
+//            //update role is changed and old role is student or lecturer
+//            if(checkRole != role && (checkRole == 3 || checkRole == 2))
+//                {
+//                    if(checkRole == 3)
+//                        {
+//                            condition = "select "
+//                        }
+//                }
+//                    
+//                    
+            //update account        
+            ps = connector.prepareStatement(sql);
             ps.setString(1, newID);
             ps.setString(2, name);
             ps.setString(3, email);
@@ -325,52 +369,81 @@ public class DAO extends DBContext {
             ps.setString(7, phno);
             ps.setString(8, id);
             ps.executeUpdate();
-            return true;
-        } catch (Exception e) {
+            
+            //insert into certain role tables
+            if(role == 3)
+                {
+                    sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?) ON DUPLICATE KEY UPDATE Major = ?, SchoolYear = ?";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.setString(4, null);
+                    ps.setString(5, null);
+                    ps.executeUpdate();
+                    return "success";
+                }
+            else if(role ==2)
+                {
+                    sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?) ON DUPLICATE KEY UPDATE Department = ?, MeetLink = ?";
+                    ps = connector.prepareStatement(sql);
+                    ps.setString(1, id);
+                    ps.setString(2, null);
+                    ps.setString(3, null);
+                    ps.setString(4, null);
+                    ps.setString(5, null);
+                    ps.executeUpdate();
+                    return "success";
+                }
+            return "success";
+        } 
+        catch (Exception e) 
+        {
             System.out.println(e);
         }
-        return false;
+        return "failed";
     }
     
     public void deleteAccountbyID(String accountID)
             {
                 String deleteAccount = "delete from account where Account_ID = ?";
-                String sqlCondition = "select Role_ID from account where Account_ID = ?";
-                int roleID = 0;
+//                String sqlCondition = "select Role_ID from account where Account_ID = ?";
+//                int roleID = 0;
                 try 
                 {
-                    PreparedStatement ps = connector.prepareStatement(sqlCondition);
-                    ps.setString(1, accountID);
-                    ps.executeQuery();
-                    ResultSet rs = ps.executeQuery();
-                    while(rs.next())
-                        {
-                            roleID = rs.getInt(1);
-                        }
-                    //lecturer role
-                    if(roleID == 2)
-                        {
-                            deleteAccount = "delete from lecturerinwhichclass where Lecturer_ID = ?";
-                            ps = connector.prepareStatement(deleteAccount);
-                            ps.setString(1, accountID);
-                            ps.executeUpdate();
-                            deleteAccount = "delete from lecturer where Lecturer_ID = ?";
-                            ps = connector.prepareStatement(deleteAccount);
-                            ps.setString(1, accountID);
-                            ps.executeUpdate();
-                        }
-                    //student role
-                    if(roleID == 3)
-                    {
-                        deleteAccount = "delete from studentinwhichclass where Student_ID = ?";
-                        ps = connector.prepareStatement(deleteAccount);
-                        ps.setString(1, accountID);
-                        ps.executeUpdate();
-                        deleteAccount = "delete from student where Student_ID = ?";
-                        ps = connector.prepareStatement(deleteAccount);
-                        ps.setString(1, accountID);
-                        ps.executeUpdate();
-                    }
+                    PreparedStatement ps = connector.prepareStatement(deleteAccount);
+//                    ps.setString(1, accountID);
+//                    ps.executeQuery();
+//                    ResultSet rs = ps.executeQuery();
+//                    while(rs.next())
+//                        {
+//                            roleID = rs.getInt(1);
+//                        }
+//                    //lecturer role
+//                    if(roleID == 2)
+//                        {
+//                            deleteAccount = "delete from lecturerinwhichclass where Lecturer_ID = ?";
+//                            ps = connector.prepareStatement(deleteAccount);
+//                            ps.setString(1, accountID);
+//                            ps.executeUpdate();
+//                            deleteAccount = "delete from lecturer where Lecturer_ID = ?";
+//                            ps = connector.prepareStatement(deleteAccount);
+//                            ps.setString(1, accountID);
+//                            ps.executeUpdate();
+//                        }
+//                    //student role
+//                    if(roleID == 3)
+//                    {
+//                        
+//                        deleteAccount = "delete from studentinwhichclass where Student_ID = ?";
+//                        ps = connector.prepareStatement(deleteAccount);
+//                        ps.setString(1, accountID);
+//                        ps.executeUpdate();
+//                        deleteAccount = "delete from student where Student_ID = ?";
+//                        ps = connector.prepareStatement(deleteAccount);
+//                        ps.setString(1, accountID);
+//                        ps.executeUpdate();
+//                    }
                     deleteAccount = "delete from account where Account_ID = ?";
                     ps = connector.prepareStatement(deleteAccount);
                     ps.setString(1, accountID);
@@ -405,17 +478,262 @@ public class DAO extends DBContext {
                     System.out.println(e);
                 }
             }
+    public void deleteCoursebyID(String courseID)
+            {
+                String deleteCourse = "delete from course where Course_ID = ?";
+                try 
+                {
+                    PreparedStatement ps = connector.prepareStatement(deleteCourse);
+                    ps.setString(1, courseID);
+                    ps.executeUpdate();
+                } 
+                catch (Exception e) 
+                {
+                    System.out.println(e);
+                }
+            }
+    
+    public ArrayList<Question> getQuestionsExam(int examID) {
+        try {
+            String sql = "SELECT question.Question_ID, question.Title, question.QuestionContent, question.Type, question.Mark  FROM `quiz9.5`.question as question\n"
+                    + "INNER JOIN questioninwhichexam as qw\n"
+                    + "WHERE question.Question_ID = qw.Question_ID AND Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examID);
+            List<Question> questions = new ArrayList<>();
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Question question = new Question();
+                question.setQuestionID(rs.getString("Question_ID"));
+                question.setTitle(rs.getString("Title"));
+                question.setContent(rs.getString("QuestionContent"));
+                question.setType(rs.getString("Type"));
+                question.setMark(rs.getInt("Mark"));
+                questions.add(question);
+            }
+            return (ArrayList<Question>) questions;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<Question> getChoice(int questionID) {
+        try {
+            String sql = "SELECT Choice_ID, Question_ID, ChoiceContent,ScorePercentage FROM choicesofquestion WHERE Question_ID =  ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, questionID);
+            ArrayList<Question> questions = new ArrayList<>();
+            ResultSet rs = stm.executeQuery();
+            int status = 0;
+            while (rs.next()) {
+                Question question = new Question();
+                question.setChoices(rs.getString("Choice_ID"));
+                question.setQuestionID(rs.getString("Question_ID"));
+                question.setChoicePercentages(rs.getString("ScorePercentage"));
+                question.setContent(rs.getString("ChoiceContent"));
+                if (rs.getInt("ScorePercentage") > 0) {
+                    status++;
+                }
+                questions.add(question);
+            }
+            if (status > 1) {
+                for (Question question : questions) {
+                    question.setAnswer(1);
+                }
+            } else {
+                for (Question question : questions) {
+                    question.setAnswer(2);
+                }
+            }
+
+            return questions;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public boolean createResult(String ExamID, String StudentID, float totalMark, String totalTime, int state) {
+        try {
+            String sql = "INSERT INTO studentresult VALUES (?, ?, ?, ?, ?, ?)";
+            DAO dao = new DAO();
+            String resultID = String.valueOf(dao.getNewResultID());
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setString(1, resultID);
+            stm.setString(2, ExamID);
+            stm.setString(3, StudentID);
+            stm.setFloat(4, totalMark);
+            stm.setString(5, totalTime);
+            stm.setInt(6, state);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public int getNewResultID() {
+        try {
+            String sql = "SELECT Result_ID FROM studentresult order by Result_ID DESC\n";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            int ResultID = 0;
+            while (rs.next()) {
+                if (ResultID < rs.getInt("Result_ID")) {
+                    ResultID = rs.getInt("Result_ID");
+                }
+            }
+            return ResultID + 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public boolean isDoQuiz(String examID, String studentID) {
+        try {
+            String sql = "SELECT * FROM studentresult\n"
+                    + "WHERE Exam_ID = ? AND Student_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setString(1, examID);
+            stm.setString(2, studentID);
+            ResultSet rs = stm.executeQuery();
+            int status = 0;
+            while (rs.next()) {
+                status++;
+            }
+            if (status >= 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+
+    }
+
+    public StudentResult getResultStudent(String examID, String StudentID) {
+        try {
+            String sql = "SELECT Exam_ID, Student_ID, TotalScore, TotalTime FROM studentresult\n"
+                    + "WHERE Exam_ID = ? AND Student_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setString(1, examID);
+            stm.setString(2, StudentID);
+            ResultSet rs = stm.executeQuery();
+            StudentResult sr = new StudentResult();
+            while (rs.next()) {
+                sr.setExamID(rs.getString("Exam_ID"));
+                sr.setStudentID(rs.getString("Student_ID"));
+                sr.setTotalScore(rs.getFloat("TotalScore"));
+                sr.setTotalTime(rs.getString("TotalTime"));
+                break;
+            }
+            return sr;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public String getDetailExam(int examID) {
+        try {
+            String sql = "SELECT TimeLimit FROM `quiz9.5`.exam\n"
+                    + "WHERE Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getString("TimeLimit");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public String getExamName(int examID) {
+        try {
+            String sql = "SELECT ExamName FROM `quiz9.5`.exam\n"
+                    + "WHERE Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getString("ExamName");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public int getNumberOfQuestion(int examID) {
+        try {
+            String sql = "SELECT QuestionNumber FROM `quiz9.5`.exam\n"
+                    + "WHERE Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examID);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("numberOfQueston");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+     public int getNewStudentAnswer() {
+        try {
+            String sql = "SELECT StudentAnswer_ID, Question_ID, Choice_ID, Flag, Result_ID  FROM studentanswer order by StudentAnswer_ID DESC";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            int studentAnswer = 0;
+            while (rs.next()) {
+                if (studentAnswer < rs.getInt("StudentAnswer_ID")) {
+                    studentAnswer = rs.getInt("StudentAnswer_ID");
+                }
+            }
+            return studentAnswer + 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+     
+     public boolean createStudentAnswer(int QuestionID, int ChoiceID, int Flag, String Result_ID) {
+        try {
+            String sql = "INSERT INTO studentanswer VALUES (?, ?, ?, ?, ?)";
+            DAO dao = new DAO();
+            String studentAnswer = String.valueOf(dao.getNewStudentAnswer());
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setString(1, studentAnswer);
+            stm.setInt(2, QuestionID);
+            stm.setInt(3, ChoiceID);
+            stm.setInt(4, Flag);
+            stm.setString(5, Result_ID);
+            stm.executeUpdate();
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
         DAO d = new DAO();
-        String two = d.encodeSHA1("123456");
+        String two = d.encodeSHA1("1691939");
 //        d.getAllCourse();
         System.out.println(two);
         System.out.println(d.encodeSHA1("123456").equals(two));
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 //        d.deleteAccountbyID("nampt_he_171400");
-        d.deleteClassbyID("yes");
-
+//        d.deleteClassbyID("yes");
+//        d.deleteCoursebyID("MAS291");
+        //System.out.println(d.addAccount("nampt_he_171400", two, two, two, 0, 3, 0, "12"));
+        //System.out.println((d.getAccountLogin("nampthe171400@fpt.edu.vn", "1691939")!=null)?"success":"it null");
     }
 
 }

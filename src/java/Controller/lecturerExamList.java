@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -85,16 +86,26 @@ public class lecturerExamList extends HttpServlet {
         
         HashMap<String, String> exam_startDate = new HashMap<String,String>();
         HashMap<String, String> exam_endDate = new HashMap<String,String>();
+        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
+        LocalDateTime today = LocalDateTime.now();
         String[] temp;
-        for (Exam exam : examList) 
+        for (Exam exam : examList)
         {
+            if(today.compareTo(LocalDateTime.parse(exam.getStartDate()))>-1&&today.compareTo(LocalDateTime.parse(exam.getEndDate()))<0)
+                {
+                    deleteNotAllowMap.put(exam.getExamID(), true);
+                }
+            else
+                deleteNotAllowMap.put(exam.getExamID(), false);
             temp = exam.getStartDate().split("T");
             exam_startDate.put(exam.getExamID(),dao.getStringFormattedDate("date", temp[0]));
             temp = exam.getEndDate().split("T");
             exam_endDate.put(exam.getExamID(),dao.getStringFormattedDate("date", temp[0]));
         }
+        
         request.setAttribute("lecturer", dao.loadALecturerofClass(thisClass.getClassID()));
         request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
+        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
         request.setAttribute("examList", examList);
         request.setAttribute("examStartDate", exam_startDate);
         request.setAttribute("examEndDate", exam_endDate);

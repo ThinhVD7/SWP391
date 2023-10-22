@@ -91,6 +91,7 @@
                 padding: 10px;
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
+                margin-top: 10px;
                 margin-right: 10px;
                 height: 540px;
                 overflow: auto;
@@ -114,6 +115,7 @@
             {
                 flex:1;
                 margin-bottom: 20px;
+                margin-top: 30px;
                 background-color: #fff;
                 border-radius: 10px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
@@ -335,6 +337,26 @@
             .text-danger {
                 color: #ff5b5b;
             }
+            
+            .add-exam-button {
+                background-color: #299be4;
+                color: #fff;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-bottom: 500px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                align-self: center;
+                /*margin-top: auto;*/
+                position: static;
+                top: 150px;
+                right: 600px;
+            }
+            .add-exam-button:hover{
+                background-color: #0073e6;
+            }
         
             
         </style>
@@ -449,13 +471,13 @@
                         </thead>
                         <tbody>
                             <c:forEach var="i" begin="1" end="30" step="1">
-                            <tr>
+<!--                            <tr>
                                 <td>${i}</td>
                                 <td><a href="#">ThanhDT59</a></td>
                                 <td>Do Tien Thanh</td>                        
                                 <td>thanhdt59@fe.edu.vn </td>
                                 <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                            </tr>
+                            </tr>-->
                             </c:forEach>
                             <c:forEach items = "${requestScope.studentList}" var="student" varStatus="x">
                             <tr>
@@ -499,70 +521,41 @@
              <!-- Right div (Class information) -->
         
         <div class="left-div">
+            
+                
             <h2>Exam</h2>
+            
             <div class ="exam-list">
+                <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
+                
                 <c:forEach items = "${requestScope.examList}" var="exam">
                     <div class="exam-container">
                     <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
-                    <h3>${exam.examName}</h3>
-                    <br>
-                    Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
-                    Click to view details
+                        <h3>${exam.examName}</h3>
+                        <br>
+                        Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
+                        Click to view details
+                    </a>
+                        <div class="float-right" style= ${requestScope.deleteNotAllowMap[exam.examID]?"display:none":""}>
+                        <a class="delete" onclick="confirmDelete(${exam.examID})" title="Delete" data-toggle="tooltip">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
             </div>
                 </c:forEach>
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="yes"> 
-                <h3>Progress Test 1</h3>
-                <br>
-                Start Date: 4/10/2023 to 6/10/2023<br>
-                Click to view details
                 
-            </div>
+            
 
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Progress Test 2</h3>
-                <br>
-                Start Date: 12/10/2023 to 14/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
+<!--            <div class="exam-container">
                 <a style="text-decoration: none;"  href="#"> 
                 <h3>Final Trial</h3>
                 <br>
                 Start Date: 16/10/2023 to 21/10/2023<br>
                 Click to view details
-                
-            </div>
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Progress Test 1</h3>
-                <br>
-                Start Date: 4/10/2023 to 6/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Progress Test 2</h3>
-                <br>
-                Start Date: 12/10/2023 to 14/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Final Trial</h3>
-                <br>
-                Start Date: 16/10/2023 to 21/10/2023<br>
-                Click to view details
-                
-            </div>
+            </div>-->
         </div>
+            
+            
            
             
         </div>
@@ -633,6 +626,27 @@
                     btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                 }
             }
+            
+            function confirmDelete(examID) {
+                var confirmDelete = confirm("Are you sure you want to delete this exam?");
+                if (confirmDelete) {
+                    // Make an AJAX request to delete the exam
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "lecturerDeleteExam?examID=" + examID, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Handle the response from the servlet
+                            var response = xhr.responseText;
+                            alert("Exam with ID " + examID + " deleted.");
+                            location.reload();
+                        }
+                    };
+
+                    // Send the request
+                    xhr.send();
+                }
+            }
 
             const btn_theme = document.querySelector(".theme-btn");
             const theme_ball = document.querySelector(".theme-ball");
@@ -660,6 +674,7 @@
                     localStorage.setItem("theme", "light");
                 }
             });
+            
         </script>
     </body>
 </html>
