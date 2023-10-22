@@ -67,7 +67,11 @@
                             <h2 class="title-head">Forgot <span>Password</span></h2>
                             <p>Login Your Account <a href="Login">Click here</a></p>
                         </div>	
+<<<<<<< HEAD
                         <form class="contact-bx" action="ForgotPassword" method="POST">
+=======
+                        <form class="contact-bx" action="ForgetPassword" method="POST">
+>>>>>>> 3830c74 (update lecturer/student)
                             <p class="text-success">${err}</p>
                             <p class="text-success">${mess}</p>
                             <p class="text-success">${OTPmess}</p>

@@ -682,7 +682,11 @@
                                         <th>Class_ID</th>						
                                         <th>Class Name</th>
                                         <th>Course_ID</th>
+<<<<<<< HEAD
                                         <th>Delete</th>
+=======
+                                        <th>Action</th>
+>>>>>>> 3830c74 (update lecturer/student)
                                     </tr>
                                 </thead>
                                 <!--                              <tr>
@@ -704,7 +708,11 @@
                                             <td>${u.className}</td>                        
                                             <td>${u.courseID} </td>
                                             <td>
+<<<<<<< HEAD
                                                 <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a ${requestScope.deleteNotAllow?"hidden":""} onclick="delClass('${u.classID}')"> <i class="material-icons">&#xE5C9;</i></a>${requestScope.deleteNotAllow?"Not allowed":""}
+=======
+                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delClass('${u.classID}')"> <i class="material-icons">&#xE5C9;</i></a>
+>>>>>>> 3830c74 (update lecturer/student)
                                             </td>
                                         </tr>
                                     </c:forEach>

@@ -624,12 +624,16 @@
             <div class="class-list">
                 <!--pop up--------------------------------------------------------------------------------------------------->
                 <!--<form action="managerViewLecturer" method="post">-->
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3830c74 (update lecturer/student)
                 <div id="classEditPopup" class="overlay" onclick="closePopup()">
                     <div class="popup-container" onclick="event.stopPropagation();">
                         <h2>Edit Class Name</h2>
 <!--                        <input name="classID" value="${requestScope.classID}" style="display: none"/>
                         <input name="className" value="${requestScope.className}" style="display: none"/>
+<<<<<<< HEAD
                         <input name="courseID" value="${requestScope.courseID}" style="display: none"/>-->  
                         <form action="managerEditClass" method="doGet">
                             <input name="cid" value="${requestScope.cid}" hidden="">
@@ -642,6 +646,14 @@
                 </div>
 
 
+=======
+                        <input name="courseID" value="${requestScope.courseID}" style="display: none"/>-->
+                        <input type="text" id="newClassName" placeholder="New Class Name">
+                        <button class ="popup-button" onclick="editClassName()">Save</button>
+                        <button class ="popup-button" onclick="closePopup()">Cancel</button>
+                    </div>
+                </div>
+>>>>>>> 3830c74 (update lecturer/student)
                 <!--</form>-->
                 <!--                <div class="addCourse" id="deleterCouse" style="display: none;">
                                     <div class="addCourseContent">
@@ -814,12 +826,20 @@
                                                 </tr>
                                             </c:forEach>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3830c74 (update lecturer/student)
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                             <input name="cid" value="${requestScope.cid}" hidden="">
+=======
+                            <input name="cid" value="${requestScope.cid}" hidden=""></h1>
+>>>>>>> 3830c74 (update lecturer/student)
                             <button class ="popup-button" onclick="editClassName()">Save</button>
                             <span class ="popup-button" onclick="closeAssignStudentPopup()">Cancel</span>
                         </div>
@@ -832,6 +852,7 @@
                     <a style="font-size: 36px; margin-bottom: 10px; width:50%">
                         ${requestScope.classInfo.className}
                         <button class="edit-button" onclick="openPopup()">Edit Name</button>
+<<<<<<< HEAD
 
                 </div>
 
@@ -841,6 +862,14 @@
                     <a style ="padding: 5px;" 
                        href="managerViewClassList?courseID=${requestScope.courseID}">${requestScope.courseID}</a> /
                     <a style ="padding: 5px;" 
+=======
+                </div>
+                <div>
+                   
+                    <a style ="padding: 5px; font-size:15px" 
+                       href="managerViewClassList?courseID=${requestScope.courseID}">${requestScope.courseID}</a> /
+                    <a style ="padding: 5px; font-size:15px" 
+>>>>>>> 3830c74 (update lecturer/student)
                        >${requestScope.classInfo.className}</a>
                 </div>
                 <%
@@ -921,6 +950,10 @@
                                     <div class="col-sm-7">
                                         <button onclick="openAssignStudentPopup()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Student</span></button>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3830c74 (update lecturer/student)
                                     </div>
                                 </div>
                             </div>
@@ -961,6 +994,7 @@
         <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
         <script>
+<<<<<<< HEAD
 
 
             if ('${sessionScope.messOfClass}' === '1') {
@@ -970,6 +1004,8 @@
 
 
 
+=======
+>>>>>>> 3830c74 (update lecturer/student)
             // Function to open the edit class name pop-up
             function openPopup(className) {
                 const overlay = document.getElementById('classEditPopup');
@@ -1021,10 +1057,17 @@
 
                 // Update the class name in your data or display
                 console.log('Updated Class Name:', updatedClassName);
+<<<<<<< HEAD
                 // Close the pop-up
                 closePopup();
             }
 
+=======
+
+                // Close the pop-up
+                closePopup();
+            }
+>>>>>>> 3830c74 (update lecturer/student)
             const btn_menu = document.querySelector(".btn-menu");
             const side_bar = document.querySelector(".sidebar");
 

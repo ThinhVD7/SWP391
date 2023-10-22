@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 package Controller;
 
 import Dal.DAO;
@@ -13,12 +14,20 @@ import Model.Question;
 import Model.StudentResult;
 =======
 
+=======
+>>>>>>> 3830c74 (update lecturer/student)
 package Controller;
 
+import Dal.DAO;
 import Dal.LecturerDAO;
 import Model.Account;
 import Model.Exam;
+<<<<<<< HEAD
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+import Model.Question;
+import Model.StudentResult;
+>>>>>>> 3830c74 (update lecturer/student)
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -27,15 +36,21 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 =======
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+>>>>>>> 3830c74 (update lecturer/student)
 
 /**
  *
  * @author ROG
  */
+<<<<<<< HEAD
 public class studentExamDetail extends HttpServlet {
 <<<<<<< HEAD
 
@@ -72,28 +87,28 @@ public class studentExamDetail extends HttpServlet {
             out.println("</html>");
         }
     } 
+=======
+public class studentExamDetail extends HttpServlet {   
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+>>>>>>> 3830c74 (update lecturer/student)
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
-     * Handles the HTTP <code>GET</code> method.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException 
-    {
+            throws ServletException, IOException {
         //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
+<<<<<<< HEAD
         if(session == null||session.getAttribute("user") == null)
         {
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+        if (session == null || session.getAttribute("user") == null) {
+>>>>>>> 3830c74 (update lecturer/student)
             response.sendRedirect("index.html");
             return;
         }
         ////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
 <<<<<<< HEAD
         Account user = (Account) session.getAttribute("user");
         //check user's authority by role
@@ -140,25 +155,55 @@ public class studentExamDetail extends HttpServlet {
      *
 =======
         Account user = (Account)session.getAttribute("user");
+=======
+        Account user = (Account) session.getAttribute("user");
+>>>>>>> 3830c74 (update lecturer/student)
         //check user's authority by role
-        if(user.getRoleID()!=3)
+        if (user.getRoleID() != 3) {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
+        }
         ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
-        Exam thisExam = dao.loadAExam(request.getParameter("examID"));
+        String examID = request.getParameter("examID");      
+        Exam thisExam = dao.loadAExam(examID);
         //session thisExam
-        session.setAttribute("sessionThisExam", thisExam);
-        
-        
-        request.setAttribute("timeLimit", dao.getStringFormattedDate("timeLimit", thisExam.getTimeLimit()));
-        request.setAttribute("startDate", dao.getStringFormattedDate("dateTime", thisExam.getStartDate()));
-        request.setAttribute("endDate", dao.getStringFormattedDate("dateTime", thisExam.getEndDate()));
-        request.getRequestDispatcher("studentExamDetail.jsp").forward(request, response);
-    } 
+        DAO d = new DAO();
+        int numberOfQuestions = d.getNumberOfQuestion(Integer.parseInt(examID));
+        boolean isDoQuizz = d.isDoQuiz(examID, user.getAccountID());
+        if (isDoQuizz) {
+            ArrayList<Question> questions = d.getQuestionsExam(Integer.parseInt(examID));
+            float totalMarkAll = 0;
+            for (Question question : questions) {           
+                totalMarkAll += question.getMark();          
+            }
+            StudentResult studentResult = d.getResultStudent(examID, user.getAccountID());
+//            df.setRoundingMode(RoundingMode.UP);
+            request.setAttribute("totalMark", df.format((studentResult.getTotalScore()/totalMarkAll)*10));
+            request.setAttribute("totalTime", studentResult.getTotalTime());
 
-    /** 
+        } else {
+            request.setAttribute("timeLimit", dao.getStringFormattedDate("timeLimit", thisExam.getTimeLimit()));
+            request.setAttribute("startDate", dao.getStringFormattedDate("dateTime", thisExam.getStartDate()));
+            request.setAttribute("endDate", dao.getStringFormattedDate("dateTime", thisExam.getEndDate()));
+            request.setAttribute("startDate1", thisExam.getStartDate());
+            request.setAttribute("endDate1", thisExam.getEndDate());
+            request.setAttribute("timeNow", java.time.LocalDateTime.now());
+        }
+
+        session.setAttribute("sessionThisExam", thisExam);
+        request.setAttribute("isDoQuizz", isDoQuizz);
+        request.setAttribute("examId", request.getParameter("examID"));
+
+        request.getRequestDispatcher("studentExamDetail.jsp").forward(request, response);
+    }
+
+    /**
      * Handles the HTTP <code>POST</code> method.
+<<<<<<< HEAD
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+     *
+>>>>>>> 3830c74 (update lecturer/student)
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -167,6 +212,9 @@ public class studentExamDetail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3830c74 (update lecturer/student)
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
@@ -188,6 +236,7 @@ public class studentExamDetail extends HttpServlet {
         for (Question question : questions) {
             ArrayList<Question> q = d.getChoice(Integer.parseInt(question.getQuestionID()));
             for (Question question1 : q) {
+<<<<<<< HEAD
                 if (question1.getAnswer() > 1) {
                     String[] type = request.getParameterValues("q" + question.getQuestionID());
 //                    response.getWriter().println(type.length + " " + question1.getAnswer());
@@ -209,6 +258,20 @@ public class studentExamDetail extends HttpServlet {
                         }
 
                     } else {
+=======
+                if (question1.getAnswer() == 1) {
+                    String[] type = request.getParameterValues("q" + question.getQuestionID());
+                    if(type!=null){
+                        int mark = 0;
+                        String choiceID ="";
+                    for (String string : type) {
+                        mark += Integer.parseInt(string.split(":")[0]);
+                        choiceID+=string.split(":")[1];
+                    }
+                    question.setChoicePercentages(String.valueOf(mark));
+                    question.setChoices(choiceID);
+                    }else{
+>>>>>>> 3830c74 (update lecturer/student)
                         question.setChoicePercentages("0");
                         question.setChoices("");
                     }
@@ -218,12 +281,16 @@ public class studentExamDetail extends HttpServlet {
                     if (result != null) {
                         question.setChoicePercentages(result.split(":")[0]);
                         question.setChoices(result.split(":")[1]);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3830c74 (update lecturer/student)
                     }
                 }
                 break;
             }
         }
+<<<<<<< HEAD
 
         float totalMark = 0;
         for (Question question : questions) {
@@ -252,15 +319,53 @@ public class studentExamDetail extends HttpServlet {
         }
         String totalTimeResult = hourElapse + ":" + minuteElapse + ":" + secondElapse;
 
+=======
+        for (Question question : questions) {
+            response.getWriter().println(question.getChoices());
+        }
+
+        float totalMark = 0;
+        for (Question question : questions) {
+            if (question.getChoicePercentages() != null) {
+                totalMark += question.getMark();
+            }
+        }
+        float totalMarkAll = 0;
+        for (Question question : questions) {           
+                totalMarkAll += question.getMark();          
+        }
+        float TotalMarkIn10 = (totalMark/totalMarkAll)*10;
+        
+        String hourElapse = request.getParameter("hourElapse");
+        if(Integer.parseInt(hourElapse) < 10){
+            hourElapse = hourElapse;
+        }
+        String minuteElapse = request.getParameter("minuteElapse");
+       if (Integer.parseInt(minuteElapse) < 10) {
+            minuteElapse =  minuteElapse;
+        }
+        String secondElapse = request.getParameter("secondElapse");
+        if (Integer.parseInt(secondElapse) < 10) {
+            secondElapse =  secondElapse;
+        }
+        String totalTimeResult = hourElapse + ":" + minuteElapse + ":"+secondElapse;
+//        for (Question question : questions) {
+//            d.createStudentAnswer(Integer.parseInt(question.getQuestionID()), , examID, hourElapse);
+//        }
+>>>>>>> 3830c74 (update lecturer/student)
         d.createResult(String.valueOf(examID), user.getAccountID(), totalMark, totalTimeResult, 0);
         boolean isDoQuizz = d.isDoQuiz(request.getParameter("examID"), user.getAccountID());
         request.setAttribute("isDoQuizz", isDoQuizz);
         request.setAttribute("totalMark", df.format(TotalMarkIn10));
+<<<<<<< HEAD
 //        request.setAttribute("totalMark", df.format(TotalMarkIn10));
+=======
+>>>>>>> 3830c74 (update lecturer/student)
         request.setAttribute("totalTime", totalTimeResult);
         request.setAttribute("isDoQuizz", isDoQuizz);
         request.setAttribute("examId", request.getParameter("examID"));
         request.getRequestDispatcher("studentExamDetail.jsp").forward(request, response);
+<<<<<<< HEAD
     }
 
     /**
@@ -269,11 +374,17 @@ public class studentExamDetail extends HttpServlet {
 =======
     throws ServletException, IOException {
         processRequest(request, response);
+=======
+>>>>>>> 3830c74 (update lecturer/student)
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+<<<<<<< HEAD
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+     *
+>>>>>>> 3830c74 (update lecturer/student)
      * @return a String containing servlet description
      */
     @Override

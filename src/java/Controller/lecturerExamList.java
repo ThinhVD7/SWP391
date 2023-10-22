@@ -12,9 +12,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.time.LocalDateTime;
 =======
 >>>>>>> 1e16890 (yellow completed)
+=======
+import java.time.LocalDateTime;
+>>>>>>> 3830c74 (update lecturer/student)
 import java.util.HashMap;
 import java.util.List;
 
@@ -100,6 +104,7 @@ public class lecturerExamList extends HttpServlet {
         HashMap<String, String> exam_startDate = new HashMap<String,String>();
         HashMap<String, String> exam_endDate = new HashMap<String,String>();
 <<<<<<< HEAD
+<<<<<<< HEAD
         HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
         LocalDateTime today = LocalDateTime.now();
         String[] temp;
@@ -121,17 +126,32 @@ public class lecturerExamList extends HttpServlet {
         request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
         request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
 =======
+=======
+        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
+        LocalDateTime today = LocalDateTime.now();
+>>>>>>> 3830c74 (update lecturer/student)
         String[] temp;
-        for (Exam exam : examList) 
+        for (Exam exam : examList)
         {
+            if(today.compareTo(LocalDateTime.parse(exam.getStartDate()))>-1&&today.compareTo(LocalDateTime.parse(exam.getEndDate()))<0)
+                {
+                    deleteNotAllowMap.put(exam.getExamID(), true);
+                }
+            else
+                deleteNotAllowMap.put(exam.getExamID(), false);
             temp = exam.getStartDate().split("T");
             exam_startDate.put(exam.getExamID(),dao.getStringFormattedDate("date", temp[0]));
             temp = exam.getEndDate().split("T");
             exam_endDate.put(exam.getExamID(),dao.getStringFormattedDate("date", temp[0]));
         }
+        
         request.setAttribute("lecturer", dao.loadALecturerofClass(thisClass.getClassID()));
         request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
+<<<<<<< HEAD
 >>>>>>> 1e16890 (yellow completed)
+=======
+        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
+>>>>>>> 3830c74 (update lecturer/student)
         request.setAttribute("examList", examList);
         request.setAttribute("examStartDate", exam_startDate);
         request.setAttribute("examEndDate", exam_endDate);

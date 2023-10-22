@@ -107,6 +107,9 @@
         <servlet-class>Controller.adminDeleteAccount</servlet-class>
     </servlet>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3830c74 (update lecturer/student)
     <servlet>
         <servlet-name>lecturerAddEditExam</servlet-name>
         <servlet-class>Controller.lecturerAddEditExam</servlet-class>
@@ -167,6 +170,7 @@
         <servlet-name>DoQuiz</servlet-name>
         <servlet-class>Controller.DoQuiz</servlet-class>
     </servlet>
+<<<<<<< HEAD
     <servlet>
         <servlet-name>lecturerRemoveChoice</servlet-name>
         <servlet-class>Controller.lecturerRemoveChoice</servlet-class>
@@ -183,6 +187,8 @@
 >>>>>>> 1e16890 (yellow completed)
 =======
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+>>>>>>> 3830c74 (update lecturer/student)
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -280,6 +286,9 @@
         <url-pattern>/adminDeleteAccount</url-pattern>
     </servlet-mapping>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3830c74 (update lecturer/student)
     <servlet-mapping>
         <servlet-name>lecturerAddEditExam</servlet-name>
         <url-pattern>/lecturerAddEditExam</url-pattern>
@@ -340,6 +349,7 @@
         <servlet-name>DoQuiz</servlet-name>
         <url-pattern>/doQuiz</url-pattern>
     </servlet-mapping>
+<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>lecturerRemoveChoice</servlet-name>
         <url-pattern>/removeChoice</url-pattern>
@@ -356,6 +366,8 @@
 >>>>>>> 1e16890 (yellow completed)
 =======
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+>>>>>>> 3830c74 (update lecturer/student)
     <session-config>
         <session-timeout>
             30

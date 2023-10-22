@@ -16,8 +16,12 @@ public class DBContext {
     private static final String DATABASE = "quiz9.5";
 =======
     private static final String PASSWORD = "qqqqqqqq";
+<<<<<<< HEAD
     private static final String DATABASE = "quiz9";
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+    private static final String DATABASE = "quiz9.5";
+>>>>>>> 3830c74 (update lecturer/student)
     public Connection getConnection()throws Exception 
             
     {         

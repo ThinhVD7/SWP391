@@ -78,10 +78,13 @@ public class managerViewLecturer extends HttpServlet {
         }
         ManagerDAO dao = new ManagerDAO();
         List<Lecturer> lecturer = dao.getlecturerByClass(cid);
+<<<<<<< HEAD
         for (Lecturer lecturer1 : lecturer) 
         {
             
         }
+=======
+>>>>>>> 3830c74 (update lecturer/student)
         List<Student> student = dao.getstudentByClass(cid);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
         List<Student> addstudent = dao.getAllCoursestudent();

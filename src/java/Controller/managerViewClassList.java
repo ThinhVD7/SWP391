@@ -8,7 +8,10 @@ package Controller;
 import Dal.ManagerDAO;
 import Model.Account;
 import Model.Class1;
+<<<<<<< HEAD
 import Model.Course;
+=======
+>>>>>>> 3830c74 (update lecturer/student)
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -16,9 +19,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+=======
+>>>>>>> 3830c74 (update lecturer/student)
 import java.util.List;
 
 /**
@@ -77,6 +83,7 @@ public class managerViewClassList extends HttpServlet {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
         ManagerDAO dao=new ManagerDAO();
         List<Class1> class1 = dao.getClassByCourseID(cID);
+<<<<<<< HEAD
         Course course1 = dao.getACourseById(cID);
         LocalDate today = LocalDate.now();
         boolean deleteNotAllow = false;
@@ -88,6 +95,8 @@ public class managerViewClassList extends HttpServlet {
             
         
         request.setAttribute("deleteNotAllow", deleteNotAllow);
+=======
+>>>>>>> 3830c74 (update lecturer/student)
         //sessionThisCourse
         session.setAttribute("sessionThisCourse", dao.loadACourse(cID));
         request.setAttribute("courseID",cID);

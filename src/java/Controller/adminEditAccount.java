@@ -161,12 +161,17 @@ public class adminEditAccount extends HttpServlet {
         else 
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             String isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
             if (isSuccess.equals("success")) 
 =======
             boolean isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
             if (isSuccess) 
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+            String isSuccess = dao.updateAccount(target.getAccountID(), id, name, email, Integer.parseInt(role), Integer.parseInt(status), Integer.parseInt(gender), phno);
+            if (isSuccess.equals("success")) 
+>>>>>>> 3830c74 (update lecturer/student)
             {
                 sendMail(email, 0);
                 session.removeAttribute("idErr");
@@ -185,10 +190,14 @@ public class adminEditAccount extends HttpServlet {
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
             else
 =======
             else 
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+            else
+>>>>>>> 3830c74 (update lecturer/student)
             {
                 request.setAttribute("id", id);
                 request.setAttribute("name", name);
@@ -198,10 +207,15 @@ public class adminEditAccount extends HttpServlet {
                 request.setAttribute("status", status);
                 request.setAttribute("role", role);
 <<<<<<< HEAD
+<<<<<<< HEAD
                 if(isSuccess.contains("already"))
                     request.setAttribute("mess", "This account already attended a course that was in session!");
 =======
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+                if(isSuccess.contains("already"))
+                    request.setAttribute("mess", "This account already attended a course that was in session!");
+>>>>>>> 3830c74 (update lecturer/student)
                 request.setAttribute("mess", "Edit account unsuccessfully. Please try again!");
                 request.getRequestDispatcher("addAccount.jsp").forward(request, response);
             }

@@ -96,9 +96,13 @@
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
 <<<<<<< HEAD
+<<<<<<< HEAD
                 margin-top: 10px;
 =======
 >>>>>>> 1e16890 (yellow completed)
+=======
+                margin-top: 10px;
+>>>>>>> 3830c74 (update lecturer/student)
                 margin-right: 10px;
                 height: 540px;
                 overflow: auto;
@@ -132,6 +136,9 @@
                 flex:1;
                 margin-bottom: 20px;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3830c74 (update lecturer/student)
                 margin-top: 30px;
                 background-color: #fff;
                 border-radius: 10px;
@@ -427,6 +434,9 @@
                 color: #ff5b5b;
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3830c74 (update lecturer/student)
             
             .add-exam-button {
                 background-color: #299be4;
@@ -597,13 +607,13 @@
                         </thead>
                         <tbody>
                             <c:forEach var="i" begin="1" end="30" step="1">
-                            <tr>
+<!--                            <tr>
                                 <td>${i}</td>
                                 <td><a href="#">ThanhDT59</a></td>
                                 <td>Do Tien Thanh</td>                        
                                 <td>thanhdt59@fe.edu.vn </td>
                                 <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                            </tr>
+                            </tr>-->
                             </c:forEach>
                             <c:forEach items = "${requestScope.studentList}" var="student" varStatus="x">
                             <tr>
@@ -675,6 +685,7 @@
         
         <div class="left-div">
 <<<<<<< HEAD
+<<<<<<< HEAD
             
                 
             <h2>Exam</h2>
@@ -702,41 +713,40 @@
 
 <!--            <div class="exam-container">
 =======
+=======
+            
+                
+>>>>>>> 3830c74 (update lecturer/student)
             <h2>Exam</h2>
+            
             <div class ="exam-list">
+                <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
+                
                 <c:forEach items = "${requestScope.examList}" var="exam">
                     <div class="exam-container">
                     <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
-                    <h3>${exam.examName}</h3>
-                    <br>
-                    Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
-                    Click to view details
+                        <h3>${exam.examName}</h3>
+                        <br>
+                        Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
+                        Click to view details
+                    </a>
+                        <div class="float-right" style= ${requestScope.deleteNotAllowMap[exam.examID]?"display:none":""}>
+                        <a class="delete" onclick="confirmDelete(${exam.examID})" title="Delete" data-toggle="tooltip">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
             </div>
                 </c:forEach>
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="yes"> 
-                <h3>Progress Test 1</h3>
-                <br>
-                Start Date: 4/10/2023 to 6/10/2023<br>
-                Click to view details
                 
-            </div>
+            
 
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Progress Test 2</h3>
-                <br>
-                Start Date: 12/10/2023 to 14/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
+<!--            <div class="exam-container">
                 <a style="text-decoration: none;"  href="#"> 
                 <h3>Final Trial</h3>
                 <br>
                 Start Date: 16/10/2023 to 21/10/2023<br>
                 Click to view details
+<<<<<<< HEAD
                 
             </div>
             <div class="exam-container">
@@ -780,6 +790,12 @@
 =======
         </div>
 >>>>>>> 1e16890 (yellow completed)
+=======
+            </div>-->
+        </div>
+            
+            
+>>>>>>> 3830c74 (update lecturer/student)
            
 >>>>>>> 0d94aba (minor)
             
@@ -894,6 +910,9 @@
                 }
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3830c74 (update lecturer/student)
             
             function confirmDelete(examID) {
                 var confirmDelete = confirm("Are you sure you want to delete this exam?");
@@ -915,8 +934,11 @@
                     xhr.send();
                 }
             }
+<<<<<<< HEAD
 =======
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+>>>>>>> 3830c74 (update lecturer/student)
 
             const btn_theme = document.querySelector(".theme-btn");
             const theme_ball = document.querySelector(".theme-ball");
@@ -945,9 +967,13 @@
                 }
             });
 <<<<<<< HEAD
+<<<<<<< HEAD
             
 =======
 >>>>>>> b8de91f (lecturer classlist+examlist+sql+examdetail)
+=======
+            
+>>>>>>> 3830c74 (update lecturer/student)
         </script>
     </body>
 </html>

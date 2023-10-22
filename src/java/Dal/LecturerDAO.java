@@ -51,6 +51,7 @@ public class LecturerDAO extends DBContext{
     public List<Exam> examList = new ArrayList<>();
     public List<Question> questionList = new ArrayList<>();
     public List<ChoiceQuestion> choiceList = new ArrayList<>();
+<<<<<<< HEAD
     private String status = "yes";
     public String test;
 
@@ -64,6 +65,8 @@ public class LecturerDAO extends DBContext{
 =======
     public List<Exam> examList = new ArrayList<>();
 >>>>>>> 1e16890 (yellow completed)
+=======
+>>>>>>> 3830c74 (update lecturer/student)
     private String status = "yes";
     public String test;
 
@@ -1136,6 +1139,359 @@ public class LecturerDAO extends DBContext{
 }
 =======
     
+    ////exam handle///////////////////////////////////////////////////////////////////////////////////////////////
+    public boolean addExam(String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
+        try {
+            String sql = "INSERT INTO exam\n"
+                    + "(Class_ID,\n"
+                    + "ExamName,\n"
+                    + "QuestionNumber,\n"
+                    + "StartDate,\n"
+                    + "EndDate,\n"
+                    + "TimeLimit,\n"
+                    + "AttempsAllowed,\n"
+                    + "ExamDetail,\n"
+                    + "MaxScore,\n"
+                    + "Permission)\n"
+                    + "VALUES(?,?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classId);
+            ps.setString(2, examName);
+            ps.setString(3, questionNumber);
+            ps.setString(4, startDate);
+            ps.setString(5, endDate);
+            ps.setString(6, timeLimit);
+            ps.setString(7, attemp);
+            ps.setString(8, examDetail);
+            ps.setString(9, examScore);
+            ps.setInt(10, permission);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    //update exam
+    public boolean updateExam(String examId, String classId, String examName, String timeLimit, String startDate, String endDate, String examDetail, int permission) {
+        try {
+            String sql = "update exam set Class_ID = ?,ExamName = ?,StartDate = ?,EndDate = ?,TimeLimit = ?,ExamDetail = ?,Permission = ? where Exam_ID = ?";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classId);
+            ps.setString(2, examName);
+            ps.setString(3, startDate);
+            ps.setString(4, endDate);
+            ps.setString(5, timeLimit);
+            ps.setString(6, examDetail);
+            ps.setInt(7, permission);
+            ps.setString(8, examId);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+    
+    public boolean updateExamScore(String examId, String maxScore, String QuestionNumber) 
+    {
+        try {
+            String sql = "update exam set MaxScore = ?,QuestionNumber = ? where Exam_ID = ?";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, maxScore);
+            ps.setString(2, QuestionNumber);
+            ps.setString(3, examId);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+    }
+
+    public boolean addQuestion(String Title, String questionContent, String type, float mark) {
+        try {
+            String sql = "INSERT INTO question\n"
+                    + "(Title,\n"
+                    + "QuestionContent,\n"
+                    + "Type,\n"
+                    + "Mark)\n"
+                    + "VALUES(?,?,?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Title);
+            ps.setString(2, questionContent);
+            ps.setString(3, type);
+            ps.setFloat(4, mark);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    public Question getLastestQuestion() {
+        String sql = "SELECT * FROM question ORDER BY Question_ID DESC limit 1;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+    
+    public List<Question> getListQuestionByExamID(String examId) {
+        String sql = "SELECT b.* FROM `quiz9.5`.questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
+
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, examId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                questionList.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6)));
+            }
+        } catch (Exception e) {
+            status = "Error at load classes" + e.getMessage();
+        }
+        return questionList;
+    }
+
+    public Exam getLastExam() {
+        String sql = "SELECT * FROM exam ORDER BY Exam_ID DESC limit 1;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getFloat(10), rs.getInt(11));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
+    public Exam getExam(String examID) {
+        String sql = "SELECT * FROM exam where Exam_ID = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
+                        rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getFloat(10), rs.getInt(11));
+
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
+    public boolean addChoice(String Question_ID, String ChoiceContent, String ScorePercentage) {
+        try {
+            String sql = "INSERT INTO choicesofquestion\n"
+                    + "(Question_ID,\n"
+                    + "ChoiceContent,\n"
+                    + "ScorePercentage)\n"
+                    + "VALUES(?,?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Question_ID);
+            ps.setString(2, ChoiceContent);
+            ps.setString(3, ScorePercentage);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    public boolean addBank(String Exam_ID, String Question_ID) {
+        try {
+            String sql = "INSERT INTO questioninwhichexam\n"
+                    + "(Exam_ID,\n"
+                    + "Question_ID)\n"
+                    + "VALUES(?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Exam_ID);
+            ps.setString(2, Question_ID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    public void deleteExamByID(String examID) {
+        String sql = "";
+        try {
+            sql = "delete from exam where Exam_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ps.executeUpdate();
+            sql = "delete from questioninwhichexam where Exam_ID = ?";
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ps.executeUpdate();
+            sql = "delete from studentresult where Exam_ID = ?";
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void deleteQuestionExam(String questionId, String examID) 
+    {
+        String sql = "";
+        try 
+        {
+            sql = "delete from questioninwhichexam where Question_ID = ? and Exam_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, questionId);
+            ps.setString(2, examID);
+            ps.executeUpdate();
+
+        } 
+        catch (Exception e) 
+        {
+            System.out.println(e);
+        }
+    }
+    
+    public Question getAQuestion(String questionID) {
+        String sql = "";
+        
+        try {
+            sql = "select * from question where Question_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, questionID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public List<Class1> getClassByCourseId(String courseId) {
+        String sql = "SELECT * FROM class where Course_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, courseId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                classList.add(new Class1(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3)));
+
+            }
+        } catch (Exception e) {
+            status = "Error at load courses" + e.getMessage();
+        }
+        return classList;
+    }
+    
+    
+    public boolean updateQuestion(String questionId, String Title, String questionContent, String type, float mark) {
+        try {
+            String sql = "update question set Title = ?,QuestionContent = ?,Type = ?,Mark = ? where Question_ID = ?";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, Title);
+            ps.setString(2, questionContent);
+            ps.setString(3, type);
+            ps.setFloat(4, mark);
+            ps.setString(5, questionId);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+    
+        public Question getQuestionById(String qId) {
+        String sql = "SELECT * FROM question where Question_ID = ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, qId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
+    public List<ChoiceQuestion> getChoiceOfQuestion(String questionId) {
+        String sql = "SELECT * from choicesofquestion where Question_ID = ?";
+
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, questionId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                choiceList.add(new ChoiceQuestion(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4)));
+            }
+        } catch (Exception e) {
+            status = "Error at load classes" + e.getMessage();
+        }
+        return choiceList;
+    }
+    
+    public boolean updateChoice(String Question_ID, String ChoiceContent, String ScorePercentage, String choice_ID) {
+        try {
+            String sql = "update choicesofquestion set ChoiceContent = ?,ScorePercentage = ? where Question_ID = ? and Choice_ID = ?";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, ChoiceContent);
+            ps.setString(2, ScorePercentage);
+            ps.setString(3, Question_ID);
+            ps.setString(4, choice_ID);
+
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+        
     public static void main(String[] args) 
     {
         LecturerDAO dao = new LecturerDAO();
@@ -1191,12 +1547,15 @@ public class LecturerDAO extends DBContext{
 //        System.out.println(class_examNumber);
         //test getDateFormattedString
 //        System.out.println(dao.getDateforDisplay("date", ));
+
+        //parse date
         String parsetest ="12-23-2023";
         LocalDate dateTest1 = LocalDate.parse(parsetest, DateTimeFormatter.ofPattern("MM-dd-yyyy"));
         System.out.println("dateTest 1:" +dateTest1);
         LocalDate dateTest = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
         System.out.println("dateTest: "+dateTest);
         
+        //parse dateTime
         String dateTimeFormatTest = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
         System.out.println("dateTimeFormatTest" +dateTimeFormatTest);
 //        LocalDateTime dateTime1 = LocalDateTime.parse(dateTimeFormatTest);
@@ -1206,7 +1565,7 @@ public class LecturerDAO extends DBContext{
         System.out.println("dateTime string format: "+dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy H:mm")));
         //default format
         System.out.println("Default format of LocalDateTime="+dateTime);
-
+        System.out.println("this: "+LocalDateTime.parse("2023-12-13T07:09:12"));
         byte y = 9;
         System.out.println(y);
         
@@ -1228,7 +1587,20 @@ public class LecturerDAO extends DBContext{
         
         //student
         System.out.println(dao.loadAllStudentCourse("dungnt_he_176358").get("MAS291").getCourseName());
-        ;
+        
+        
+        LocalDateTime testExamDate = LocalDateTime.parse(dao.getExam("20").getStartDate());
+        System.out.println(testExamDate);
+        System.out.println(LocalDateTime.now().compareTo(testExamDate));
+        LocalDateTime today = LocalDateTime.now();
+        Exam exam = dao.getExam("21");
+        
+            if(today.compareTo(LocalDateTime.parse(exam.getStartDate()))>-1&&today.compareTo(LocalDateTime.parse(exam.getEndDate()))<0)
+                {
+                    System.out.println(today.compareTo(LocalDateTime.parse(exam.getStartDate())));
+                    System.out.println(today.compareTo(LocalDateTime.parse(exam.getEndDate())));
+                    System.out.println();
+                }
     }
     
 }

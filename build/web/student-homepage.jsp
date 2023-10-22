@@ -161,7 +161,7 @@
             <div class="container-fluid mt-3">
                 <div class="row mt-5">
                     <c:forEach items="${requestScope.classes}" var="c">
-                    <c:forEach var="i" begin="1" end="30" step="1">
+                    <%--<c:forEach var="i" begin="1" end="30" step="1">--%>
                         <div class='course-item col-md-4 col-sm-6 col-lg-3 pt-3'>
 >>>>>>> b809fd8 (one half lecturer and std)
                             <div class="card">
@@ -191,6 +191,7 @@
                             </div>
                         </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <%--</c:forEach>--%>
                     </c:forEach>
 <<<<<<< HEAD
@@ -199,6 +200,9 @@
 >>>>>>> b809fd8 (one half lecturer and std)
 =======
                     </c:forEach>
+=======
+                    <%--</c:forEach>--%>
+>>>>>>> 3830c74 (update lecturer/student)
                     </c:forEach>
 >>>>>>> fb4605f (push from netbean with minorfix studenthomepage)
                 </div>

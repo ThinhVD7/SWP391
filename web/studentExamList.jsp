@@ -502,10 +502,14 @@
                 <c:forEach items = "${requestScope.examList}" var="exam">
                     <div class="exam-container">
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <a style="text-decoration: none;"  href="studentExamDetail?examID=${exam.examID}"> 
 =======
                     <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+                    <a style="text-decoration: none;"  href="studentExamDetail?examID=${exam.examID}"> 
+>>>>>>> 3830c74 (update lecturer/student)
                     <h3>${exam.examName}</h3>
                     <br>
                     Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>

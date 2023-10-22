@@ -8,12 +8,17 @@
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
 <<<<<<< HEAD
+<<<<<<< HEAD
 <project name="QuizAC" default="default" basedir=".">
     <description>Builds, tests, and runs the project QuizAC.</description>
 =======
 <project name="QuizNew-NamThanh" default="default" basedir=".">
     <description>Builds, tests, and runs the project QuizNew-NamThanh.</description>
 >>>>>>> fb4605f (push from netbean with minorfix studenthomepage)
+=======
+<project name="QuizA" default="default" basedir=".">
+    <description>Builds, tests, and runs the project QuizA.</description>
+>>>>>>> 3830c74 (update lecturer/student)
     <import file="nbproject/build-impl.xml"/>
     <!--
 

@@ -107,6 +107,10 @@ public class lecturerUpdateQuestion extends HttpServlet {
         String mark = request.getParameter("mark");
 
         dao.updateQuestion(qId, title, content, type, Float.parseFloat(mark));
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 3830c74 (update lecturer/student)
 
         String rCount = request.getParameter("newDivCount");
         int count = Integer.parseInt(rCount);
@@ -114,6 +118,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
         String[] choiceContent = new String[count];
         String[] choiceScore = new String[count];
         String[] choiceId = new String[count];
+<<<<<<< HEAD
         int in = 0;
         while (in < count) {
             String surveyOptionsParam = request.getParameter(in + "_survey_options[]");
@@ -163,6 +168,27 @@ public class lecturerUpdateQuestion extends HttpServlet {
 
         }
 
+=======
+
+        for (int i = 0; i < count; i++) {
+            choiceContent[i] = request.getParameter(i + "_survey_options[]");
+            choiceScore[i] = request.getParameter(i + "_score");
+            choiceId[i] = request.getParameter(i + "_choiceId");
+        }
+        for (int i = 0; i < count; i++) {
+            checkScore += Integer.parseInt(choiceScore[i]);
+        }
+
+        for (int i = 0; i < count; i++) {
+            dao.updateChoice(qId, choiceContent[i], choiceScore[i], choiceId[i]);
+//            if (!dao.updateChoice(qId, choiceContent[i], choiceScore[i], choiceId[i]) || checkScore > 100) {
+////                    request.setAttribute("err", "ERROR, Try again!");
+//                response.sendRedirect("updateQuestion?questionId=" + qId);
+//
+//            }
+
+        }
+>>>>>>> 3830c74 (update lecturer/student)
         Exam e = (Exam) session.getAttribute("exam");
         float newScore = e.getMaxScore() + q.getMark();
         int number = e.getQuestionNumber() + 1;
@@ -182,4 +208,8 @@ public class lecturerUpdateQuestion extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3830c74 (update lecturer/student)

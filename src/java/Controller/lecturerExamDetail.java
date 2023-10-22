@@ -16,9 +16,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.time.LocalDateTime;
 =======
 >>>>>>> 1e16890 (yellow completed)
+=======
+import java.time.LocalDateTime;
+>>>>>>> 3830c74 (update lecturer/student)
 import java.util.HashMap;
 
 /**
@@ -99,6 +103,7 @@ public class lecturerExamDetail extends HttpServlet {
         session.setAttribute("sessionThisExam", thisExam);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         if(LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0)
             request.setAttribute("notAllowToEdit", "notAllowToEdit");
         
@@ -116,13 +121,21 @@ public class lecturerExamDetail extends HttpServlet {
 =======
 >>>>>>> b809fd8 (one half lecturer and std)
         
+=======
+        if(LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0)
+            request.setAttribute("notAllowToEdit", "notAllowToEdit");
+>>>>>>> 3830c74 (update lecturer/student)
         
         request.setAttribute("timeLimit", dao.getStringFormattedDate("timeLimit", thisExam.getTimeLimit()));
         request.setAttribute("startDate", dao.getStringFormattedDate("dateTime", thisExam.getStartDate()));
         request.setAttribute("endDate", dao.getStringFormattedDate("dateTime", thisExam.getEndDate()));
         request.getRequestDispatcher("lecturerExamDetail.jsp").forward(request, response);
+<<<<<<< HEAD
     } 
 >>>>>>> 1e16890 (yellow completed)
+=======
+    }
+>>>>>>> 3830c74 (update lecturer/student)
 
     /** 
      * Handles the HTTP <code>POST</code> method.

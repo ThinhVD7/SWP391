@@ -99,9 +99,13 @@ public class lecturerClasslist extends HttpServlet {
             class_examNumber.put(class1.getClassID(), dao.numberofExamofClass(class1.getClassID()));
         }
 <<<<<<< HEAD
+<<<<<<< HEAD
         session.setAttribute("classListTemp", classList);
 =======
 >>>>>>> 1e16890 (yellow completed)
+=======
+        session.setAttribute("classListTemp", classList);
+>>>>>>> 3830c74 (update lecturer/student)
         request.setAttribute("studentNumber", class_studentNumber);
         request.setAttribute("examNumber", class_examNumber);
         request.setAttribute("classList", classList);

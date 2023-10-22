@@ -93,6 +93,7 @@ public class lecturerAddNewExam extends HttpServlet {
         String examName = request.getParameter("examName");
         
         ////temporary timeLimit convert/////////////////////////////////
+<<<<<<< HEAD
         String timeLimitHour = request.getParameter("timeLimitHour");
         String timeLimitMinute = request.getParameter("timeLimitMinute");
         String timeLimitSecond = request.getParameter("timeLimitSecond");
@@ -103,6 +104,18 @@ public class lecturerAddNewExam extends HttpServlet {
         timeLimitMinute = (minute<10)?("0" + String.valueOf(minute)):(String.valueOf(minute));
         timeLimitSecond = (second<10)?("0" + String.valueOf(second)):(String.valueOf(second));
         String timeLimit = timeLimitHour+":"+timeLimitMinute+":"+timeLimitSecond;
+=======
+        String timeLimit = request.getParameter("timeLimit");
+        int temp = Integer.parseInt(timeLimit);
+        if(temp/60<1)
+        {
+            timeLimit = "00:"+((temp%60>9)?(String.valueOf(temp%60)):("0"+String.valueOf(temp%60)))+":00";
+        }
+        else
+        {
+            timeLimit =  ((temp/60>9)?(""+String.valueOf(temp/60)):("0"+String.valueOf(temp/60))) +":" + ((temp%60>9)?(String.valueOf(temp%60)):("0"+String.valueOf(temp%60))) + ":00";
+        }
+>>>>>>> 3830c74 (update lecturer/student)
         String fromDate = request.getParameter("fromDate");
         String toDate = request.getParameter("toDate");
         String permission = request.getParameter("permission");

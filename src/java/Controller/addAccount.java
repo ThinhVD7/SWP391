@@ -156,7 +156,11 @@ public class addAccount extends HttpServlet {
 
             int password = Random();
             sendMail(email, password);
+<<<<<<< HEAD
             boolean isAddAccountSucess = dao.addAccount(id, name, email, String.valueOf(password), role1, status1, gender1, phno);
+=======
+            boolean isAddAccountSucess = dao.addAccount(id, name, email, DAO.encodeSHA1(String.valueOf(password)), role1, status1, gender1, phno);
+>>>>>>> 3830c74 (update lecturer/student)
             if (isAddAccountSucess) {
                 session.removeAttribute("idErr");
                 session.removeAttribute("nameErr");

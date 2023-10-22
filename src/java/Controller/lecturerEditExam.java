@@ -79,12 +79,17 @@ public class lecturerEditExam extends HttpServlet {
         request.setAttribute("startDate", exam.getStartDate());
         request.setAttribute("endDate", exam.getEndDate());
         String[] temp = exam.getTimeLimit().split(":");
+<<<<<<< HEAD
         int hour = Integer.parseInt(temp[0]);
         int minute = Integer.parseInt(temp[1]);
         int second = Integer.parseInt(temp[2]);
         request.setAttribute("timeLimitHour", hour);
         request.setAttribute("timeLimitMinute", minute);
         request.setAttribute("timeLimitSecond", second);
+=======
+        int timeLimit = Integer.parseInt(temp[0])*60 + Integer.parseInt(temp[1]);
+        request.setAttribute("timeLimit", timeLimit);
+>>>>>>> 3830c74 (update lecturer/student)
 //        request.setAttribute("attemp", exam.getAttempsAllowed());
         request.setAttribute("examDetail", exam.getExamDetail());
 //        request.setAttribute("maxScore", exam.getMaxScore());
@@ -116,6 +121,7 @@ public class lecturerEditExam extends HttpServlet {
         //String questionNumber = request.getParameter("questionNumber");
         //String maxScore = request.getParameter("maxScore");
         ////temporary timeLimit convert/////////////////////////////////
+<<<<<<< HEAD
         String timeLimitHour = request.getParameter("timeLimitHour");
         String timeLimitMinute = request.getParameter("timeLimitMinute");
         String timeLimitSecond = request.getParameter("timeLimitSecond");
@@ -126,6 +132,18 @@ public class lecturerEditExam extends HttpServlet {
         timeLimitMinute = (minute<10)?("0" + String.valueOf(minute)):(String.valueOf(minute));
         timeLimitSecond = (second<10)?("0" + String.valueOf(second)):(String.valueOf(second));
         String timeLimit = timeLimitHour+":"+timeLimitMinute+":"+timeLimitSecond;
+=======
+        String timeLimit = request.getParameter("timeLimit");
+        int temp = Integer.parseInt(timeLimit);
+        if(temp/60<1)
+        {
+            timeLimit = "00:"+timeLimit+":00";
+        }
+        else
+        {
+            timeLimit =  ((temp/60>9)?(""+String.valueOf(temp/60)):("0"+String.valueOf(temp/60))) +":" + ((temp%60>9)?(String.valueOf(temp%60)):("0"+String.valueOf(temp%60))) + ":00";
+        }
+>>>>>>> 3830c74 (update lecturer/student)
         String fromDate = request.getParameter("fromDate");
         //String attemp = request.getParameter("attemp");
         String toDate = request.getParameter("toDate");

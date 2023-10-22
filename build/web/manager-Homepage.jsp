@@ -228,7 +228,11 @@
                                         <span style="float: right"> <a onclick="openEdit('${c.courseID}', '${c.courseName}', '${c.semester}', '4${c.startDate}', '${c.endDate}')"><i class="fa-solid fa-pen-to-square" style="color: #0be50e;"></i></a> </span>
                                         <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
                                         <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
+<<<<<<< HEAD
                                         <span style="float: right" ${requestScope.deleteNotAllowMap[c.courseID]?"hidden":""}> <a onclick="closeEdit()">
+=======
+                                        <span style="float: right"> <a onclick="closeEdit()">
+>>>>>>> 3830c74 (update lecturer/student)
                                                 <!--<i onclick="delCousera('${c.courseID}')" onclick="openDelete()" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>-->
                                                 <i onclick="delCousera('${c.courseID}')" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
                                     </form>

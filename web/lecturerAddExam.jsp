@@ -328,7 +328,11 @@
             }
 
             .wrapper .tabs ul{
+<<<<<<< HEAD
                 width: 98%;
+=======
+                width: 1200px;
+>>>>>>> 3830c74 (update lecturer/student)
                 height: 40px;
                 display: flex;
 
@@ -365,7 +369,11 @@
 
             .wrapper .content{
                 padding: 30px;
+<<<<<<< HEAD
                 height: 1000px;
+=======
+                height: 800px;
+>>>>>>> 3830c74 (update lecturer/student)
                 border-bottom: 6px solid #44c8fe;
                 border-radius: 3px;
             }
@@ -393,8 +401,12 @@
                 --transition: all 0.2s ease;
             }
             #my-form {
+<<<<<<< HEAD
                 /*height: 600px;*/
                 /*max-height: 600px;  Set a maximum height for the form */
+=======
+                height: 600px;
+>>>>>>> 3830c74 (update lecturer/student)
                 align-content: center;
                 justify-items: center;
             }
@@ -517,6 +529,7 @@
                                         <input type="text" name="examName" class="form-control" id="examName" placeholder="" value="${examName}" required="">
                                     </div>
                                 </div>
+<<<<<<< HEAD
 
                                 <div class="form-group row">
                                     <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
@@ -524,6 +537,13 @@
                                         Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
                                         Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
                                         Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
+=======
+                               
+                                <div class="form-group row">
+                                    <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
+                                    <div class="col-sm-5">
+                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="1" placeholder="0" value="${timeLimit}" required=""> (minutes)
+>>>>>>> 3830c74 (update lecturer/student)
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -539,7 +559,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+<<<<<<< HEAD
                                     <label for="permission" class="col-sm-4 col-form-label" style="font-weight: bold">Set review permission:</label>
+=======
+                                    <label for="permission" class="col-sm-4 col-form-label" style="font-weight: bold">Set preview permission:</label>
+>>>>>>> 3830c74 (update lecturer/student)
                                     <div class="col-md-6">
                                         <select id="permission" name="permission" class="mt-2 pl-5 pr-5" required="">
                                             <option value="" disabled selected="selected"></option>
@@ -548,7 +572,11 @@
                                         </select>
                                     </div>
                                 </div>
+<<<<<<< HEAD
 
+=======
+                                
+>>>>>>> 3830c74 (update lecturer/student)
                                 <div class="form-group row">
                                     <label for="examDetail" class="col-sm-3 col-form-label" style="font-weight: bold">Exam Description:</label>
                                     <div class="col-sm-5">
@@ -585,7 +613,11 @@
 
                                 </form>
                                 <div class ="question-list">
+<<<<<<< HEAD
 
+=======
+                                    
+>>>>>>> 3830c74 (update lecturer/student)
                                     <c:forEach items ="${sessionScope.listQ}" var="c">
                                         <div class ="question-container">
 
@@ -602,7 +634,11 @@
 
                                         </div>
                                     </c:forEach>
+<<<<<<< HEAD
 
+=======
+                                    
+>>>>>>> 3830c74 (update lecturer/student)
                                 </div>
                             </div>
                         </div>
@@ -647,12 +683,17 @@
                                         </ul>
                                     </div>
 
+<<<<<<< HEAD
                                     <div class="content" id="wrapper-content">
+=======
+                                    <div class="content">
+>>>>>>> 3830c74 (update lecturer/student)
                                         <div class="tab_content tab_1">
                                             <!--<form id="addManually" action="" method="post">-->
 
                                             <form id="my-form" action="lecturerAddQuestion" method="post">
 
+<<<<<<< HEAD
                                                 <div class="form-inline">
 
                                                     <div class="form-group col-sm-7">
@@ -694,6 +735,50 @@
                                                 </div>
 
 
+=======
+                                                <div class="wrapper">
+                                                    <div class="form-inline">
+
+                                                        <div class="form-group col-sm-7">
+                                                            <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="">
+
+                                                        </div>
+                                                        <div class="form-group col-sm-5">
+
+                                                            Question Mark:
+                                                            <input type="number" name="mark" class="survey_options" placeholder="Question mark" min="0" required="">                     
+
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-inline">
+                                                        <div class="form-group col-sm-7">
+                                                            <input type="text" name="content" class="survey_options" placeholder="Question Content" required="">                     
+                                                        </div>
+                                                        <div class="form-group col-sm-3 mr-4">
+
+                                                            Question Type:
+                                                            <select name="questionType" class="survey_options ml-3" id="questionType">
+                                                                <option value="1">Multiple Choice</option>
+                                                                <option value="0">One Choice</option>
+                                                            </select>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div id="container">
+
+                                                        <!--Answer will added here-->
+
+                                                    </div>
+                                                    <div class="controls">
+                                                        <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                                        <a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>
+                                                    </div>
+                                                </div>
+
+>>>>>>> 3830c74 (update lecturer/student)
                                                 <input type="hidden" id="hiddenInput" name="newDivCount" value="">
                                                 <div class="form-group row">
                                                     <input class="btn btn-primary btn-sm align-items-center col-3" style="margin: 0 auto; display: block;border-radius:20px " type="submit" value="Add Question" />
@@ -703,6 +788,7 @@
 
                                         </div>
                                         <div class="tab_content tab_2">
+<<<<<<< HEAD
                                             <form id="bank-form" method="post" action="">
                                                 <p>Class:</p>
                                                 <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
@@ -738,6 +824,44 @@
 
                 <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
                 <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
+=======
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <select name="class-name" class="" id="class-name">
+                                                        <c:forEach items="${sessionScope.classListTemp}" var="c">
+                                                            <option value="${c.classID}}">${c.className}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <select name="exam-name" class="" id="exam-name">
+                                                        <c:forEach items="${sessionScope.classListTemp}" var="c">
+                                                            <option value="${c.classID}}">${c.className}</option>
+                                                        </c:forEach>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab_content tab_3">
+                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+                                        </div>
+                                        <div class="tab_content tab_4">
+                                            making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
+                    <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
+                </div>
+>>>>>>> 3830c74 (update lecturer/student)
             </div>
 
 
@@ -746,6 +870,7 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script>
 
+<<<<<<< HEAD
                                                     var myForm = document.getElementById('my-form');
                                                     var x1 = myForm.offsetHeight;
                                                     function openPopup(className) {
@@ -813,6 +938,74 @@
                                                         })
                                                     });
                                                     /*-------------------------------------------------------------------------------------------*/
+=======
+
+                        function openPopup(className) {
+                            const overlay = document.getElementById('classEditPopup');
+//                const newClassNameInput = document.getElementById('newClassName');
+//                newClassNameInput.value = className;
+                            overlay.style.display = 'block';
+                        }
+
+                        // Function to close the pop-up
+                        function closePopup() {
+                            const overlay = document.getElementById('classEditPopup');
+                            overlay.style.display = 'none';
+                        }
+
+
+                        const btn_menu = document.querySelector(".btn-menu");
+                        const side_bar = document.querySelector(".sidebar");
+                        btn_menu.addEventListener("click", function () {
+                            side_bar.classList.toggle("expand");
+                            changebtn();
+                        });
+                        function changebtn() {
+                            if (side_bar.classList.contains("expand")) {
+                                btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                            } else {
+                                btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                            }
+                        }
+
+                        const btn_theme = document.querySelector(".theme-btn");
+                        const theme_ball = document.querySelector(".theme-ball");
+                        const localData = localStorage.getItem("theme");
+                        if (localData == null) {
+                            localStorage.setItem("theme", "light");
+                        }
+
+                        if (localData == "dark") {
+                            document.body.classList.add("dark-mode");
+                            theme_ball.classList.add("dark");
+                        } else if (localData == "light") {
+                            document.body.classList.remove("dark-mode");
+                            theme_ball.classList.remove("dark");
+                        }
+
+                        btn_theme.addEventListener("click", function () {
+                            document.body.classList.toggle("dark-mode");
+                            theme_ball.classList.toggle("dark");
+                            if (document.body.classList.contains("dark-mode")) {
+                                localStorage.setItem("theme", "dark");
+                            } else {
+                                localStorage.setItem("theme", "light");
+                            }
+                        });
+                        $(document).ready(function () {
+                            $(".content .tab_content").hide();
+                            $(".content .tab_content:first-child").show();
+                            $("ul li").click(function () {
+
+                                $("ul li").removeClass("active");
+                                $(this).addClass("active");
+                                var current_tab = $(this).attr("data-list");
+                                $(".content .tab_content").hide();
+                                $("." + current_tab).show();
+                            })
+                        });
+                        /*-------------------------------------------------------------------------------------------*/
+>>>>>>> 3830c74 (update lecturer/student)
 //                        document.addEventListener("DOMContentLoaded", function () {
 //                            const form = document.querySelector(".exam-form");
 //                            form.addEventListener("submit", function (event) {
@@ -832,6 +1025,7 @@
 //                                }
 //                            });
 //                        });
+<<<<<<< HEAD
                                                     /*-------------------------------------------------------------------------------------------*/
                                                     document.querySelector('form').addEventListener('submit', function (event) {
                                                         event.preventDefault();
@@ -922,6 +1116,72 @@
 
                                                         // Add the HTML content to the new div
                                                         newDiv.innerHTML = `
+=======
+                        /*-------------------------------------------------------------------------------------------*/
+                        document.querySelector('form').addEventListener('submit', function (event) {
+                            event.preventDefault();
+                            var fromDate = new Date(document.getElementById('fromDate').value);
+                            var toDate = new Date(document.getElementById('toDate').value);
+                            var xDate = new Date(document.getElementById('startDate').value);
+                            var yDate = new Date(document.getElementById('endDate').value);
+                            if (fromDate <= new Date() || toDate <= new Date()) {
+                                alert("Date must be in the future.");
+                                return;
+                            }
+                            if (fromDate > toDate) {
+                                alert("From Date must before To Date.");
+                                return;
+                            }
+
+                            if (toDate >= yDate) {
+                                alert("To date must be before " + yDate.toDateString());
+                                return;
+                            }
+                            if (fromDate <= xDate) {
+                                alert("Start Date must after: " + xDate.toDateString());
+                                return;
+                            }
+
+
+                            // If the validation passes, you can submit the form
+                            this.submit();
+                        });
+                        var count = 0;
+
+                        document.getElementById('add_more_fields').addEventListener('click', function (event) {
+                            event.preventDefault();
+                            var x = document.getElementById('questionType');
+                            var container = document.getElementById('container');
+
+                            // Create a new div element
+                            var newDiv = document.createElement('div');
+                            newDiv.className = 'form-inline count';
+
+                            // Generate a unique ID for the new div
+                            newDiv.id = count;
+
+
+                            // Define the default options for the count_score select
+                            var countScoreOptions = `
+        <option value="0">0</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="33">33</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    `;
+
+                            if (x.value == 0) {
+                                // For "Multiple Choice"
+                                countScoreOptions = `
+            <option value="0">0</option>
+            <option value="100">100</option>
+        `;
+                            }
+
+                            // Add the HTML content to the new div
+                            newDiv.innerHTML = `
+>>>>>>> 3830c74 (update lecturer/student)
         <div class="form-group col-sm-7 index">
             <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
         </div>
@@ -935,6 +1195,7 @@
   
     `;
 
+<<<<<<< HEAD
                                                         // Append the new div to the container
                                                         container.appendChild(newDiv);
                                                         count = container.children.length;
@@ -1104,6 +1365,99 @@
                                                         xhr.send();
                                                     }
 
+=======
+                            // Append the new div to the container
+                            container.appendChild(newDiv);
+                            count = container.children.length;
+
+                            var hiddenInput = document.getElementById('hiddenInput');
+                            hiddenInput.value = count;
+
+
+                        });
+
+
+
+//// Add an event listener to the questionType select to change the count_score select's options
+//                        document.getElementById('questionType').addEventListener('change', function () {
+//                            var countScoreOptions = `
+//        <option value="0">0</option>
+//        <option value="20">20</option>
+//        <option value="25">25</option>
+//        <option value="33">33</option>
+//        <option value="50">50</option>
+//        <option value="100">100</option>
+//    `;
+//
+//                            if (this.value == 0) {
+//                                // For "Multiple Choice"
+//                                countScoreOptions = `
+//            <option value="0">0</option>
+//            <option value="100">100</option>
+//        `;
+//                            }
+//
+//
+//                        });
+
+                        document.getElementById('remove_fields').addEventListener('click', function () {
+                            var container = document.getElementById('container');
+                            // Get the last added div in the container
+                            var lastDiv = container.lastChild;
+                            // Check if the last div exists and remove it
+                            if (lastDiv) {
+                                container.removeChild(lastDiv);
+                                // Update the count based on the number of newDivs in the container
+                                count = container.children.length;
+
+                                // Update the hidden input value with the count
+                                var hiddenInput = document.getElementById('hiddenInput');
+                                hiddenInput.value = count;
+                            }
+                        });
+
+
+
+                        document.getElementById('my-form').addEventListener('submit', function (event) {
+                            // Get all the "Score Percentage" select elements
+                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                            var totalScore = 0;
+
+                            // Calculate the total score
+                            scoreElements.forEach(function (scoreElement) {
+                                totalScore += parseInt(scoreElement.value);
+                            });
+
+                            // Check if the total score is greater than 100
+                            if (totalScore > 100) {
+                                // Prevent the form from being submitted
+                                event.preventDefault();
+                                alert('The total score cannot exceed 100%.');
+                            }
+                        });
+
+
+                        function confirmDelete(questionID) {
+                            var confirmDelete = confirm("Are you sure you want to remove this question?");
+                            if (confirmDelete) {
+                                // Make an AJAX request to delete the exam
+                                var xhr = new XMLHttpRequest();
+                                xhr.open("POST", "lecturerRemoveQuestionExam?questionID=" + questionID, true);
+
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4 && xhr.status === 200) {
+                                        // Handle the response from the servlet
+                                        var response = xhr.responseText;
+                                        alert("Question with ID " + questionID + " deleted.");
+                                        location.reload();
+                                    }
+                                };
+
+                                // Send the request
+                                xhr.send();
+                            }
+                        }
+>>>>>>> 3830c74 (update lecturer/student)
 
         </script>
 
