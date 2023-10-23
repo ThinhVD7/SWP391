@@ -508,58 +508,7 @@
                     Click to view details
             </div>
                 </c:forEach>
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="yes"> 
-                <h3>Progress Test 1</h3>
-                <br>
-                Start Date: 4/10/2023 to 6/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Progress Test 2</h3>
-                <br>
-                Start Date: 12/10/2023 to 14/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Final Trial</h3>
-                <br>
-                Start Date: 16/10/2023 to 21/10/2023<br>
-                Click to view details
-                
-            </div>
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Progress Test 1</h3>
-                <br>
-                Start Date: 4/10/2023 to 6/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Progress Test 2</h3>
-                <br>
-                Start Date: 12/10/2023 to 14/10/2023<br>
-                Click to view details
-                
-            </div>
-
-            <div class="exam-container">
-                <a style="text-decoration: none;"  href="#"> 
-                <h3>Final Trial</h3>
-                <br>
-                Start Date: 16/10/2023 to 21/10/2023<br>
-                Click to view details
-                
-            </div>
+            
         </div>
            
             
