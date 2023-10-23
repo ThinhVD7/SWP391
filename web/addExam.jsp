@@ -531,9 +531,9 @@
                                                                     </div>
                                                                 </div>-->
                                 <div class="form-group row">
-                                    <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
+                                    <label for="timeLimit" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        <input type="number" name="timeLimit" class="form-control" id="timeLim" min ="0" placeholder="0" min="0" value="${timeLimit}" required=""> (minutes)
+                                        <input type="number" name="timeLimit" class="form-control" id="timeLimit" min ="0" placeholder="0" min="0" value="${timeLimit}" required=""> (minutes)
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -562,7 +562,7 @@
                                 <div class="form-group row">
                                     <label for="examDetail" class="col-sm-3 col-form-label" style="font-weight: bold">Exam Description:</label>
                                     <div class="col-sm-5">
-                                        <input type="text" name="examDetail" class="form-control" id="examDetail" placeholder="" value="${examDetail}" required="">
+                                        <input type="text" name="examDetail" class="form-control" id="examDetail" placeholder="" value="${examDetail}">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -861,8 +861,22 @@
                             var toDate = new Date(document.getElementById('toDate').value);
                             var xDate = new Date(document.getElementById('startDate').value);
                             var yDate = new Date(document.getElementById('endDate').value);
+                            var timeLimit = new Date(document.getElementById('timeLimit').value);
+
                             if (fromDate <= new Date() || toDate <= new Date()) {
                                 alert("Date must be in the future.");
+                                return;
+                            }
+                             if (fromDate == toDate) {
+                                alert("Not valid date");
+                                return;
+                            }
+                              if (fromDate == toDate) {
+                                alert("Not valid date");
+                                return;
+                            }
+                              if (toDate - fromDate < timeLimit) {
+                                alert("Not valid date");
                                 return;
                             }
                             if (fromDate > toDate) {
