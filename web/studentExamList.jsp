@@ -517,6 +517,7 @@
             </div>
                 </c:forEach>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
             <div class="exam-container">
                 <a style="text-decoration: none;"  href="yes"> 
@@ -571,6 +572,9 @@
                 
             </div>
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+            
+>>>>>>> 17bd765 (update QuizA)
         </div>
            
             

@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bd765 (update QuizA)
 <html>
 <head>
     <title>Delete Records with Confirmation</title>
     <style>
         /* Style for the modal dialog */
         .modal {
+<<<<<<< HEAD
 =======
 <html lang="en">
 =======
@@ -269,6 +273,8 @@
         /* Style for the modal dialog */
         .modal {
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+>>>>>>> 17bd765 (update QuizA)
             display: none;
             position: fixed;
             top: 0;
@@ -277,6 +283,9 @@
             height: 100%;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bd765 (update QuizA)
             background-color: rgba(0, 0, 0, 0.5);
         }
         .modal-content {
@@ -288,6 +297,7 @@
             padding: 20px;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+<<<<<<< HEAD
 =======
             background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
             backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
@@ -314,14 +324,19 @@
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+>>>>>>> 17bd765 (update QuizA)
         }
     </style>
 </head>
 <body>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+>>>>>>> 17bd765 (update QuizA)
     <table>
         <thead>
             <tr>
@@ -343,6 +358,9 @@
         </tbody>
     </table>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 17bd765 (update QuizA)
 
     <!-- Modal Confirmation Dialog -->
     <div id="confirmationPopup" class="modal">
@@ -387,6 +405,7 @@
 
             // Close the confirmation popup
             closeConfirmationPopup();
+<<<<<<< HEAD
 =======
     <div class="subject-name">
         Subject Name
@@ -446,6 +465,8 @@
             // Close the confirmation popup
             closeConfirmationPopup();
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+>>>>>>> 17bd765 (update QuizA)
         }
     </script>
 </body>

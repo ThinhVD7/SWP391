@@ -433,6 +433,7 @@
         }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
        
 =======
         /* Style for the pop-up */
@@ -452,6 +453,9 @@
 =======
        
 >>>>>>> b809fd8 (one half lecturer and std)
+=======
+       
+>>>>>>> 17bd765 (update QuizA)
         .overlay {
             display: none;
             position: fixed;
