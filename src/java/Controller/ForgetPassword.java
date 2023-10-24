@@ -57,6 +57,16 @@ public class ForgetPassword extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        //block check if user have logged in, if true then return to home
+        HttpSession session = request.getSession(false);
+        if(session ==null)
+            request.getRequestDispatcher("forget-password.jsp").forward(request, response);
+        if(session.getAttribute("user") != null)
+        {
+            response.sendRedirect("home");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
         request.getRequestDispatcher("forget-password.jsp").forward(request, response);
 
     }
@@ -72,9 +82,17 @@ public class ForgetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
+
 
         String username = request.getParameter("email");
+        HttpSession session = request.getSession(false);
+        //block check if user have logged in, if true then return to home
+        if(session.getAttribute("user") != null)
+        {
+            response.sendRedirect("home");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
 
         DAO dao = new DAO();
         Account acc = dao.getUser(username);
@@ -83,7 +101,7 @@ public class ForgetPassword extends HttpServlet {
             request.setAttribute("mess", "Wrong email!");
             request.getRequestDispatcher("forget-password.jsp").forward(request, response);
         } else {
-            HttpSession session = request.getSession();
+            
 
             if (username != null || !username.equals("")) {
                 // sending otp
@@ -120,7 +138,7 @@ public class ForgetPassword extends HttpServlet {
                 }
                 try {
                     acc.setEmail(username);
-                    acc.setPassword(pass);
+                    acc.setPassword(DAO.encodeSHA1(pass));
                     boolean resetPasswordSuccess = dao.resetPassword(acc);
                     if (resetPasswordSuccess) {
                         request.setAttribute("err", "Reset password successfully! \n Please check mail to get new password");

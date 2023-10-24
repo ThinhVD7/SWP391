@@ -431,19 +431,7 @@
             cursor: pointer;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
         }
-        /* Style for the pop-up */
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 15px;
-            z-index: 1;
-        }
+       
         .overlay {
             display: none;
             position: fixed;

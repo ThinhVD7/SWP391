@@ -729,7 +729,7 @@
                                                         </c:forEach>
                                                     </select>
                                                 </div>
-                                            </div>
+                                                +                                    </div>
 
 
 
@@ -861,21 +861,22 @@
                             var toDate = new Date(document.getElementById('toDate').value);
                             var xDate = new Date(document.getElementById('startDate').value);
                             var yDate = new Date(document.getElementById('endDate').value);
-                            var timeLimit = new Date(document.getElementById('timeLimit').value);
+                            var timeLimit = parseInt(document.getElementById('timeLimit').value);
+
 
                             if (fromDate <= new Date() || toDate <= new Date()) {
                                 alert("Date must be in the future.");
                                 return;
                             }
-                             if (fromDate == toDate) {
+                            if (fromDate == toDate) {
                                 alert("Not valid date");
                                 return;
                             }
-                              if (fromDate == toDate) {
+                            if (fromDate == toDate) {
                                 alert("Not valid date");
                                 return;
                             }
-                              if (toDate - fromDate < timeLimit) {
+                            if (toDate - fromDate < timeLimit * 60000) {
                                 alert("Not valid date");
                                 return;
                             }

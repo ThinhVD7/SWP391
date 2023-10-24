@@ -1,8 +1,8 @@
 <!DOCTYPE html>
+<%@page import = "java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
 
         <!-- META ============================================= -->
@@ -49,6 +49,12 @@
 
     </head>
     <body id="bg">
+        <%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
+
         <div class="page-wraper">
             <div id="loading-icon-bx"></div>
             <!-- Content -->
@@ -128,24 +134,25 @@
                                                         <hr class="mt-0 mb-4">
                                                         <div class="row pt-1">
                                                             <div class="col-7 mb-3">
-                                                                <h6>Email</h6>
-                                                                <p class="text-muted">${sessionScope.user.email}</p>
+                                                                <h6>Name</h6>
+                                                                <p class="text-muted">${sessionScope.user.name}</p>
                                                             </div>
                                                             <div class="col-5 mb-3">
-                                                                <h6>Phone</h6>
-                                                                <p class="text-muted">${sessionScope.user.phoneNumber}</p>
+                                                                <h6>Email</h6>
+                                                                <p class="text-muted">${sessionScope.user.email}</p>
                                                             </div>
                                                         </div>
                                                         <div class="row pt-1">
                                                             <div class="col-7 mb-3">
-                                                                <h6>Email</h6>
-                                                                <p class="text-muted">${sessionScope.user.name}</p>
+                                                                <h6>Phone Number</h6>
+                                                                <p class="text-muted">${sessionScope.user.phoneNumber}</p>
                                                             </div>
                                                             <div class="col-5 mb-3">
-                                                                <h6>Phone</h6>
-                                                                <p class="text-muted">${sessionScope.user.gender}</p>
+                                                                <h6>Gender</h6>
+                                                                <p class="text-muted">${user.gender==1||user.gender==2?"Straight":"Fluid"}</p>
                                                             </div>
                                                         </div>
+
 
                                                         <div class="row pb-3">
                                                         </div>

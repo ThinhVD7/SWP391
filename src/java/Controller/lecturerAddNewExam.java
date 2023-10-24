@@ -66,7 +66,7 @@ public class lecturerAddNewExam extends HttpServlet {
             return;
         }
         session.removeAttribute("exam");
-        request.getRequestDispatcher("addExam.jsp").forward(request, response);
+        request.getRequestDispatcher("lecturerAddExam.jsp").forward(request, response);
     }
 
     /**
@@ -91,7 +91,18 @@ public class lecturerAddNewExam extends HttpServlet {
         session.removeAttribute("exam");
 
         String examName = request.getParameter("examName");
+        
+        ////temporary timeLimit convert/////////////////////////////////
         String timeLimit = request.getParameter("timeLimit");
+        int temp = Integer.parseInt(timeLimit);
+        if(temp/60<1)
+        {
+            timeLimit = "00:"+((temp%60>9)?(String.valueOf(temp%60)):("0"+String.valueOf(temp%60)))+":00";
+        }
+        else
+        {
+            timeLimit =  ((temp/60>9)?(""+String.valueOf(temp/60)):("0"+String.valueOf(temp/60))) +":" + ((temp%60>9)?(String.valueOf(temp%60)):("0"+String.valueOf(temp%60))) + ":00";
+        }
         String fromDate = request.getParameter("fromDate");
         String toDate = request.getParameter("toDate");
         String permission = request.getParameter("permission");
@@ -100,9 +111,9 @@ public class lecturerAddNewExam extends HttpServlet {
         String classId = thisClass.getClassID();
         LecturerDAO dao = new LecturerDAO();
 //        String examId = examName + '_' + classId;
-        if (dao.addExam(classId, examName, timeLimit, fromDate, toDate, examDetail, Integer.parseInt(permission))) {
+        if (dao.addExam(classId, examName, String.valueOf(0), timeLimit, fromDate, toDate, String.valueOf(1), examDetail, String.valueOf(0), Integer.parseInt(permission))) {
             Exam exam = dao.getLastExam();
-            response.sendRedirect("editExam?tId=" + exam.getExamID());
+            response.sendRedirect("lecturerEditExam?tId=" + exam.getExamID());
 
         } else {
             response.sendRedirect("pageNotFound");

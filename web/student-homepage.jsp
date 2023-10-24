@@ -1,3 +1,4 @@
+<%@page import = "java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -33,29 +34,32 @@
 
             }
         </style>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
     </head>
     <body>
         <section class="sidebar">
             <div class="nav-header">
-                <p class="logo">FPTQuiz</p>
+                <p class="logo">Quiz Practice</p>
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
-
-
-
-
+                
+                
                 <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
-                    <a href="profile.jsp">
+                    <a href="profile">
                         <i class='bx bxs-user-account'></i>
                         <span class="title">Profile</span>
                     </a>
-                    <span class="tooltip">${user.name}</span>
+                    <span class="tooltip">${sessionScope.user.name}</span>
                 </li>
                 <li>
                     <a href="home">
@@ -64,13 +68,14 @@
                     </a>
                     <span class="tooltip">Home</span>
                 </li>
-                <!--                <li>
-                                    <a href="#">
-                                        <i class="bx bx-phone-call"></i>
-                                        <span class="title">Calls</span>
-                                    </a>
-                                    <span class="tooltip">Calls</span>
-                                </li>
+               <li>
+                    <a href="Logout">
+                        <i class="bx bxs-devices"></i>
+                        <span class="title">Logout</span>
+                    </a>
+                    <span class="tooltip">Logout</span>
+                </li>
+                                <!--
                                 <li>
                                     <a href="#">
                                         <i class="bx bx-bookmark"></i>
@@ -120,7 +125,7 @@
                 </div>
 
                 <div class="col-md-2 ml-auto">
-                    <a href="profile2.jsp" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
             </div>
 
@@ -128,31 +133,26 @@
 
 
 
-
-            <div class="container">
-                <div class="list-course row mt-5">
-
+            <div class="container-fluid mt-3">
+                <div class="row mt-5">
                     <c:forEach items="${requestScope.classes}" var="c">
+                    <%--<c:forEach var="i" begin="1" end="30" step="1">--%>
                         <div class='course-item col-md-4 col-sm-6 col-lg-3 pt-3'>
                             <div class="card">
                                 <div class="card-body"> 
-                                    <a href="">
+                                    <a href="studentExamList?classID=${c.classID}">
                                         <h4 class="card-title">${c.courseID}</h4>  
                                     </a>
-                                    <h7 class="card-subtitle mb-2 text-muted">Class:${c.className}</h7>
-                                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                                    <a href="#" class="card-link">Enter course</a>
+                                        <h6 class="card-subtitle mb-2 text-muted">Class: ${c.className}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${requestScope.courseInfo[c.courseID].semester}</h6>
+                                    <h6 class="card-subtitle mb-2 text-muted">From: ${courseInfo[c.courseID].startDate}&nbsp;To: ${courseInfo[c.courseID].endDate}</h6>  
+                                    <a style ="position: absolute; bottom: 15px; right: 20px;" href="studentExamList?classID=${c.classID}" class="card-link">Enter course</a>
                                     <a href="#" class="card-link"></a>
                                 </div>
                             </div>
                         </div>
+                    <%--</c:forEach>--%>
                     </c:forEach>
-
-
-
-
-
-
                 </div>
             </div>
 

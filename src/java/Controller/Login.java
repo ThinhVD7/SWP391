@@ -31,6 +31,7 @@ public class Login extends HttpServlet {
 //        response.setContentType("text/html;charset=UTF-8");
 //
 //    }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -45,10 +46,10 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         //block check if user have logged in, if true then return to home
         HttpSession session = request.getSession(false);
-        if (session == null) {
+        if(session ==null)
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-        }
-        if (session.getAttribute("user") != null) {
+        if(session.getAttribute("user") != null)
+        {
             response.sendRedirect("home");
             return;
         }
@@ -67,19 +68,21 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         HttpSession session = request.getSession();
-
+        
         //block check if user have logged in, if true then return to home
-        if (session.getAttribute("user") != null) {
-            Account userCheck = (Account) session.getAttribute("user");
-            if (userCheck.getStatus() == 0) {
-                session.removeAttribute("user");
-                request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            }
+        if(session.getAttribute("user") != null)
+        {
+            Account userCheck = (Account)session.getAttribute("user");
+            if(userCheck.getStatus()==0)
+                {
+                    session.removeAttribute("user");
+                    request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
             response.sendRedirect("home");
             return;
         }
@@ -90,12 +93,15 @@ public class Login extends HttpServlet {
         if (acc == null) {
             request.setAttribute("mess", "Wrong username or password!");
             request.getRequestDispatcher("Login.jsp").forward(request, response);
-        } else {
-            if (acc.getStatus() == 0) {
-                session.removeAttribute("user");
-                request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            }
+        } 
+        else 
+        {
+            if(acc.getStatus()==0)
+                {
+                    session.removeAttribute("user");
+                    request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                    request.getRequestDispatcher("Login.jsp").forward(request, response);
+                }
 //            int otpvalue = Random();
 //            sendMail(username, otpvalue);
 //            request.getRequestDispatcher("OTP.jsp").forward(request, response);
@@ -106,7 +112,7 @@ public class Login extends HttpServlet {
             request.getSession().setAttribute("user", acc);
             //      response.sendRedirect("indexStudent.jsp");
 
-            int roleId = ((Account) session.getAttribute("user")).getRoleID();
+            int roleId = ((Account)session.getAttribute("user")).getRoleID();
 ////test session block//////////////////////////////////////////////////////////////
 //try (PrintWriter out = response.getWriter()) 
 //{

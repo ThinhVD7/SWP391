@@ -103,33 +103,65 @@
         <servlet-class>Controller.adminDeleteAccount</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>lecturerAddEditExam</servlet-name>
+        <servlet-class>Controller.lecturerAddEditExam</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>lecturerAddNewExam</servlet-name>
         <servlet-class>Controller.lecturerAddNewExam</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>addQuestion</servlet-name>
-        <servlet-class>Controller.addQuestion</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>editExam</servlet-name>
-        <servlet-class>Controller.editExam</servlet-class>
+        <servlet-name>lecturerEditExam</servlet-name>
+        <servlet-class>Controller.lecturerEditExam</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>lecturerDeleteExam</servlet-name>
         <servlet-class>Controller.lecturerDeleteExam</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>removeQuestionExam</servlet-name>
-        <servlet-class>Controller.removeQuestionExam</servlet-class>
+        <servlet-name>lecturerAddQuestion</servlet-name>
+        <servlet-class>Controller.lecturerAddQuestion</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>updateQuestion</servlet-name>
-        <servlet-class>Controller.updateQuestion</servlet-class>
+        <servlet-name>lecturerRemoveQuestionExam</servlet-name>
+        <servlet-class>Controller.lecturerRemoveQuestionExam</servlet-class>
     </servlet>
-    <servlet-mapping>
-        <servlet-name>lecturerAddNewExam</servlet-name>
-        <url-pattern>/AddNewExam</url-pattern>
-    </servlet-mapping>
+    <servlet>
+        <servlet-name>managerViewClassList</servlet-name>
+        <servlet-class>Controller.managerViewClassList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerViewLecturer</servlet-name>
+        <servlet-class>Controller.managerViewLecturer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerAddClass</servlet-name>
+        <servlet-class>Controller.managerAddClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerDeleteClass</servlet-name>
+        <servlet-class>Controller.managerDeleteClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerDeleteCourse</servlet-name>
+        <servlet-class>Controller.managerDeleteCourse</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerDeleteLecturer</servlet-name>
+        <servlet-class>Controller.managerDeleteLecturer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerDeleteStudent</servlet-name>
+        <servlet-class>Controller.managerDeleteStudent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>lecturerUpdateQuestion</servlet-name>
+        <servlet-class>Controller.lecturerUpdateQuestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoQuiz</servlet-name>
+        <servlet-class>Controller.DoQuiz</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -223,24 +255,64 @@
         <url-pattern>/adminDeleteAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>addQuestion</servlet-name>
-        <url-pattern>/addQuestion</url-pattern>
+        <servlet-name>lecturerAddEditExam</servlet-name>
+        <url-pattern>/lecturerAddEditExam</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>editExam</servlet-name>
-        <url-pattern>/editExam</url-pattern>
+        <servlet-name>lecturerAddNewExam</servlet-name>
+        <url-pattern>/lecturerAddNewExam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerEditExam</servlet-name>
+        <url-pattern>/lecturerEditExam</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>lecturerDeleteExam</servlet-name>
         <url-pattern>/lecturerDeleteExam</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>removeQuestionExam</servlet-name>
-        <url-pattern>/removeQuestionExam</url-pattern>
+        <servlet-name>lecturerAddQuestion</servlet-name>
+        <url-pattern>/lecturerAddQuestion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>updateQuestion</servlet-name>
-        <url-pattern>/updateQuestion</url-pattern>
+        <servlet-name>lecturerRemoveQuestionExam</servlet-name>
+        <url-pattern>/lecturerRemoveQuestionExam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerViewClassList</servlet-name>
+        <url-pattern>/managerViewClassList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerViewLecturer</servlet-name>
+        <url-pattern>/managerViewLecturer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerAddClass</servlet-name>
+        <url-pattern>/managerAddClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerDeleteClass</servlet-name>
+        <url-pattern>/managerDeleteClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerDeleteCourse</servlet-name>
+        <url-pattern>/managerDeleteCourse</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerDeleteLecturer</servlet-name>
+        <url-pattern>/managerDeleteLecturer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerDeleteStudent</servlet-name>
+        <url-pattern>/managerDeleteStudent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerUpdateQuestion</servlet-name>
+        <url-pattern>/lecturerUpdateQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoQuiz</servlet-name>
+        <url-pattern>/doQuiz</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

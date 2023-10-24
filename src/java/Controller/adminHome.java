@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.Enumeration;
 import java.util.List;
 
 /**
@@ -41,7 +42,7 @@ public class adminHome extends HttpServlet {
             out.println("<title>Servlet admin</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet admin at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet admin at " + request.getParameter("editMess") + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,13 +59,60 @@ public class adminHome extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-//        processRequest(request, response);
-//        HttpSession session = request.getSession();
-           DAO dao = new DAO();
-           List<Account> listA = dao.getAllAcount();
-           request.setAttribute("listA", listA);
-           request.getRequestDispatcher("admin-Homepage.jsp").forward(request, response);
+            throws ServletException, IOException 
+    {
+        response.setContentType("text/html;charset=UTF-8");
+        //block check if user have logged in, if not then return to index
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        //check active status
+        Account user = (Account)session.getAttribute("user");
+        if(user.getStatus()==0)
+            {
+                session.removeAttribute("user");
+                request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
+        //check user's authority by role
+        if(user.getRoleID()!=0)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
+        
+////test session block//////////////////////////////////////////////////////////////
+//try (PrintWriter out = response.getWriter()) 
+//{
+//out.println("<!DOCTYPE html>");
+//out.println("<html>");
+//out.println("<head>");
+//out.println("<title>SessionDetail</title>");  
+//out.println("</head>");
+//out.println("<body>");
+//out.print("<h1>SessionId: "+session.getId()+ "</h1>");
+//Enumeration enu = session.getAttributeNames();
+//while(enu.hasMoreElements())
+//{
+//    String key = enu.nextElement() + "";
+//    Object value = session.getAttribute(key);
+//    out.print("<h1> Attribute name = "+key+" : value = "+value);
+//    out.print("<h2> Object:" +((Account)session.getAttribute("user")).getEmail()
+//            +"role: " +((Account)session.getAttribute("user")).getRoleID()
+//            +"</h2>");
+//}
+//out.println("</body>");
+//out.println("</html>");
+//}
+////////////////////////////////////////////////////////////////////////////////////
+           
+            session.removeAttribute("targetAccount");
+            DAO dao = new DAO();
+            List<Account> listA = dao.getAllAcount();
+            request.setAttribute("listA", listA);
+            request.getRequestDispatcher("admin-Homepage.jsp").forward(request, response);
         
     }
 

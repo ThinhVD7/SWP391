@@ -37,41 +37,41 @@
             .card-title {
                 text-decoration: none;
             }
-
-            /* Main container */
-            .main-container
+            
+         /* Main container */
+            .main-container 
             {
-                /*            display: flex;*/
-                /*            justify-content: space-between;*/
-                padding: 20px;
-                flex:1;
-                background-color: #fff;
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                padding: 15px;
-                margin-left: 30px;
-                margin-right: 30px;
-                /*margin-top: 30px;*/
-                overflow: hidden;
-                /*margin-bottom: 30px;*/
+/*            display: flex;*/
+/*            justify-content: space-between;*/
+            padding: 20px;
+            flex:1;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-left: 30px;
+            margin-right: 30px;
+            /*margin-top: 30px;*/
+            overflow: hidden;
+            /*margin-bottom: 30px;*/
             }
-
-            .class-detail
+            
+            .class-detail 
             {
                 flex:1;
-                background-color: #fff;
-                border-radius: 10px;
-                /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);*/
-                padding: 10px;
-                margin-left: 30px;
-                margin-right: 30px;
-                margin-top: 30px;
-                display: flex;
-                overflow: hidden;
+            background-color: #fff;
+            border-radius: 10px;
+            /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);*/
+            padding: 10px;
+            margin-left: 30px;
+            margin-right: 30px;
+            margin-top: 30px;
+            display: flex;
+            overflow: hidden;
             }
-
+            
             /* Left div (list of exams) */
-            .left-div
+            .left-div 
             {
                 flex: 1;
                 padding: 10px;
@@ -79,18 +79,19 @@
                 /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);*/
                 /*border: 2px solid #ccc;*/
                 margin-right: 10px;
-                /*                height: 540px;
-                                overflow: auto;*/
+/*                height: 540px;
+                overflow: auto;*/
                 /*width: 50%;*/
                 /*display:block;*/
-
+                
             }
-            .exam-list
+            .exam-list 
             {
                 flex: 1;
                 padding: 10px;
                 border-radius: 10px;
                 /*border: 2px solid #ccc;*/
+                margin-top: 10px;
                 margin-right: 10px;
                 height: 540px;
                 overflow: auto;
@@ -98,7 +99,7 @@
                 /*display:block;*/
             }
 
-            .right-div
+            .right-div 
             {
                 /*flex: 1;*/
                 padding: 15px;
@@ -110,10 +111,11 @@
                 /*display:block;*/
             }
 
-            .exam-container
+            .exam-container 
             {
                 flex:1;
                 margin-bottom: 20px;
+                margin-top: 30px;
                 background-color: #fff;
                 border-radius: 10px;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
@@ -126,9 +128,9 @@
             {
                 background-color: #f5f5f5;
             }
-
-
-            .info-container
+            
+        
+            .info-container 
             {
                 position: relative;
                 top: 20px;
@@ -139,31 +141,13 @@
                 box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
                 overflow: hidden;
             }
-            .add-exam-button {
-                background-color: #299be4;
-                color: #fff;
-                border: 2px solid #ccc;
-                border-radius: 5px;
-                padding: 10px 20px;
-                font-size: 16px;
-                cursor: pointer;
-                margin-top: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-                align-self: center;
-                margin-top: auto;
-                position: static;
-                bottom: 10px;
-                right: 30%;
-            }
-            .add-exam-button:hover{
-                background-color: #0073e6;
-            }
-            .edit-exam-button
+        
+            .edit-exam-button 
             {
                 /*position: static;*/
                 background-color: #299be4;
                 color: #fff;
-                border: 2px solid #ccc;
+                 border: 2px solid #ccc;
                 border-radius: 5px;
                 padding: 10px 20px;
                 font-size: 16px;
@@ -177,62 +161,62 @@
                 right: 30%;
             }
             .edit-exam-button:hover{
-                background-color: #0073e6;
-            }
+            background-color: #0073e6;
+        }
 
 
-            .bottom-right-p {
-                position: absolute;
-                bottom: 0;
-                right: 0;
-                margin: 0;
-            }
+        .bottom-right-p {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            margin: 0;
+        }
+        
+        .popup-button {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            top: 3%;
+            right:5%;
+        }
+        
+        .popup-button:hover{
+            background-color: #0073e6;
+        }
+        
+        /* Style for the pop-up */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
+            backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
+            z-index: 1;
+        }
 
-            .popup-button {
-                background-color: #299be4;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                padding: 5px 10px;
-                font-size: 20px;
-                cursor: pointer;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-                position: fixed;
-                top: 3%;
-                right:5%;
-            }
-
-            .popup-button:hover{
-                background-color: #0073e6;
-            }
-
-            /* Style for the pop-up */
-            .overlay {
-                display: none;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0, 0, 0, 0); /* Semi-transparent black background */
-                backdrop-filter: blur(4px); /* Adjust the blur intensity as needed */
-                z-index: 1;
-            }
-
-            /* Style for the clear pop-up container */
-            .popup-container {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #fff;
-                border-radius: 10px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                padding: 15px;
-                z-index: 2;
-            }
-
-            .table-responsive {
+        /* Style for the clear pop-up container */
+        .popup-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            z-index: 2;
+        }
+        
+        .table-responsive {
                 margin: 30px 0;
             }
             .table-wrapper {
@@ -353,10 +337,30 @@
             .text-danger {
                 color: #ff5b5b;
             }
-
-
+            
+            .add-exam-button {
+                background-color: #299be4;
+                color: #fff;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-bottom: 500px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+                align-self: center;
+                /*margin-top: auto;*/
+                position: static;
+                top: 150px;
+                right: 600px;
+            }
+            .add-exam-button:hover{
+                background-color: #0073e6;
+            }
+        
+            
         </style>
-    </head>
+</head>
     <body>
         <section class="sidebar">
             <div class="nav-header">
@@ -391,7 +395,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-
+                
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -404,172 +408,186 @@
         <section class="home">
             <div><br></div>
 
-            <!--            <div class="row pt-2">
-                            <div class="col-md-9 ml-2">
-                                <div class="input-group rounded">
-                                    <form class="nosubmit">
-                                        <input class="nosubmit" type="search" placeholder="Search">
-                                    </form>
-                                </div>
-                            </div>
+<!--            <div class="row pt-2">
+                <div class="col-md-9 ml-2">
+                    <div class="input-group rounded">
+                        <form class="nosubmit">
+                            <input class="nosubmit" type="search" placeholder="Search">
+                        </form>
+                    </div>
+                </div>
+
+                <div class="col-md-2 ml-auto">
+                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                </div>
+            </div>-->
+
             
-                            <div class="col-md-2 ml-auto">
-                                <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+<!--            <div class="class-list">
+                <c:forEach items="${requestScope.classList}" var="c">
+                    <div class="class-containder">
+                        <a style="text-decoration: none;"  href="#"> 
+                        <h3>${c.className}</h3>
+                    </div>
+                    </div>
+                </c:forEach>
+            </div>-->
+
+
+
+    <div class="main-container">
+<!--pop up start----------------------------------------------------------------------------------------------->
+<!-- Blurred overlay -->
+        <div id="overlay" class="overlay"></div>
+        <div id="viewStudentListPopup" class="overlay" onclick="closePopup()">
+            <div class="popup-container" onclick="event.stopPropagation();">
+                <h2>Student List</h2>
+                <button class ="popup-button" onclick="closePopup()">Close</button>
+                    
+    
+        <div class="container-xl">
+            <div class="table-responsive">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <div class="row">
+                            <div class="col-sm-5">
+                                <h2> <b>${sessionScope.sessionThisClass.className}</b></h2>
                             </div>
-                        </div>-->
-
-
-            <!--            <div class="class-list">
-            <c:forEach items="${requestScope.classList}" var="c">
-                <div class="class-containder">
-                    <a style="text-decoration: none;"  href="#"> 
-                    <h3>${c.className}</h3>
-                </div>
-                </div>
-            </c:forEach>
-        </div>-->
-
-
-
-            <div class="main-container">
-                <!--pop up start----------------------------------------------------------------------------------------------->
-                <!-- Blurred overlay -->
-                <div id="overlay" class="overlay"></div>
-                <div id="classEditPopup" class="overlay" onclick="closePopup()">
-                    <div class="popup-container" onclick="event.stopPropagation();">
-                        <h2>Student List</h2>
-                        <button class ="popup-button" onclick="closePopup()">Close</button>
-
-
-                        <div class="container-xl">
-                            <div class="table-responsive">
-                                <div class="table-wrapper">
-                                    <div class="table-title">
-                                        <div class="row">
-                                            <div class="col-sm-5">
-                                                <h2> <b>${sessionScope.sessionThisClass.className}</b></h2>
-                                            </div>
-                                            <div class="col-sm-7">
-                                                <!--                                <a href="managerAssignLecturer" class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"> <span>Submit</span></a>
-                                                -->
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <table class="table table-striped table-hover">
-                                        <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>ID</th>						
-                                                <th>Name</th>
-                                                <th>Email</th>
-                                                <th>View Profile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <c:forEach var="i" begin="1" end="30" step="1">
-                                                <!--                            <tr>
-                                                                                <td>${i}</td>
-                                                                                <td><a href="#">ThanhDT59</a></td>
-                                                                                <td>Do Tien Thanh</td>                        
-                                                                                <td>thanhdt59@fe.edu.vn </td>
-                                                                                <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                                                                            </tr>-->
-                                            </c:forEach>
-                                            <c:forEach items = "${requestScope.studentList}" var="student" varStatus="x">
-                                                <tr>
-                                                    <td>${x.count}</td>
-                                                    <td><a href="#">${student.accountID}</a></td>
-                                                    <td>${student.name}</td>                        
-                                                    <td>${student.email}</td>
-                                                    <td><a href="studentProfile?studentID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
-                                                </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="col-sm-7">
+<!--                                <a href="managerAssignLecturer" class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"> <span>Submit</span></a>
+                                -->
                             </div>
                         </div>
-
-                        <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
-                        <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
                     </div>
-                </div>
-                <!--pop up end------------------------------------------------------------------------------------------------->
-
-                <div style="font-size: 36px; margin-bottom: 10px;">
-                    ${sessionScope.sessionPageTitle}
-                </div>
-                <div>
-                    <a style ="padding: 5px;"
-                       href="home">Home</a> / 
-                    <a style ="padding: 5px;" 
-                       href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
-                    <a style ="padding: 5px;" 
-                       href="#">${sessionScope.sessionThisClass.className}</a>
-                </div>
-
-                <div class ="class-detail" >
-
-                    <!--            <div>
-                                    <a style ="padding:5px;">
-                                        
-                                </div>-->
-                    <!-- Right div (Class information) -->
-
-                    <div class="left-div">
-                        <h2>Exam</h2>
-                        <div class ="exam-list">
-                            <c:forEach items = "${requestScope.examList}" var="exam">
-                                <div class="exam-container">
-
-                                    <h3>${exam.examName}</h3>
-
-                                    <br>
-
-                                    Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
-                                    <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
-                                        Click to view details
-                                    </a>
-                                    <div class="float-right">
-                                        <a class="delete" onclick="confirmDelete(${exam.examID})" title="Delete" data-toggle="tooltip">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                        </a>
-                                    </div>
-                                </div>
+                    <table class="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ID</th>						
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>View Profile</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach var="i" begin="1" end="30" step="1">
+<!--                            <tr>
+                                <td>${i}</td>
+                                <td><a href="#">ThanhDT59</a></td>
+                                <td>Do Tien Thanh</td>                        
+                                <td>thanhdt59@fe.edu.vn </td>
+                                <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
+                            </tr>-->
                             </c:forEach>
-                            <a style="text-decoration: none;color: white" href="AddNewExam" class="add-exam-button" value="">Add Exam</a>
-
-                        </div>
-                    </div>
-                    <div class="right-div">
-                        <!-- Information container (fixed position) -->
-                        <div class="info-container">
-                            <a style="font-size: 24px; font-style: inherit"></a>
-                            <h2>Class Information</h2>
-                            <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
-                            <p>Lecturer: ${sessionScope.user.name}</p><br>
-                            <p>Email: ${sessionScope.user.email}</p><br>
-                            <br><br>
-                            <!--                <form action="action"> -->
-                            <button class="edit-exam-button" onclick="openPopup('SE1732')">View Students</button>
-                            <!--                </form>-->
-                        </div>
-                    </div>
-
-
-
-
+                            <c:forEach items = "${requestScope.studentList}" var="student" varStatus="x">
+                            <tr>
+                                <td>${x.count}</td>
+                                <td><a href="#">${student.accountID}</a></td>
+                                <td>${student.name}</td>                        
+                                <td>${student.email}</td>
+                                <td><a href="viewProfileFromList?targetID=${student.accountID}"> <i class='bx bxs-user-account'></i> </td>
+                            </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+        
+                <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
+<!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
+            </div>
+        </div>
+<!--pop up end------------------------------------------------------------------------------------------------->
+
+        <div style="font-size: 36px; margin-bottom: 10px;">
+                ${sessionScope.sessionPageTitle}
+        </div>
+        <div>
+            <a style ="padding: 5px;"
+                href="home">Home</a> / 
+                <a style ="padding: 5px;" 
+                   href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
+                    <a style ="padding: 5px;" 
+                       href="#">${sessionScope.sessionThisClass.className}</a>
+        </div>
+
+        <div class ="class-detail" >
+            
+<!--            <div>
+                <a style ="padding:5px;">
+                    
+            </div>-->
+             <!-- Right div (Class information) -->
+        
+        <div class="left-div">
+            
+                
+            <h2>Exam</h2>
+            
+            <div class ="exam-list">
+                <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
+                
+                <c:forEach items = "${requestScope.examList}" var="exam">
+                    <div class="exam-container">
+                    <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
+                        <h3>${exam.examName}</h3>
+                        <br>
+                        Start Date: ${requestScope.examStartDate[exam.examID]} to ${requestScope.examEndDate[exam.examID]}<br>
+                        Click to view details
+                    </a>
+                        <div class="float-right" style= ${requestScope.deleteNotAllowMap[exam.examID]?"display:none":""}>
+                        <a class="delete" onclick="confirmDelete(${exam.examID})" title="Delete" data-toggle="tooltip">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    </div>
+            </div>
+                </c:forEach>
+                
+            
+
+<!--            <div class="exam-container">
+                <a style="text-decoration: none;"  href="#"> 
+                <h3>Final Trial</h3>
+                <br>
+                Start Date: 16/10/2023 to 21/10/2023<br>
+                Click to view details
+            </div>-->
+        </div>
+            
+            
+           
+            
+        </div>
+             <div class="right-div">
+            <!-- Information container (fixed position) -->
+            <div class="info-container">
+                <a style="font-size: 24px; font-style: inherit"></a>
+                <h2>Class Information</h2>
+                <p>Start Date: ${sessionThisCourse.startDate} to ${sessionThisCourse.endDate}</p><br>
+                <p>Lecturer: ${requestScope.lecturer.name}</p><br>
+                <p>Email: ${requestScope.lecturer.email}</p><br>
+                <br><br>
+<!--                <form action="action"> -->
+                    <button class="edit-exam-button" onclick="openPopup()">View Students</button>
+<!--                </form>-->
+            </div>
+        </div>
+        
+       
+
+            
+        </div>
+    </div>
 
 
-
+             
         </section>
 
         <script>
             // Function to open the edit class name pop-up
-            function openPopup(className) {
-                const overlay = document.getElementById('classEditPopup');
+            function openPopup() {
+                const overlay = document.getElementById('viewStudentListPopup');
 //                const newClassNameInput = document.getElementById('newClassName');
 //                newClassNameInput.value = className;
                 overlay.style.display = 'block';
@@ -577,7 +595,7 @@
 
             // Function to close the pop-up
             function closePopup() {
-                const overlay = document.getElementById('classEditPopup');
+                const overlay = document.getElementById('viewStudentListPopup');
                 overlay.style.display = 'none';
             }
 
@@ -592,7 +610,7 @@
                 // Close the pop-up
                 closePopup();
             }
-
+            
             const btn_menu = document.querySelector(".btn-menu");
             const side_bar = document.querySelector(".sidebar");
 
@@ -606,6 +624,27 @@
                     btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
                 } else {
                     btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                }
+            }
+            
+            function confirmDelete(examID) {
+                var confirmDelete = confirm("Are you sure you want to delete this exam?");
+                if (confirmDelete) {
+                    // Make an AJAX request to delete the exam
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "lecturerDeleteExam?examID=" + examID, true);
+
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState === 4 && xhr.status === 200) {
+                            // Handle the response from the servlet
+                            var response = xhr.responseText;
+                            alert("Exam with ID " + examID + " deleted.");
+                            location.reload();
+                        }
+                    };
+
+                    // Send the request
+                    xhr.send();
                 }
             }
 
@@ -635,31 +674,7 @@
                     localStorage.setItem("theme", "light");
                 }
             });
-
-
-
-            function confirmDelete(examID) {
-                var confirmDelete = confirm("Are you sure you want to delete this exam?");
-                if (confirmDelete) {
-                    // Make an AJAX request to delete the exam
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "lecturerDeleteExam?examID=" + examID, true);
-
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4 && xhr.status === 200) {
-                            // Handle the response from the servlet
-                            var response = xhr.responseText;
-                            alert("Exam with ID " + examID + " deleted.");
-                            location.reload();
-                        }
-                    };
-
-                    // Send the request
-                    xhr.send();
-                }
-            }
-
-
+            
         </script>
     </body>
 </html>

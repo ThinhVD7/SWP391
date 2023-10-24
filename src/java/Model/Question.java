@@ -1,17 +1,32 @@
 package Model;
 
-public class Question {
 
+public class Question {
     private String questionID;
     private String title;
     private String content;
     private String type;
+    private String choices;
+    private String choicePercentages;
+    private int answer;
     private int shuffleChoices;
     private float mark;
 
     public Question() {
     }
 
+    public Question(String questionID, String title, String content, String type, String choices, String choicePercentages, int answer, int shuffleChoices, float mark) {
+        this.questionID = questionID;
+        this.title = title;
+        this.content = content;
+        this.type = type;
+        this.choices = choices;
+        this.choicePercentages = choicePercentages;
+        this.answer = answer;
+        this.shuffleChoices = shuffleChoices;
+        this.mark = mark;
+    }
+    
     public Question(String questionID, String title, String content, String type, int shuffleChoices, float mark) {
         this.questionID = questionID;
         this.title = title;
@@ -53,6 +68,30 @@ public class Question {
         this.type = type;
     }
 
+    public String getChoices() {
+        return choices;
+    }
+
+    public void setChoices(String choices) {
+        this.choices = choices;
+    }
+
+    public String getChoicePercentages() {
+        return choicePercentages;
+    }
+
+    public void setChoicePercentages(String choicePercentages) {
+        this.choicePercentages = choicePercentages;
+    }
+
+    public int getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(int answer) {
+        this.answer = answer;
+    }
+
     public int getShuffleChoices() {
         return shuffleChoices;
     }
@@ -68,5 +107,4 @@ public class Question {
     public void setMark(float mark) {
         this.mark = mark;
     }
-
 }

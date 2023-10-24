@@ -83,7 +83,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-
+                
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -109,7 +109,7 @@
                 </div>
             </div>
 
-
+            
             <div class="container-fluid mt-3">
                 <div class="row mt-5">
 
@@ -122,7 +122,7 @@
                                     <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
                                     <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6>  
                                     <a href="lecturerClasslist?courseID=${c.courseID}" class="card-link">Enter course</a>
-
+                                    
                                 </div>
                             </div>
                         </div>

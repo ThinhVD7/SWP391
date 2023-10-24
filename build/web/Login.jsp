@@ -6,6 +6,11 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -157,7 +162,7 @@ body {
             <button class="btn mt-3">Login</button>
         </form>
         <div class="text-center fs-6">
-            <a href="forget-password.jsp">Forget password?</a> or <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:9999/QuizNew/GoogleLogin&response_type=code
+            <a href="ForgetPassword">Forget password?</a> or <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:9999/QuizNew/GoogleLogin&response_type=code
     &client_id=262459911259-pcp2tvuq27ff6rc1ltgu2h9faahah2l9.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
         </div>
     </div>

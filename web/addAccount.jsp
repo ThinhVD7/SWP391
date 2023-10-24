@@ -3,7 +3,7 @@
     Created on : Sep 28, 2023, 10:51:41 PM
     Author     : tanki
 --%>
-
+<%@page import = "java.util.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@include file="all_component/allCss.jsp" %>
 <!DOCTYPE html>
@@ -13,6 +13,11 @@
         <title>Add New Account</title>
     </head>
     <body>
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
 
 
         <style>
@@ -53,22 +58,22 @@
                                 <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Account Information:</h3>
 
 
-                                <form id="form" action="addAccount" method="post">
+                                <form id="form" action=${sessionScope.targetAccount != null ?"adminEditAccount":"addAccount"} method="post">
 
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
-                                                <input type="text" id="id" class="form-control form-control-lg" name="id" required="" value="${requestScope.id}" />
-                                                <label class="form-label" for="id">ID <p class="text-danger">${idErr}</p></label>
+                                                ID<input type="text" id="id" class="form-control form-control-lg" name="id" required="" value="${requestScope.id}" />
+                                                <label class="form-label" for="id"><p class="text-danger">${idErr}</p></label>
                                             </div>
 
                                         </div>
                                         <div class="col-md-6 mb-4">
 
                                             <div class="form-outline">
-                                                <input type="text" id="name" class="form-control form-control-lg"  name="name" required="" value="${requestScope.name}"/>
-                                                <label class="form-label" for="name">Name <p class="text-danger">${nameErr}</p></label>
+                                                Name<input type="text" id="name" class="form-control form-control-lg"  name="name" required="" value="${requestScope.name}"/>
+                                                <label class="form-label" for="name"><p class="text-danger">${nameErr}</p></label>
                                             </div>
 
                                         </div>
@@ -78,8 +83,8 @@
                                         <div class="col-md-6 mb-4 d-flex align-items-center">
 
                                             <div class="form-outline datepicker w-100">
-                                                <input type="text" class="form-control form-control-lg" id="email" name="email" required="" value="${requestScope.email}" />
-                                                <label for="email" class="form-label">Email <p class="text-danger">${emailErr}</p></label>
+                                                Email<input type="text" class="form-control form-control-lg" id="email" name="email" required="" value="${requestScope.email}" />
+                                                <label for="email" class="form-label"><p class="text-danger">${emailErr}</p></label>
                                             </div>
 
                                         </div>
@@ -89,7 +94,7 @@
 
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gender" id="femaleGender"
-                                                       value="0" checked />
+                                                       value="2" checked />
                                                 <label class="form-check-label" for="femaleGender">Female</label>
                                             </div>
 
@@ -97,6 +102,11 @@
                                                 <input class="form-check-input" type="radio" name="gender" id="maleGender"
                                                        value="1" />
                                                 <label class="form-check-label" for="maleGender">Male</label>
+                                            </div>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="radio" name="gender" id="fluidGender"
+                                                       value="0" checked />
+                                                <label class="form-check-label" for="femaleGender">Others</label>
                                             </div>
 
 
@@ -108,8 +118,8 @@
                                         <div class="col-md-6 mb-4 pb-2">
 
                                             <div class="form-outline">
-                                                <input type="text" id="phoneNumber" class="form-control form-control-lg" name="phno" required="" value="${requestScope.phno}" />
-                                                <label class="form-label" for="phoneNumber">Phone Number <p class="text-danger">${phoneErr}</p> </label>
+                                                Phone Number<input type="text" id="phoneNumber" class="form-control form-control-lg" name="phno" required="" value="${requestScope.phno}" />
+                                                <label class="form-label" for="phoneNumber"><p class="text-danger">${phoneErr}</p> </label>
                                             </div>
 
                                         </div>
@@ -119,7 +129,7 @@
                                                                                             <input type="tel" id="phoneNumber" class="form-control form-control-lg" />
                                                                                             <label class="form-label" for="phoneNumber">Phone Number</label>
                                                                                         </div>-->
-                                            <select class="select form-control-md" name="status">
+                                            Status: <select class="select form-control-md" name="status">
                                                 <option value="" disabled>Status</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
@@ -130,16 +140,16 @@
                                     <div class="row">
                                         <div class="col-12">
 
-                                           Role: <select class="select form-control-md" name="role">
+                                            Role: <select class="select form-control-md" name="role">
                                                 <option value="" disabled>Role</option>
-                                                <option ${requestScope.role == 0 ? "selected":""} value="0">Admin</option>
-                                                <option ${requestScope.role == 1 ? "selected":""} value="1">Manager</option>
-                                                <option ${requestScope.role == 2 ? "selected":""} value="2">Lecturer</option>
-                                                <option ${requestScope.role == 3 ? "selected":""} value="3">Student</option>
+                                                <option value="0">Admin</option>
+                                                <option value="1">Manager</option>
+                                                <option value="2">Lecturer</option>
+                                                <option value="3">Student</option>
 
 
                                             </select>
-                                            <label class="form-label select-label">Role</label>
+                                            <label class="form-label select-label"></label>
 
                                         </div>
                                     </div>

@@ -67,31 +67,32 @@ public class addAccount extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //block check if user have logged in, if not then return to home
+       //block check if user have logged in, if not then return to home
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
         //check active status
-        Account user = (Account) session.getAttribute("user");
-        if (user.getStatus() == 0) {
-            session.removeAttribute("user");
-            request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
-            request.getRequestDispatcher("Login.jsp").forward(request, response);
-        }
+        Account user = (Account)session.getAttribute("user");
+        if(user.getStatus()==0)
+            {
+                session.removeAttribute("user");
+                request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
+                request.getRequestDispatcher("Login.jsp").forward(request, response);
+            }
         //check user's authority by role
-        if (user.getRoleID() != 0) {
+        if(user.getRoleID()!=0)
             request.getRequestDispatcher("pageNotFound").forward(request, response);
-        }
         ////////////////////////////////////////////////////////////////
-
+        
         session.removeAttribute("idErr");
         session.removeAttribute("nameErr");
         session.removeAttribute("phoneErr");
         session.removeAttribute("emailErr");
         request.getRequestDispatcher("addAccount.jsp").forward(request, response);
-
+        
     }
 
     /**
@@ -104,10 +105,12 @@ public class addAccount extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException 
+    {
         //block check if user have logged in, if not then return to home
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
@@ -153,7 +156,7 @@ public class addAccount extends HttpServlet {
 
             int password = Random();
             sendMail(email, password);
-            boolean isAddAccountSucess = dao.addAccount(id, name, email, Integer.toString(password), role1, status1, gender1, phno);
+            boolean isAddAccountSucess = dao.addAccount(id, name, email, DAO.encodeSHA1(String.valueOf(password)), role1, status1, gender1, phno);
             if (isAddAccountSucess) {
                 session.removeAttribute("idErr");
                 session.removeAttribute("nameErr");
