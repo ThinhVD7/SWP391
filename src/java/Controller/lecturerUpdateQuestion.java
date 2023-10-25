@@ -160,9 +160,9 @@ public class lecturerUpdateQuestion extends HttpServlet {
             } else {
                 dao.addChoice(qId, choiceContent[i], choiceScore[i]);
             }
-       
 
         }
+
         Exam e = (Exam) session.getAttribute("exam");
         float newScore = e.getMaxScore() + q.getMark();
         int number = e.getQuestionNumber() + 1;

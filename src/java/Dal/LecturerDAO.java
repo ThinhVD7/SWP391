@@ -532,13 +532,13 @@ public class LecturerDAO extends DBContext {
         }
     }
 
-    public void deleteChoiceQuestion(String choiceId) {
+    public void deleteChoiceQuestion(String qId) {
         String sql = "";
         try {
             sql = "delete from choicesofquestion where Choice_ID = ?";
             PreparedStatement ps = connector.prepareStatement(sql);
             ps = connector.prepareStatement(sql);
-            ps.setString(1, choiceId);
+            ps.setString(1, qId);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);

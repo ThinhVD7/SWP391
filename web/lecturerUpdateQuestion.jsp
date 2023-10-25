@@ -494,7 +494,7 @@
                                                 // Create a new div element for the new field
                                                 var newDiv = document.createElement('div');
                                                 newDiv.className = 'form-inline';
-                                                newDiv.data
+
 
                                                 // Generate the new name and id attributes
                                                 var newName = `` + newCount + `_survey_options[]`;
@@ -543,7 +543,7 @@
                                                         removeChoiceFromDatabase(choiceId);
                                                         container.removeChild(fieldToRemove);
                                                         count--; // Decrease the count
-
+                                                   
                                                         // Update the hidden input value with the new count
                                                         hiddenInput.value = count;
                                                     }
