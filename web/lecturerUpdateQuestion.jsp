@@ -390,7 +390,7 @@
                                             <div id="container">
 
                                                 <c:forEach items="${requestScope.listChoice}" var="c" varStatus="index">
-                                                    <div class="row mt-3">
+                                                    <div class="form-inline">
                                                         <input type="hidden" name="${index.index}_choiceId" value="${c.choiceId}">
                                                         <div class="form-group col-sm-7 index">
                                                             <input type="text" name="${index.index}_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="" value="${c.choiceContent}">
@@ -415,9 +415,16 @@
 
                                                             </select>
                                                         </div>
+                                                        <div class="form-group col-sm-1">
+                                                            <a style="cursor: pointer" id="remove_fields" class="remove-field" data-id="${count}" data-choice-id="${c.choiceId}"><i class="fa fa-minus"></i>Remove</a>
+                                                        </div>
                                                     </div>
                                                 </c:forEach>
 
+                                            </div>
+                                            <div class="controls">
+                                                <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                                <!--<a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>-->
                                             </div>
 
                                         </div>
@@ -466,77 +473,104 @@
                                             }
                                         });
 
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var container = document.getElementById("container");
+                                            var hiddenInput = document.getElementById("hiddenInput");
+                                            var count = ${requestScope.listChoice.size()}; // Initialize count based on the existing elements
 
+                                            if (container) {
+                                                // Update the count based on the number of rows
+                                                count = container.getElementsByClassName("form-inline").length;
 
-                                        var count = 0;
-                                        document.getElementById('add_more_fields').addEventListener('click', function (event) {
-                                            event.preventDefault();
-                                            var x = document.getElementById('questionType');
-                                            var container = document.getElementById('container');
-
-                                            // Create a new div element
-                                            var newDiv = document.createElement('div');
-                                            newDiv.className = 'form-inline count';
-
-                                            // Generate a unique ID for the new div
-                                            newDiv.id = count;
-
-
-                                            // Define the default options for the count_score select
-                                            var countScoreOptions = `
-       <option value="0">0</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option value="40">40</option>
-        <option value="50">50</option>
-        <option value="60">60</option>
-        <option value="70">70</option>
-        <option value="80">80</option>
-        <option value="90">90</option>
-        <option value="100">100</option>
-    `;
-
-                                            // Add the HTML content to the new div
-                                            newDiv.innerHTML = `
-        <div class="form-group col-sm-7 index">
-            <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
-        </div>
-        <div class="form-group col-sm-3">
-        Score Percentage:
-            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score">
-        
-            ` + countScoreOptions + `
-            </select>
-        </div>
-  
-    `;
-
-                                            // Append the new div to the container
-                                            container.appendChild(newDiv);
-                                            count = container.children.length;
-
-                                            var hiddenInput = document.getElementById('hiddenInput');
-                                            hiddenInput.value = count;
-
-
-                                        });
-
-                                        document.getElementById('remove_fields').addEventListener('click', function () {
-                                            var container = document.getElementById('container');
-                                            // Get the last added div in the container
-                                            var lastDiv = container.lastChild;
-                                            // Check if the last div exists and remove it
-                                            if (lastDiv) {
-                                                container.removeChild(lastDiv);
-                                                // Update the count based on the number of newDivs in the container
-                                                count = container.children.length;
-
-                                                // Update the hidden input value with the count
-                                                var hiddenInput = document.getElementById('hiddenInput');
+                                                // Set the value of the hidden input field to the count
                                                 hiddenInput.value = count;
                                             }
+
+                                            document.getElementById('add_more_fields').addEventListener('click', function (event) {
+                                                event.preventDefault();
+                                                var container = document.getElementById('container');
+                                                var newCount = count++;
+
+                                                // Create a new div element for the new field
+                                                var newDiv = document.createElement('div');
+                                                newDiv.className = 'form-inline';
+                                                newDiv.data
+
+                                                // Generate the new name and id attributes
+                                                var newName = `` + newCount + `_survey_options[]`;
+                                                var newId = `` + newCount + `_score`;
+
+                                                // Add the HTML content for the new field
+                                                newDiv.innerHTML = `
+                <input type="hidden" name="` + newCount + `_choiceId" value="">
+                <div class="form-group col-sm-7 index">
+                    <input type="text" name="` + newCount + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="" value="">
+                </div>
+                <div class="form-group col-sm-3">
+                    Score Percentage:
+                    <select name="` + newCount + `_score" class="survey_options ml-3" id="` + newCount + `_score">
+                        <option value="0">0</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                        <option value="100">100</option>
+                    </select>
+                </div>
+                <div class="form-group col-sm-1">
+                    <a style="cursor: pointer" class="remove-field" data-id="` + newCount + `" data-choice-id="${c.choiceId}"><i class="fa fa-minus"></i>Remove</a>
+                </div>
+            `;
+
+                                                // Append the new field to the container
+                                                container.appendChild(newDiv);
+
+                                                // Update the hidden input value with the new count
+                                                hiddenInput.value = count;
+                                            });
+
+                                            // Attach an event listener to handle field removal
+                                            container.addEventListener('click', function (event) {
+                                                if (event.target.classList.contains('remove-field')) {
+                                                    var fieldToRemove = event.target.closest('.form-inline');
+                                                    if (fieldToRemove) {
+                                                        var choiceId = event.target.getAttribute('data-choice-id');
+                                                        removeChoiceFromDatabase(choiceId);
+                                                        container.removeChild(fieldToRemove);
+                                                        count--; // Decrease the count
+
+                                                        // Update the hidden input value with the new count
+                                                        hiddenInput.value = count;
+                                                    }
+                                                }
+                                            });
                                         });
+
+
+
+                                        function removeChoiceFromDatabase(choiceId) {
+
+                                            var xhr = new XMLHttpRequest();
+                                            xhr.open('POST', 'removeChoice?choiceId=' + choiceId, true); // Replace '/removeChoice' with your actual server endpoint
+                                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                            xhr.onload = function () {
+                                                if (xhr.status === 200) {
+                                                    location.reload();
+                                                    // The choice was successfully removed from the database
+                                                } else {
+                                                    // Handle errors here, e.g., show an error message
+                                                    console.error('Error:', xhr.statusText);
+                                                }
+                                            };
+                                            xhr.send(); // Send the choiceId as a POST parameter
+                                        }
+
+
 
                                         function validateScores() {
                                             var totalPercentage = 0;

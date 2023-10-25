@@ -162,6 +162,10 @@
         <servlet-name>DoQuiz</servlet-name>
         <servlet-class>Controller.DoQuiz</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>lecturerRemoveChoice</servlet-name>
+        <servlet-class>Controller.lecturerRemoveChoice</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -313,6 +317,10 @@
     <servlet-mapping>
         <servlet-name>DoQuiz</servlet-name>
         <url-pattern>/doQuiz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerRemoveChoice</servlet-name>
+        <url-pattern>/removeChoice</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

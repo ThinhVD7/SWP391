@@ -107,7 +107,6 @@ public class lecturerUpdateQuestion extends HttpServlet {
         String mark = request.getParameter("mark");
 
         dao.updateQuestion(qId, title, content, type, Float.parseFloat(mark));
-        
 
         String rCount = request.getParameter("newDivCount");
         int count = Integer.parseInt(rCount);
@@ -115,23 +114,53 @@ public class lecturerUpdateQuestion extends HttpServlet {
         String[] choiceContent = new String[count];
         String[] choiceScore = new String[count];
         String[] choiceId = new String[count];
+        int in = 0;
+        while (in < count) {
+            String surveyOptionsParam = request.getParameter(in + "_survey_options[]");
+            String scoreParam = request.getParameter(in + "_score");
+            String choiceIdParam = request.getParameter(in + "_choiceId");
+
+            if (surveyOptionsParam != null && scoreParam != null) {
+                choiceContent[in] = surveyOptionsParam;
+                try {
+                    choiceScore[in] = (scoreParam);
+                } catch (NumberFormatException e) {
+                    // Handle parsing error if needed
+                    // choiceScore[in] will be 0 if parsing fails
+                }
+                if (choiceIdParam != null) {
+                    choiceId[in] = choiceIdParam;
+
+                } else {
+                    choiceId[in] = " ";
+                }
+            } else {
+                // Handle missing parameters or take appropriate action
+            }
+            in++;
+        }
+
+//        for (int i = 0; i < count; i++) {
+//            choiceContent[i] = request.getParameter(i + "_survey_options[]");
+//            choiceScore[i] = request.getParameter(i + "_score");
+//            choiceId[i] = request.getParameter(i + "_choiceId");
+//        }
+        for (int i = 0; i < count; i++) {
+            try {
+                checkScore += Integer.parseInt(choiceScore[i]);
+            } catch (NumberFormatException e) {
+                // Handle parsing error, e.g., set a default value or show an error message.
+            }
+        }
+        List<ChoiceQuestion> listChoice = dao.getChoiceOfQuestion(qId);
 
         for (int i = 0; i < count; i++) {
-            choiceContent[i] = request.getParameter(i + "_survey_options[]");
-            choiceScore[i] = request.getParameter(i + "_score");
-            choiceId[i] = request.getParameter(i + "_choiceId");
-        }
-        for (int i = 0; i < count; i++) {
-            checkScore += Integer.parseInt(choiceScore[i]);
-        }
-
-        for (int i = 0; i < count; i++) {
-            dao.updateChoice(qId, choiceContent[i], choiceScore[i], choiceId[i]);
-//            if (!dao.updateChoice(qId, choiceContent[i], choiceScore[i], choiceId[i]) || checkScore > 100) {
-////                    request.setAttribute("err", "ERROR, Try again!");
-//                response.sendRedirect("updateQuestion?questionId=" + qId);
-//
-//            }
+            if (!choiceId[i].isEmpty()) {
+                dao.updateChoice(qId, choiceContent[i], choiceScore[i], choiceId[i]);
+            } else {
+                dao.addChoice(qId, choiceContent[i], choiceScore[i]);
+            }
+       
 
         }
         Exam e = (Exam) session.getAttribute("exam");

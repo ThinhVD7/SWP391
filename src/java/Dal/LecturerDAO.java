@@ -18,8 +18,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-public class LecturerDAO extends DBContext{
-    
+
+public class LecturerDAO extends DBContext {
+
     Connection connector;
     public List<Account> accountList = new ArrayList<>();
     public List<Student> studentList = new ArrayList<>();
@@ -33,325 +34,258 @@ public class LecturerDAO extends DBContext{
     private String status = "yes";
     public String test;
 
-    public LecturerDAO() 
-    {
-        try 
-        {
+    public LecturerDAO() {
+        try {
             connector = new DBContext().getConnection();
             System.out.println("Connected");
             test = "Connected";
-        } 
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             System.out.println("Not connected");
             test = " Not Connected";
         }
     }
-    
+
 ////student///////////////////////////////////////////////////////////////////////////////////////////////////////
-    public HashMap<String, Course> loadAllStudentCourse(String studentID)
-            {
-                String sql = "select course.Course_ID, course.CourseName, course.Semester, course.StartDate, course.EndDate  from course join class on course.Course_ID = class.Course_ID join studentinwhichclass on studentinwhichclass.Class_ID = class.Class_ID where studentinwhichclass.Student_ID like ?";
-                 try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, studentID);
+    public HashMap<String, Course> loadAllStudentCourse(String studentID) {
+        String sql = "select course.Course_ID, course.CourseName, course.Semester, course.StartDate, course.EndDate  from course join class on course.Course_ID = class.Course_ID join studentinwhichclass on studentinwhichclass.Class_ID = class.Class_ID where studentinwhichclass.Student_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, studentID);
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 courseHashMap.put(rs.getString(1),
-                                         new Course(rs.getString(1), 
-                                         rs.getString(2),
-                                         rs.getString(3), 
-                                         rs.getString(4), 
-                                         rs.getString(5)));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load courses"+ e.getMessage();
-                     }
-                return courseHashMap;
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                courseHashMap.put(rs.getString(1),
+                        new Course(rs.getString(1),
+                                rs.getString(2),
+                                rs.getString(3),
+                                rs.getString(4),
+                                rs.getString(5)));
             }
-    
+        } catch (Exception e) {
+            status = "Error at load courses" + e.getMessage();
+        }
+        return courseHashMap;
+    }
+
 ////student///////////////////////////////////////////////////////////////////////////////////////////////////////    
-    
 ////load single record directly////////////////////////////////////////////////////////////////////////////////////
-    public Course loadACourse(String courseID)
-            {
-                String sql = "SELECT * FROM course where Course_ID like ?";
-                try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, courseID);
+    public Course loadACourse(String courseID) {
+        String sql = "SELECT * FROM course where Course_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, courseID);
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 return new Course(rs.getString(1), 
-                                         rs.getString(2),
-                                         rs.getString(3), 
-                                         rs.getString(4), 
-                                         rs.getString(5));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load a course"+ e.getMessage();
-                     }
-                 return null;
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Course(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5));
             }
-    
-    public Class1 loadAClass(String classID)
-            {
-                String sql = "SELECT * FROM class where Class_ID like ?";
-                try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, classID);
+        } catch (Exception e) {
+            status = "Error at load a course" + e.getMessage();
+        }
+        return null;
+    }
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 return new Class1(rs.getString(1), 
-                                         rs.getString(2),
-                                         rs.getString(3));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load a class"+ e.getMessage();
-                     }
-                 return null;
-            }
-    
-    public Exam loadAExam(String examID)
-            {
-                String sql = "SELECT * FROM exam where Exam_ID like ?";
-                try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, examID);
+    public Class1 loadAClass(String classID) {
+        String sql = "SELECT * FROM class where Class_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classID);
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 return new Exam(rs.getString(1), 
-                                         rs.getString(2), 
-                                         rs.getString(3), 
-                                         rs.getInt(4), 
-                                         rs.getString(5), 
-                                         rs.getString(6), 
-                                         rs.getString(7), 
-                                         rs.getInt(8), 
-                                         rs.getString(9), 
-                                         rs.getFloat(10), 
-                                         rs.getInt(11));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load a exam"+ e.getMessage();
-                     }
-                 return null;
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Class1(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3));
             }
-    
-    public Account loadALecturerofClass(String classID)
-            {
-                String sql = "SELECT account.Account_ID, account.Name, account.Email FROM account join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where Class_ID like ?";
-                try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, classID);
+        } catch (Exception e) {
+            status = "Error at load a class" + e.getMessage();
+        }
+        return null;
+    }
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 return new Account(rs.getString(1), 
-                                         rs.getString(2),
-                                         rs.getString(3),
-                                            "");
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load lecturer of a class"+ e.getMessage();
-                     }
-                return null;
+    public Exam loadAExam(String examID) {
+        String sql = "SELECT * FROM exam where Exam_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, examID);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Exam(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9),
+                        rs.getFloat(10),
+                        rs.getInt(11));
             }
+        } catch (Exception e) {
+            status = "Error at load a exam" + e.getMessage();
+        }
+        return null;
+    }
+
+    public Account loadALecturerofClass(String classID) {
+        String sql = "SELECT account.Account_ID, account.Name, account.Email FROM account join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where Class_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classID);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Account(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        "");
+            }
+        } catch (Exception e) {
+            status = "Error at load lecturer of a class" + e.getMessage();
+        }
+        return null;
+    }
 
 ////load all where////////////////////////////////////////////////////////////////////////////////////    
-    public List<Course> loadAllCourses(String lecturerID)
-             {
-                 String sql = "SELECT * FROM course INNER JOIN (select distinct Course_ID from class join lecturerinwhichclass on class.Class_ID = lecturerinwhichclass.Class_ID where Lecturer_ID = ?) AS Subquery ON course.Course_ID = Subquery.Course_ID";
-                 try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, lecturerID);
+    public List<Course> loadAllCourses(String lecturerID) {
+        String sql = "SELECT * FROM course INNER JOIN (select distinct Course_ID from class join lecturerinwhichclass on class.Class_ID = lecturerinwhichclass.Class_ID where Lecturer_ID = ?) AS Subquery ON course.Course_ID = Subquery.Course_ID";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, lecturerID);
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 courseList.add(new Course(rs.getString(1), 
-                                         rs.getString(2),
-                                         rs.getString(3), 
-                                         rs.getString(4), 
-                                         rs.getString(5)));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load courses"+ e.getMessage();
-                     }
-                 return courseList;
-             }
-    
-    public List<Class1> loadAllClassesofCourse(String lecturerID, String courseID)
-            {
-                List<String> result = new ArrayList();
-                String sql = "SELECT distinct class.Class_ID, class.ClassName, class.Course_ID FROM class join lecturerinwhichclass on lecturerinwhichclass.Lecturer_ID like ? where class.Course_ID like ?";
-                 try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, lecturerID);
-                         ps.setString(2, courseID);
-
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 classList.add(new Class1(rs.getString(1), 
-                                         rs.getString(2), 
-                                         rs.getString(3)));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load classes"+ e.getMessage();
-                     }
-                 return classList;
-                 
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                courseList.add(new Course(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5)));
             }
-    public List<Account> loadStudentListofClass(String classID)
-            {
-                List<String> result = new ArrayList();
-                String sql = "select account.Account_ID, account.Name, account.Email from account join studentinwhichclass on account.Account_ID = studentinwhichclass.Student_ID where studentinwhichclass.Class_ID like ?";
-                 try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, classID);
+        } catch (Exception e) {
+            status = "Error at load courses" + e.getMessage();
+        }
+        return courseList;
+    }
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 accountList.add(new Account(rs.getString(1), rs.getString(2), rs.getString(3), ""));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load studentlist of a class"+ e.getMessage();
-                     }
-                 return accountList;
+    public List<Class1> loadAllClassesofCourse(String lecturerID, String courseID) {
+        List<String> result = new ArrayList();
+        String sql = "SELECT distinct class.Class_ID, class.ClassName, class.Course_ID FROM class join lecturerinwhichclass on lecturerinwhichclass.Lecturer_ID like ? where class.Course_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, lecturerID);
+            ps.setString(2, courseID);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                classList.add(new Class1(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3)));
             }
+        } catch (Exception e) {
+            status = "Error at load classes" + e.getMessage();
+        }
+        return classList;
 
-    public List<Exam> loadAllExamofClass(String classID)
-            {
-                String sql = "SELECT * from exam where Class_ID like ?";
-                try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, classID);
+    }
 
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 examList.add(new Exam(rs.getString(1), 
-                                         rs.getString(2), 
-                                         rs.getString(3), 
-                                         rs.getInt(4), 
-                                         rs.getString(5), 
-                                         rs.getString(6), 
-                                         rs.getString(7), 
-                                         rs.getInt(8), 
-                                         rs.getString(9), 
-                                         rs.getFloat(10), 
-                                         rs.getInt(11)));
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at load exam list"+ e.getMessage();
-                     }
-                 return examList;
-            }    
-    
-    
-    
+    public List<Account> loadStudentListofClass(String classID) {
+        List<String> result = new ArrayList();
+        String sql = "select account.Account_ID, account.Name, account.Email from account join studentinwhichclass on account.Account_ID = studentinwhichclass.Student_ID where studentinwhichclass.Class_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classID);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                accountList.add(new Account(rs.getString(1), rs.getString(2), rs.getString(3), ""));
+            }
+        } catch (Exception e) {
+            status = "Error at load studentlist of a class" + e.getMessage();
+        }
+        return accountList;
+    }
+
+    public List<Exam> loadAllExamofClass(String classID) {
+        String sql = "SELECT * from exam where Class_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classID);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                examList.add(new Exam(rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9),
+                        rs.getFloat(10),
+                        rs.getInt(11)));
+            }
+        } catch (Exception e) {
+            status = "Error at load exam list" + e.getMessage();
+        }
+        return examList;
+    }
+
 ////minor field////////////////////////////////////////////////////////////////////////////////////////////////////
-    public int numberofStudentofClass(String classID)
-            {
-                int count = 0;
-                String sql = "select student.Student_ID from student join studentinwhichclass on studentinwhichclass.Student_ID = student.Student_ID where Class_ID like ?";
-                 try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, classID);
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 count++;
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at number student "+ e.getMessage();
-                     }
-                return count;
+    public int numberofStudentofClass(String classID) {
+        int count = 0;
+        String sql = "select student.Student_ID from student join studentinwhichclass on studentinwhichclass.Student_ID = student.Student_ID where Class_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
             }
-    
-    public int numberofExamofClass(String classID)
-            {
-                int count = 0;
-                String sql = "select Exam_ID from exam where Class_ID like ?";
-                 try
-                     {
-                         PreparedStatement ps = connector.prepareStatement(sql);
-                         ps.setString(1, classID);
-                         ResultSet rs = ps.executeQuery();
-                         while(rs.next())
-                             {
-                                 count++;
-                             }
-                     }
-                 catch(Exception e)
-                     {
-                         status = "Error at number exam "+ e.getMessage();
-                     }
-                return count;
+        } catch (Exception e) {
+            status = "Error at number student " + e.getMessage();
+        }
+        return count;
+    }
+
+    public int numberofExamofClass(String classID) {
+        int count = 0;
+        String sql = "select Exam_ID from exam where Class_ID like ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                count++;
             }
-    
-    public String getStringFormattedDate (String timeLimit_date_dateTime, String input)
-            {
-                String output = "";
-                LocalTime time;
-                if(timeLimit_date_dateTime.equalsIgnoreCase("timeLimit"))
-                    {
-                        time = LocalTime.parse(input);
-                        output+= (time.getHour()==0?"":(time.getHour()+" hour"+(time.getHour()==1?"":"s")));
-                        output+= " "+(time.getMinute()==0?"":(time.getMinute()+" minute"+(time.getMinute()==1?"":"s")));
-                        output+= " "+(time.getSecond()==0?"":(time.getSecond()+" second"+(time.getSecond()==1?"":"s")));
-                    }
-                else if(timeLimit_date_dateTime.equalsIgnoreCase("date"))
-                    {
-                        output = LocalDate.parse(input).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-                    }
-                else if(timeLimit_date_dateTime.equalsIgnoreCase("dateTime"))
-                    {
-                        output = LocalDateTime.parse(input).format(DateTimeFormatter.ofPattern("dd/MM/yyyy H:mm"));
-                    }
-                return output;
-            }
-    
+        } catch (Exception e) {
+            status = "Error at number exam " + e.getMessage();
+        }
+        return count;
+    }
+
+    public String getStringFormattedDate(String timeLimit_date_dateTime, String input) {
+        String output = "";
+        LocalTime time;
+        if (timeLimit_date_dateTime.equalsIgnoreCase("timeLimit")) {
+            time = LocalTime.parse(input);
+            output += (time.getHour() == 0 ? "" : (time.getHour() + " hour" + (time.getHour() == 1 ? "" : "s")));
+            output += " " + (time.getMinute() == 0 ? "" : (time.getMinute() + " minute" + (time.getMinute() == 1 ? "" : "s")));
+            output += " " + (time.getSecond() == 0 ? "" : (time.getSecond() + " second" + (time.getSecond() == 1 ? "" : "s")));
+        } else if (timeLimit_date_dateTime.equalsIgnoreCase("date")) {
+            output = LocalDate.parse(input).format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        } else if (timeLimit_date_dateTime.equalsIgnoreCase("dateTime")) {
+            output = LocalDateTime.parse(input).format(DateTimeFormatter.ofPattern("dd/MM/yyyy H:mm"));
+        }
+        return output;
+    }
+
     public Account getUser(String email) {
         String sql = "select * from account where Email = ?";
         try {
@@ -374,7 +308,7 @@ public class LecturerDAO extends DBContext{
         }
         return null;
     }
-    
+
     ////exam handle///////////////////////////////////////////////////////////////////////////////////////////////
     public boolean addExam(String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
         try {
@@ -432,9 +366,8 @@ public class LecturerDAO extends DBContext{
         }
         return false;
     }
-    
-    public boolean updateExamScore(String examId, String maxScore, String QuestionNumber) 
-    {
+
+    public boolean updateExamScore(String examId, String maxScore, String QuestionNumber) {
         try {
             String sql = "update exam set MaxScore = ?,QuestionNumber = ? where Exam_ID = ?";
 
@@ -487,7 +420,7 @@ public class LecturerDAO extends DBContext{
         }
         return null;
     }
-    
+
     public List<Question> getListQuestionByExamID(String examId) {
         String sql = "SELECT b.* FROM `quiz9.5`.questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
 
@@ -598,12 +531,23 @@ public class LecturerDAO extends DBContext{
             System.out.println(e);
         }
     }
-    
-    public void deleteQuestionExam(String questionId, String examID) 
-    {
+
+    public void deleteChoiceQuestion(String choiceId) {
         String sql = "";
-        try 
-        {
+        try {
+            sql = "delete from choicesofquestion where Choice_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
+            ps.setString(1, choiceId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteQuestionExam(String questionId, String examID) {
+        String sql = "";
+        try {
             sql = "delete from questioninwhichexam where Question_ID = ? and Exam_ID = ?";
             PreparedStatement ps = connector.prepareStatement(sql);
             ps = connector.prepareStatement(sql);
@@ -611,16 +555,14 @@ public class LecturerDAO extends DBContext{
             ps.setString(2, examID);
             ps.executeUpdate();
 
-        } 
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
-    
+
     public Question getAQuestion(String questionID) {
         String sql = "";
-        
+
         try {
             sql = "select * from question where Question_ID = ?";
             PreparedStatement ps = connector.prepareStatement(sql);
@@ -635,7 +577,7 @@ public class LecturerDAO extends DBContext{
         }
         return null;
     }
-    
+
     public List<Class1> getClassByCourseId(String courseId) {
         String sql = "SELECT * FROM class where Course_ID like ?";
         try {
@@ -654,8 +596,7 @@ public class LecturerDAO extends DBContext{
         }
         return classList;
     }
-    
-    
+
     public boolean updateQuestion(String questionId, String Title, String questionContent, String type, float mark) {
         try {
             String sql = "update question set Title = ?,QuestionContent = ?,Type = ?,Mark = ? where Question_ID = ?";
@@ -674,8 +615,8 @@ public class LecturerDAO extends DBContext{
         return false;
 
     }
-    
-        public Question getQuestionById(String qId) {
+
+    public Question getQuestionById(String qId) {
         String sql = "SELECT * FROM question where Question_ID = ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
@@ -707,7 +648,7 @@ public class LecturerDAO extends DBContext{
         }
         return choiceList;
     }
-    
+
     public boolean updateChoice(String Question_ID, String ChoiceContent, String ScorePercentage, String choice_ID) {
         try {
             String sql = "update choicesofquestion set ChoiceContent = ?,ScorePercentage = ? where Question_ID = ? and Choice_ID = ?";
@@ -727,11 +668,9 @@ public class LecturerDAO extends DBContext{
 
     }
 
-        
-    public static void main(String[] args) 
-    {
+    public static void main(String[] args) {
         LecturerDAO dao = new LecturerDAO();
-        
+
 //        //test user
 //        Account acc = dao.getUser("nampthe171400@fpt.edu.vn");
 //        System.out.println(acc.getEmail());
@@ -783,60 +722,57 @@ public class LecturerDAO extends DBContext{
 //        System.out.println(class_examNumber);
         //test getDateFormattedString
 //        System.out.println(dao.getDateforDisplay("date", ));
-
         //parse date
-        String parsetest ="12-23-2023";
+        String parsetest = "12-23-2023";
         LocalDate dateTest1 = LocalDate.parse(parsetest, DateTimeFormatter.ofPattern("MM-dd-yyyy"));
-        System.out.println("dateTest 1:" +dateTest1);
-        LocalDate dateTest = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        System.out.println("dateTest: "+dateTest);
-        
+        System.out.println("dateTest 1:" + dateTest1);
+        LocalDate dateTest = LocalDate.parse(LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        System.out.println("dateTest: " + dateTest);
+
         //parse dateTime
         String dateTimeFormatTest = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
-        System.out.println("dateTimeFormatTest" +dateTimeFormatTest);
+        System.out.println("dateTimeFormatTest" + dateTimeFormatTest);
 //        LocalDateTime dateTime1 = LocalDateTime.parse(dateTimeFormatTest);
         LocalDateTime dateTime = LocalDateTime.now();
         String dateTimeParseTest = dateTime.format(DateTimeFormatter.ISO_DATE_TIME);
-        System.out.println("dateTimeParseTest: "+dateTimeParseTest);
-        System.out.println("dateTime string format: "+dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy H:mm")));
+        System.out.println("dateTimeParseTest: " + dateTimeParseTest);
+        System.out.println("dateTime string format: " + dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy H:mm")));
         //default format
-        System.out.println("Default format of LocalDateTime="+dateTime);
-        System.out.println("this: "+LocalDateTime.parse("2023-12-13T07:09:12"));
+        System.out.println("Default format of LocalDateTime=" + dateTime);
+        System.out.println("this: " + LocalDateTime.parse("2023-12-13T07:09:12"));
         byte y = 9;
         System.out.println(y);
-        
+
         // create a LocalTime Objects 
-        LocalTime time1 = LocalTime.parse("00:45:00.100"); 
+        LocalTime time1 = LocalTime.parse("00:45:00.100");
         LocalTime time2 = LocalTime.parse("00:45:00");
         LocalTime time3 = LocalTime.NOON;
-        System.out.println("time3 "+time3);
-        
-        System.out.println("time1 compare to time2: "+((time1.compareTo(time2)==1)?"Bigger":(time1.compareTo(time2))));
+        System.out.println("time3 " + time3);
+
+        System.out.println("time1 compare to time2: " + ((time1.compareTo(time2) == 1) ? "Bigger" : (time1.compareTo(time2))));
         // create formatter Object 
-        DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME; 
-  
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_TIME;
+
         // apply format 
-        String value = time1.format(formatter); 
-  
+        String value = time1.format(formatter);
+
         // print result 
-        System.out.println("value : "+ value);
-        
+        System.out.println("value : " + value);
+
         //student
         System.out.println(dao.loadAllStudentCourse("dungnt_he_176358").get("MAS291").getCourseName());
-        
-        
+
         LocalDateTime testExamDate = LocalDateTime.parse(dao.getExam("20").getStartDate());
         System.out.println(testExamDate);
         System.out.println(LocalDateTime.now().compareTo(testExamDate));
         LocalDateTime today = LocalDateTime.now();
         Exam exam = dao.getExam("21");
-        
-            if(today.compareTo(LocalDateTime.parse(exam.getStartDate()))>-1&&today.compareTo(LocalDateTime.parse(exam.getEndDate()))<0)
-                {
-                    System.out.println(today.compareTo(LocalDateTime.parse(exam.getStartDate())));
-                    System.out.println(today.compareTo(LocalDateTime.parse(exam.getEndDate())));
-                    System.out.println();
-                }
+
+        if (today.compareTo(LocalDateTime.parse(exam.getStartDate())) > -1 && today.compareTo(LocalDateTime.parse(exam.getEndDate())) < 0) {
+            System.out.println(today.compareTo(LocalDateTime.parse(exam.getStartDate())));
+            System.out.println(today.compareTo(LocalDateTime.parse(exam.getEndDate())));
+            System.out.println();
+        }
     }
-    
+
 }
