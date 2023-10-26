@@ -114,8 +114,8 @@
                     transform: scale(1.05);
                 }
             }
-            
-             /* Style for the pop-up */
+
+            /* Style for the pop-up */
             .popup {
                 position: fixed;
                 top: 50%;
@@ -163,7 +163,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-             
+
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -174,18 +174,18 @@
             </div>
         </section>
         <section class="home">
-            
-        <!--pop up--------------------------------------------------------------------------------------------------->
-            <div class="addCourse" id="deleteCourse" style="display: none;">
-                <div class="popup">
-                    <h3> Delete Course</h3> 
-                    <h6> You clicked delete on accident didn't you?</h6>
-                    <button class="closePopUp" onclick="closeDeletePopUp()" >Yes</button>
-                    <button class="closePopUp" onclick="delCousera()" >No</button>
-                    <button class="closePopUp" onclick="closeDeletePopUp()">Close</button>
-                </div>
-            </div>
 
+            <!--pop up delete course--------------------------------------------------------------------------------------------------->
+            <!--            <div class="addCourse" id="deleteCourse" style="display: none;">
+                            <div class="popup">
+                                <h3> Delete Course</h3> 
+                                <h6> You clicked delete on accident didn't you?</h6>
+                                <button class="closePopUp" onclick="closeDeletePopUp()" >Yes</button>
+                                <button class="closePopUp" onclick="delCousera()" >No</button>
+                                <button class="closePopUp" onclick="closeDeletePopUp()">Close</button>
+                            </div>
+                        </div>-->
+            <!----------------------------------------------------------------------------------------------------->
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
@@ -262,7 +262,7 @@
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
                         <p>End Day</p>
-                        <input type="date" name="courseId" id="endDay" placeholder="course-ID" required="">
+                        <input type="date" name="courseId" id="endDay" placeholder="course-ID" required="" >
                     </div>
                     <button class="closePopUp" onclick="getInfoAddCourse()" type="submit" >Submit</button>
                     <button class="closePopUp" onclick="closePopUp()">Close</button>
@@ -274,9 +274,9 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
 
-                        if('${sessionScope.logPrint}' === '1'){
+                        if ('${sessionScope.logPrint}' === '1') {
                             alert("Id Course này đã tồn tại");
-                        }        
+                        }
 
                         const btn_menu = document.querySelector(".btn-menu");
                         const side_bar = document.querySelector(".sidebar");
@@ -287,7 +287,7 @@
                             side_bar.classList.toggle("expand");
                             changebtn();
                         });
-                        
+
                         function changebtn() {
                             if (side_bar.classList.contains("expand")) {
                                 btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
@@ -295,16 +295,16 @@
                                 btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                             }
                         }
-                        
-                        
+
+
 //                        function openDelete(courseId) {
 //                            const divPopUp = document.querySelector("#deleteCourse");
 //                            const showBtn = document.querySelector("show");
 //                            
 //                            divPopUp.style.display = 'block';
 //                        }
-                        
-                       
+
+
 
                         function openPopUp() {
                             const divPopUp = document.querySelector("#addCourse");
@@ -326,24 +326,44 @@
                         }
 
                         function getInfoAddCourse() {
+
+
                             let courseIdMain = document.getElementById('courseId').value;
                             let courseId = document.getElementById('courseId').value;
                             let courseName = document.getElementById("courseName").value;
                             let semseter = document.getElementById("semseter").value;
-                            let startDay = document.getElementById("startDay").value;
-                            let endDay = document.getElementById("endDay").value;
-
+                            var startDay = document.getElementById("startDay").value;
+                            var endDay = document.getElementById("endDay").value;
                             var today = new Date();
 
-                            if (formatDate(startDay) < formatDate(today)) {
-                                alert("Ngày bắt đầu không hợp lệ");
-                            } else if (formatDate(endDay) < formatDate(startDay)) {
-                                alert("Ngày kết thúc lớn hơn ngày bắt đầu");
-                            } else {
-                                if (status == 1) {
-                                    interacCousera(courseIdMain ,courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'add');
-                                } else if (status == 2) {
-                                    interacCousera(idCourse, courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'update');
+                            let dateStr = "NaN/NaN/NaN";
+
+                            console.log("start day la:");
+
+                            if (isNaN(courseId) === false) {
+                                alert("Bạn chưa nhập course_Id ");
+                            }else if (isNaN(courseName) === false) {
+                                alert("Bạn chưa nhập course Name ");
+                            }else if (isNaN(semseter) === false) {
+                                alert("Bạn chưa nhập semseter ");
+                            }
+                            else if (isNaN(startDay) === false) {
+                                alert("Bạn chưa nhập ngày  bắt đầu");
+                            } else if (isNaN(endDay) === false) {
+                                alert("Bạn chưa nhập ngày kết thúc");
+                                
+                            }
+                            else if (isNaN(endDay)) {
+                                if (formatDate(startDay) < formatDate(today)) {
+                                    alert("Ngày bắt đầu không hợp lệ");
+                                } else if (formatDate(endDay) < formatDate(startDay)) {
+                                    alert("Ngày kết thúc lớn hơn ngày bắt đầu");
+                                } else {
+                                    if (status == 1) {
+                                        interacCousera(courseIdMain, courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'add');
+                                    } else if (status == 2) {
+                                        interacCousera(idCourse, courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'update');
+                                    }
                                 }
                             }
                         }
@@ -389,8 +409,8 @@
 
                                     }
                                 });
-                            } else{
-                                
+                            } else {
+
                             }
 
                         }
@@ -413,10 +433,10 @@
                             document.getElementById('titleCourse').innerHTML = 'Edit Course';
                             document.getElementById("courseId").value = id;
                             document.getElementById("courseName").value = name;
-                            document.getElementById("semseter").value = semester;                      
+                            document.getElementById("semseter").value = semester;
                             status = 2;
                         }
-                        
+
 
                         function closeEdit() {
                             const divPopUp = document.querySelector("#addCourse");

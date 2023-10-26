@@ -631,11 +631,11 @@
 <!--                        <input name="classID" value="${requestScope.classID}" style="display: none"/>
                         <input name="className" value="${requestScope.className}" style="display: none"/>
                         <input name="courseID" value="${requestScope.courseID}" style="display: none"/>-->  
-                        <form action="managerEditClass" method="doGet">
+                        <form action="managerEditClass" method="post">
                             <input name="cid" value="${requestScope.cid}" hidden="">
                             <input name="courseID" value="${requestScope.courseID}" hidden=""/>   
                             <input name="className" type="text" id="newClassName" placeholder="Hello">
-                            <button class ="popup-button" onclick="editClassName()">Save</button>
+                            <button class ="popup-button" onclick="editClassName()" type="submit">Save</button>
                         </form>            
                             <button  class ="popup-button" onclick="closePopup()">Cancel</button>
                     </div>

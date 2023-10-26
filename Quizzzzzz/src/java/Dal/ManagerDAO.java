@@ -317,7 +317,7 @@ public class ManagerDAO extends DBContext {
         }
         return null;
     }
-
+// list lecturer cua 1 class
     public ArrayList<Lecturer> getlecturerByClass(String cID) {
         try {
             ArrayList<Lecturer> list = new ArrayList<Lecturer>();
@@ -363,7 +363,7 @@ public class ManagerDAO extends DBContext {
         }
         return null;
     }
-
+//  list lecturer de add vao class
     public List<Lecturer> getAllCourselecturer() {
         try {
             String strSelect = "select account.Account_ID, account.Name, account.Email from account join lecturer on account.Account_ID = lecturer.Lecturer_ID;";
@@ -438,7 +438,7 @@ public class ManagerDAO extends DBContext {
         }
         return null;
     }
-
+//   add lecturer vao class
     public void insetLecturerIntoClass(String cID, String lID) {
         try {
             String strSelect = "INSERT INTO lecturerinwhichclass (Lecturer_ID, Class_ID) VALUES (?, ?);";
