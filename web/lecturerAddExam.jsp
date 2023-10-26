@@ -328,7 +328,7 @@
             }
 
             .wrapper .tabs ul{
-                width: 1200px;
+                width: 98%;
                 height: 40px;
                 display: flex;
 
@@ -365,7 +365,7 @@
 
             .wrapper .content{
                 padding: 30px;
-                height: 800px;
+                height: 1000px;
                 border-bottom: 6px solid #44c8fe;
                 border-radius: 3px;
             }
@@ -393,7 +393,8 @@
                 --transition: all 0.2s ease;
             }
             #my-form {
-                height: 600px;
+                /*height: 600px;*/
+                /*max-height: 600px;  Set a maximum height for the form */
                 align-content: center;
                 justify-items: center;
             }
@@ -644,53 +645,52 @@
                                         </ul>
                                     </div>
 
-                                    <div class="content">
+                                    <div class="content" id="wrapper-content">
                                         <div class="tab_content tab_1">
                                             <!--<form id="addManually" action="" method="post">-->
 
                                             <form id="my-form" action="lecturerAddQuestion" method="post">
 
-                                                <div class="wrapper">
-                                                    <div class="form-inline">
+                                                <div class="form-inline">
 
-                                                        <div class="form-group col-sm-7">
-                                                            <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="">
-
-                                                        </div>
-                                                        <div class="form-group col-sm-5">
-
-                                                            Question Mark:
-                                                            <input type="number" name="mark" class="survey_options" placeholder="Question mark" min="0" required="">                     
-
-                                                        </div>
+                                                    <div class="form-group col-sm-7">
+                                                        <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="">
 
                                                     </div>
-                                                    <div class="form-inline">
-                                                        <div class="form-group col-sm-7">
-                                                            <input type="text" name="content" class="survey_options" placeholder="Question Content" required="">                     
-                                                        </div>
-                                                        <div class="form-group col-sm-3 mr-4">
+                                                    <div class="form-group col-sm-5">
 
-                                                            Question Type:
-                                                            <select name="questionType" class="survey_options ml-3" id="questionType">
-                                                                <option value="1">Multiple Choice</option>
-                                                                <option value="0">One Choice</option>
-                                                            </select>
-                                                        </div>
-
+                                                        Question Mark:
+                                                        <input type="number" name="mark" class="survey_options" placeholder="Question mark" min="0" required="">                     
 
                                                     </div>
 
-                                                    <div id="container">
-
-                                                        <!--Answer will added here-->
-
-                                                    </div>
-                                                    <div class="controls">
-                                                        <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-                                                        <a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>
-                                                    </div>
                                                 </div>
+                                                <div class="form-inline">
+                                                    <div class="form-group col-sm-7">
+                                                        <input type="text" name="content" class="survey_options" placeholder="Question Content" required="">                     
+                                                    </div>
+                                                    <div class="form-group col-sm-3 mr-4">
+
+                                                        Question Type:
+                                                        <select name="questionType" class="survey_options ml-3" id="questionType">
+                                                            <option value="1">Multiple Choice</option>
+                                                            <option value="0">One Choice</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div id="container">
+
+                                                    <!--Answer will added here-->
+
+                                                </div>
+                                                <div class="controls">
+                                                    <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                                    <a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>
+                                                </div>
+
 
                                                 <input type="hidden" id="hiddenInput" name="newDivCount" value="">
                                                 <div class="form-group row">
@@ -704,7 +704,7 @@
                                             <form id="bank-form" method="post" action="">
                                                 <p>Class:</p>
                                                 <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
-                                                <select>
+                                                <select id="classSelect" onchange="loadExams()">
                                                     <c:forEach items="${sessionScope.classListTemp}" var="abc">
                                                         <option value="${abc.classID}">${abc.className}</option>
 
@@ -712,17 +712,8 @@
                                                 </select>
 
 
-                                                <div class="row">
-
-                                                    <c:forEach items = "${sessionScope.exam123}" var="exam">
-                                                        <div class="col-sm-6">
-                                                            <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
-                                                                <h3>${exam.examName}</h3>
-                                                                <br>
-
-                                                            </a>
-                                                        </div>
-                                                    </c:forEach>
+                                                <div class="row" id="examList">
+                                                    <!-- Exam list will be dynamically populated here -->
                                                 </div>
                                             </form>
 
@@ -754,7 +745,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script>
 
-
+                        var myForm = document.getElementById('my-form');
+                        var x1 = myForm.offsetHeight;
                         function openPopup(className) {
                             const overlay = document.getElementById('classEditPopup');
 //                const newClassNameInput = document.getElementById('newClassName');
@@ -946,33 +938,12 @@
 
                             var hiddenInput = document.getElementById('hiddenInput');
                             hiddenInput.value = count;
-
+                            x1 += 100;
+                            document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
+                            document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
 
                         });
 
-
-
-//// Add an event listener to the questionType select to change the count_score select's options
-//                        document.getElementById('questionType').addEventListener('change', function () {
-//                            var countScoreOptions = `
-//        <option value="0">0</option>
-//        <option value="20">20</option>
-//        <option value="25">25</option>
-//        <option value="33">33</option>
-//        <option value="50">50</option>
-//        <option value="100">100</option>
-//    `;
-//
-//                            if (this.value == 0) {
-//                                // For "Multiple Choice"
-//                                countScoreOptions = `
-//            <option value="0">0</option>
-//            <option value="100">100</option>
-//        `;
-//                            }
-//
-//
-//                        });
 
                         document.getElementById('remove_fields').addEventListener('click', function () {
                             var container = document.getElementById('container');
@@ -987,6 +958,12 @@
                                 // Update the hidden input value with the count
                                 var hiddenInput = document.getElementById('hiddenInput');
                                 hiddenInput.value = count;
+                                if (x1 > 0) {
+                                    x1 -= 100;
+
+                                }
+                                document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
+                                document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
                             }
                         });
 
@@ -1105,6 +1082,26 @@
                         }
 
 
+                        function loadExams() {
+                            var selectedClass = document.getElementById("classSelect").value;
+                            var examListContainer = document.getElementById("examList");
+
+                            // Make an AJAX request to your servlet
+                            var xhr = new XMLHttpRequest();
+                            xhr.open("GET", "AjaxLoadExamByClass?classID=" + selectedClass, true);
+
+                            xhr.onload = function () {
+                                if (xhr.status === 200) {
+                                    // Replace the content of the examList div with the response
+                                    examListContainer.innerHTML = xhr.responseText;
+                                } else {
+                                    // Handle errors
+                                    console.error("Failed to load exams.");
+                                }
+                            };
+
+                            xhr.send();
+                        }
 
 
     </script>
