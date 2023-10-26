@@ -107,6 +107,7 @@ public class lecturerExamList extends HttpServlet {
         request.setAttribute("studentList", dao.loadStudentListofClass(thisClass.getClassID()));
         request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
         request.setAttribute("examList", examList);
+        session.setAttribute("exam123", examList);
         request.setAttribute("examStartDate", exam_startDate);
         request.setAttribute("examEndDate", exam_endDate);
         request.getRequestDispatcher("lecturerExamList.jsp").forward(request, response);

@@ -701,49 +701,58 @@
 
                                         </div>
                                         <div class="tab_content tab_2">
-                                            <div class="row">
-                                                <div class="col-sm-4">
-                                                    <select name="class-name" class="" id="class-name">
-                                                        <c:forEach items="${sessionScope.classListTemp}" var="c">
-                                                            <option value="${c.classID}}">${c.className}</option>
-                                                        </c:forEach>
-                                                    </select>
+                                            <form id="bank-form" method="post" action="">
+                                                <p>Class:</p>
+                                                <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
+                                                <select>
+                                                    <c:forEach items="${sessionScope.classListTemp}" var="abc">
+                                                        <option value="${abc.classID}">${abc.className}</option>
+
+                                                    </c:forEach>
+                                                </select>
+
+
+                                                <div class="row">
+
+                                                    <c:forEach items = "${sessionScope.exam123}" var="exam">
+                                                        <div class="col-sm-6">
+                                                            <a style="text-decoration: none;"  href="lecturerExamDetail?examID=${exam.examID}"> 
+                                                                <h3>${exam.examName}</h3>
+                                                                <br>
+
+                                                            </a>
+                                                        </div>
+                                                    </c:forEach>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <select name="exam-name" class="" id="exam-name">
-                                                        <c:forEach items="${sessionScope.classListTemp}" var="c">
-                                                            <option value="${c.classID}}">${c.className}</option>
-                                                        </c:forEach>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab_content tab_3">
-                                            Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-                                        </div>
-                                        <div class="tab_content tab_4">
-                                            making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics
+                                            </form>
+
+
                                         </div>
                                     </div>
+                                    <div class="tab_content tab_3">
+                                    </div>
+                                    <div class="tab_content tab_4">
+                                    </div>
                                 </div>
-
-
-
-
                             </div>
+
+
+
+
                         </div>
                     </div>
-
-                    <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
-                    <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
                 </div>
+
+                <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
+                <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
             </div>
+        </div>
 
 
 
-        </section>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script>
 
 
                         function openPopup(className) {
@@ -886,38 +895,50 @@
                             // Generate a unique ID for the new div
                             newDiv.id = count;
 
+                            if (x.value == 0) {
+                                var countScoreOptions = `
+    <option value="0">0</option>
+
+    <option value="100">100</option>
+`;
+                            } else {
+                                var countScoreOptions = `
+    <option value="0">0</option>
+    <option value="10">10</option>
+    <option value="20">20</option>
+    <option value="30">30</option>
+    <option value="40">40</option>
+    <option value="50">50</option>
+    <option value="60">60</option>
+    <option value="70">70</option>
+    <option value="80">80</option>
+    <option value="90">90</option>
+`;
+
+
+                            }
+
+
 
                             // Define the default options for the count_score select
-                            var countScoreOptions = `
-        <option value="0">0</option>
-        <option value="10">10</option>
-        <option value="20">20</option>
-        <option value="30">30</option>
-        <option value="40">40</option>
-        <option value="50">50</option>
-        <option value="60">60</option>
-        <option value="70">70</option>
-        <option value="80">80</option>
-        <option value="90">90</option>
-        <option value="100">100</option>
-    `;
+
 
 
 
                             // Add the HTML content to the new div
                             newDiv.innerHTML = `
-        <div class="form-group col-sm-7 index">
-            <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
-        </div>
-        <div class="form-group col-sm-3">
-        Score Percentage:
-            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score">
+    <div class="form-group col-sm-7 index">
+        <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
+    </div>
+    <div class="form-group col-sm-3">
+    Score Percentage:
+        <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score">
         
-            ` + countScoreOptions + `
-            </select>
-        </div>
+        ` + countScoreOptions + `
+        </select>
+    </div>
   
-    `;
+`;
 
                             // Append the new div to the container
                             container.appendChild(newDiv);
@@ -982,12 +1003,84 @@
                             });
 
                             // Check if the total score is greater than 100
-                            if (totalScore > 100) {
+                            if (totalScore !== 100) {
                                 // Prevent the form from being submitted
                                 event.preventDefault();
-                                alert('The total score cannot exceed 100%.\nYour total score now is :' + totalScore);
+                                alert("The total score percentage must be 100%.\nYour total score percentage:" + totalScore + "%");
                             }
                         });
+
+                        document.getElementById('questionType').addEventListener('change', function () {
+                            // Get all the "Score Percentage" select elements
+                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
+
+                            if (this.value === "0") {
+                                // For "One Choice" question
+                                scoreElements.forEach(function (scoreElement) {
+                                    scoreElement.innerHTML = `
+                    <option value="0">0</option>
+                    <option value="100">100</option>
+                `;
+                                });
+                            } else if (this.value === "1") {
+                                // For "Multiple Choice" question
+                                scoreElements.forEach(function (scoreElement) {
+                                    scoreElement.innerHTML = `
+                    <option value="0">0</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                `;
+                                });
+                            }
+                        });
+
+                        document.getElementById('my-form').addEventListener('submit', function (event) {
+                            // Get all the "Score Percentage" select elements
+                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                            var totalScore = 0;
+
+                            if (document.getElementById('questionType').value === "0") {
+                                // For "One Choice" question
+                                // Check if all score percentages are 0 and 100
+                                var valid = true;
+                                scoreElements.forEach(function (scoreElement) {
+                                    var score = parseInt(scoreElement.value);
+                                    if (score !== 0 && score !== 100) {
+                                        valid = false;
+                                    }
+                                });
+
+                                if (!valid) {
+                                    event.preventDefault();
+                                    alert("One choice question! Score percentages must be 0 and 100.");
+                                }
+                            } else if (document.getElementById('questionType').value === "1") {
+                                // For "Multiple Choice" question
+                                // Check if each score percentage is less than 100
+                                scoreElements.forEach(function (scoreElement) {
+                                    var score = parseInt(scoreElement.value);
+                                    if (score >= 100) {
+                                        event.preventDefault();
+                                        alert("Multiple choice question! Score percentages must be less than 100.");
+                                        return;
+                                    }
+//                                    totalScore += score;
+                                });
+
+
+                            }
+                        });
+
+
+
+
 
 
                         function confirmDelete(questionID) {
@@ -1011,7 +1104,10 @@
                             }
                         }
 
-        </script>
 
-    </body>
+
+
+    </script>
+
+</body>
 </html>
