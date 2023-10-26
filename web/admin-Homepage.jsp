@@ -231,11 +231,11 @@
 %>
         <div id="deletePopup" class="overlay" onclick="closePopup()">
             <div class="popup-container" onclick="event.stopPropagation();">
-                <h2>Did you just accidentally hit delete button on a random account didn't you sleezeball</h2>
-                <p>Are you sure you want to delete this account with ID: <span id="deleteIDplace"></span>?</p>
-                    <button class ="popup-button" onclick="deleteAccount()">No</button>                    
+                <h2>Are you sure you want to delete this account with ID:</h2>
+                <p> <span id="deleteIDplace"></span></p>
+                    <button class ="popup-button" onclick="deleteAccount()">Yes</button>                    
              
-                <button class ="popup-button" onclick="closePopup()">Yes</button>
+                <button class ="popup-button" onclick="closePopup()">No</button>
             </div>
         </div>    
         
@@ -246,7 +246,7 @@
                     <div class="table-title">
                         <div class="row">
                             <div class="col-sm-5">
-                                <h2> <a style="text-decoration: none;color: white" href="home"><i class="fa-solid fa-house "></i> </a><b>Account Management</b></h2>
+                                <h2> <a style="text-decoration: none;color: red" href="home"><i class="fa-solid fa-house "></i> </a><b>Account Management</b></h2>
                             </div>
                             <div class="col-sm-7">
                                 <a href="addAccount" class="btn btn-secondary"><i class="material-icons">&#xE147;</i> <span>Add New Account</span></a>
@@ -336,7 +336,7 @@
             function deleteAccount()
             {
                 var deletedID = document.getElementById("deletePopup").getAttribute("deletedID");
-                var dk = confirm("This account will be deleted, and you have to take full responsibility");
+//                var dk = confirm("This account will be deleted, and you have to take full responsibility");
 //                var dk = confirm(deletedID);
 //                $.ajax({
 //                        url: contextPath + "/adminDeteleAccount",

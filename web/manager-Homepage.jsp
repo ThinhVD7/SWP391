@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
     response.setHeader("Pragma","no-cache"); //HTTP 1.0
@@ -37,6 +38,95 @@
                 text-decoration: none;
 
             }
+
+            .home{
+                position: relative;
+            }
+
+            .addCourse{
+                position: absolute;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%;
+
+            }
+
+            .addCourseContent{
+                padding: 60px;
+                border: 2px solid #ccc;
+                border-radius: 5px;
+                background-color: #fff;
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+                margin: auto;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+
+            }
+
+            .addCourseTitle{
+                color: blue;
+                font-family: sans-serif;
+                letter-spacing: 2px;
+                word-spacing: 3px;
+                font-weight: bold;
+                font-size: 2.4rem;
+                margin-bottom: 20px;
+            }
+
+            .form-field {
+                padding-left: 10px;
+                margin-bottom: 20px;
+                border-radius: 20px;
+                box-shadow: inset 8px 8px 8px #cbced1, inset -8px -8px 8px #fff;
+            }
+
+            .form-field input {
+                width: 100%;
+                display: block;
+                border: none;
+                outline: none;
+                background: none;
+                font-size: 1.2rem;
+                color: #666;
+                padding: 10px 15px 10px 10px;
+                /* border: 1px solid red; */
+            }
+
+            .closePopUp{
+                padding: 4px 12px;
+                background-color: orange;
+                border: 1px solid transparent;
+                color: #fff;
+                font-weight: 600;
+                transition: .4s;
+                margin-top: 10px;
+                border-radius: 5px;
+
+                &:hover{
+                    transform: scale(1.05);
+                }
+            }
+            
+             /* Style for the pop-up */
+            .popup {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 2;
+            }
         </style>
     </head>
     <body>
@@ -46,9 +136,6 @@
                 <i class="bx bx-menu btn-menu"></i>
             </div>
             <ul class="nav-links">
-
-
-
 
                 <li>
                     <i class="bx bx-search search-btn"></i>
@@ -76,41 +163,7 @@
                     </a>
                     <span class="tooltip">Logout</span>
                 </li>
-                <!--                <li>
-                                    <a href="#">
-                                        <i class="bx bx-phone-call"></i>
-                                        <span class="title">Calls</span>
-                                    </a>
-                                    <span class="tooltip">Calls</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-bookmark"></i>
-                                        <span class="title">Bookmarks</span>
-                                    </a>
-                                    <span class="tooltip">Bookmarks</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-wallet-alt"></i>
-                                        <span class="title">Wallet</span>
-                                    </a>
-                                    <span class="tooltip">Wallet</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bxs-devices"></i>
-                                        <span class="title">Devices</span>
-                                    </a>
-                                    <span class="tooltip">Devices</span>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <i class="bx bx-cog"></i>
-                                        <span class="title">Setting</span>
-                                    </a>
-                                    <span class="tooltip">Setting</span>
-                                </li>-->
+             
             </ul>
             <div class="theme-wrapper">
                 <i class="bx bxs-moon theme-icon"></i>
@@ -121,6 +174,17 @@
             </div>
         </section>
         <section class="home">
+            
+        <!--pop up--------------------------------------------------------------------------------------------------->
+            <div class="addCourse" id="deleteCourse" style="display: none;">
+                <div class="popup">
+                    <h3> Delete Course</h3> 
+                    <h6> You clicked delete on accident didn't you?</h6>
+                    <button class="closePopUp" onclick="closeDeletePopUp()" >Yes</button>
+                    <button class="closePopUp" onclick="delCousera()" >No</button>
+                    <button class="closePopUp" onclick="closeDeletePopUp()">Close</button>
+                </div>
+            </div>
 
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
@@ -141,17 +205,12 @@
 
                 </div>
                 <div class=" col-md-2 input-group" style="border: solid wheat; border-radius: 25px;background-color: #869791">
-                    <a href="#" style="">  <div>
+                    <a id="show" onclick="openPopUp()">  <div>
                             <i class="fa fa-plus-circle fa-xl" aria-hidden="true"></i> <p>Add Course</p>
                         </div> </a>
                 </div>
 
 
-                <!--                <div class="col-md-3 mw-20 mh-20 p-3" style="border: solid wheat;border-radius: 20px">
-                                    <a href="#">  <div>
-                                            <i class="fa fa-plus-circle fa-xl" aria-hidden="true"></i> <p>Add Course</p>
-                                        </div> </a>
-                                </div>-->
             </div>
 
 
@@ -159,91 +218,238 @@
             <div class="container-fluid mt-3">
                 <div class="row mt-5">
 
-                    <c:forEach items="${requestScope.course}" var="c">
-                        <!--                        <div class='course-item col-md-4 col-md-6 col-lg-3 pt-3'>
-                                                    <div class="card">
-                                                        <div class="card-body"> 
-                                                            <a href="">
-                                                                <h4 class="card-title">${c.courseName}</h4>  
-                                                            </a>
-                                                            <h7 class="card-subtitle mb-2 text-muted">Semester:${c.semester}</h7>
-                                                            <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6>
-                                                            <a href="#" class="card-link">Enter course</a>
-                                                            <a href="#" class="card-link"></a>
-                                                        </div>
-                                                    </div>
-                                                </div>-->
+                    <c:forEach items="${requestScope.course}" var="c" varStatus="loop">
                         <div class="col col-sm-4 mt-4">
                             <div class="card">
                                 <div class="card-body">
-
-
-                                    <a style="text-decoration: none;"  href="#">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
-                                    <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
-                                    <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
-                                    <span style="float: right"> <a href=""><i  class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                    <form >
+                                        <a style="text-decoration: none;"  href="managerViewClassList?courseID=${c.courseID}">   <h5 class="card-title pt-2">${c.courseID}</h5> </a>
+                                        <h6 class="card-subtitle mb-2 text-muted">Name: ${c.courseName}</h6>
+                                        <span style="float: right"> <a onclick="openEdit('${c.courseID}', '${c.courseName}', '${c.semester}', '4${c.startDate}', '${c.endDate}')"><i class="fa-solid fa-pen-to-square" style="color: #0be50e;"></i></a> </span>
+                                        <h6 class="card-subtitle mb-2 text-muted">Semester: ${c.semester}</h6>
+                                        <h6 class="card-subtitle mb-2 text-muted">From:${c.startDate} To: ${c.endDate}</h6> 
+                                        <span style="float: right" ${requestScope.deleteNotAllowMap[c.courseID]?"hidden":""}> <a onclick="closeEdit()">
+                                                <!--<i onclick="delCousera('${c.courseID}')" onclick="openDelete()" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>-->
+                                                <i onclick="delCousera('${c.courseID}')" class="fa fa-times-circle fa-xl" aria-hidden="true" style="color:red;text-align: end"></i></a> </span>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </c:forEach>
-
-
                 </div>
             </div>
 
-
-
-
-
-
-
+            <div class="addCourse" id="addCourse" style="display: none;">
+                <div class="addCourseContent">
+                    <h3 class="addCourseTitle" id="titleCourse">Add course</h3> 
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <input type="text" name="courseId" id="courseId" placeholder="course-ID" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <input type="text" name="courseName" id="courseName" placeholder="Course Name" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <input type="text" name="semester" id="semseter" placeholder="Semester" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <p>Start Day</p>
+                        <input type="date" name="courseId" id="startDay" placeholder="course-ID" required="">
+                    </div>
+                    <div class="form-field d-flex align-items-center">
+                        <!--<span class="far fa-user"></span>-->
+                        <p>End Day</p>
+                        <input type="date" name="courseId" id="endDay" placeholder="course-ID" required="">
+                    </div>
+                    <button class="closePopUp" onclick="getInfoAddCourse()" type="submit" >Submit</button>
+                    <button class="closePopUp" onclick="closePopUp()">Close</button>
+                </div>
+            </div>
 
         </section>
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            const btn_menu = document.querySelector(".btn-menu");
-            const side_bar = document.querySelector(".sidebar");
 
-            btn_menu.addEventListener("click", function () {
-                side_bar.classList.toggle("expand");
-                changebtn();
-            });
+                        if('${sessionScope.logPrint}' === '1'){
+                            alert("Id Course này đã tồn tại");
+                        }        
 
-            function changebtn() {
-                if (side_bar.classList.contains("expand")) {
-                    btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
-                } else {
-                    btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
-                }
-            }
+                        const btn_menu = document.querySelector(".btn-menu");
+                        const side_bar = document.querySelector(".sidebar");
+                        var idCourse;
+                        var status;
 
-            const btn_theme = document.querySelector(".theme-btn");
-            const theme_ball = document.querySelector(".theme-ball");
+                        btn_menu.addEventListener("click", function () {
+                            side_bar.classList.toggle("expand");
+                            changebtn();
+                        });
+                        
+                        function changebtn() {
+                            if (side_bar.classList.contains("expand")) {
+                                btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                            } else {
+                                btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                            }
+                        }
+                        
+                        
+//                        function openDelete(courseId) {
+//                            const divPopUp = document.querySelector("#deleteCourse");
+//                            const showBtn = document.querySelector("show");
+//                            
+//                            divPopUp.style.display = 'block';
+//                        }
+                        
+                       
 
-            const localData = localStorage.getItem("theme");
+                        function openPopUp() {
+                            const divPopUp = document.querySelector("#addCourse");
+                            document.getElementById('titleCourse').innerHTML = 'Add Course';
+                            divPopUp.style.display = 'block';
+                            document.getElementById("courseId").value = '';
+                            document.getElementById("courseName").value = '';
+                            document.getElementById("semseter").value = '';
+                            status = 1;
+                        }
 
-            if (localData == null) {
-                localStorage.setItem("theme", "light");
-            }
+                        function formatDate(date) {
+                            const d = new Date(date);
+                            const month = '' + (d.getMonth() + 1);
+                            const day = '' + d.getDate();
+                            const year = d.getFullYear();
 
-            if (localData == "dark") {
-                document.body.classList.add("dark-mode");
-                theme_ball.classList.add("dark");
-            } else if (localData == "light") {
-                document.body.classList.remove("dark-mode");
-                theme_ball.classList.remove("dark");
-            }
+                            return [year, month.padStart(2, '0'), day.padStart(2, '0')].join('/');
+                        }
 
-            btn_theme.addEventListener("click", function () {
-                document.body.classList.toggle("dark-mode");
-                theme_ball.classList.toggle("dark");
-                if (document.body.classList.contains("dark-mode")) {
-                    localStorage.setItem("theme", "dark");
-                } else {
-                    localStorage.setItem("theme", "light");
-                }
-            });
+                        function getInfoAddCourse() {
+                            let courseIdMain = document.getElementById('courseId').value;
+                            let courseId = document.getElementById('courseId').value;
+                            let courseName = document.getElementById("courseName").value;
+                            let semseter = document.getElementById("semseter").value;
+                            let startDay = document.getElementById("startDay").value;
+                            let endDay = document.getElementById("endDay").value;
+
+                            var today = new Date();
+
+                            if (formatDate(startDay) < formatDate(today)) {
+                                alert("Ngày bắt đầu không hợp lệ");
+                            } else if (formatDate(endDay) < formatDate(startDay)) {
+                                alert("Ngày kết thúc lớn hơn ngày bắt đầu");
+                            } else {
+                                if (status == 1) {
+                                    interacCousera(courseIdMain ,courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'add');
+                                } else if (status == 2) {
+                                    interacCousera(idCourse, courseId, courseName, semseter, formatDate(startDay), formatDate(endDay), 'update');
+                                }
+                            }
+                        }
+
+                        var contextPath = "<%= request.getContextPath()%>";
+
+                        function interacCousera(courseIdMain, courseId, courseName, semseter, startDay, endDay, action) {
+                            $.ajax({
+                                url: contextPath + "/managerHome",
+                                type: "POST",
+                                data: {
+                                    courseIdMain: courseIdMain,
+                                    courseId: courseId,
+                                    courseName: courseName,
+                                    semseter: semseter,
+                                    startDay: startDay,
+                                    endDay: endDay,
+                                    action: action
+                                },
+                                success: function (response) {
+                                    window.location.reload();
+                                },
+                                error: function (xhr, status, error) {
+
+                                }
+                            });
+                        }
+
+                        function delCousera(courseId) {
+                            var dk = confirm('Bạn có muốn xóa không ?');
+
+                            if (dk) {
+                                $.ajax({
+                                    url: contextPath + "/managerDeleteCourse",
+                                    type: "POST",
+                                    data: {
+                                        courseId: courseId
+                                    },
+                                    success: function (response) {
+                                        window.location.reload();
+                                    },
+                                    error: function (xhr, status, error) {
+
+                                    }
+                                });
+                            } else{
+                                
+                            }
+
+                        }
+
+
+                        function closePopUp() {
+                            const divPopUp = document.querySelector("#addCourse");
+                            divPopUp.style.display = 'none';
+                        }
+                        function closeDeletePopUp(courseId) {
+                            const divPopUp = document.querySelector("#deleteCourse");
+                            divPopUp.style.display = 'none';
+                        }
+
+                        function openEdit(id, name, semester, start, end) {
+                            const divPopUp = document.querySelector("#addCourse");
+                            const showBtn = document.querySelector("show");
+                            idCourse = id;
+                            divPopUp.style.display = 'block';
+                            document.getElementById('titleCourse').innerHTML = 'Edit Course';
+                            document.getElementById("courseId").value = id;
+                            document.getElementById("courseName").value = name;
+                            document.getElementById("semseter").value = semester;                      
+                            status = 2;
+                        }
+                        
+
+                        function closeEdit() {
+                            const divPopUp = document.querySelector("#addCourse");
+                            divPopUp.style.display = 'none';
+                        }
+
+                        const btn_theme = document.querySelector(".theme-btn");
+                        const theme_ball = document.querySelector(".theme-ball");
+
+                        const localData = localStorage.getItem("theme");
+
+                        if (localData == null) {
+                            localStorage.setItem("theme", "light");
+                        }
+
+                        if (localData == "dark") {
+                            document.body.classList.add("dark-mode");
+                            theme_ball.classList.add("dark");
+                        } else if (localData == "light") {
+                            document.body.classList.remove("dark-mode");
+                            theme_ball.classList.remove("dark");
+                        }
+
+                        btn_theme.addEventListener("click", function () {
+                            document.body.classList.toggle("dark-mode");
+                            theme_ball.classList.toggle("dark");
+                            if (document.body.classList.contains("dark-mode")) {
+                                localStorage.setItem("theme", "dark");
+                            } else {
+                                localStorage.setItem("theme", "light");
+                            }
+                        });
         </script>
+
     </body>
 </html>

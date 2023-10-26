@@ -30,7 +30,7 @@
 
 
         <!-- PAGE TITLE HERE ============================================= -->
-        <title>Forget Password </title>
+        <title>Forgot Password </title>
 
         <!-- MOBILE SPECIFIC ============================================= -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,10 +64,10 @@
                 <div class="account-form-inner">
                     <div class="account-container">
                         <div class="heading-bx left">
-                            <h2 class="title-head">Forget <span>Password</span></h2>
+                            <h2 class="title-head">Forgot <span>Password</span></h2>
                             <p>Login Your Account <a href="Login">Click here</a></p>
                         </div>	
-                        <form class="contact-bx" action="ForgetPassword" method="POST">
+                        <form class="contact-bx" action="ForgotPassword" method="POST">
                             <p class="text-success">${err}</p>
                             <p class="text-success">${mess}</p>
                             <p class="text-success">${OTPmess}</p>

@@ -33,6 +33,23 @@
                 text-decoration: none;
 
             }
+            
+            /* Main container */
+            .main {
+            /*display: flex;*/
+/*            justify-content: space-between;*/
+            padding: 20px;
+            flex:1;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-left: 30px;
+            margin-right: 30px;
+            /*margin-top: 30px;*/
+            overflow: hidden;
+            justify-content: center;
+        }
         </style>
 <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
@@ -132,12 +149,12 @@
 
 
 
-
+                
             <div class="container-fluid mt-3">
                 <div class="row mt-5">
                     <c:forEach items="${requestScope.classes}" var="c">
-                    <c:forEach var="i" begin="1" end="30" step="1">
-                        <div class='course-item col-md-4 col-sm-6 col-lg-3 pt-3'>
+                    <%--<c:forEach var="i" begin="1" end="30" step="1">--%>
+                        <div class='col col-sm-4 mt-4'>
                             <div class="card">
                                 <div class="card-body"> 
                                     <a href="studentExamList?classID=${c.classID}">
@@ -151,10 +168,11 @@
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>
+                    <%--</c:forEach>--%>
                     </c:forEach>
                 </div>
             </div>
+     
 
 
 

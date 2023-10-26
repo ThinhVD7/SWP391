@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class DBContext {
     private final String DB_URL = "jdbc:mysql://localhost3306/";
     private static final String USER = "root";
-    private static final String PASSWORD = "qqqqqqqq";
+    private static final String PASSWORD = "Hoalac@99";
     private static final String DATABASE = "quiz9.5";
     public Connection getConnection()throws Exception 
             
@@ -24,7 +24,7 @@ public class DBContext {
     {
         try
         {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz7",USER,PASSWORD);
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/quiz9.5",USER,PASSWORD);
             if (conn != null) {
                 System.out.println("Connected");
                 DatabaseMetaData dm = (DatabaseMetaData) conn.getMetaData();
