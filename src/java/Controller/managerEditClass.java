@@ -4,19 +4,20 @@
  */
 package Controller;
 
-import Dal.LecturerDAO;
+import Dal.ManagerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 /**
  *
- * @author tanki
+ * @author acer
  */
-public class lecturerRemoveChoice extends HttpServlet {
+public class managerEditClass extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,15 +33,7 @@ public class lecturerRemoveChoice extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet lecturerRemoveChoice</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet lecturerRemoveChoice at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            out.println("<script>alert(\"Xin chao moi nguoi\");</script>");
         }
     }
 
@@ -56,7 +49,24 @@ public class lecturerRemoveChoice extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        HttpSession session = request.getSession();
+
+        String cid = request.getParameter("cid");
+        String courseID = request.getParameter("courseID");
+        String className = request.getParameter("className");
+
+        ManagerDAO obj = new ManagerDAO();
+
+        if (obj.checkClassID(className, courseID)) {
+            obj.editClass(cid, className, courseID);
+            session.setAttribute("messOfClass", 0);
+        } else {
+            session.setAttribute("messOfClass", 1);
+        }
+        
+        response.sendRedirect("managerViewLecturer?CID=" + className + "_" + courseID + "&courseID=" + courseID);
+        
+
     }
 
     /**
@@ -70,10 +80,8 @@ public class lecturerRemoveChoice extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
-        LecturerDAO dao = new LecturerDAO();
-        dao.deleteChoiceQuestion(request.getParameter("choiceId"));
-//        response.setStatus(HttpServletResponse.SC_OK);
+        processRequest(request, response);
+
     }
 
     /**

@@ -18,6 +18,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 
@@ -78,21 +79,23 @@ public class managerHome extends HttpServlet {
         ///////////////////////////////
         DAO dao = new DAO();
         List<Course> course = dao.getAllCourse();
-        //after fix database
-//        LocalDate today = LocalDate.now();
-//        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String,Boolean>();
-//        for (Course course1 : course) 
-//        {
-//            if(today.compareTo(LocalDate.parse(course1.getStartDate()))>-1&&today.compareTo(LocalDate.parse(course1.getEndDate()))<0)
-//                {
-//                     deleteNotAllowMap.put(course1.getCourseID(), true);
-//                }
-//            else
-//                deleteNotAllowMap.put(course1.getCourseID(), false);
-//        }
-//        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
+        
+//        //after fix database
+        LocalDate today = LocalDate.now();
+        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String,Boolean>();
+        for (Course course1 : course) 
+        {
+            if(today.compareTo(LocalDate.parse(course1.getStartDate(),DateTimeFormatter.ofPattern("yyyy/MM/dd")))>-1&&today.compareTo(LocalDate.parse(course1.getEndDate(),DateTimeFormatter.ofPattern("yyyy/MM/dd")))<0)
+                {
+                     deleteNotAllowMap.put(course1.getCourseID(), true);
+                }
+            else
+                deleteNotAllowMap.put(course1.getCourseID(), false);
+        }
+        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
         request.setAttribute("course", course);
         request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
+        
     }
 
     /** 

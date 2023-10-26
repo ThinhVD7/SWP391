@@ -93,16 +93,16 @@
                                             <span>${sessionScope.user.email}</span>
                                         </div>
                                         <div class="profile-social">
-                                            <ul class="list-inline m-a0">
+<!--                                            <ul class="list-inline m-a0">
                                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                            </ul>
+                                            </ul>-->
                                         </div>
                                         <div class="profile-tabnav">
                                             <ul class="nav nav-tabs">
-                                                <li class="nav-item">
+<!--                                                <li class="nav-item">
                                                     <a class="nav-link active" data-toggle="tab" href="#courses"><i class="ti-book"></i>My profile</a>
                                                 </li>
                                                 <li class="nav-item">
@@ -110,7 +110,7 @@
                                                 </li>
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>
-                                                </li>
+                                                </li>-->
                                                 <li class="nav-item">
                                                     <a class="nav-link" data-toggle="" href="ChangePassword"><i class="ti-lock"></i>Change Password</a>
                                                 </li>

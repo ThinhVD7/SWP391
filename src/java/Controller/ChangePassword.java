@@ -94,7 +94,7 @@ public class ChangePassword extends HttpServlet {
         //change the password
         else 
         {
-            dao.changePassword(DAO.encodeSHA1(newPassword), email);
+            dao.changePassword(newPassword, email);
             user.setPassword(DAO.encodeSHA1(newPassword));
             session.setAttribute("user", user);
             request.setAttribute("fmsg", "Password was successfully changed");

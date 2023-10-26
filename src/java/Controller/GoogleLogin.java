@@ -59,7 +59,7 @@ public class GoogleLogin extends HttpServlet {
                 response.sendRedirect("managerHome");
             } else if (a.roleID == 2) {
                 request.getSession().setAttribute("user", a);
-                response.sendRedirect("lecturer-homepage.jsp");
+                response.sendRedirect("lecturer");
             } else {
                 request.getSession().setAttribute("user", a);
                 response.sendRedirect("student");

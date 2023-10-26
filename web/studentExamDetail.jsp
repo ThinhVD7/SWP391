@@ -271,16 +271,17 @@
                     </c:if>
                     <c:if test="${requestScope.isDoQuizz == true}">
                         <p>Total Mark: ${requestScope.totalMark}</p> <br/>
-                        <p>Total Time: ${requestScope.totalTime}</p>
+                        <p>Total Time: ${requestScope.totalTime}</p> <br/>
+                        <a href="studentExamList?classID=${sessionScope.sessionThisClass.classID}" class="edit-exam-button">Return to class</a> 
                     </c:if>
 
                     <!--                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
                 </div>
                 <div><br></div>
                 <div>
-                    <form action="studentReviewExam">
+                    
                         <button class="edit-exam-button-bottom" onclick ="alert('Feature not available yet, stay tuned!')"${sessionScope.sessionThisExam.permission==1?"":"hidden"}>Review Exam</button>
-                    </form>
+                    
                 </div>
             </div>
 

@@ -162,7 +162,7 @@ body {
             <button class="btn mt-3">Login</button>
         </form>
         <div class="text-center fs-6">
-            <a href="ForgetPassword">Forget password?</a> or <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:9999/QuizNew/GoogleLogin&response_type=code
+            <a href="ForgotPassword">Forgot password?</a> or <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:9999/QuizNew/GoogleLogin&response_type=code
     &client_id=262459911259-pcp2tvuq27ff6rc1ltgu2h9faahah2l9.apps.googleusercontent.com&approval_prompt=force">Login with Google</a>
         </div>
     </div>

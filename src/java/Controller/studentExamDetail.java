@@ -24,7 +24,8 @@ import java.util.ArrayList;
  *
  * @author ROG
  */
-public class studentExamDetail extends HttpServlet {   
+public class studentExamDetail extends HttpServlet {
+
     private static final DecimalFormat df = new DecimalFormat("0.00");
 
     @Override
@@ -44,7 +45,7 @@ public class studentExamDetail extends HttpServlet {
         }
         ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
-        String examID = request.getParameter("examID");      
+        String examID = request.getParameter("examID");
         Exam thisExam = dao.loadAExam(examID);
         //session thisExam
         DAO d = new DAO();
@@ -53,12 +54,12 @@ public class studentExamDetail extends HttpServlet {
         if (isDoQuizz) {
             ArrayList<Question> questions = d.getQuestionsExam(Integer.parseInt(examID));
             float totalMarkAll = 0;
-            for (Question question : questions) {           
-                totalMarkAll += question.getMark();          
+            for (Question question : questions) {
+                totalMarkAll += question.getMark();
             }
             StudentResult studentResult = d.getResultStudent(examID, user.getAccountID());
 //            df.setRoundingMode(RoundingMode.UP);
-            request.setAttribute("totalMark", df.format((studentResult.getTotalScore()/totalMarkAll)*10));
+            request.setAttribute("totalMark", df.format((studentResult.getTotalScore() / totalMarkAll) * 10));
             request.setAttribute("totalTime", studentResult.getTotalTime());
 
         } else {
@@ -108,18 +109,27 @@ public class studentExamDetail extends HttpServlet {
         for (Question question : questions) {
             ArrayList<Question> q = d.getChoice(Integer.parseInt(question.getQuestionID()));
             for (Question question1 : q) {
-                if (question1.getAnswer() == 1) {
+                if (question1.getAnswer() > 1) {
                     String[] type = request.getParameterValues("q" + question.getQuestionID());
-                    if(type!=null){
-                        int mark = 0;
-                        String choiceID ="";
-                    for (String string : type) {
-                        mark += Integer.parseInt(string.split(":")[0]);
-                        choiceID+=string.split(":")[1];
-                    }
-                    question.setChoicePercentages(String.valueOf(mark));
-                    question.setChoices(choiceID);
-                    }else{
+//                    response.getWriter().println(type.length + " " + question1.getAnswer());
+                    if (type != null) {
+                        if (type.length != question1.getAnswer()) {
+                        } else if (type.length == question1.getAnswer()) {
+                            int mark = 0;
+                            String choiceID = "";
+                            for (String string : type) {
+                                mark += Integer.parseInt(string.split(":")[0]);
+                                if (choiceID.equals("")) {
+                                    choiceID += string.split(":")[1];
+                                } else {
+                                    choiceID += ":" + string.split(":")[1];
+                                }
+                            }
+                            question.setChoicePercentages(String.valueOf(mark));
+                            question.setChoices(choiceID);
+                        }
+
+                    } else {
                         question.setChoicePercentages("0");
                         question.setChoices("");
                     }
@@ -129,47 +139,45 @@ public class studentExamDetail extends HttpServlet {
                     if (result != null) {
                         question.setChoicePercentages(result.split(":")[0]);
                         question.setChoices(result.split(":")[1]);
+
                     }
                 }
                 break;
             }
         }
-        for (Question question : questions) {
-            response.getWriter().println(question.getChoices());
-        }
 
         float totalMark = 0;
         for (Question question : questions) {
-            if (question.getChoicePercentages() != null) {
-                totalMark += question.getMark();
+            if (question.getChoicePercentages() != null && Integer.parseInt(question.getChoicePercentages()) > 0) {
+                totalMark += (question.getMark() * Float.parseFloat(question.getChoicePercentages()))/100;
             }
         }
         float totalMarkAll = 0;
-        for (Question question : questions) {           
-                totalMarkAll += question.getMark();          
+        for (Question question : questions) {
+            totalMarkAll += question.getMark();
         }
-        float TotalMarkIn10 = (totalMark/totalMarkAll)*10;
+        float TotalMarkIn10 = (totalMark / totalMarkAll) * 10;
         
+
         String hourElapse = request.getParameter("hourElapse");
-        if(Integer.parseInt(hourElapse) < 10){
+        if (Integer.parseInt(hourElapse) < 10) {
             hourElapse = hourElapse;
         }
         String minuteElapse = request.getParameter("minuteElapse");
-       if (Integer.parseInt(minuteElapse) < 10) {
-            minuteElapse =  minuteElapse;
+        if (Integer.parseInt(minuteElapse) < 10) {
+            minuteElapse = minuteElapse;
         }
         String secondElapse = request.getParameter("secondElapse");
         if (Integer.parseInt(secondElapse) < 10) {
-            secondElapse =  secondElapse;
+            secondElapse = secondElapse;
         }
-        String totalTimeResult = hourElapse + ":" + minuteElapse + ":"+secondElapse;
-//        for (Question question : questions) {
-//            d.createStudentAnswer(Integer.parseInt(question.getQuestionID()), , examID, hourElapse);
-//        }
+        String totalTimeResult = hourElapse + ":" + minuteElapse + ":" + secondElapse;
+
         d.createResult(String.valueOf(examID), user.getAccountID(), totalMark, totalTimeResult, 0);
         boolean isDoQuizz = d.isDoQuiz(request.getParameter("examID"), user.getAccountID());
         request.setAttribute("isDoQuizz", isDoQuizz);
         request.setAttribute("totalMark", df.format(TotalMarkIn10));
+//        request.setAttribute("totalMark", df.format(TotalMarkIn10));
         request.setAttribute("totalTime", totalTimeResult);
         request.setAttribute("isDoQuizz", isDoQuizz);
         request.setAttribute("examId", request.getParameter("examID"));

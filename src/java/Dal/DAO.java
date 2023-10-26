@@ -44,24 +44,20 @@ public class DAO extends DBContext {
             test = " Not Connected";
         }
     }
-    
+
     //result get saved to database,
     //future comparing password to the database saved one have to be encoded to compare
-    public static String encodeSHA1(String password)
-            {
-                String result="";
-                try
-                    {
-                        byte[] dataBytes = password.getBytes("UTF-8");
-                        MessageDigest md = MessageDigest.getInstance("SHA-1");
-                        result = Base64.encodeBase64String(md.digest(dataBytes));
-                    }
-                catch(Exception e)
-                    {
-                        System.out.println(e);
-                    }
-                return result;
-            }
+    public static String encodeSHA1(String password) {
+        String result = "";
+        try {
+            byte[] dataBytes = password.getBytes("UTF-8");
+            MessageDigest md = MessageDigest.getInstance("SHA-1");
+            result = Base64.encodeBase64String(md.digest(dataBytes));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return result;
+    }
 
     public void loadStudent() {
         student = new Vector();
@@ -307,37 +303,34 @@ public class DAO extends DBContext {
             ps.setInt(7, gender);
             ps.setString(8, phno);
             ps.executeUpdate();
-            if(role == 3)
-                {
-                    sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?)";
-                    ps = connector.prepareStatement(sql);
-                    ps.setString(1, id);
-                    ps.setString(2, null);
-                    ps.setString(3, null);
-                    ps.executeUpdate();
-                    
-                }
-            else if(role ==2)
-                {
-                    sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?)";
-                    ps = connector.prepareStatement(sql);
-                    ps.setString(1, id);
-                    ps.setString(2, null);
-                    ps.setString(3, null);
-                    ps.executeUpdate();
-                }
+            if (role == 3) {
+                sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?)";
+                ps = connector.prepareStatement(sql);
+                ps.setString(1, id);
+                ps.setString(2, null);
+                ps.setString(3, null);
+                ps.executeUpdate();
+
+            } else if (role == 2) {
+                sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?)";
+                ps = connector.prepareStatement(sql);
+                ps.setString(1, id);
+                ps.setString(2, null);
+                ps.setString(3, null);
+                ps.executeUpdate();
+            }
             return true;
         } catch (Exception e) {
             System.out.println(e);
         }
         return false;
     }
+
     public String updateAccount(String id, String newID, String name, String email, int role, int status, int gender, String phno) {
-            //check role student or lecturer
+        //check role student or lecturer
 //            String condition = "select Role_ID from account where Account_ID like ?";
-            String sql = "update account set Account_ID = ?,Name = ?,Email = ?,Role_ID = ?,Status = ?,Gender = ?,PhoneNumber = ?where Account_ID = ?";
-        try 
-        {
+        String sql = "update account set Account_ID = ?,Name = ?,Email = ?,Role_ID = ?,Status = ?,Gender = ?,PhoneNumber = ?where Account_ID = ?";
+        try {
             PreparedStatement ps = connector.prepareStatement(sql);
 //            ps.setString(1, id);
 //            ps.executeQuery();
@@ -369,49 +362,42 @@ public class DAO extends DBContext {
             ps.setString(7, phno);
             ps.setString(8, id);
             ps.executeUpdate();
-            
+
             //insert into certain role tables
-            if(role == 3)
-                {
-                    sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?) ON DUPLICATE KEY UPDATE Major = ?, SchoolYear = ?";
-                    ps = connector.prepareStatement(sql);
-                    ps.setString(1, id);
-                    ps.setString(2, null);
-                    ps.setString(3, null);
-                    ps.setString(4, null);
-                    ps.setString(5, null);
-                    ps.executeUpdate();
-                    return "success";
-                }
-            else if(role ==2)
-                {
-                    sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?) ON DUPLICATE KEY UPDATE Department = ?, MeetLink = ?";
-                    ps = connector.prepareStatement(sql);
-                    ps.setString(1, id);
-                    ps.setString(2, null);
-                    ps.setString(3, null);
-                    ps.setString(4, null);
-                    ps.setString(5, null);
-                    ps.executeUpdate();
-                    return "success";
-                }
+            if (role == 3) {
+                sql = "Insert into student (Student_ID, Major, SchoolYear) values (?,?,?) ON DUPLICATE KEY UPDATE Major = ?, SchoolYear = ?";
+                ps = connector.prepareStatement(sql);
+                ps.setString(1, id);
+                ps.setString(2, null);
+                ps.setString(3, null);
+                ps.setString(4, null);
+                ps.setString(5, null);
+                ps.executeUpdate();
+                return "success";
+            } else if (role == 2) {
+                sql = "Insert into lecturer (Lecturer_ID, Department, MeetLink) values (?,?,?) ON DUPLICATE KEY UPDATE Department = ?, MeetLink = ?";
+                ps = connector.prepareStatement(sql);
+                ps.setString(1, id);
+                ps.setString(2, null);
+                ps.setString(3, null);
+                ps.setString(4, null);
+                ps.setString(5, null);
+                ps.executeUpdate();
+                return "success";
+            }
             return "success";
-        } 
-        catch (Exception e) 
-        {
+        } catch (Exception e) {
             System.out.println(e);
         }
         return "failed";
     }
-    
-    public void deleteAccountbyID(String accountID)
-            {
-                String deleteAccount = "delete from account where Account_ID = ?";
+
+    public void deleteAccountbyID(String accountID) {
+        String deleteAccount = "delete from account where Account_ID = ?";
 //                String sqlCondition = "select Role_ID from account where Account_ID = ?";
 //                int roleID = 0;
-                try 
-                {
-                    PreparedStatement ps = connector.prepareStatement(deleteAccount);
+        try {
+            PreparedStatement ps = connector.prepareStatement(deleteAccount);
 //                    ps.setString(1, accountID);
 //                    ps.executeQuery();
 //                    ResultSet rs = ps.executeQuery();
@@ -444,55 +430,47 @@ public class DAO extends DBContext {
 //                        ps.setString(1, accountID);
 //                        ps.executeUpdate();
 //                    }
-                    deleteAccount = "delete from account where Account_ID = ?";
-                    ps = connector.prepareStatement(deleteAccount);
-                    ps.setString(1, accountID);
-                    ps.executeUpdate();
-                } 
-                catch (Exception e) 
-                {
-                    System.out.println(e);
-                }
-            }
-    public void deleteClassbyID(String classID)
-            {
-                String deleteClass = "";
-                try 
-                {
-                    deleteClass = "delete from lecturerinwhichclass where Class_ID = ?";
-                    PreparedStatement ps = connector.prepareStatement(deleteClass);
-                    ps = connector.prepareStatement(deleteClass);
-                    ps.setString(1, classID);
-                    ps.executeUpdate();
-                    deleteClass = "delete from studentinwhichclass where Class_ID = ?";
-                    ps = connector.prepareStatement(deleteClass);
-                    ps.setString(1, classID);
-                    ps.executeUpdate();
-                    deleteClass = "delete from class where Class_ID = ?";
-                    ps = connector.prepareStatement(deleteClass);
-                    ps.setString(1, classID);
-                    ps.executeUpdate();
-                } 
-                catch (Exception e) 
-                {
-                    System.out.println(e);
-                }
-            }
-    public void deleteCoursebyID(String courseID)
-            {
-                String deleteCourse = "delete from course where Course_ID = ?";
-                try 
-                {
-                    PreparedStatement ps = connector.prepareStatement(deleteCourse);
-                    ps.setString(1, courseID);
-                    ps.executeUpdate();
-                } 
-                catch (Exception e) 
-                {
-                    System.out.println(e);
-                }
-            }
-    
+            deleteAccount = "delete from account where Account_ID = ?";
+            ps = connector.prepareStatement(deleteAccount);
+            ps.setString(1, accountID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteClassbyID(String classID) {
+        String deleteClass = "";
+        try {
+            deleteClass = "delete from lecturerinwhichclass where Class_ID = ?";
+            PreparedStatement ps = connector.prepareStatement(deleteClass);
+            ps = connector.prepareStatement(deleteClass);
+            ps.setString(1, classID);
+            ps.executeUpdate();
+            deleteClass = "delete from studentinwhichclass where Class_ID = ?";
+            ps = connector.prepareStatement(deleteClass);
+            ps.setString(1, classID);
+            ps.executeUpdate();
+            deleteClass = "delete from class where Class_ID = ?";
+            ps = connector.prepareStatement(deleteClass);
+            ps.setString(1, classID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteCoursebyID(String courseID) {
+        String deleteCourse = "delete from course where Course_ID = ?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(deleteCourse);
+            ps.setString(1, courseID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public ArrayList<Question> getQuestionsExam(int examID) {
         try {
             String sql = "SELECT question.Question_ID, question.Title, question.QuestionContent, question.Type, question.Mark  FROM `quiz9.5`.question as question\n"
@@ -539,11 +517,11 @@ public class DAO extends DBContext {
             }
             if (status > 1) {
                 for (Question question : questions) {
-                    question.setAnswer(1);
+                    question.setAnswer(status);
                 }
             } else {
                 for (Question question : questions) {
-                    question.setAnswer(2);
+                    question.setAnswer(1);
                 }
             }
 
@@ -654,7 +632,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public String getExamName(int examID) {
         try {
             String sql = "SELECT ExamName FROM `quiz9.5`.exam\n"
@@ -670,6 +648,26 @@ public class DAO extends DBContext {
         }
         return null;
     }
+
+    public int getTotalMark(int examID) {
+        try {
+            String sql = "SELECT c.Choice_ID, c.ScorePercentage, q.Question_ID FROM choicesofquestion  as c\n"
+                    + "INNER JOIN questioninwhichexam  as q \n"
+                    + "WHERE c.Question_ID = q.Question_ID AND q.Exam_ID= ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            int total = 0;
+            stm.setInt(1, examID);
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                total+=rs.getInt("ScorePercentage");
+            }
+            return total;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
     public int getNumberOfQuestion(int examID) {
         try {
             String sql = "SELECT QuestionNumber FROM `quiz9.5`.exam\n"
@@ -685,7 +683,8 @@ public class DAO extends DBContext {
         }
         return 0;
     }
-     public int getNewStudentAnswer() {
+
+    public int getNewStudentAnswer() {
         try {
             String sql = "SELECT StudentAnswer_ID, Question_ID, Choice_ID, Flag, Result_ID  FROM studentanswer order by StudentAnswer_ID DESC";
             PreparedStatement stm = connector.prepareStatement(sql);
@@ -702,18 +701,20 @@ public class DAO extends DBContext {
         }
         return -1;
     }
-     
-     public boolean createStudentAnswer(int QuestionID, int ChoiceID, int Flag, String Result_ID) {
+
+    public boolean createStudentAnswer(String studentId, int QuestionID, int ChoiceID, int Flag) {
         try {
             String sql = "INSERT INTO studentanswer VALUES (?, ?, ?, ?, ?)";
             DAO dao = new DAO();
+            String resultID = String.valueOf(dao.getNewResultID());
             String studentAnswer = String.valueOf(dao.getNewStudentAnswer());
+            studentAnswer = studentAnswer + studentId;
             PreparedStatement stm = connector.prepareStatement(sql);
             stm.setString(1, studentAnswer);
             stm.setInt(2, QuestionID);
             stm.setInt(3, ChoiceID);
             stm.setInt(4, Flag);
-            stm.setString(5, Result_ID);
+            stm.setString(5, resultID);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -724,10 +725,12 @@ public class DAO extends DBContext {
 
     public static void main(String[] args) {
         DAO d = new DAO();
-        String two = d.encodeSHA1("1691939");
+//        boolean a = d.createStudentAnswer("1231", 1, 1, 1);
+            System.out.println(d.getTotalMark(1));
+//        String two = d.encodeSHA1("1691939");
 //        d.getAllCourse();
-        System.out.println(two);
-        System.out.println(d.encodeSHA1("123456").equals(two));
+//        System.out.println(two);
+//        System.out.println(d.encodeSHA1("123456").equals(two));
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 //        d.deleteAccountbyID("nampt_he_171400");
 //        d.deleteClassbyID("yes");

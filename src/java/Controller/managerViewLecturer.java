@@ -78,6 +78,10 @@ public class managerViewLecturer extends HttpServlet {
         }
         ManagerDAO dao = new ManagerDAO();
         List<Lecturer> lecturer = dao.getlecturerByClass(cid);
+        for (Lecturer lecturer1 : lecturer) 
+        {
+            
+        }
         List<Student> student = dao.getstudentByClass(cid);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
         List<Student> addstudent = dao.getAllCoursestudent();

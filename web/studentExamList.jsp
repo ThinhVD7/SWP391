@@ -508,7 +508,6 @@
                     Click to view details
             </div>
                 </c:forEach>
-            
         </div>
            
             

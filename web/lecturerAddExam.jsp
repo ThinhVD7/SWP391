@@ -519,9 +519,11 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label for="timeLimit" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
+                                    <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        <input type="number" name="timeLimit" class="form-control" id="timeLimit" min ="1" placeholder="0" value="${timeLimit}" required=""> (minutes)
+                                        Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
+                                        Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
+                                        Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -537,7 +539,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="permission" class="col-sm-4 col-form-label" style="font-weight: bold">Set preview permission:</label>
+                                    <label for="permission" class="col-sm-4 col-form-label" style="font-weight: bold">Set review permission:</label>
                                     <div class="col-md-6">
                                         <select id="permission" name="permission" class="mt-2 pl-5 pr-5" required="">
                                             <option value="" disabled selected="selected"></option>
@@ -737,81 +739,80 @@
                 <!--<input type="text" id="newClassName" placeholder="New Class Name">-->
                 <!--                <button class ="popup-button" onclick="editClassName()">Save</button>-->
             </div>
-        </div>
 
 
 
-    </section>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>
+        </section>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script>
 
-                        var myForm = document.getElementById('my-form');
-                        var x1 = myForm.offsetHeight;
-                        function openPopup(className) {
-                            const overlay = document.getElementById('classEditPopup');
+                                                    var myForm = document.getElementById('my-form');
+                                                    var x1 = myForm.offsetHeight;
+                                                    function openPopup(className) {
+                                                        const overlay = document.getElementById('classEditPopup');
 //                const newClassNameInput = document.getElementById('newClassName');
 //                newClassNameInput.value = className;
-                            overlay.style.display = 'block';
-                        }
+                                                        overlay.style.display = 'block';
+                                                    }
 
-                        // Function to close the pop-up
-                        function closePopup() {
-                            const overlay = document.getElementById('classEditPopup');
-                            overlay.style.display = 'none';
-                        }
+                                                    // Function to close the pop-up
+                                                    function closePopup() {
+                                                        const overlay = document.getElementById('classEditPopup');
+                                                        overlay.style.display = 'none';
+                                                    }
 
 
-                        const btn_menu = document.querySelector(".btn-menu");
-                        const side_bar = document.querySelector(".sidebar");
-                        btn_menu.addEventListener("click", function () {
-                            side_bar.classList.toggle("expand");
-                            changebtn();
-                        });
-                        function changebtn() {
-                            if (side_bar.classList.contains("expand")) {
-                                btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
-                            } else {
-                                btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
-                            }
-                        }
+                                                    const btn_menu = document.querySelector(".btn-menu");
+                                                    const side_bar = document.querySelector(".sidebar");
+                                                    btn_menu.addEventListener("click", function () {
+                                                        side_bar.classList.toggle("expand");
+                                                        changebtn();
+                                                    });
+                                                    function changebtn() {
+                                                        if (side_bar.classList.contains("expand")) {
+                                                            btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                                                        } else {
+                                                            btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                                                        }
+                                                    }
 
-                        const btn_theme = document.querySelector(".theme-btn");
-                        const theme_ball = document.querySelector(".theme-ball");
-                        const localData = localStorage.getItem("theme");
-                        if (localData == null) {
-                            localStorage.setItem("theme", "light");
-                        }
+                                                    const btn_theme = document.querySelector(".theme-btn");
+                                                    const theme_ball = document.querySelector(".theme-ball");
+                                                    const localData = localStorage.getItem("theme");
+                                                    if (localData == null) {
+                                                        localStorage.setItem("theme", "light");
+                                                    }
 
-                        if (localData == "dark") {
-                            document.body.classList.add("dark-mode");
-                            theme_ball.classList.add("dark");
-                        } else if (localData == "light") {
-                            document.body.classList.remove("dark-mode");
-                            theme_ball.classList.remove("dark");
-                        }
+                                                    if (localData == "dark") {
+                                                        document.body.classList.add("dark-mode");
+                                                        theme_ball.classList.add("dark");
+                                                    } else if (localData == "light") {
+                                                        document.body.classList.remove("dark-mode");
+                                                        theme_ball.classList.remove("dark");
+                                                    }
 
-                        btn_theme.addEventListener("click", function () {
-                            document.body.classList.toggle("dark-mode");
-                            theme_ball.classList.toggle("dark");
-                            if (document.body.classList.contains("dark-mode")) {
-                                localStorage.setItem("theme", "dark");
-                            } else {
-                                localStorage.setItem("theme", "light");
-                            }
-                        });
-                        $(document).ready(function () {
-                            $(".content .tab_content").hide();
-                            $(".content .tab_content:first-child").show();
-                            $("ul li").click(function () {
+                                                    btn_theme.addEventListener("click", function () {
+                                                        document.body.classList.toggle("dark-mode");
+                                                        theme_ball.classList.toggle("dark");
+                                                        if (document.body.classList.contains("dark-mode")) {
+                                                            localStorage.setItem("theme", "dark");
+                                                        } else {
+                                                            localStorage.setItem("theme", "light");
+                                                        }
+                                                    });
+                                                    $(document).ready(function () {
+                                                        $(".content .tab_content").hide();
+                                                        $(".content .tab_content:first-child").show();
+                                                        $("ul li").click(function () {
 
-                                $("ul li").removeClass("active");
-                                $(this).addClass("active");
-                                var current_tab = $(this).attr("data-list");
-                                $(".content .tab_content").hide();
-                                $("." + current_tab).show();
-                            })
-                        });
-                        /*-------------------------------------------------------------------------------------------*/
+                                                            $("ul li").removeClass("active");
+                                                            $(this).addClass("active");
+                                                            var current_tab = $(this).attr("data-list");
+                                                            $(".content .tab_content").hide();
+                                                            $("." + current_tab).show();
+                                                        })
+                                                    });
+                                                    /*-------------------------------------------------------------------------------------------*/
 //                        document.addEventListener("DOMContentLoaded", function () {
 //                            const form = document.querySelector(".exam-form");
 //                            form.addEventListener("submit", function (event) {
@@ -831,70 +832,77 @@
 //                                }
 //                            });
 //                        });
-                        /*-------------------------------------------------------------------------------------------*/
-                        document.querySelector('form').addEventListener('submit', function (event) {
-                            event.preventDefault();
-                            var fromDate = new Date(document.getElementById('fromDate').value);
-                            var toDate = new Date(document.getElementById('toDate').value);
-                            var xDate = new Date(document.getElementById('startDate').value);
-                            var yDate = new Date(document.getElementById('endDate').value);
-                            var timeLimit = parseInt(document.getElementById('timeLimit').value);
+                                                    /*-------------------------------------------------------------------------------------------*/
+                                                    document.querySelector('form').addEventListener('submit', function (event) {
+                                                        event.preventDefault();
+                                                        var fromDate = new Date(document.getElementById('fromDate').value);
+                                                        var toDate = new Date(document.getElementById('toDate').value);
+                                                        var xDate = new Date(document.getElementById('startDate').value);
+                                                        var yDate = new Date(document.getElementById('endDate').value);
+                                                        var hour = parseInt(document.getElementById('timeLimitHour').value, 10);
+                                                        var minute = parseInt(document.getElementById('timeLimitMinute').value, 10);
+                                                        var second = parseInt(document.getElementById('timeLimitSecond').value, 10);
+                                                        if (fromDate <= new Date()) {
+                                                            alert("Start date must be set from now on");
+                                                            return;
+                                                        }
+                                                        if (toDate <= new Date()) {
+                                                            alert("To date must be set from now on");
+                                                            return;
+                                                        }
+                                                        if (fromDate > toDate) {
+                                                            alert("Start date must be set before due date");
+                                                            return;
+                                                        }
 
-                            if (fromDate <= new Date() || toDate <= new Date()) {
-                                alert("Date must be in the future.");
-                                return;
-                            }
-                            if (fromDate == toDate) {
-                                alert("Not valid date");
-                                return;
-                            }
-                            if (fromDate == toDate) {
-                                alert("Not valid date");
-                                return;
-                            }
-                            if (toDate - fromDate < timeLimit * 60000) {
-                                alert("Not valid date");
-                                return;
-                            }
-                            if (fromDate > toDate) {
-                                alert("From Date must before To Date.");
-                                return;
-                            }
+                                                        if (toDate >= yDate) {
+                                                            alert("Due date must be set before " + yDate.toDateString());
+                                                            return;
+                                                        }
+                                                        if (fromDate <= xDate) {
+                                                            alert("Start date must be set after: " + xDate.toDateString());
+                                                            return;
+                                                        }
+                                                        if (toDate - fromDate < (hour * 60 * 60000 + minute * 60000 + second * 1000))
+                                                        {
+                                                            alert("Time limit of attempt exceeds exam's available duration");
+                                                            return;
+                                                        }
 
-                            if (toDate >= yDate) {
-                                alert("To date must be before " + yDate.toDateString());
-                                return;
-                            }
-                            if (fromDate <= xDate) {
-                                alert("Start Date must after: " + xDate.toDateString());
-                                return;
-                            }
+                                                        if ((hour + minute + second) === 0) {
+                                                            alert("Time limit must be fairer");
+                                                            return;
+                                                        }
 
-                            // If the validation passes, you can submit the form
-                            this.submit();
-                        });
-                        var count = 0;
 
-                        document.getElementById('add_more_fields').addEventListener('click', function (event) {
-                            event.preventDefault();
-                            var x = document.getElementById('questionType');
-                            var container = document.getElementById('container');
+                                                        // If the validation passes, you can submit the form
+                                                        this.submit();
+                                                    });
 
-                            // Create a new div element
-                            var newDiv = document.createElement('div');
-                            newDiv.className = 'form-inline count';
+                                                    var count = 0;
 
-                            // Generate a unique ID for the new div
-                            newDiv.id = count;
+                                                    document.getElementById('add_more_fields').addEventListener('click', function (event) {
+                                                        event.preventDefault();
+                                                        var x = document.getElementById('questionType');
+                                                        var container = document.getElementById('container');
 
-                            if (x.value == 0) {
-                                var countScoreOptions = `
+                                                        // Create a new div element
+                                                        var newDiv = document.createElement('div');
+                                                        newDiv.className = 'form-inline count';
+
+                                                        // Generate a unique ID for the new div
+                                                        newDiv.id = count;
+
+
+                                                        // Define the default options for the count_score select
+                                                        if (x.value == 0) {
+                                                            var countScoreOptions = `
     <option value="0">0</option>
 
     <option value="100">100</option>
 `;
-                            } else {
-                                var countScoreOptions = `
+                                                        } else {
+                                                            var countScoreOptions = `
     <option value="0">0</option>
     <option value="10">10</option>
     <option value="20">20</option>
@@ -908,101 +916,95 @@
 `;
 
 
-                            }
+                                                        }
 
 
 
-                            // Define the default options for the count_score select
-
-
-
-
-                            // Add the HTML content to the new div
-                            newDiv.innerHTML = `
-    <div class="form-group col-sm-7 index">
-        <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
-    </div>
-    <div class="form-group col-sm-3">
-    Score Percentage:
-        <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score">
+                                                        // Add the HTML content to the new div
+                                                        newDiv.innerHTML = `
+        <div class="form-group col-sm-7 index">
+            <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
+        </div>
+        <div class="form-group col-sm-3">
+        Score Percentage:
+            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score">
         
-        ` + countScoreOptions + `
-        </select>
-    </div>
+            ` + countScoreOptions + `
+            </select>
+        </div>
   
-`;
+    `;
 
-                            // Append the new div to the container
-                            container.appendChild(newDiv);
-                            count = container.children.length;
+                                                        // Append the new div to the container
+                                                        container.appendChild(newDiv);
+                                                        count = container.children.length;
 
-                            var hiddenInput = document.getElementById('hiddenInput');
-                            hiddenInput.value = count;
-                            x1 += 100;
-                            document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
-                            document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
+                                                        var hiddenInput = document.getElementById('hiddenInput');
+                                                        hiddenInput.value = count;
+                                                        x1 += 100;
+                                                        document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
+                                                        document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
 
-                        });
-
-
-                        document.getElementById('remove_fields').addEventListener('click', function () {
-                            var container = document.getElementById('container');
-                            // Get the last added div in the container
-                            var lastDiv = container.lastChild;
-                            // Check if the last div exists and remove it
-                            if (lastDiv) {
-                                container.removeChild(lastDiv);
-                                // Update the count based on the number of newDivs in the container
-                                count = container.children.length;
-
-                                // Update the hidden input value with the count
-                                var hiddenInput = document.getElementById('hiddenInput');
-                                hiddenInput.value = count;
-                                if (x1 > 0) {
-                                    x1 -= 100;
-
-                                }
-                                document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
-                                document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
-                            }
-                        });
+                                                    });
 
 
+                                                    document.getElementById('remove_fields').addEventListener('click', function () {
+                                                        var container = document.getElementById('container');
+                                                        // Get the last added div in the container
+                                                        var lastDiv = container.lastChild;
+                                                        // Check if the last div exists and remove it
+                                                        if (lastDiv) {
+                                                            container.removeChild(lastDiv);
+                                                            // Update the count based on the number of newDivs in the container
+                                                            count = container.children.length;
 
-                        document.getElementById('my-form').addEventListener('submit', function (event) {
-                            // Get all the "Score Percentage" select elements
-                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
-                            var totalScore = 0;
+                                                            // Update the hidden input value with the count
+                                                            var hiddenInput = document.getElementById('hiddenInput');
+                                                            hiddenInput.value = count;
+                                                            if (x1 > 0) {
+                                                                x1 -= 100;
 
-                            // Calculate the total score
-                            scoreElements.forEach(function (scoreElement) {
-                                totalScore += parseInt(scoreElement.value);
-                            });
+                                                            }
+                                                            document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
+                                                            document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
+                                                        }
+                                                    });
 
-                            // Check if the total score is greater than 100
-                            if (totalScore !== 100) {
-                                // Prevent the form from being submitted
-                                event.preventDefault();
-                                alert("The total score percentage must be 100%.\nYour total score percentage:" + totalScore + "%");
-                            }
-                        });
 
-                        document.getElementById('questionType').addEventListener('change', function () {
-                            // Get all the "Score Percentage" select elements
-                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                                                    document.getElementById('my-form').addEventListener('submit', function (event) {
+                                                        // Get all the "Score Percentage" select elements
+                                                        var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                                                        var totalScore = 0;
 
-                            if (this.value === "0") {
-                                // For "One Choice" question
-                                scoreElements.forEach(function (scoreElement) {
-                                    scoreElement.innerHTML = `
+                                                        // Calculate the total score
+                                                        scoreElements.forEach(function (scoreElement) {
+                                                            totalScore += parseInt(scoreElement.value);
+                                                        });
+
+                                                        // Check if the total score is greater than 100
+                                                        if (totalScore !== 100) {
+                                                            // Prevent the form from being submitted
+                                                            event.preventDefault();
+                                                            alert("The total score percentage must be 100%.\nYour total score percentage:" + totalScore + "%");
+                                                        }
+                                                    });
+
+                                                    document.getElementById('questionType').addEventListener('change', function () {
+                                                        // Get all the "Score Percentage" select elements
+                                                        var scoreElements = document.querySelectorAll('select[id$="_score"]');
+
+                                                        if (this.value === "0") {
+                                                            // For "One Choice" question
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                scoreElement.innerHTML = `
                     <option value="0">0</option>
                     <option value="100">100</option>
                 `;
-                                });
-                            } else if (this.value === "1") {
-                                // For "Multiple Choice" question
-                                scoreElements.forEach(function (scoreElement) {
-                                    scoreElement.innerHTML = `
+                                                            });
+                                                        } else if (this.value === "1") {
+                                                            // For "Multiple Choice" question
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                scoreElement.innerHTML = `
                     <option value="0">0</option>
                     <option value="10">10</option>
                     <option value="20">20</option>
@@ -1014,97 +1016,96 @@
                     <option value="80">80</option>
                     <option value="90">90</option>
                 `;
-                                });
-                            }
-                        });
+                                                            });
+                                                        }
+                                                    });
 
-                        document.getElementById('my-form').addEventListener('submit', function (event) {
-                            // Get all the "Score Percentage" select elements
-                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
-                            var totalScore = 0;
+                                                    document.getElementById('my-form').addEventListener('submit', function (event) {
+                                                        // Get all the "Score Percentage" select elements
+                                                        var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                                                        var totalScore = 0;
 
-                            if (document.getElementById('questionType').value === "0") {
-                                // For "One Choice" question
-                                // Check if all score percentages are 0 and 100
-                                var valid = true;
-                                scoreElements.forEach(function (scoreElement) {
-                                    var score = parseInt(scoreElement.value);
-                                    if (score !== 0 && score !== 100) {
-                                        valid = false;
-                                    }
-                                });
+                                                        if (document.getElementById('questionType').value === "0") {
+                                                            // For "One Choice" question
+                                                            // Check if all score percentages are 0 and 100
+                                                            var valid = true;
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                var score = parseInt(scoreElement.value);
+                                                                if (score !== 0 && score !== 100) {
+                                                                    valid = false;
+                                                                }
+                                                            });
 
-                                if (!valid) {
-                                    event.preventDefault();
-                                    alert("One choice question! Score percentages must be 0 and 100.");
-                                }
-                            } else if (document.getElementById('questionType').value === "1") {
-                                // For "Multiple Choice" question
-                                // Check if each score percentage is less than 100
-                                scoreElements.forEach(function (scoreElement) {
-                                    var score = parseInt(scoreElement.value);
-                                    if (score >= 100) {
-                                        event.preventDefault();
-                                        alert("Multiple choice question! Score percentages must be less than 100.");
-                                        return;
-                                    }
+                                                            if (!valid) {
+                                                                event.preventDefault();
+                                                                alert("One choice question! Score percentages must be 0 and 100.");
+                                                            }
+                                                        } else if (document.getElementById('questionType').value === "1") {
+                                                            // For "Multiple Choice" question
+                                                            // Check if each score percentage is less than 100
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                var score = parseInt(scoreElement.value);
+                                                                if (score >= 100) {
+                                                                    event.preventDefault();
+                                                                    alert("Multiple choice question! Score percentages must be less than 100.");
+                                                                    return;
+                                                                }
 //                                    totalScore += score;
-                                });
+                                                            });
 
 
-                            }
-                        });
-
-
-
+                                                        }
+                                                    });
 
 
 
-                        function confirmDelete(questionID) {
-                            var confirmDelete = confirm("Are you sure you want to remove this question?");
-                            if (confirmDelete) {
-                                // Make an AJAX request to delete the exam
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", "lecturerRemoveQuestionExam?questionID=" + questionID, true);
-
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4 && xhr.status === 200) {
-                                        // Handle the response from the servlet
-                                        var response = xhr.responseText;
-                                        alert("Question with ID " + questionID + " deleted.");
-                                        location.reload();
-                                    }
-                                };
-
-                                // Send the request
-                                xhr.send();
-                            }
-                        }
 
 
-                        function loadExams() {
-                            var selectedClass = document.getElementById("classSelect").value;
-                            var examListContainer = document.getElementById("examList");
 
-                            // Make an AJAX request to your servlet
-                            var xhr = new XMLHttpRequest();
-                            xhr.open("GET", "AjaxLoadExamByClass?classID=" + selectedClass, true);
+                                                    function confirmDelete(questionID) {
+                                                        var confirmDelete = confirm("Are you sure you want to remove this question?");
+                                                        if (confirmDelete) {
+                                                            // Make an AJAX request to delete the exam
+                                                            var xhr = new XMLHttpRequest();
+                                                            xhr.open("POST", "lecturerRemoveQuestionExam?questionID=" + questionID, true);
 
-                            xhr.onload = function () {
-                                if (xhr.status === 200) {
-                                    // Replace the content of the examList div with the response
-                                    examListContainer.innerHTML = xhr.responseText;
-                                } else {
-                                    // Handle errors
-                                    console.error("Failed to load exams.");
-                                }
-                            };
+                                                            xhr.onreadystatechange = function () {
+                                                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                                                    // Handle the response from the servlet
+                                                                    var response = xhr.responseText;
+                                                                    alert("Question with ID " + questionID + " deleted.");
+                                                                    location.reload();
+                                                                }
+                                                            };
 
-                            xhr.send();
-                        }
+                                                            // Send the request
+                                                            xhr.send();
+                                                        }
+                                                    }
+
+                                                    function loadExams() {
+                                                        var selectedClass = document.getElementById("classSelect").value;
+                                                        var examListContainer = document.getElementById("examList");
+
+                                                        // Make an AJAX request to your servlet
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.open("GET", "AjaxLoadExamByClass?classID=" + selectedClass, true);
+
+                                                        xhr.onload = function () {
+                                                            if (xhr.status === 200) {
+                                                                // Replace the content of the examList div with the response
+                                                                examListContainer.innerHTML = xhr.responseText;
+                                                            } else {
+                                                                // Handle errors
+                                                                console.error("Failed to load exams.");
+                                                            }
+                                                        };
+
+                                                        xhr.send();
+                                                    }
 
 
-    </script>
+        </script>
 
-</body>
+    </body>
 </html>

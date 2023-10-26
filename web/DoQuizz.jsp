@@ -4,11 +4,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%
-            response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
-            response.setHeader("Pragma","no-cache"); //HTTP 1.0
-            response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
-        %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <%@include file="Components/AllAccess.jsp"%>
@@ -47,7 +42,7 @@
                 <div id="layoutSidenav_content">
                     <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
                         <p class="fs-1 fw-bold">Exam Name: ${requestScope.name}</p>
-                        <p class="fs-2 fw-light">Total Question: ${requestScope.questions.size()}</p>
+                    <p class="fs-2 fw-light">Total Question: ${requestScope.questions.size()}</p>
 
                     <div class="container">
                         <div class="row">
@@ -69,25 +64,32 @@
                                                         <div class="mb-3 mx-auto d-block shadow p-3 mb-5 bg-white rounded" style="padding: 10px 10px 10px 10px; border-radius: 8px; width: 32%; margin-left: 10px; width: 100% !important">
                                                             <li class="ms-3">
                                                                 <span>${questionMap.content}</span>
+                                                                <c:forEach items="${choice.getChoice(questionMap.questionID)}" var="ch" varStatus="index1">
+                                                                    <c:if test="${index1.index == 1}">
+                                                                        <span style="color: red">        (Choose ${ch.answer} correct!)</span>
+                                                                    </c:if>
+
+                                                                </c:forEach>
                                                                 <ol type="A" class="mt-3">
                                                                     <c:forEach items="${choice.getChoice(questionMap.questionID)}" var="c" varStatus="index">
+
 
                                                                         <!--                                                                            <li class="d-flex mb-1">
                                                                                                                                                             <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" readonly></span>
                                                                                                                                                         </li>-->
-                                                                        <c:if test="${c.answer == 2}">
+                                                                        <c:if test="${c.answer == 1}">
                                                                             <li class="d-flex mb-1">
                                                                                 <input type="radio" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px"/>
                                                                                 <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" readonly></span>
                                                                                 <br/>
-                                                                             </li>
+                                                                            </li>
                                                                         </c:if>
-                                                                        <c:if test="${c.answer == 1}">
+                                                                        <c:if test="${c.answer != 1}">
                                                                             <li class="d-flex mb-1 row">
                                                                                 <input type="checkbox" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px"/>
                                                                                 <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" readonly></span>
                                                                                 <br/>
-                                                                             </li>
+                                                                            </li>
                                                                         </c:if>
                                                                     </c:forEach>
                                                                 </ol>

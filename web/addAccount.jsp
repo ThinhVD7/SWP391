@@ -94,18 +94,18 @@
 
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gender" id="femaleGender"
-                                                       value="2" checked />
+                                                       value="2" ${requestScope.gender==2?"checked":""} />
                                                 <label class="form-check-label" for="femaleGender">Female</label>
                                             </div>
 
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gender" id="maleGender"
-                                                       value="1" />
+                                                       value="1" ${requestScope.gender==1?"checked":""}/>
                                                 <label class="form-check-label" for="maleGender">Male</label>
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gender" id="fluidGender"
-                                                       value="0" checked />
+                                                       value="0" ${requestScope.gender==0?"checked":""}/>
                                                 <label class="form-check-label" for="femaleGender">Others</label>
                                             </div>
 
@@ -130,7 +130,7 @@
                                                                                             <label class="form-label" for="phoneNumber">Phone Number</label>
                                                                                         </div>-->
                                             Status: <select class="select form-control-md" name="status">
-                                                <option value="" disabled>Status</option>
+                                                <option value= "${requestScope.status}" selected>${requestScope.status==1?"Active":"Inactive"}</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
                                             </select>
@@ -141,7 +141,7 @@
                                         <div class="col-12">
 
                                             Role: <select class="select form-control-md" name="role">
-                                                <option value="" disabled>Role</option>
+                                                <option value="${requestScope.role}" selected>${requestScope.role==0?"Admin":role==1?"Manager":role==2?"Lecturer":"Student"}</option>
                                                 <option value="0">Admin</option>
                                                 <option value="1">Manager</option>
                                                 <option value="2">Lecturer</option>
