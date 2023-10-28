@@ -366,7 +366,7 @@
                                                 <div class="form-group col-sm-5">
 
                                                     Question Mark:
-                                                    <input type="number" name="mark" min="0" class="survey_options" placeholder="Question mark" required="" value="${question.mark}">                     
+                                                    <input type="number" name="mark" class="survey_options" placeholder="Question mark" required="" value="${question.mark}">                     
 
                                                 </div>
 
@@ -397,24 +397,19 @@
                                                         </div>
                                                         <div class="form-group col-sm-3">
                                                             Score Percentage:
-
                                                             <select name="${index.index}_score" class="survey_options ml-3" id="${index.index}_score">
-                                                                <c:if test="${question.type == 1}">
-                                                                    <option ${c.choicePercentage == 0?"selected":""} value="0">0</option>
-                                                                    <option ${c.choicePercentage == 10?"selected":""} value="10">10</option>
-                                                                    <option${c.choicePercentage == 20?"selected":""} value="20">20</option>
-                                                                    <option ${c.choicePercentage == 30?"selected":""} value="30">30</option>
-                                                                    <option ${c.choicePercentage == 40?"selected":""} value="40">40</option>
-                                                                    <option ${c.choicePercentage == 50?"selected":""} value="50">50</option>
-                                                                    <option ${c.choicePercentage == 60?"selected":""} value="60">60</option>
-                                                                    <option ${c.choicePercentage == 70?"selected":""} value="70">70</option>
-                                                                    <option ${c.choicePercentage == 80?"selected":""} value="80">80</option>
-                                                                    <option ${c.choicePercentage == 90?"selected":""} value="90">90</option>
-                                                                </c:if>
-                                                                <c:if test="${question.type == 0}">
-                                                                    <option ${c.choicePercentage == 0?"selected":""} value="0">0</option>
-                                                                    <option ${c.choicePercentage == 100?"selected":""} value="100">100</option>
-                                                                </c:if>
+
+                                                                <option ${c.choicePercentage == 0?"selected":""} value="0">0</option>
+                                                                <option ${c.choicePercentage == 10?"selected":""} value="10">10</option>
+                                                                <option${c.choicePercentage == 20?"selected":""} value="20">20</option>
+                                                                <option ${c.choicePercentage == 30?"selected":""} value="30">30</option>
+                                                                <option ${c.choicePercentage == 40?"selected":""} value="40">40</option>
+                                                                <option ${c.choicePercentage == 50?"selected":""} value="50">50</option>
+                                                                <option ${c.choicePercentage == 60?"selected":""} value="60">60</option>
+                                                                <option ${c.choicePercentage == 70?"selected":""} value="70">70</option>
+                                                                <option ${c.choicePercentage == 80?"selected":""} value="80">80</option>
+                                                                <option ${c.choicePercentage == 90?"selected":""} value="90">90</option>
+                                                                <option ${c.choicePercentage == 100?"selected":""} value="100">100</option>
 
 
 
@@ -495,7 +490,6 @@
                                                 event.preventDefault();
                                                 var container = document.getElementById('container');
                                                 var newCount = count++;
-                                                var x = document.getElementById('questionType');
 
                                                 // Create a new div element for the new field
                                                 var newDiv = document.createElement('div');
@@ -506,31 +500,6 @@
                                                 var newName = `` + newCount + `_survey_options[]`;
                                                 var newId = `` + newCount + `_score`;
 
-
-                                                if (x.value == 0) {
-                                                    var countScoreOptions = `
-    <option value="0">0</option>
-    <option value="100">100</option>
-`;
-                                                } else {
-                                                    var countScoreOptions = `
-    <option value="0">0</option>
-    <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="30">30</option>
-    <option value="40">40</option>
-    <option value="50">50</option>
-    <option value="60">60</option>
-    <option value="70">70</option>
-    <option value="80">80</option>
-    <option value="90">90</option>
-`;
-
-
-                                                }
-
-
-
                                                 // Add the HTML content for the new field
                                                 newDiv.innerHTML = `
                 <input type="hidden" name="` + newCount + `_choiceId" value="">
@@ -540,7 +509,17 @@
                 <div class="form-group col-sm-3">
                     Score Percentage:
                     <select name="` + newCount + `_score" class="survey_options ml-3" id="` + newCount + `_score">
-                      ` + countScoreOptions + `
+                        <option value="0">0</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="60">60</option>
+                        <option value="70">70</option>
+                        <option value="80">80</option>
+                        <option value="90">90</option>
+                        <option value="100">100</option>
                     </select>
                 </div>
                 <div class="form-group col-sm-1">
@@ -564,6 +543,7 @@
                                                         removeChoiceFromDatabase(choiceId);
                                                         container.removeChild(fieldToRemove);
                                                         count--; // Decrease the count
+                                                   
                                                         // Update the hidden input value with the new count
                                                         hiddenInput.value = count;
                                                     }
@@ -609,36 +589,7 @@
                                         }
 
 
-                                        document.getElementById('questionType').addEventListener('change', function () {
-                                            // Get all the "Score Percentage" select elements
-                                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
 
-                                            if (this.value === "0") {
-                                                // For "One Choice" question
-                                                scoreElements.forEach(function (scoreElement) {
-                                                    scoreElement.innerHTML = `
-                    <option value="0">0</option>
-                    <option value="100">100</option>
-                `;
-                                                });
-                                            } else if (this.value === "1") {
-                                                // For "Multiple Choice" question
-                                                scoreElements.forEach(function (scoreElement) {
-                                                    scoreElement.innerHTML = `
-                    <option value="0">0</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                    <option value="60">60</option>
-                    <option value="70">70</option>
-                    <option value="80">80</option>
-                    <option value="90">90</option>
-                `;
-                                                });
-                                            }
-                                        });
 
     </script>
 </html>
