@@ -555,9 +555,18 @@
                 overflow: auto;
                 height: 500px;
                 width: 75%;
-
-
-
+            }
+            .popup-editname {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 2;
+                overflow: auto;
             }
         </style>
     </head>
@@ -627,7 +636,7 @@
                 <!--<form action="managerViewLecturer" method="post">-->
 
                 <div id="classEditPopup" class="overlay" onclick="closePopup()">
-                    <div class="popup-container" onclick="event.stopPropagation();">
+                    <div class="popup-editname" onclick="event.stopPropagation();">
                         <h2>Edit Class Name</h2>
 <!--                        <input name="classID" value="${requestScope.classID}" style="display: none"/>
                         <input name="className" value="${requestScope.className}" style="display: none"/>
