@@ -1,0 +1,41 @@
+.divider:after,
+.divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+}
+.h-custom {
+    height: calc(100% - 73px);
+}
+@media (max-width: 450px) {
+    .h-custom {
+        height: 100%;
+    }
+}
+
+#Login{
+    padding: 150px 50px;
+    min-width: 60vh;
+    max-width: 500px;
+    background: #fcf8f5;
+    color: #454444;
+    transition: all 0.3s;
+    border-radius: 30px;
+}
+#buttonLogin{
+    padding: 15px 165px;
+    border-radius: 30px;
+    background: #593a2b;
+    color: #ffffff;
+}
+
+input[type=text]{
+    border-radius: 30px;
+    padding: 12px 20px; 
+}
+
+input[type="password"]{
+    border-radius: 30px;
+    padding: 12px 20px; 
+}
