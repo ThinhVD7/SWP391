@@ -569,11 +569,11 @@
             </div>
             <ul class="nav-links">
 
-                <li>
+<!--                <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
-                </li>
+                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -606,7 +606,7 @@
             </div>
         </section>
         <section class="home">
-
+<!--
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
@@ -619,7 +619,7 @@
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
-            </div>
+            </div>-->
 
 
             <div class="class-list">
