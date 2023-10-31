@@ -122,10 +122,10 @@ public class LecturerDAO extends DBContext {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getInt(8),
-                        rs.getString(9),
-                        rs.getFloat(10),
-                        rs.getInt(11));
+                        rs.getString(8),
+                        rs.getFloat(9),
+                        rs.getInt(10),
+                        rs.getString(11));
             }
         } catch (Exception e) {
             status = "Error at load a exam" + e.getMessage();
@@ -226,10 +226,10 @@ public class LecturerDAO extends DBContext {
                         rs.getString(5),
                         rs.getString(6),
                         rs.getString(7),
-                        rs.getInt(8),
-                        rs.getString(9),
-                        rs.getFloat(10),
-                        rs.getInt(11)));
+                        rs.getString(8),
+                        rs.getFloat(9),
+                        rs.getInt(10),
+                        rs.getString(11)));
             }
         } catch (Exception e) {
             status = "Error at load exam list" + e.getMessage();
@@ -310,7 +310,7 @@ public class LecturerDAO extends DBContext {
     }
 
     ////exam handle///////////////////////////////////////////////////////////////////////////////////////////////
-    public boolean addExam(String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String attemp, String examDetail, String examScore, int permission) {
+    public boolean addExam(String classId, String examName, String questionNumber, String timeLimit, String startDate, String endDate, String examDetail, String examScore, int permission, String createdBy) {
         try {
             String sql = "INSERT INTO exam\n"
                     + "(Class_ID,\n"
@@ -319,10 +319,10 @@ public class LecturerDAO extends DBContext {
                     + "StartDate,\n"
                     + "EndDate,\n"
                     + "TimeLimit,\n"
-                    + "AttempsAllowed,\n"
                     + "ExamDetail,\n"
                     + "MaxScore,\n"
-                    + "Permission)\n"
+                    + "Permission,\n"
+                    + "CreatedBy)\n"
                     + "VALUES(?,?,?,?,?,?,?,?,?,?)";
 
             PreparedStatement ps = connector.prepareStatement(sql);
@@ -332,10 +332,10 @@ public class LecturerDAO extends DBContext {
             ps.setString(4, startDate);
             ps.setString(5, endDate);
             ps.setString(6, timeLimit);
-            ps.setString(7, attemp);
-            ps.setString(8, examDetail);
-            ps.setString(9, examScore);
-            ps.setInt(10, permission);
+            ps.setString(7, examDetail);
+            ps.setString(8, examScore);
+            ps.setInt(9, permission);
+            ps.setString(10, createdBy);
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -413,16 +413,17 @@ public class LecturerDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
-                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
+            System.out.println(status);
         }
         return null;
     }
 
     public List<Question> getListQuestionByExamID(String examId) {
-        String sql = "SELECT b.* FROM `quiz9.5`.questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
+        String sql = "SELECT b.* FROM questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
 
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
@@ -430,10 +431,11 @@ public class LecturerDAO extends DBContext {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                questionList.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6)));
+                questionList.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5)));
             }
         } catch (Exception e) {
             status = "Error at load classes" + e.getMessage();
+            System.out.println(status);
         }
         return questionList;
     }
@@ -445,7 +447,7 @@ public class LecturerDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
-                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getFloat(10), rs.getInt(11));
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -462,7 +464,7 @@ public class LecturerDAO extends DBContext {
             while (rs.next()) {
                 test = rs.getString(4);
                 return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getInt(8), rs.getString(9), rs.getFloat(10), rs.getInt(11));
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
 
             }
         } catch (Exception e) {
@@ -570,7 +572,7 @@ public class LecturerDAO extends DBContext {
             ps.setString(1, questionID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5));
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -616,6 +618,7 @@ public class LecturerDAO extends DBContext {
 
     }
 
+    //have not modified to database
     public Question getQuestionById(String qId) {
         String sql = "SELECT * FROM question where Question_ID = ?";
         try {
@@ -624,7 +627,7 @@ public class LecturerDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
-                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getFloat(6));
+                return new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -670,6 +673,11 @@ public class LecturerDAO extends DBContext {
 
     public static void main(String[] args) {
         LecturerDAO dao = new LecturerDAO();
+        List<Question> q = dao.getListQuestionByExamID("5");
+        
+            System.out.println(q.size());
+        
+//        System.out.println(test.getExamID());
 
 //        //test user
 //        Account acc = dao.getUser("nampthe171400@fpt.edu.vn");
@@ -723,6 +731,7 @@ public class LecturerDAO extends DBContext {
         //test getDateFormattedString
 //        System.out.println(dao.getDateforDisplay("date", ));
         //parse date
+        /*
         String parsetest = "12-23-2023";
         LocalDate dateTest1 = LocalDate.parse(parsetest, DateTimeFormatter.ofPattern("MM-dd-yyyy"));
         System.out.println("dateTest 1:" + dateTest1);
@@ -772,7 +781,8 @@ public class LecturerDAO extends DBContext {
             System.out.println(today.compareTo(LocalDateTime.parse(exam.getStartDate())));
             System.out.println(today.compareTo(LocalDateTime.parse(exam.getEndDate())));
             System.out.println();
-        }
+        }*/
     }
+
 
 }

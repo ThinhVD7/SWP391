@@ -35,6 +35,13 @@ public class Question {
         this.shuffleChoices = shuffleChoices;
         this.mark = mark;
     }
+    public Question(String questionID, String title, String content, String type, float mark) {
+        this.questionID = questionID;
+        this.title = title;
+        this.content = content;
+        this.type = type;
+        this.mark = mark;
+    }
 
     public String getQuestionID() {
         return questionID;

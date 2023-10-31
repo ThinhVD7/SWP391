@@ -554,8 +554,9 @@
                 z-index: 2;
                 overflow: auto;
                 height: 500px;
+                width: 75%;
             }
-            .popup-editname{
+            .popup-editname {
                 position: fixed;
                 top: 50%;
                 left: 50%;
@@ -566,7 +567,6 @@
                 padding: 15px;
                 z-index: 2;
                 overflow: auto;
-                
             }
         </style>
     </head>

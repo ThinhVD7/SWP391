@@ -9,15 +9,15 @@ public class Exam {
     private String startDate;
     private String endDate;
     private String timeLimit;
-    private int attempsAllowed;
     private String examDetail;
     private float maxScore;
     private int permission;
+    private String createdBy;
 
     public Exam() {
     }
 
-    public Exam(String examID, String classID, String examName, int questionNumber, String startDate, String endDate, String timeLimit, int attempsAllowed, String examDetail, float maxScore, int permission) {
+    public Exam(String examID, String classID, String examName, int questionNumber, String startDate, String endDate, String timeLimit, String examDetail, float maxScore, int permission, String createdBy) {
         this.examID = examID;
         this.classID = classID;
         this.examName = examName;
@@ -25,10 +25,18 @@ public class Exam {
         this.startDate = startDate;
         this.endDate = endDate;
         this.timeLimit = timeLimit;
-        this.attempsAllowed = attempsAllowed;
         this.examDetail = examDetail;
         this.maxScore = maxScore;
         this.permission = permission;
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getExamID() {
@@ -87,13 +95,7 @@ public class Exam {
         this.timeLimit = timeLimit;
     }
 
-    public int getAttempsAllowed() {
-        return attempsAllowed;
-    }
 
-    public void setAttempsAllowed(int attempsAllowed) {
-        this.attempsAllowed = attempsAllowed;
-    }
 
     public String getExamDetail() {
         return examDetail;

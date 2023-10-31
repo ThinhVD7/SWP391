@@ -649,8 +649,8 @@ public class ManagerDAO extends DBContext {
 
     public static void main(String[] args) {
         ManagerDAO d = new ManagerDAO();
-//        d.deleteCourse("asda");
-//        d.insetStudentIntoClass("thinhvd_se_11111", "SE1744_MAS291");
+        d.deleteCourse("asda");
+        d.insetStudentIntoClass("thinhvd_se_11111", "SE1744_MAS291");
 //        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
 
     }

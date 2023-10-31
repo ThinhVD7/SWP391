@@ -1,3 +1,8 @@
+<%-- 
+    Document   : reviewQuizz
+    Created on : Jun 23, 2023, 12:29:34 AM
+    Author     : dungmuahahaha
+--%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -6,13 +11,20 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <%@include file="Components/AllAccess.jsp"%>
        
     </head>
     <body class="sb-sidenav-toggled" onload="timerfunction()">
+        <div class="wrapper">
+            <%@include file="Components/Sidebar.jsp" %>
+            <div class="content" style="width: 100%">
+                <div class="headcontent">
+                    <%@include file="Components/header.jsp" %>
+                </div>
                 <div id="layoutSidenav_content">
                     <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
                         <h1 class="fs-2 fw-bold">${requestScope.QUIZZ.title}</h1>
-                        <h2 class="fs-4">Your Point: ${requestScope.QUIZZ_POINT.point} </h2>                      
+                        <h2 class="fs-4">Your Point: ${requestScope.QUIZZ_POINT.point}<span>(attempt:${requestScope.attempt})</span> </h2>                      
                                 
                                 
                         <div class="container">
@@ -20,7 +32,7 @@
                                 <div class="col-lg-12">
 
                                     <!-- Blog entries-->
-                                    <form action="doQuiz" method="post" id="myForm">
+                                    <form action="QuizHandle" method="post" id="myForm">
                                         <input type="hidden" name="quizzId" value="${requestScope.quizzId}" />
                                         <div class="row">
                                             <div class="col-12">

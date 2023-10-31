@@ -67,7 +67,7 @@ public class ForgotPassword extends HttpServlet {
             return;
         }
         ////////////////////////////////////////////////////////////////
-        request.getRequestDispatcher("forget-password.jsp").forward(request, response);
+        request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
 
     }
 
@@ -128,7 +128,7 @@ public class ForgotPassword extends HttpServlet {
                     message.setFrom(new InternetAddress(username));
                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                     // subject
-                    message.setSubject("Forget password!");
+                    message.setSubject("Forgot password!");
                     // content
                     message.setText("Your new password is: " + otpvalue);
                     // send message

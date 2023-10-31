@@ -35,7 +35,8 @@ public class DoQuiz extends HttpServlet {
         int minutes = Integer.parseInt(timeLimit.split(":")[1]);
         int seconds = Integer.parseInt(timeLimit.split(":")[2]);
         String name = dao.getExamName(examId);
-
+       
+        request.setAttribute("defaultQuestion", 1);
         request.setAttribute("hours", hours);
         request.setAttribute("minutes", minutes);
         request.setAttribute("seconds", seconds);

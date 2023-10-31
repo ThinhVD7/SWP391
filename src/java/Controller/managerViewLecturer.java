@@ -78,9 +78,13 @@ public class managerViewLecturer extends HttpServlet {
         }
         ManagerDAO dao = new ManagerDAO();
         List<Lecturer> lecturer = dao.getlecturerByClass(cid);
+        int lecturerListSize = lecturer.size();
         for (Lecturer lecturer1 : lecturer) 
         {
-            
+            if(dao.getUserById(lecturer1.getAccountID()).getStatus() == 0)
+                {
+                    lecturerListSize--;
+                }
         }
         List<Student> student = dao.getstudentByClass(cid);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
@@ -104,7 +108,7 @@ public class managerViewLecturer extends HttpServlet {
         Class1 classInformation = dao.getClassByID(cid);
         request.setAttribute("cid", cid);
         request.setAttribute("lecturer", lecturer);
-        request.setAttribute("enableAdd", lecturer.size());
+        request.setAttribute("enableAdd", lecturerListSize);
         request.setAttribute("student", student);
         request.setAttribute("addlecturer", addlecturer);
         request.setAttribute("addstudent", addstudent);
@@ -145,6 +149,14 @@ public class managerViewLecturer extends HttpServlet {
         }
         
         List<Lecturer> lecturer = dao.getlecturerByClass(classID);
+        int lecturerListSize = lecturer.size();
+        for (Lecturer lecturer1 : lecturer) 
+        {
+            if(dao.getUserById(lecturer1.getAccountID()).getStatus() == 0)
+                {
+                    lecturerListSize--;
+                }
+        }
         List<Student> student = dao.getstudentByClass(classID);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
         List<Student> addstudent = dao.getAllCoursestudent();
@@ -166,7 +178,7 @@ public class managerViewLecturer extends HttpServlet {
 
         Class1 classInformation = dao.getClassByID(classID);
         request.setAttribute("resultAddStudent", result);
-        request.setAttribute("lecturer", lecturer);
+        request.setAttribute("lecturer", lecturerListSize);
         request.setAttribute("numberLecturer", lecturer.size());
         request.setAttribute("student", student);
         request.setAttribute("addlecturer", addlecturer);

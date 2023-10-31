@@ -5,6 +5,7 @@
 package Controller;
 
 import Dal.LecturerDAO;
+import Model.Account;
 import Model.Class1;
 import Model.Exam;
 import java.io.IOException;
@@ -111,7 +112,7 @@ public class lecturerAddNewExam extends HttpServlet {
         String classId = thisClass.getClassID();
         LecturerDAO dao = new LecturerDAO();
 //        String examId = examName + '_' + classId;
-        if (dao.addExam(classId, examName, String.valueOf(0), timeLimit, fromDate, toDate, String.valueOf(1), examDetail, String.valueOf(0), Integer.parseInt(permission))) {
+        if (dao.addExam(classId, examName, String.valueOf(0), timeLimit, fromDate, toDate, examDetail, String.valueOf(0), Integer.parseInt(permission), ((Account)session.getAttribute("user")).getAccountID())) {
             Exam exam = dao.getLastExam();
             response.sendRedirect("lecturerEditExam?tId=" + exam.getExamID());
 

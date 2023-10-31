@@ -162,7 +162,7 @@
                 padding: 15px;
                 z-index: 2;
                 width: 75%;
-                height: 75%;
+                height: 90%;
             }
             .table-responsive {
                 margin: 30px 0;
@@ -365,7 +365,7 @@
 
             .wrapper .content{
                 padding: 30px;
-                height: 1000px;
+                /*height: 1000px;*/
                 border-bottom: 6px solid #44c8fe;
                 border-radius: 3px;
             }
@@ -397,6 +397,7 @@
                 /*max-height: 600px;  Set a maximum height for the form */
                 align-content: center;
                 justify-items: center;
+                
             }
 
             input[type="text"]{
@@ -622,9 +623,9 @@
                     <button class ="popup-button" onclick="closePopup()">Close</button>
 
 
-                    <div class="container-xl">
-                        <div class="table-responsive">
-                            <div class="table-wrapper">
+                    <div class="container-xl" style="height:92%">
+                        <div class="table-responsive" style="height:100%">
+                            <div class="table-wrapper" style="height:100%">
                                 <div class="table-title">
                                     <div class="row">
                                         <div class="col-sm-5">             

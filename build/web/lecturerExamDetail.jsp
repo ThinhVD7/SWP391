@@ -279,9 +279,13 @@
             </div>
             <div><br></div>
                 <div>
-                    <form action="lecturer">
-                        <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
+                    <form action="lecturerStatisticExam">
+                        <input value="${sessionThisExam.examID}" type="hidden" name="examId"/>
+                        <button class="edit-exam-button-bottom" type="submit">Review Exam</button>
                     </form>
+<!--                    <form action="lecturer">
+                        <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
+                    </form>-->
                 </div>
             <div style="overflow:auto; border-top: 3px solid #000;padding-top: 10px; margin-left: 10px; margin-right: 10px;">
                                 

@@ -212,6 +212,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
             z-index: 2;
+            width:75%;
         }
         
         .table-responsive {
