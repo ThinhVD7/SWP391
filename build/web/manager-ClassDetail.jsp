@@ -554,9 +554,19 @@
                 z-index: 2;
                 overflow: auto;
                 height: 500px;
-
-
-
+            }
+            .popup-editname{
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 2;
+                overflow: auto;
+                
             }
         </style>
     </head>
@@ -626,16 +636,16 @@
                 <!--<form action="managerViewLecturer" method="post">-->
 
                 <div id="classEditPopup" class="overlay" onclick="closePopup()">
-                    <div class="popup-container" onclick="event.stopPropagation();">
+                    <div class="popup-editname" onclick="event.stopPropagation();">
                         <h2>Edit Class Name</h2>
 <!--                        <input name="classID" value="${requestScope.classID}" style="display: none"/>
                         <input name="className" value="${requestScope.className}" style="display: none"/>
                         <input name="courseID" value="${requestScope.courseID}" style="display: none"/>-->  
-                        <form action="managerEditClass" method="doGet">
+                        <form action="managerEditClass" method="post">
                             <input name="cid" value="${requestScope.cid}" hidden="">
                             <input name="courseID" value="${requestScope.courseID}" hidden=""/>   
                             <input name="className" type="text" id="newClassName" placeholder="Hello">
-                            <button class ="popup-button" onclick="editClassName()">Save</button>
+                            <button class ="popup-button" onclick="editClassName()" type="submit">Save</button>
                         </form>            
                             <button  class ="popup-button" onclick="closePopup()">Cancel</button>
                     </div>
@@ -767,7 +777,6 @@
                         </div>
                     </div>
                 </form>
-
                 <!--Assign Student------------------------->
                 <form action="managerViewLecturer" method="post">
                     <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 

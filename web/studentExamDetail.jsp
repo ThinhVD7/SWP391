@@ -252,7 +252,10 @@
                 </div>
                 <div>
 
-                    <h3>${sessionScope.sessionThisExam.examName} </h3>           
+                    <h1>${sessionScope.sessionThisExam.examName} </h1>     
+                   <div style="overflow:auto; border-top: 3px solid #000;padding-top: 10px; margin-left: 10px">
+                       <p>${sessionScope.sessionThisExam.examDetail}</p>           
+                   </div>          
                 </div>
                 <div class="exam-detail">
                     <c:if test="${requestScope.isDoQuizz == false}">
@@ -278,11 +281,16 @@
                     <!--                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
                 </div>
                 <div><br></div>
+               <div style="overflow:auto; border-top: 3px solid #000;padding-top: 10px; margin-left: 10px">
+                            
+               </div>
                 <div>
                     
-                        <button class="edit-exam-button-bottom" onclick ="alert('Feature not available yet, stay tuned!')"${sessionScope.sessionThisExam.permission==1?"":"hidden"}>Review Exam</button>
+                        <button class="edit-exam-button-bottom" onclick ="alert('Feature not available yet, stay tuned!')"${sessionScope.sessionThisExam.permission==1 && requestScope.isDoQuizz == true?"":"hidden"}>Review Exam</button>
                     
                 </div>
+                <br><br>
+                    
             </div>
 
             <!--end of main block------------------------------------------------------------------------------------------------->

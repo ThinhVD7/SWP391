@@ -334,7 +334,7 @@
             </h2>
             <h4 class="text-danger">${err}</h4>
 
-            <a href="lecturerEditExam?tId=${sessionScope.exam.examID}"> <button class ="popup-button">Back</button> </a>
+            <a href="editExam?tId=${sessionScope.exam.examID}"> <button class ="popup-button">Back</button> </a>
 
 
             <div class="container-xl">
@@ -354,7 +354,7 @@
                                 <div class="tab_content tab_1">
                                     <!--<form id="addManually" action="" method="post">-->
 
-                                    <form id="my-form" action="lecturerUpdateQuestion" method="post" onsubmit="return validateScores()">
+                                    <form id="my-form" action="updateQuestion" method="post">
 
                                         <div class="wrapper">
                                             <div class="form-inline">
@@ -366,7 +366,7 @@
                                                 <div class="form-group col-sm-5">
 
                                                     Question Mark:
-                                                    <input type="number" name="mark" min="0" class="survey_options" placeholder="Question mark" required="" value="${question.mark}">                     
+                                                    <input type="number" name="mark" class="survey_options" placeholder="Question mark" required="" value="${question.mark}">                     
 
                                                 </div>
 
@@ -390,46 +390,32 @@
                                             <div id="container">
 
                                                 <c:forEach items="${requestScope.listChoice}" var="c" varStatus="index">
-                                                    <div class="form-inline">
+                                                    <div class="row mt-3">
                                                         <input type="hidden" name="${index.index}_choiceId" value="${c.choiceId}">
                                                         <div class="form-group col-sm-7 index">
                                                             <input type="text" name="${index.index}_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="" value="${c.choiceContent}">
                                                         </div>
                                                         <div class="form-group col-sm-3">
                                                             Score Percentage:
-
                                                             <select name="${index.index}_score" class="survey_options ml-3" id="${index.index}_score">
-                                                                <c:if test="${question.type == 1}">
+                                                                <c:if test="${question.type == '1'}">
                                                                     <option ${c.choicePercentage == 0?"selected":""} value="0">0</option>
-                                                                    <option ${c.choicePercentage == 10?"selected":""} value="10">10</option>
-                                                                    <option${c.choicePercentage == 20?"selected":""} value="20">20</option>
-                                                                    <option ${c.choicePercentage == 30?"selected":""} value="30">30</option>
-                                                                    <option ${c.choicePercentage == 40?"selected":""} value="40">40</option>
+                                                                    <option ${c.choicePercentage == 20?"selected":""} value="20">20</option>
+                                                                    <option${c.choicePercentage == 25?"selected":""} value="25">25</option>
+                                                                    <option ${c.choicePercentage == 33?"selected":""} value="33">33</option>
                                                                     <option ${c.choicePercentage == 50?"selected":""} value="50">50</option>
-                                                                    <option ${c.choicePercentage == 60?"selected":""} value="60">60</option>
-                                                                    <option ${c.choicePercentage == 70?"selected":""} value="70">70</option>
-                                                                    <option ${c.choicePercentage == 80?"selected":""} value="80">80</option>
-                                                                    <option ${c.choicePercentage == 90?"selected":""} value="90">90</option>
+                                                                    <option ${c.choicePercentage == 100?"selected":""} value="100">100</option>
                                                                 </c:if>
-                                                                <c:if test="${question.type == 0}">
+                                                                <c:if test="${question.type == '0'}">
                                                                     <option ${c.choicePercentage == 0?"selected":""} value="0">0</option>
                                                                     <option ${c.choicePercentage == 100?"selected":""} value="100">100</option>
                                                                 </c:if>
 
-
-
                                                             </select>
-                                                        </div>
-                                                        <div class="form-group col-sm-1">
-                                                            <a style="cursor: pointer" id="remove_fields" class="remove-field" data-id="${count}" data-choice-id="${c.choiceId}"><i class="fa fa-minus"></i>Remove</a>
                                                         </div>
                                                     </div>
                                                 </c:forEach>
 
-                                            </div>
-                                            <div class="controls">
-                                                <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
-                                                <!--<a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>-->
                                             </div>
 
                                         </div>
@@ -459,187 +445,117 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script>
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            var container = document.getElementById("container"); // The container for your loop
-                                            var hiddenInput = document.getElementById("hiddenInput");
+            document.addEventListener("DOMContentLoaded", function () {
+                var container = document.getElementById("container"); // The container for your loop
+                var hiddenInput = document.getElementById("hiddenInput");
 
-                                            // Initialize the count to 0
-                                            var count = 0;
+                // Initialize the count to 0
+                var count = 0;
 
-                                            if (container) {
-                                                // Get all the rows within the container
-                                                var rows = container.getElementsByClassName("row");
+                if (container) {
+                    // Get all the rows within the container
+                    var rows = container.getElementsByClassName("row");
 
-                                                // Update the count based on the number of rows
-                                                count = rows.length;
+                    // Update the count based on the number of rows
+                    count = rows.length;
 
-                                                // Set the value of the hidden input field to the count
-                                                hiddenInput.value = count;
-                                            }
-                                        });
-
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            var container = document.getElementById("container");
-                                            var hiddenInput = document.getElementById("hiddenInput");
-                                            var count = ${requestScope.listChoice.size()}; // Initialize count based on the existing elements
-
-                                            if (container) {
-                                                // Update the count based on the number of rows
-                                                count = container.getElementsByClassName("form-inline").length;
-
-                                                // Set the value of the hidden input field to the count
-                                                hiddenInput.value = count;
-                                            }
-
-                                            document.getElementById('add_more_fields').addEventListener('click', function (event) {
-                                                event.preventDefault();
-                                                var container = document.getElementById('container');
-                                                var newCount = count++;
-                                                var x = document.getElementById('questionType');
-
-                                                // Create a new div element for the new field
-                                                var newDiv = document.createElement('div');
-                                                newDiv.className = 'form-inline';
-
-
-                                                // Generate the new name and id attributes
-                                                var newName = `` + newCount + `_survey_options[]`;
-                                                var newId = `` + newCount + `_score`;
-
-
-                                                if (x.value == 0) {
-                                                    var countScoreOptions = `
-    <option value="0">0</option>
-    <option value="100">100</option>
-`;
-                                                } else {
-                                                    var countScoreOptions = `
-    <option value="0">0</option>
-    <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="30">30</option>
-    <option value="40">40</option>
-    <option value="50">50</option>
-    <option value="60">60</option>
-    <option value="70">70</option>
-    <option value="80">80</option>
-    <option value="90">90</option>
-`;
-
-
-                                                }
+                    // Set the value of the hidden input field to the count
+                    hiddenInput.value = count;
+                }
+            });
 
 
 
-                                                // Add the HTML content for the new field
-                                                newDiv.innerHTML = `
-                <input type="hidden" name="` + newCount + `_choiceId" value="">
-                <div class="form-group col-sm-7 index">
-                    <input type="text" name="` + newCount + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="" value="">
-                </div>
-                <div class="form-group col-sm-3">
-                    Score Percentage:
-                    <select name="` + newCount + `_score" class="survey_options ml-3" id="` + newCount + `_score">
-                      ` + countScoreOptions + `
-                    </select>
-                </div>
-                <div class="form-group col-sm-1">
-                    <a style="cursor: pointer" class="remove-field" data-id="` + newCount + `" data-choice-id="${c.choiceId}"><i class="fa fa-minus"></i>Remove</a>
-                </div>
-            `;
+            var count = 0;
+            document.getElementById('add_more_fields').addEventListener('click', function (event) {
+                event.preventDefault();
+                var x = document.getElementById('questionType');
+                var container = document.getElementById('container');
 
-                                                // Append the new field to the container
-                                                container.appendChild(newDiv);
+                // Create a new div element
+                var newDiv = document.createElement('div');
+                newDiv.className = 'form-inline count';
 
-                                                // Update the hidden input value with the new count
-                                                hiddenInput.value = count;
-                                            });
-
-                                            // Attach an event listener to handle field removal
-                                            container.addEventListener('click', function (event) {
-                                                if (event.target.classList.contains('remove-field')) {
-                                                    var fieldToRemove = event.target.closest('.form-inline');
-                                                    if (fieldToRemove) {
-                                                        var choiceId = event.target.getAttribute('data-choice-id');
-                                                        removeChoiceFromDatabase(choiceId);
-                                                        container.removeChild(fieldToRemove);
-                                                        count--; // Decrease the count
-
-                                                        // Update the hidden input value with the new count
-                                                        hiddenInput.value = count;
-                                                    }
-                                                }
-                                            });
-                                        });
+                // Generate a unique ID for the new div
+                newDiv.id = count;
 
 
+                // Define the default options for the count_score select
+                var countScoreOptions = `
+        <option value="0">0</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="33">33</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+    `;
 
-                                        function removeChoiceFromDatabase(choiceId) {
+                if (x.value == 0) {
+                    // For "Multiple Choice"
+                    countScoreOptions = `
+            <option value="0">0</option>
+            <option value="100">100</option>
+        `;
+                }
 
-                                            var xhr = new XMLHttpRequest();
-                                            xhr.open('POST', 'removeChoice?choiceId=' + choiceId, true); // Replace '/removeChoice' with your actual server endpoint
-                                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                            xhr.onload = function () {
-                                                if (xhr.status === 200) {
-                                                    location.reload();
-                                                    // The choice was successfully removed from the database
-                                                } else {
-                                                    // Handle errors here, e.g., show an error message
-                                                    console.error('Error:', xhr.statusText);
-                                                }
-                                            };
-                                            xhr.send(); // Send the choiceId as a POST parameter
-                                        }
+                // Add the HTML content to the new div
+                newDiv.innerHTML = `
+        <div class="form-group col-sm-7 index">
+            <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
+        </div>
+        <div class="form-group col-sm-3">
+        Score Percentage:
+            <select name="` + count + `_score" class="survey_options ml-3" id="` + count + `_score">
+        
+            ` + countScoreOptions + `
+            </select>
+        </div>
+  
+    `;
 
+                // Append the new div to the container
+                container.appendChild(newDiv);
+                count = container.children.length;
 
-
-                                        function validateScores() {
-                                            var totalPercentage = 0;
-                                            var scoreInputs = document.querySelectorAll('select[id$="_score"]');
-
-                                            for (var i = 0; i < scoreInputs.length; i++) {
-                                                totalPercentage += parseInt(scoreInputs[i].value);
-                                            }
-
-                                            if (totalPercentage !== 100) {
-                                                alert("The total score percentage must be 100%.\nYour total score percentage:" + totalPercentage + "%");
-                                                return false; // Prevent the form from submitting
-                                            }
-
-                                            return true; // Allow the form to submit
-                                        }
+                var hiddenInput = document.getElementById('hiddenInput');
+                hiddenInput.value = count;
 
 
-                                        document.getElementById('questionType').addEventListener('change', function () {
-                                            // Get all the "Score Percentage" select elements
-                                            var scoreElements = document.querySelectorAll('select[id$="_score"]');
+            });
 
-                                            if (this.value === "0") {
-                                                // For "One Choice" question
-                                                scoreElements.forEach(function (scoreElement) {
-                                                    scoreElement.innerHTML = `
-                    <option value="0">0</option>
-                    <option value="100">100</option>
-                `;
-                                                });
-                                            } else if (this.value === "1") {
-                                                // For "Multiple Choice" question
-                                                scoreElements.forEach(function (scoreElement) {
-                                                    scoreElement.innerHTML = `
-                    <option value="0">0</option>
-                    <option value="10">10</option>
-                    <option value="20">20</option>
-                    <option value="30">30</option>
-                    <option value="40">40</option>
-                    <option value="50">50</option>
-                    <option value="60">60</option>
-                    <option value="70">70</option>
-                    <option value="80">80</option>
-                    <option value="90">90</option>
-                `;
-                                                });
-                                            }
-                                        });
+            document.getElementById('remove_fields').addEventListener('click', function () {
+                var container = document.getElementById('container');
+                // Get the last added div in the container
+                var lastDiv = container.lastChild;
+                // Check if the last div exists and remove it
+                if (lastDiv) {
+                    container.removeChild(lastDiv);
+                    // Update the count based on the number of newDivs in the container
+                    count = container.children.length;
+
+                    // Update the hidden input value with the count
+                    var hiddenInput = document.getElementById('hiddenInput');
+                    hiddenInput.value = count;
+                }
+            });
+            document.getElementById('my-form').addEventListener('submit', function (event) {
+                // Get all the "Score Percentage" select elements
+                var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                var totalScore = 0;
+
+                // Calculate the total score
+                scoreElements.forEach(function (scoreElement) {
+                    totalScore += parseInt(scoreElement.value);
+                });
+
+                // Check if the total score is greater than 100
+                if (totalScore > 100) {
+                    // Prevent the form from being submitted
+                    event.preventDefault();
+                    alert('The total score cannot exceed 100%.');
+                }
+            });
+
 
     </script>
 </html>

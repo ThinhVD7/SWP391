@@ -119,12 +119,13 @@ public class managerViewLecturer extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String lecturerAdd = request.getParameter("add");
-        String studentAdd = request.getParameter("add");
+        String[] studentAdd = request.getParameterValues("add");
         String classID = request.getParameter("classID");
         String courseID = request.getParameter("courseID");
         String cid = request.getParameter("cid");
         int status = Integer.parseInt(request.getParameter("status"));
         HttpSession session = request.getSession(false);
+        
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("index.html");
             return;
@@ -138,9 +139,11 @@ public class managerViewLecturer extends HttpServlet {
         if (status == 1) {
             dao.insetLecturerIntoClass(lecturerAdd, classID);
         } else {
-            dao.insetStudentIntoClass(studentAdd, classID);
+            for(int i =0 ;i < studentAdd.length; i++){
+                dao.insetStudentIntoClass(studentAdd[i], classID);
+            }
         }
-
+        
         List<Lecturer> lecturer = dao.getlecturerByClass(classID);
         List<Student> student = dao.getstudentByClass(classID);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();

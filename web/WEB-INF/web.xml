@@ -43,8 +43,8 @@
         <servlet-class>Controller.addAccount</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ForgotPassword</servlet-name>
-        <servlet-class>Controller.ForgotPassword</servlet-class>
+        <servlet-name>ForgetPassword</servlet-name>
+        <servlet-class>Controller.ForgetPassword</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -135,6 +135,10 @@
         <servlet-class>Controller.managerViewLecturer</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>managerAddClass</servlet-name>
+        <servlet-class>Controller.managerAddClass</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>managerDeleteClass</servlet-name>
         <servlet-class>Controller.managerDeleteClass</servlet-class>
     </servlet>
@@ -159,12 +163,16 @@
         <servlet-class>Controller.DoQuiz</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>managerEditClass</servlet-name>
-        <servlet-class>Controller.managerEditClass</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>lecturerRemoveChoice</servlet-name>
         <servlet-class>Controller.lecturerRemoveChoice</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AjaxLoadExamByClass</servlet-name>
+        <servlet-class>Controller.AjaxLoadExamByClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>lecturerAddExamFromBank</servlet-name>
+        <servlet-class>Controller.lecturerAddExamFromBank</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -199,8 +207,8 @@
         <url-pattern>/addAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ForgotPassword</servlet-name>
-        <url-pattern>/ForgotPassword</url-pattern>
+        <servlet-name>ForgetPassword</servlet-name>
+        <url-pattern>/ForgetPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
@@ -291,6 +299,10 @@
         <url-pattern>/managerViewLecturer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>managerAddClass</servlet-name>
+        <url-pattern>/managerAddClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>managerDeleteClass</servlet-name>
         <url-pattern>/managerDeleteClass</url-pattern>
     </servlet-mapping>
@@ -315,12 +327,16 @@
         <url-pattern>/doQuiz</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>managerEditClass</servlet-name>
-        <url-pattern>/managerEditClass</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>lecturerRemoveChoice</servlet-name>
         <url-pattern>/removeChoice</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxLoadExamByClass</servlet-name>
+        <url-pattern>/AjaxLoadExamByClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerAddExamFromBank</servlet-name>
+        <url-pattern>/addFromBank</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
