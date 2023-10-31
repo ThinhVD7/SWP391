@@ -139,7 +139,7 @@
 
                 <li>
                     <i class="bx bx-search search-btn"></i>
-                    <input type="text" placeholder="Search" />
+                    <input type="text" placeholder="Search" name="searchInput"/>
                     <span class="tooltip">Search</span>
                 </li>
                 <li>
@@ -189,8 +189,9 @@
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
-                        <form class="nosubmit">
-                            <input class="nosubmit" type="search" placeholder="Search">
+                        <form action="managerHome" method="post">
+                            <input class="nosubmit" type="search" placeholder="Search" name="searchInput">
+                            <button type="submit">Search</button>
                         </form>
                     </div>
                 </div>
@@ -342,18 +343,16 @@
 
                             if (isNaN(courseId) === false) {
                                 alert("Bạn chưa nhập course_Id ");
-                            }else if (isNaN(courseName) === false) {
+                            } else if (isNaN(courseName) === false) {
                                 alert("Bạn chưa nhập course Name ");
-                            }else if (isNaN(semseter) === false) {
+                            } else if (isNaN(semseter) === false) {
                                 alert("Bạn chưa nhập semseter ");
-                            }
-                            else if (isNaN(startDay) === false) {
+                            } else if (isNaN(startDay) === false) {
                                 alert("Bạn chưa nhập ngày  bắt đầu");
                             } else if (isNaN(endDay) === false) {
                                 alert("Bạn chưa nhập ngày kết thúc");
-                                
-                            }
-                            else if (isNaN(endDay)) {
+
+                            } else if (isNaN(endDay)) {
                                 if (formatDate(startDay) < formatDate(today)) {
                                     alert("Ngày bắt đầu không hợp lệ");
                                 } else if (formatDate(endDay) < formatDate(startDay)) {
