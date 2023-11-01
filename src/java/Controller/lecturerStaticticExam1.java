@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -27,7 +28,9 @@ public class lecturerStaticticExam1 extends HttpServlet {
         int examId = Integer.parseInt(request.getParameter("examId"));
          ArrayList<StudentResult> studentResult = d.getScoreStatistic(examId);
         String examName = d.getExamName(examId);
-       
+        List<StudentResult> resultTable = d.getAllStudentResultOfExam(examId);
+        
+        request.setAttribute("resultTable", resultTable);
         request.setAttribute("studentResult", studentResult);
         request.setAttribute("examId", examId);
         request.setAttribute("examName", examName);

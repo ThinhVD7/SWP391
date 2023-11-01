@@ -895,6 +895,28 @@ public class DAO extends DBContext {
         }
         return null;
     }
+    public List<StudentResult> getAllStudentResultOfExam(int examID) {
+        try {
+            String sql = "SELECT Exam_ID, Student_ID, TotalScore, TotalTime FROM studentresult\n"
+                    + "WHERE Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examID);
+            ResultSet rs = stm.executeQuery();
+            List<StudentResult> srList = new ArrayList<>();
+            StudentResult sr = new StudentResult();
+            while (rs.next()) {
+                sr.setExamID(rs.getString("Exam_ID"));
+                sr.setStudentID(rs.getString("Student_ID"));
+                sr.setTotalScore(rs.getFloat("TotalScore"));
+                sr.setTotalTime(rs.getString("TotalTime"));
+                srList.add(sr);
+            }
+                return srList;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         DAO d = new DAO();

@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -25,8 +26,10 @@ public class lecturerStatisticExam extends HttpServlet{
         int examId = Integer.parseInt(req.getParameter("examId"));
         DAO d = new DAO();
         ArrayList<StudentResult> studentResult = d.getStudentResult(examId);
+        List<StudentResult> resultTable = d.getAllStudentResultOfExam(examId);
         String examName = d.getExamName(examId);
-       
+        
+        req.setAttribute("resultTable", resultTable);
         req.setAttribute("studentResult", studentResult);
         req.setAttribute("examId", examId);
         req.setAttribute("examName", examName);
