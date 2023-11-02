@@ -174,6 +174,14 @@
         <servlet-name>lecturerAddExamFromBank</servlet-name>
         <servlet-class>Controller.lecturerAddExamFromBank</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>lecturerStatisticExam</servlet-name>
+        <servlet-class>Controller.lecturerStatisticExam</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>lecturerStaticticExam1</servlet-name>
+        <servlet-class>Controller.lecturerStaticticExam1</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -337,6 +345,14 @@
     <servlet-mapping>
         <servlet-name>lecturerAddExamFromBank</servlet-name>
         <url-pattern>/addFromBank</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerStatisticExam</servlet-name>
+        <url-pattern>/lecturerStatisticExam</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerStaticticExam1</servlet-name>
+        <url-pattern>/lecturerStaticticExam1</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

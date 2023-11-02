@@ -99,6 +99,25 @@
         .edit-exam-button-bottom:hover{
             background-color: #0073e6;
         }
+        .stat-exam-button
+        {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+            position: absolute;
+            bottom: 20px;
+            left: 190px;
+            
+        }
+        .stat-exam-button:hover{
+            background-color: #0073e6;
+        }
         /* Style for the pop-up */
         .popup {
             display: none;
@@ -203,36 +222,7 @@
         <section class="home">
 <!--seach and profile icon------------------------------------------------------------------------------------>
 <div> <br> </div>
-<!--            <div class="row pt-2">
-                <div class="col-md-9 ml-2">
-                    <div class="input-group rounded">
-                        <form class="nosubmit">
-                            <input class="nosubmit" type="search" placeholder="Search">
-                        </form>
-                    </div>
-                </div>
 
-                <div class="col-md-2 ml-auto">
-                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
-                </div>
-            </div>-->
-
-            
-            
-
-            
-<!--            <div class="class-list">
-                <c:forEach items="${requestScope.classList}" var="c">
-                    <div class="class-containder">
-                        <a style="text-decoration: none;"  href="#"> 
-                        <h3>${c.className}</h3>
-                    </div>
-                    </div>
-                </c:forEach>
-            </div>-->
-
-
-            
 <!--main block------------------------------------------------------------------------------------------------->
         <div class="main-container">
             <div>
@@ -247,7 +237,7 @@
                         <a style ="padding: 5px;" 
                            href="lecturerExamList?classID=${sessionScope.sessionThisClass.classID}">${sessionScope.sessionThisClass.className}</a> /
                             <a style ="padding: 5px;" 
-                               href="#">${sessionScope.sessionThisExam.examName}</a>
+                               href="lecturerExamDetail?examID=${sessionScope.sessionThisExam}">${sessionScope.sessionThisExam.examName}</a>
             </div>
             <div>
                 <a style ="padding:5px;">
@@ -277,15 +267,25 @@
                     
 <!--                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
             </div>
-            <div><br></div>
+                <div><br></div>
+            <div style="overflow:auto; border-top: 3px solid #000;padding-top: 10px; margin-left: 10px; margin-right: 10px;">
+            </div>
                 <div>
-                    <form action="lecturer">
+                    <form action="lecturerStatisticExam">
+                        <input value="${sessionThisExam.examID}" type="hidden" name="examId"/>
+                        <button class="edit-exam-button-bottom" type="submit">Preview Exam</button>
+                    </form>
+<!--                    <form action="lecturer">
                         <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
+                    </form>-->
+                </div>
+                <div>
+                    <form action="lecturerStatisticExam">
+                        <input value="${sessionThisExam.examID}" type="hidden" name="examId"/>
+                        <button class="stat-exam-button" type="submit">View Statistics</button>
                     </form>
                 </div>
-            <div style="overflow:auto; border-top: 3px solid #000;padding-top: 10px; margin-left: 10px; margin-right: 10px;">
-                                
-                   </div>
+            <br><br>
         </div>
              
 <!--end of main block------------------------------------------------------------------------------------------------->

@@ -59,7 +59,7 @@ public class studentExamDetail extends HttpServlet {
             }
             StudentResult studentResult = d.getResultStudent(examID, user.getAccountID());
 //            df.setRoundingMode(RoundingMode.UP);
-            request.setAttribute("totalMark", df.format((studentResult.getTotalScore() / totalMarkAll) * 10));
+            request.setAttribute("totalMark",  df.format((studentResult.getTotalScore() / totalMarkAll) * 10));
             request.setAttribute("totalTime", studentResult.getTotalTime());
 
         } else {
@@ -102,6 +102,7 @@ public class studentExamDetail extends HttpServlet {
         }
         ///////////////////////////////
         int examID = Integer.parseInt(request.getParameter("examID"));
+        response.getWriter().print(examID);
         DAO d = new DAO();
 
         ArrayList<Question> questions = d.getQuestionsExam(examID);
