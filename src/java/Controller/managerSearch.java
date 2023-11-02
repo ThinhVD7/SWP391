@@ -5,18 +5,17 @@
 package Controller;
 
 import Dal.DAO;
-import Dal.ManagerDAO;
 import Model.Account;
 import Model.Course;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,9 +23,10 @@ import java.util.List;
 
 /**
  *
- * @author tanki
+ * @author msi
  */
-public class managerHome extends HttpServlet {
+@WebServlet(name = "managerSearch", urlPatterns = {"/managerSearch"})
+public class managerSearch extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +45,10 @@ public class managerHome extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet managerHome</title>");
+            out.println("<title>Servlet ManageSearch Hello</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet managerHome at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ManageSearch at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,12 +66,6 @@ public class managerHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        String status = request.getParameter("status");
-//
-//        if (status != null) {
-
-        //block check if user have logged in, if not then return to home
-        //block check if user have logged in, if not then return to home
         HttpSession session = request.getSession(false);
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("index.html");
@@ -97,8 +91,21 @@ public class managerHome extends HttpServlet {
                 deleteNotAllowMap.put(course1.getCourseID(), false);
             }
         }
+
+        String search = request.getParameter("searchInput").toLowerCase();
+        List<Course> resultCourse = new ArrayList<>();
+        for (Course course1 : course) {
+
+            if (course1.getCourseID().toLowerCase().contains(search) || course1.getCourseName().toLowerCase().contains(search)) {
+                Course c = course1;
+                response.getWriter().print(111);
+                resultCourse.add(c);
+            }
+        }
+
         request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
-        request.setAttribute("course", course);
+        request.setAttribute("course", resultCourse);
+
         request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
     }
 
@@ -113,34 +120,8 @@ public class managerHome extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-            String courseIdMain = request.getParameter("courseIdMain");
-            String courseId = request.getParameter("courseId");
-            String courseName = request.getParameter("courseName");
-            String semseter = request.getParameter("semseter");
-            String startDay = request.getParameter("startDay");
-            String endDay = request.getParameter("endDay");
-            String action = request.getParameter("action");
-
-            ManagerDAO obj = new ManagerDAO();
-            ManagerDAO obj1 = new ManagerDAO();
-            HttpSession session = request.getSession();
-
-            if (action.equals("add")) {
-                if (obj.getCourseId(courseId)) {
-                    session.setAttribute("logPrint", 1);
-                } else {
-                    session.removeAttribute("logPrint");
-                    Course c = new Course(courseId, courseName, semseter, startDay, endDay);
-                    obj1.getCreateCouse(c);
-                }
-            } else if (action.equals("update")) {
-                Course c = new Course(courseId, courseName, semseter, startDay, endDay);
-                obj.updateInfo(c, courseIdMain);
-            }
-    }
-          
         
+    }
 
     /**
      * Returns a short description of the servlet.
