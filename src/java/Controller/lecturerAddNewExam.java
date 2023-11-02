@@ -92,8 +92,7 @@ public class lecturerAddNewExam extends HttpServlet {
         session.removeAttribute("exam");
 
         String examName = request.getParameter("examName");
-        Account user = (Account) session.getAttribute("user");
-        String lecturerID = user.getAccountID();
+        
         ////temporary timeLimit convert/////////////////////////////////
         String timeLimitHour = request.getParameter("timeLimitHour");
         String timeLimitMinute = request.getParameter("timeLimitMinute");
@@ -101,10 +100,10 @@ public class lecturerAddNewExam extends HttpServlet {
         int hour = Integer.parseInt(timeLimitHour);
         int minute = Integer.parseInt(timeLimitMinute);
         int second = Integer.parseInt(timeLimitSecond);
-        timeLimitHour = (hour < 10) ? ("0" + String.valueOf(hour)) : (String.valueOf(hour));
-        timeLimitMinute = (minute < 10) ? ("0" + String.valueOf(minute)) : (String.valueOf(minute));
-        timeLimitSecond = (second < 10) ? ("0" + String.valueOf(second)) : (String.valueOf(second));
-        String timeLimit = timeLimitHour + ":" + timeLimitMinute + ":" + timeLimitSecond;
+        timeLimitHour = (hour<10)?("0" + String.valueOf(hour)):(String.valueOf(hour));
+        timeLimitMinute = (minute<10)?("0" + String.valueOf(minute)):(String.valueOf(minute));
+        timeLimitSecond = (second<10)?("0" + String.valueOf(second)):(String.valueOf(second));
+        String timeLimit = timeLimitHour+":"+timeLimitMinute+":"+timeLimitSecond;
         String fromDate = request.getParameter("fromDate");
         String toDate = request.getParameter("toDate");
         String permission = request.getParameter("permission");
@@ -113,7 +112,7 @@ public class lecturerAddNewExam extends HttpServlet {
         String classId = thisClass.getClassID();
         LecturerDAO dao = new LecturerDAO();
 //        String examId = examName + '_' + classId;
-        if (dao.addExam(classId, examName, String.valueOf(0), timeLimit, fromDate, toDate, examDetail, String.valueOf(0), Integer.parseInt(permission), ((Account) session.getAttribute("user")).getAccountID())) {
+        if (dao.addExam(classId, examName, String.valueOf(0), timeLimit, fromDate, toDate, examDetail, String.valueOf(0), Integer.parseInt(permission), ((Account)session.getAttribute("user")).getAccountID())) {
             Exam exam = dao.getLastExam();
             response.sendRedirect("lecturerEditExam?tId=" + exam.getExamID());
 

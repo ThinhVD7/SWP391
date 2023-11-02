@@ -436,6 +436,9 @@
                                         </div>
 
                                         <input type="hidden" id="hiddenInput" name="newDivCount">
+                                        <input type="hidden" id="removedChoiceIdsInput" name="removedChoiceIds" value="">
+
+
                                         <div class="form-group row">
                                             <input class="btn btn-primary btn-sm align-items-center col-3" style="margin: 0 auto; display: block;border-radius:20px " type="submit" value="Update Question" />
                                         </div>
@@ -460,25 +463,33 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script>
-                                        document.addEventListener("DOMContentLoaded", function () {
-                                            var container = document.getElementById("container"); // The container for your loop
-                                            var hiddenInput = document.getElementById("hiddenInput");
-
-                                            // Initialize the count to 0
-                                            var count = 0;
-
-                                            if (container) {
-                                                // Get all the rows within the container
-                                                var rows = container.getElementsByClassName("row");
-
-                                                // Update the count based on the number of rows
-                                                count = rows.length;
-
-                                                // Set the value of the hidden input field to the count
-                                                hiddenInput.value = count;
-                                            }
-                                        });
-
+//                                        document.addEventListener("DOMContentLoaded", function () {
+//                                            var container = document.getElementById("container"); // The container for your loop
+//                                            var hiddenInput = document.getElementById("hiddenInput");
+//
+//                                            // Initialize the count to 0
+//                                            var count = ${requestScope.listChoice.size()};
+//
+//                                            if (container) {
+////                                                // Get all the rows within the container
+////                                                var rows = container.getElementsByClassName("row");
+////
+////                                                // Update the count based on the number of rows
+////                                                count = rows.length;
+////
+////                                                // Set the value of the hidden input field to the count
+////                                                hiddenInput.value = count;
+//                                                count = container.getElementsByClassName("form-inline").length;
+//
+//                                                // Set the value of the hidden input field to the count
+//                                                hiddenInput.value = count;
+//                                            }
+//                                            
+//                                            
+//                                            
+//                                            
+//                                        });
+                                        var removedChoiceIdsArray = [];
                                         document.addEventListener("DOMContentLoaded", function () {
                                             var container = document.getElementById("container");
                                             var hiddenInput = document.getElementById("hiddenInput");
@@ -502,52 +513,46 @@
                                                 var newDiv = document.createElement('div');
                                                 newDiv.className = 'form-inline';
 
-
                                                 // Generate the new name and id attributes
                                                 var newName = `` + newCount + `_survey_options[]`;
                                                 var newId = `` + newCount + `_score`;
 
-
                                                 if (x.value == 0) {
                                                     var countScoreOptions = `
-    <option value="0">0</option>
-    <option value="100">100</option>
-`;
+                <option value="0">0</option>
+                <option value="100">100</option>
+            `;
                                                 } else {
                                                     var countScoreOptions = `
-    <option value="0">0</option>
-    <option value="10">10</option>
-    <option value="20">20</option>
-    <option value="30">30</option>
-    <option value="40">40</option>
-    <option value="50">50</option>
-    <option value="60">60</option>
-    <option value="70">70</option>
-    <option value="80">80</option>
-    <option value="90">90</option>
-`;
-
-
+                <option value="0">0</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
+                <option value="60">60</option>
+                <option value="70">70</option>
+                <option value="80">80</option>
+                <option value="90">90</option>
+            `;
                                                 }
-
-
 
                                                 // Add the HTML content for the new field
                                                 newDiv.innerHTML = `
-                <input type="hidden" name="` + newCount + `_choiceId" value="">
-                <div class="form-group col-sm-7 index">
-                    <input type="text" name="` + newCount + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="" value="">
-                </div>
-                <div class="form-group col-sm-3">
-                    Score Percentage:
-                    <select name="` + newCount + `_score" class="survey_options ml-3" id="` + newCount + `_score">
-                      ` + countScoreOptions + `
-                    </select>
-                </div>
-                <div class="form-group col-sm-1">
-                    <a style="cursor: pointer" class="remove-field" data-id="` + newCount + `" data-choice-id="${c.choiceId}"><i class="fa fa-minus"></i>Remove</a>
-                </div>
-            `;
+            <input type="hidden" name="` + newCount + `_choiceId" value="">
+            <div class="form-group col-sm-7 index">
+                <input type="text" name="` + newName + `" class="survey_options" size="50" placeholder="Answer:" required="" value="">
+            </div>
+            <div class="form-group col-sm-3">
+                Score Percentage:
+                <select name="` + newId + `" class="survey_options ml-3" id="` + newId + `">
+        ` + countScoreOptions + `
+                </select>
+            </div>
+            <div class="form-group col-sm-1">
+                <a style="cursor: pointer" class="remove-field" data-id="` + newCount + `" data-choice-id=""><i class="fa fa-minus"></i>Remove</a>
+            </div>
+        `;
 
                                                 // Append the new field to the container
                                                 container.appendChild(newDiv);
@@ -560,37 +565,64 @@
                                             container.addEventListener('click', function (event) {
                                                 if (event.target.classList.contains('remove-field')) {
                                                     var fieldToRemove = event.target.closest('.form-inline');
+//                                                    var choiceId = fieldToRemove.querySelector('input[name$="_choiceId"]').value;
                                                     if (fieldToRemove) {
-                                                        var choiceId = event.target.getAttribute('data-choice-id');
-                                                        removeChoiceFromDatabase(choiceId);
+                                                        var choiceIdInput = fieldToRemove.querySelector('input[name*="_choiceId"]');
+                                                        if (choiceIdInput && choiceIdInput.value) {
+                                                            // Add its value to the array of removed choice IDs
+                                                            removedChoiceIdsArray.push(choiceIdInput.value);
+                                                        }
+
+
                                                         container.removeChild(fieldToRemove);
                                                         count--; // Decrease the count
 
+
+                                                        // Collect the removed choice IDs
+//                                                        var removedChoiceIdsInput = document.getElementById('removedChoiceIds');
+//                                                        var removedChoiceIds = removedChoiceIdsInput.value.split(",");
+//                                                        removedChoiceIds.push(choiceId);
+//                                                        removedChoiceIdsInput.value = removedChoiceIds.join(",");
+
                                                         // Update the hidden input value with the new count
                                                         hiddenInput.value = count;
+
+                                                        // Update the IDs and names to ensure they are unique
+                                                        updateChoiceIdsAndNames();
+                                                        updateRemovedChoiceIdsInput();
+
                                                     }
                                                 }
                                             });
+
+                                            function updateRemovedChoiceIdsInput() {
+                                                // Join the removed choice IDs array into a comma-separated string
+                                                var removedChoiceIdsString = removedChoiceIdsArray.join(',');
+
+                                                // Set the value of the removedChoiceIds input element
+                                                document.getElementById('removedChoiceIdsInput').value = removedChoiceIdsString;
+                                            }
+
+
+                                            // Function to update choice IDs and names
+                                            function updateChoiceIdsAndNames() {
+                                                var formInlines = container.querySelectorAll('.form-inline');
+                                                formInlines.forEach(function (formInline, index) {
+                                                    var choiceIdInput = formInline.querySelector('input[name*="choiceId"]');
+                                                    var surveyOptionsInput = formInline.querySelector('input[name*="survey_options[]"]');
+                                                    var scoreInput = formInline.querySelector('select[name*="score"]');
+
+                                                    choiceIdInput.name = `` + index + `_choiceId`;
+                                                    surveyOptionsInput.name = `` + index + `_survey_options[]`;
+                                                    scoreInput.name = `` + index + `_score`;
+                                                    scoreInput.id = `` + index + `_score`;
+                                                });
+                                            }
                                         });
 
 
 
-                                        function removeChoiceFromDatabase(choiceId) {
-
-                                            var xhr = new XMLHttpRequest();
-                                            xhr.open('POST', 'removeChoice?choiceId=' + choiceId, true); // Replace '/removeChoice' with your actual server endpoint
-                                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-                                            xhr.onload = function () {
-                                                if (xhr.status === 200) {
-                                                    location.reload();
-                                                    // The choice was successfully removed from the database
-                                                } else {
-                                                    // Handle errors here, e.g., show an error message
-                                                    console.error('Error:', xhr.statusText);
-                                                }
-                                            };
-                                            xhr.send(); // Send the choiceId as a POST parameter
-                                        }
+//                                   
 
 
 

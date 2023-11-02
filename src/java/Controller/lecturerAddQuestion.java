@@ -139,10 +139,10 @@ public class lecturerAddQuestion extends HttpServlet {
                 String courseID = request.getParameter("course_id");
                 Account lecturer = (Account) session.getAttribute("user");
                 String lecturerID = lecturer.getAccountID();
-                if (dao.getBankByCourseId(courseID,lecturerID) == null) {
+                if (dao.getBankByCourseId(courseID, lecturerID) == null) {
                     dao.addNewBank(courseID, lecturerID);
                 }
-                Bank bank = dao.getBankByCourseId(courseID,lecturerID);
+                Bank bank = dao.getBankByCourseId(courseID, lecturerID);
                 dao.addToBank(bank.getBankId(), q.getQuestionID());
 //                dao.addToBank(mark, lecturerID)
             }

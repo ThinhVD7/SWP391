@@ -599,18 +599,18 @@
                                 <c:forEach items="${requestScope.questionList}" var="u" varStatus="x">
 
 
-                                        <tr>
-                                            <td>${x.count}</td>
-                                            <td>${u.questionID}</td>
-                                            <td><a href="javascript:void(0);" onclick="showChoiceQuestions(${u.questionID})">${u.title}</a></td>
-                                            <td>${u.content}</td>
-                                            <td>${u.type}</td>
-                                            <td>${u.mark}</td>
-                                            <td>
-                                                <input type="checkbox" name="${x.count}_add" value="${u.questionID}" />
-                                                <input type="hidden" value="${requestScope.eId}" name="eId">
-                                            </td>
-                                        </tr>
+                                    <tr>
+                                        <td>${x.count}</td>
+                                        <td>${u.questionID}</td>
+                                        <td><a href="javascript:void(0);" onclick="showChoiceQuestions(${u.questionID})">${u.title}</a></td>
+                                        <td>${u.content}</td>
+                                        <td>${u.type}</td>
+                                        <td>${u.mark}</td>
+                                        <td>
+                                            <input type="checkbox" name="${x.count}_add" value="${u.questionID}" />
+                                            <input type="hidden" value="${requestScope.eId}" name="eId">
+                                        </td>
+                                    </tr>
                                 </c:forEach>
 
 

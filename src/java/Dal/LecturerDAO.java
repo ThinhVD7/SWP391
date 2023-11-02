@@ -443,7 +443,7 @@ public class LecturerDAO extends DBContext {
     }
 
     public Bank getBankByCourseId(String courseId, String lecturerId) {
-        String sql = "SELECT * FROM bank where Course_ID = ? AND Lecturer_ID = ?;";
+        String sql = "SELECT * FROM `quiz9.7`.bank where Course_ID = ? AND Lecturer_ID = ?;";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, courseId);

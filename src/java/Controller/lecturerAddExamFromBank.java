@@ -72,9 +72,13 @@ public class lecturerAddExamFromBank extends HttpServlet {
         LecturerDAO dao = new LecturerDAO();
         String courseID = request.getParameter("courseId");
         Account lecturer = (Account) session.getAttribute("user");
-
+        
+        if(dao.getBankByCourseId(courseID, lecturer.getAccountID()) == null) {
+            dao.addNewBank(courseID, lecturer.getAccountID());
+        }
+        
         Bank b = dao.getBankByCourseId(courseID, lecturer.getAccountID());
-        List<Question> questionList = dao.getListQuestionByBank("3");
+        List<Question> questionList = dao.getListQuestionByBank(b.getBankId());
         String eId = request.getParameter("examID");
         request.setAttribute("eId", eId);
         List<Question> listQuestionOfThisExam = dao.getListQuestionByExamID(eId);
@@ -150,7 +154,6 @@ public class lecturerAddExamFromBank extends HttpServlet {
                     status = false;
                 }
             }
-            
 
         }
         if (status) {

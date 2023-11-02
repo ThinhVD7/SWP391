@@ -76,9 +76,10 @@ public class lecturerUpdateQuestion extends HttpServlet {
         List<ChoiceQuestion> listChoice = dao.getChoiceOfQuestion(qId);
         request.setAttribute("question", q);
         request.setAttribute("listChoice", listChoice);
+        String cId = request.getParameter("course_id");
+        request.setAttribute("course_id", cId);
         session.setAttribute("sessionQuestion", q);
         request.getRequestDispatcher("lecturerUpdateQuestion.jsp").forward(request, response);
-
     }
 
     /**
@@ -100,7 +101,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
         }
         Question q = (Question) session.getAttribute("sessionQuestion");
         String qId = q.getQuestionID();
-
+        
         List<Question> list_Q = new ArrayList<>();
         LecturerDAO dao = new LecturerDAO();
         String title = request.getParameter("title");
@@ -108,7 +109,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
         String type = request.getParameter("questionType");
         String mark = request.getParameter("mark");
         Account lecturer = (Account) session.getAttribute("user");
-
+        
         Bank bank = dao.getBankByCourseId(request.getParameter("course_id"), lecturer.getAccountID());
 
 //        if (!dao.doesQuestionExistInBank(qId, bank.getBankId())) {
@@ -122,31 +123,59 @@ public class lecturerUpdateQuestion extends HttpServlet {
         String[] choiceContent = new String[count];
         String[] choiceScore = new String[count];
         String[] choiceId = new String[count];
-        int in = 0;
-        while (in < count) {
-            String surveyOptionsParam = request.getParameter(in + "_survey_options[]");
-            String scoreParam = request.getParameter(in + "_score");
-            String choiceIdParam = request.getParameter(in + "_choiceId");
+        String removedChoiceIdsParam = request.getParameter("removedChoiceIds");
+        String[] removedChoiceIds = removedChoiceIdsParam.split(",");
 
+//        for (int i = 0; i < count; i++) {
+//            choiceContent[i] = request.getParameter(i + "_survey_options[]");
+//            choiceScore[i] = request.getParameter(i + "_score");
+//            choiceId[i] = request.getParameter(i + "_choiceId");
+//        }
+        for (int i = 0; i < count; i++) {
+            String surveyOptionsParam = request.getParameter(i + "_survey_options[]");
+            String scoreParam = request.getParameter(i + "_score");
+            String choiceIdParam = request.getParameter(i + "_choiceId");
+
+            // Check if surveyOptionsParam and scoreParam are not null
             if (surveyOptionsParam != null && scoreParam != null) {
-                choiceContent[in] = surveyOptionsParam;
-                try {
-                    choiceScore[in] = (scoreParam);
-                } catch (NumberFormatException e) {
-                    // Handle parsing error if needed
-                    // choiceScore[in] will be 0 if parsing fails
-                }
-                if (choiceIdParam != null) {
-                    choiceId[in] = choiceIdParam;
-
-                } else {
-                    choiceId[in] = " ";
-                }
+                choiceContent[i] = surveyOptionsParam;
+                choiceScore[i] = scoreParam;
             } else {
                 // Handle missing parameters or take appropriate action
             }
-            in++;
+
+            // Check if choiceIdParam is not null, if not, store an empty string
+            if (choiceIdParam != null) {
+                choiceId[i] = choiceIdParam;
+            } else {
+                choiceId[i] = "";
+            }
         }
+//        int in = 0;
+//        while (in < count) {
+//            String surveyOptionsParam = request.getParameter(in + "_survey_options[]");
+//            String scoreParam = request.getParameter(in + "_score");
+//            String choiceIdParam = request.getParameter(in + "_choiceId");
+//
+//            if (surveyOptionsParam != null && scoreParam != null) {
+//                choiceContent[in] = surveyOptionsParam;
+//                try {
+//                    choiceScore[in] = (scoreParam);
+//                } catch (NumberFormatException e) {
+//                    // Handle parsing error if needed
+//                    // choiceScore[in] will be 0 if parsing fails
+//                }
+//                if (choiceIdParam != null) {
+//                    choiceId[in] = choiceIdParam;
+//
+//                } else {
+//                    choiceId[in] = " ";
+//                }
+//            } else {
+//                // Handle missing parameters or take appropriate action
+//            }
+//            in++;
+//        }
 
 //        for (int i = 0; i < count; i++) {
 //            choiceContent[i] = request.getParameter(i + "_survey_options[]");
@@ -161,7 +190,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
             }
         }
         Exam e = (Exam) session.getAttribute("exam");
-
+        
         List<ChoiceQuestion> listChoice = dao.getChoiceOfQuestion(qId);
         if (!dao.doesQuestionExistInBank(qId, bank.getBankId())) { ////////////////////////////////////////////// if question does not existed in bank
             //update normally
@@ -171,40 +200,49 @@ public class lecturerUpdateQuestion extends HttpServlet {
             float markChange = Float.parseFloat(mark) - q.getMark();
             float newScore = currentMaxScore + markChange;
 //            float newScore = e.getMaxScore() + q.getMark();
-            int number = e.getQuestionNumber();
-            String questionNumber = Integer.toString(number);
-            dao.updateExamScore(e.getExamID(), Float.toString(newScore), questionNumber);
+//            int number = e.getQuestionNumber();
+//            String questionNumber = Integer.toString(number);
+            dao.updateExamScore(e.getExamID(), Float.toString(newScore), Float.toString(e.getQuestionNumber()));
 
+//            for (String s : removedChoiceIds) {
+//                dao.deleteChoiceQuestion(s);
+//            }
+            for (int i = 0; i < removedChoiceIds.length; i++) {
+                dao.deleteChoiceQuestion(removedChoiceIds[i]);
+            }
             for (int i = 0; i < count; i++) {
                 if (!choiceId[i].isEmpty()) {
                     dao.updateChoice(qId, choiceContent[i], choiceScore[i], choiceId[i]);
                 } else {
                     dao.addChoice(qId, choiceContent[i], choiceScore[i]);
                 }
-
+                
             }
-
+            
         } else {
             // if question existed in bank, so must create coppy question of this question, add to question table and link to exam
             dao.addQuestion(title, content, type, Float.parseFloat(mark));
             Question newQuestion = dao.getLastestQuestion();
+            for (String s : removedChoiceIds) {
+                dao.deleteChoiceQuestion(s);
+            }
+            
             for (int i = 0; i < count; i++) {
                 dao.addChoice(newQuestion.getQuestionID(), choiceContent[i], choiceScore[i]);
             }
             dao.deleteQuestionExam(qId, e.getExamID());
-            dao.updateExamScore(e.getExamID(), String.valueOf(e.getMaxScore() - (dao.getAQuestion(qId).getMark())), String.valueOf(e.getQuestionNumber() - 1));
-
+            dao.updateExamScore(e.getExamID(), String.valueOf(e.getMaxScore() - (dao.getAQuestion(qId).getMark())), String.valueOf(e.getQuestionNumber()));
+            
             dao.addBank(e.getExamID(), newQuestion.getQuestionID());
             float currentMaxScore = e.getMaxScore();
             float markChange = Float.parseFloat(mark) - q.getMark();
             float newScore = currentMaxScore + markChange;
 //            float newScore = e.getMaxScore() + newQuestion.getMark();
-            int number = e.getQuestionNumber() + 1;
-            String questionNumber = Integer.toString(number);
-            dao.updateExamScore(e.getExamID(), Float.toString(newScore), questionNumber);
 
+            dao.updateExamScore(e.getExamID(), Float.toString(newScore), Float.toString(e.getQuestionNumber()));
+            
         }
-
+        
         session.setAttribute("exam", e);
         response.sendRedirect("lecturerEditExam?tId=" + e.getExamID());
     }
