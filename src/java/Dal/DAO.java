@@ -480,14 +480,17 @@ public class DAO extends DBContext {
             stm.setInt(1, examID);
             List<Question> questions = new ArrayList<>();
             ResultSet rs = stm.executeQuery();
+            int i =1;
             while (rs.next()) {
                 Question question = new Question();
+                question.setAnswer(i);
                 question.setQuestionID(rs.getString("Question_ID"));
                 question.setTitle(rs.getString("Title"));
                 question.setContent(rs.getString("QuestionContent"));
                 question.setType(rs.getString("Type"));
                 question.setMark(rs.getInt("Mark"));
                 questions.add(question);
+                i++;
             }
             return (ArrayList<Question>) questions;
         } catch (SQLException ex) {
@@ -658,8 +661,8 @@ public class DAO extends DBContext {
             int total = 0;
             stm.setInt(1, examID);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
-                total+=rs.getInt("ScorePercentage");
+            while (rs.next()) {
+                total += rs.getInt("ScorePercentage");
             }
             return total;
         } catch (SQLException ex) {
@@ -724,10 +727,210 @@ public class DAO extends DBContext {
         return false;
     }
 
+    public int getLength(int examId) {
+        try {
+            String sql = "SELECT e.Exam_ID, e.Class_ID, sc.Student_ID, ifnull(sr.TotalScore,0) as TotalScore FROM exam as e\n"
+                    + "INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                    + "LEFT JOIN studentresult as sr on sr.Student_ID = sc.Student_ID\n"
+                    + "WHERE e.Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examId);
+            ResultSet rs = stm.executeQuery();
+            int length = 0;
+            while (rs.next()) {
+                length++;
+            }
+            return length;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
+
+    public Float[] getResultByExamId(int examId) {
+        try {
+            String sql = "SELECT e.Exam_ID, e.Class_ID, sc.Student_ID, ifnull(sr.TotalScore,0) as TotalScore FROM exam as e\n"
+                    + "INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                    + "LEFT JOIN studentresult as sr on sr.Student_ID = sc.Student_ID\n"
+                    + "WHERE e.Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examId);
+            ResultSet rs = stm.executeQuery();
+            DAO d = new DAO();
+            int size = d.getLength(examId);
+            Float[] results = new Float[size];
+            int index = 0;
+            while (rs.next()) {
+                float score = rs.getFloat("TotalScore");
+                results[index] = score;
+                index++;
+            }
+            return results;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public String[] getStudentsByExamId(int examId) {
+        try {
+            String sql = "SELECT e.Exam_ID, e.Class_ID, sc.Student_ID, ifnull(sr.TotalScore,0) as TotalScore FROM exam as e\n"
+                    + "INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                    + "LEFT JOIN studentresult as sr on sr.Student_ID = sc.Student_ID\n"
+                    + "WHERE e.Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examId);
+            ResultSet rs = stm.executeQuery();
+            DAO d = new DAO();
+            int size = d.getLength(examId);
+            String[] results = new String[size];
+            int index = 0;
+            while (rs.next()) {
+                String score = rs.getString("Student_ID");
+                results[index] = score;
+                index++;
+            }
+            return results;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<StudentResult> getStudentResult(int examId) {
+        try {
+            String sql = "select a.Exam_ID, a.Class_ID, a.Student_ID, ifnull(b2.TotalScore,0) as TotalScore from (\n"
+                    + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
+                    + "	INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                    + "	WHERE e.Exam_ID = ?\n"
+                    + ") as a\n"
+                    + "LEFT JOIN (\n"
+                    + "	SELECT * FROM studentresult where Exam_ID = ?\n"
+                    + ") as b2 \n"
+                    + " ON a.Student_ID = b2.Student_ID";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examId);
+            stm.setInt(2, examId);
+
+            ResultSet rs = stm.executeQuery();
+            ArrayList<StudentResult> results = new ArrayList<>();
+            while (rs.next()) {
+                StudentResult studentResult = new StudentResult();
+                String studentId = rs.getString("Student_ID");
+                float score = rs.getFloat("TotalScore");
+                studentResult.setStudentID(studentId);
+                studentResult.setTotalScore(score);
+                results.add(studentResult);
+            }
+            return results;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public ArrayList<StudentResult> getScoreStatistic(int examId) {
+        try {
+            String sql = "";
+            ArrayList<StudentResult> results = new ArrayList<>();
+            int min;
+            int max;
+            for (int i = 2; i <= 10; i += 2) {
+                min = i - 2;
+                max = i;
+                if (min == 0) {
+                    sql = "select Count(*)  as TotalScore from (\n"
+                            + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
+                            + "	INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                            + "	WHERE e.Exam_ID = ?\n"
+                            + ") as a\n"
+                            + "LEFT JOIN (\n"
+                            + "	SELECT * FROM studentresult where Exam_ID = ?\n"
+                            + ") as b2 \n"
+                            + " ON a.Student_ID = b2.Student_ID\n"
+                            + "WHERE b2.TotalScore <=? or isnull(b2.TotalScore)";
+                    PreparedStatement stm = connector.prepareStatement(sql);
+                    stm.setInt(1, examId);
+                    stm.setInt(2, examId);
+                    stm.setInt(3, max);
+                    ResultSet rs = stm.executeQuery();
+                    while (rs.next()) {
+                        StudentResult studentResult = new StudentResult();
+                        studentResult.setResultID(min + "-" + max);
+                        studentResult.setState(rs.getInt("TotalScore"));
+                        results.add(studentResult);
+                    }
+                } else {
+                    sql = "select Count(*)  as Total from (\n"
+                            + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
+                            + "	INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                            + "	WHERE e.Exam_ID = ?\n"
+                            + ") as a\n"
+                            + "LEFT JOIN (\n"
+                            + "	SELECT * FROM studentresult where Exam_ID = ?\n"
+                            + ") as b2 \n"
+                            + " ON a.Student_ID = b2.Student_ID\n"
+                            + " WHERE  b2.TotalScore >? and  b2.TotalScore <= ?\n"
+                            + "\n"
+                            + " ";
+                    PreparedStatement stm = connector.prepareStatement(sql);
+                    stm.setInt(1, examId);
+                    stm.setInt(2, examId);
+                    stm.setInt(3, min);
+                    stm.setInt(4, max);
+                    ResultSet rs = stm.executeQuery();
+                    while (rs.next()) {
+                        StudentResult studentResult = new StudentResult();
+                        studentResult.setResultID(min + "-" + max);
+                        studentResult.setState(rs.getInt("Total"));
+                        results.add(studentResult);
+                    }
+
+                }
+            }
+
+            return results;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    public List<StudentResult> getAllStudentResultOfExam(int examID) {
+        try {
+            String sql = "SELECT Exam_ID, Student_ID, TotalScore, TotalTime FROM studentresult\n"
+                    + "WHERE Exam_ID = ?";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, examID);
+            ResultSet rs = stm.executeQuery();
+            List<StudentResult> srList = new ArrayList<>();
+            StudentResult sr = new StudentResult();
+            while (rs.next()) {
+                sr.setExamID(rs.getString("Exam_ID"));
+                sr.setStudentID(rs.getString("Student_ID"));
+                sr.setTotalScore(rs.getFloat("TotalScore"));
+                sr.setTotalTime(rs.getString("TotalTime"));
+                srList.add(sr);
+            }
+                return srList;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         DAO d = new DAO();
-//        boolean a = d.createStudentAnswer("1231", 1, 1, 1);
-            System.out.println(d.getTotalMark(1));
+        ArrayList<StudentResult> s = d.getScoreStatistic(1);
+        for (StudentResult studentResult : s) {
+            System.out.println(studentResult.getResultID() + " " + studentResult.getState());
+        }
+
+////        System.out.println(d.getLength(1));
+//        String[] f = d.getStudentsByExamId(1);
+//        for (int i = 0; i < f.length; i++) {
+//            System.out.println(f[i]);
+//        }
+//        System.out.println(d.getExamName(1));
 //        String two = d.encodeSHA1("1691939");
 //        d.getAllCourse();
 //        System.out.println(two);
