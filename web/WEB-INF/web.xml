@@ -182,6 +182,10 @@
         <servlet-name>lecturerStaticticExam1</servlet-name>
         <servlet-class>Controller.lecturerStaticticExam1</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>reviewQuizz</servlet-name>
+        <servlet-class>Controller.reviewQuizz</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -353,6 +357,10 @@
     <servlet-mapping>
         <servlet-name>lecturerStaticticExam1</servlet-name>
         <url-pattern>/lecturerStaticticExam1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reviewQuizz</servlet-name>
+        <url-pattern>/reviewQuizz</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
