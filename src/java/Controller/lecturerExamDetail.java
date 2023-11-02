@@ -5,6 +5,7 @@
 
 package Controller;
 
+import Dal.DAO;
 import Dal.LecturerDAO;
 import Model.Account;
 import Model.Exam;
@@ -84,8 +85,12 @@ public class lecturerExamDetail extends HttpServlet {
         Exam thisExam = dao.loadAExam(request.getParameter("examID"));
         //session thisExam
         session.setAttribute("sessionThisExam", thisExam);
-        if(LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0)
+        if(LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0 
+                || !thisExam.getCreatedBy().equalsIgnoreCase(((Account)session.getAttribute("user")).getAccountID()))
             request.setAttribute("notAllowToEdit", "notAllowToEdit");
+        DAO otherDao = new DAO();
+        if(otherDao.getAllStudentResultOfExam(Integer.parseInt(thisExam.getExamID())).size()==0)
+            request.setAttribute("statisticNotAllow", "not allow");
         
         request.setAttribute("timeLimit", dao.getStringFormattedDate("timeLimit", thisExam.getTimeLimit()));
         request.setAttribute("startDate", dao.getStringFormattedDate("dateTime", thisExam.getStartDate()));

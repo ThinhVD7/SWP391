@@ -279,7 +279,7 @@
                         <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
                     </form>-->
                 </div>
-                <div>
+                <div ${requestScope.statisticNotAllow!=null?"display:none":""}>
                     <form action="lecturerStatisticExam">
                         <input value="${sessionThisExam.examID}" type="hidden" name="examId"/>
                         <button class="stat-exam-button" type="submit">View Statistics</button>

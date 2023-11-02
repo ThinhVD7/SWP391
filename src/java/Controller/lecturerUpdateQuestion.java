@@ -101,7 +101,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
         }
         Question q = (Question) session.getAttribute("sessionQuestion");
         String qId = q.getQuestionID();
-        
+
         List<Question> list_Q = new ArrayList<>();
         LecturerDAO dao = new LecturerDAO();
         String title = request.getParameter("title");
@@ -109,7 +109,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
         String type = request.getParameter("questionType");
         String mark = request.getParameter("mark");
         Account lecturer = (Account) session.getAttribute("user");
-        
+
         Bank bank = dao.getBankByCourseId(request.getParameter("course_id"), lecturer.getAccountID());
 
 //        if (!dao.doesQuestionExistInBank(qId, bank.getBankId())) {
@@ -190,7 +190,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
             }
         }
         Exam e = (Exam) session.getAttribute("exam");
-        
+
         List<ChoiceQuestion> listChoice = dao.getChoiceOfQuestion(qId);
         if (!dao.doesQuestionExistInBank(qId, bank.getBankId())) { ////////////////////////////////////////////// if question does not existed in bank
             //update normally
@@ -216,9 +216,9 @@ public class lecturerUpdateQuestion extends HttpServlet {
                 } else {
                     dao.addChoice(qId, choiceContent[i], choiceScore[i]);
                 }
-                
+
             }
-            
+
         } else {
             // if question existed in bank, so must create coppy question of this question, add to question table and link to exam
             dao.addQuestion(title, content, type, Float.parseFloat(mark));
@@ -226,13 +226,13 @@ public class lecturerUpdateQuestion extends HttpServlet {
             for (String s : removedChoiceIds) {
                 dao.deleteChoiceQuestion(s);
             }
-            
+
             for (int i = 0; i < count; i++) {
                 dao.addChoice(newQuestion.getQuestionID(), choiceContent[i], choiceScore[i]);
             }
             dao.deleteQuestionExam(qId, e.getExamID());
             dao.updateExamScore(e.getExamID(), String.valueOf(e.getMaxScore() - (dao.getAQuestion(qId).getMark())), String.valueOf(e.getQuestionNumber()));
-            
+
             dao.addBank(e.getExamID(), newQuestion.getQuestionID());
             float currentMaxScore = e.getMaxScore();
             float markChange = Float.parseFloat(mark) - q.getMark();
@@ -240,9 +240,9 @@ public class lecturerUpdateQuestion extends HttpServlet {
 //            float newScore = e.getMaxScore() + newQuestion.getMark();
 
             dao.updateExamScore(e.getExamID(), Float.toString(newScore), Float.toString(e.getQuestionNumber()));
-            
+
         }
-        
+
         session.setAttribute("exam", e);
         response.sendRedirect("lecturerEditExam?tId=" + e.getExamID());
     }

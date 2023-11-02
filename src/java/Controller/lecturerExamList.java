@@ -87,11 +87,14 @@ public class lecturerExamList extends HttpServlet {
         HashMap<String, String> exam_startDate = new HashMap<String,String>();
         HashMap<String, String> exam_endDate = new HashMap<String,String>();
         HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
+        //check different lecturer
+        HashMap<String, Boolean> lecturerNotAuthorMap = new HashMap<String, Boolean>();
         LocalDateTime today = LocalDateTime.now();
         String[] temp;
         for (Exam exam : examList)
         {
-            if(today.compareTo(LocalDateTime.parse(exam.getStartDate()))>-1&&today.compareTo(LocalDateTime.parse(exam.getEndDate()))<0)
+            if(today.compareTo(LocalDateTime.parse(exam.getStartDate()))>-1&&today.compareTo(LocalDateTime.parse(exam.getEndDate()))<0
+                    || !exam.getCreatedBy().equalsIgnoreCase(((Account)session.getAttribute("user")).getAccountID()))
                 {
                     deleteNotAllowMap.put(exam.getExamID(), true);
                 }
