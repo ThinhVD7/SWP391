@@ -66,35 +66,82 @@ public class managerHome extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //block check if user have logged in, if not then return to home
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("index.html");
-            return;
-        }
-        ////////////////////////////////////////////////////////////////
-        Account user = (Account) session.getAttribute("user");
-        //check user's authority by role
-        if (user.getRoleID() != 1) {
-            request.getRequestDispatcher("pageNotFound").forward(request, response);
-        }
-        ///////////////////////////////
-        DAO dao = new DAO();
-        List<Course> course = dao.getAllCourse();
+//        String status = request.getParameter("status");
+//
+//        if (status != null) {
+//            HttpSession session = request.getSession(false);
+//            if (session == null || session.getAttribute("user") == null) {
+//                response.sendRedirect("index.html");
+//                return;
+//            }
+//            ////////////////////////////////////////////////////////////////
+//            Account user = (Account) session.getAttribute("user");
+//            //check user's authority by role
+//            if (user.getRoleID() != 1) {
+//                request.getRequestDispatcher("pageNotFound").forward(request, response);
+//            }
+//            ///////////////////////////////
+//            DAO dao = new DAO();
+//            List<Course> course = dao.getAllCourse();
+//
+////        //after fix database
+//            LocalDate today = LocalDate.now();
+//            HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
+//            for (Course course1 : course) {
+//                if (today.compareTo(LocalDate.parse(course1.getStartDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) > -1 && today.compareTo(LocalDate.parse(course1.getEndDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) < 0) {
+//                    deleteNotAllowMap.put(course1.getCourseID(), true);
+//                } else {
+//                    deleteNotAllowMap.put(course1.getCourseID(), false);
+//                }
+//            }
+//
+//            String search = request.getParameter("searchInput").toLowerCase();
+//            List<Course> resultCourse = new ArrayList<>();
+//            for (Course course1 : course) {
+//
+//                if (course1.getCourseID().toLowerCase().contains(search) || course1.getCourseName().toLowerCase().contains(search)) {
+//                    Course c = course1;
+//                    response.getWriter().print(111);
+//                    resultCourse.add(c);
+//                }
+//            }
+//
+//            request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
+//            request.setAttribute("course", resultCourse);
+//
+//            request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
+//        } else {
+            //block check if user have logged in, if not then return to home
+            //block check if user have logged in, if not then return to home
+            HttpSession session = request.getSession(false);
+            if (session == null || session.getAttribute("user") == null) {
+                response.sendRedirect("index.html");
+                return;
+            }
+            ////////////////////////////////////////////////////////////////
+            Account user = (Account) session.getAttribute("user");
+            //check user's authority by role
+            if (user.getRoleID() != 1) {
+                request.getRequestDispatcher("pageNotFound").forward(request, response);
+            }
+            ///////////////////////////////
+            DAO dao = new DAO();
+            List<Course> course = dao.getAllCourse();
 
 //        //after fix database
-        LocalDate today = LocalDate.now();
-        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
-        for (Course course1 : course) {
-            if (today.compareTo(LocalDate.parse(course1.getStartDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) > -1 && today.compareTo(LocalDate.parse(course1.getEndDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) < 0) {
-                deleteNotAllowMap.put(course1.getCourseID(), true);
-            } else {
-                deleteNotAllowMap.put(course1.getCourseID(), false);
+            LocalDate today = LocalDate.now();
+            HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
+            for (Course course1 : course) {
+                if (today.compareTo(LocalDate.parse(course1.getStartDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) > -1 && today.compareTo(LocalDate.parse(course1.getEndDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) < 0) {
+                    deleteNotAllowMap.put(course1.getCourseID(), true);
+                } else {
+                    deleteNotAllowMap.put(course1.getCourseID(), false);
+                }
             }
-        }
-        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
-        request.setAttribute("course", course);
-        request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
+            request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
+            request.setAttribute("course", course);
+            request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
+//        }
 
     }
 
@@ -109,74 +156,36 @@ public class managerHome extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //String courseId = "chu co eo j";
-//        String courseIdMain = request.getParameter("courseIdMain");
-//        String courseId = request.getParameter("courseId");
-//        String courseName = request.getParameter("courseName");
-//        String semseter = request.getParameter("semseter");
-//        String startDay = request.getParameter("startDay");
-//        String endDay = request.getParameter("endDay");
-//        String action = request.getParameter("action");
-//
-//        ManagerDAO obj = new ManagerDAO();
-//        ManagerDAO obj1 = new ManagerDAO();
-//        HttpSession session = request.getSession();
-//
-//        if (action.equals("add")) {
-//            if (obj.getCourseId(courseId)) {
-//                session.setAttribute("logPrint", 1);
-//            } else {
-//                session.removeAttribute("logPrint");
-//                Course c = new Course(courseId, courseName, semseter, startDay, endDay);
-//                obj1.getCreateCouse(c);
-//            }
-//        } else if (action.equals("update")) {
-//            Course c = new Course(courseId, courseName, semseter, startDay, endDay);
-//            obj.updateInfo(c, courseIdMain);
-//        }
+//        if (status != 1) {
+        String courseIdMain = request.getParameter("courseIdMain");
+        String courseId = request.getParameter("courseId");
+        String courseName = request.getParameter("courseName");
+        String semseter = request.getParameter("semseter");
+        String startDay = request.getParameter("startDay");
+        String endDay = request.getParameter("endDay");
+        String action = request.getParameter("action");
 
-        //block check if user have logged in, if not then return to home
-        HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
-            response.sendRedirect("index.html");
-            return;
-        }
-        ////////////////////////////////////////////////////////////////
-        Account user = (Account) session.getAttribute("user");
-        //check user's authority by role
-        if (user.getRoleID() != 1) {
-            request.getRequestDispatcher("pageNotFound").forward(request, response);
-        }
-        ///////////////////////////////
-        DAO dao = new DAO();
-        List<Course> course = dao.getAllCourse();
+        ManagerDAO obj = new ManagerDAO();
+        ManagerDAO obj1 = new ManagerDAO();
+        HttpSession session = request.getSession();
 
-//        //after fix database
-        LocalDate today = LocalDate.now();
-        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
-        for (Course course1 : course) {
-            if (today.compareTo(LocalDate.parse(course1.getStartDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) > -1 && today.compareTo(LocalDate.parse(course1.getEndDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) < 0) {
-                deleteNotAllowMap.put(course1.getCourseID(), true);
+        if (action.equals("add")) {
+            if (obj.getCourseId(courseId)) {
+                session.setAttribute("logPrint", 1);
             } else {
-                deleteNotAllowMap.put(course1.getCourseID(), false);
+                session.removeAttribute("logPrint");
+                Course c = new Course(courseId, courseName, semseter, startDay, endDay);
+                obj1.getCreateCouse(c);
             }
+        } else if (action.equals("update")) {
+            Course c = new Course(courseId, courseName, semseter, startDay, endDay);
+            obj.updateInfo(c, courseIdMain);
         }
 
-        String search = request.getParameter("searchInput").toLowerCase();
-        List<Course> resultCourse = new ArrayList<>();
-        for (Course course1 : course) {
-
-            if (course1.getCourseID().toLowerCase().contains(search)) {
-                Course c = course1;
-                response.getWriter().print(111);
-                resultCourse.add(c);
-            }
-        }
-
-        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
-        request.setAttribute("course", resultCourse);
-
-        request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
+//        } else {
+//           
+//        }
+        //block check if user have logged in, if not then return to home
     }
 
     /**

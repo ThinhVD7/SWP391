@@ -41,7 +41,8 @@ public class HomeController extends HttpServlet {
                 response.sendRedirect("admin");
             }
             if (role == 1) {
-                response.sendRedirect("managerHome");
+                request.setAttribute("status", 1);
+                request.getRequestDispatcher("managerHome").forward(request, response);
             }
             if (role == 2) {
                 response.sendRedirect("lecturer");

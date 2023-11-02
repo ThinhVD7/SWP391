@@ -189,7 +189,7 @@
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
-                        <form action="managerHome" method="post">
+                        <form action="managerHome" method="get">
                             <input class="nosubmit" type="search" placeholder="Search" name="searchInput">
                             <button type="submit">Search</button>
                         </form>
