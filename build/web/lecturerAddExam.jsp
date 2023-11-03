@@ -397,7 +397,7 @@
                 /*max-height: 600px;  Set a maximum height for the form */
                 align-content: center;
                 justify-items: center;
-                height
+                
             }
 
             input[type="text"]{
