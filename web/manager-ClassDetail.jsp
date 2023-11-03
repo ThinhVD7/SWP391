@@ -876,7 +876,7 @@
 
 
                                         <td>
-                                            <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delStudent('${u.accountID}')"> <i class="material-icons">&#xE5C9;</i></a>
+                                            <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a  onclick="delStudent('${u.accountID}')"> <i t class="material-icons">&#xE5C9;</i></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
