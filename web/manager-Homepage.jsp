@@ -174,18 +174,6 @@
             </div>
         </section>
         <section class="home">
-
-            <!--pop up delete course--------------------------------------------------------------------------------------------------->
-            <!--            <div class="addCourse" id="deleteCourse" style="display: none;">
-                            <div class="popup">
-                                <h3> Delete Course</h3> 
-                                <h6> You clicked delete on accident didn't you?</h6>
-                                <button class="closePopUp" onclick="closeDeletePopUp()" >Yes</button>
-                                <button class="closePopUp" onclick="delCousera()" >No</button>
-                                <button class="closePopUp" onclick="closeDeletePopUp()">Close</button>
-                            </div>
-                        </div>-->
-            <!----------------------------------------------------------------------------------------------------->
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
