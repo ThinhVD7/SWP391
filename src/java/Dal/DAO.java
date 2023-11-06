@@ -999,22 +999,6 @@ public class DAO extends DBContext {
             System.out.println(studentResult.getResultID() + " " + studentResult.getState());
         }
 
-////        System.out.println(d.getLength(1));
-//        String[] f = d.getStudentsByExamId(1);
-//        for (int i = 0; i < f.length; i++) {
-//            System.out.println(f[i]);
-//        }
-//        System.out.println(d.getExamName(1));
-//        String two = d.encodeSHA1("1691939");
-//        d.getAllCourse();
-//        System.out.println(two);
-//        System.out.println(d.encodeSHA1("123456").equals(two));
-//        System.out.println(d.addAccount("123", "dunggnguyen", email, password, 0, 0, 0, phno));
-//        d.deleteAccountbyID("nampt_he_171400");
-//        d.deleteClassbyID("yes");
-//        d.deleteCoursebyID("MAS291");
-        //System.out.println(d.addAccount("nampt_he_171400", two, two, two, 0, 3, 0, "12"));
-        //System.out.println((d.getAccountLogin("nampthe171400@fpt.edu.vn", "1691939")!=null)?"success":"it null");
     }
 
 }

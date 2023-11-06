@@ -1,8 +1,4 @@
-<%-- 
-    Document   : doQuizz
-    Created on : Jun 27, 2022, 5:34:11 PM
-    Author     : Fangl
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>

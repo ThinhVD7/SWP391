@@ -7,7 +7,7 @@
         <title>JSP Page</title>
         <script type="text/javascript"></script>
         <link rel="stylesheet" href="assets/css/doquiz.css">
-       
+        <%@include file="Components/AllAccess.jsp"%>
     </head>
     <body class="sb-sidenav-toggled" onload="timerfunction()">
         <div class="wrapper">
