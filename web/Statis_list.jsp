@@ -199,3 +199,47 @@
                 </div>
             </div>
         </div>
+        <div class="page-wraper">
+            <div id="loading-icon-bx"></div>
+            <!-- Content -->
+            <div class="page-content bg-white">
+                <!-- inner page banner -->
+                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+                    <div class="container">
+                        <div class="page-banner-entry">
+                            <h1 class="text-white">Profile</h1>
+                        </div>
+                    </div>
+                </div>
+                <!-- Breadcrumb row -->
+                <div class="breadcrumb-row">
+                    <div class="container">
+                        <ul class="list-inline">
+                            <li><a href="home">Home</a></li>
+                            <li>Profile</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Breadcrumb row END -->
+                <!-- inner page banner END -->
+                <div class="content-block">
+                    <!-- About Us -->
+                    <div class="section-area section-sp1">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
+                                    <div class="profile-bx text-center">
+                                        <div class="user-profile-thumb">
+                                            <img src="assets/images/profile/pic1.jpg" alt=""/>
+                                        </div>
+                                        <div class="profile-info">
+                                            <h4>${target.name}</h4>
+                                            <span>${target.email}</span>
+                                        </div>
+                                        <div class="profile-social">
+                                            <ul class="list-inline m-a0">
+                                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                            </ul>
