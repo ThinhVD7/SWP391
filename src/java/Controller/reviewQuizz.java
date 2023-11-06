@@ -9,6 +9,7 @@ import Dal.LecturerDAO;
 import Model.Account;
 import Model.Exam;
 import Model.Question;
+import Model.StudentAnswer;
 import Model.StudentResult;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -95,13 +96,15 @@ public class reviewQuizz extends HttpServlet {
             request.setAttribute("totalTime", studentResult.getTotalTime());
 
         }
-        ArrayList<Question> questions = d.getQuestionsExam(Integer.parseInt(examID));
-        
+        ArrayList<Question> questions = d.getQuestionsExam(Integer.parseInt(examID));     
+        ArrayList<StudentAnswer> sa = d.getStudentAnswer(Integer.parseInt(examID), user.accountID);
         session.setAttribute("sessionThisExam", thisExam);
         request.setAttribute("isDoQuizz", isDoQuizz);
-        request.setAttribute("examId", request.getParameter("examID"));
+        request.setAttribute("examID", request.getParameter("examID"));
         request.setAttribute("name", name);
         request.setAttribute("questions", questions);
+        request.setAttribute("sa", sa);
+        request.setAttribute("StudentID", user.accountID);
         request.getRequestDispatcher("reviewQuizz.jsp").forward(request, response);
     }
 

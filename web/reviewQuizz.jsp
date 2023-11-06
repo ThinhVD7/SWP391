@@ -5,7 +5,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-
+        <script type="text/javascript"></script>
+        <link rel="stylesheet" href="assets/css/doquiz.css">
        
     </head>
     <body class="sb-sidenav-toggled" onload="timerfunction()">
@@ -20,15 +21,20 @@
                         <h2 class="fs-4">Time: ${requestScope.totalTime}</h2>         
                         
                         <jsp:useBean id="choice" class="Dal.DAO" scope="request"></jsp:useBean>
+                        <c:set var="examID" value="${requestScope.examID}"/>
+                        <c:set var="StudentID" value="${requestScope.StudentID}" />
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <form action="studentExamDetail" method="post" id="myForm">
-                                    <input type="hidden" name="examID" value="${requestScope.examID}" />                                  
+                                    <input type="hidden" name="examID" value="${requestScope.examID}" />    
+                                    <input type="hidden" name="StudentID" value="${requestScope.StudentID}" />
                                     <div class="row">
                                         <div class="col-12">
                                             <div>
-                                                <ol type="1">
+                                                <ol type="1"> 
+                                                    <c:set var="examID" value="${requestScope.examID}" />
+                                                    <c:set var="StudentID" value="${requestScope.StudentID}" />
                                                     <c:forEach var="questionMap" items="${requestScope.questions}">
                                                         <div class="mb-3 mx-auto d-block shadow p-3 mb-5 bg-white rounded" style="padding: 10px 10px 10px 10px; border-radius: 8px; width: 32%; margin-left: 10px; width: 100% !important">
                                                             <li class="ms-3">
@@ -37,34 +43,70 @@
                                                                     <c:forEach items="${choice.getChoice(questionMap.questionID)}" var="c" varStatus="index">
                                                                         <c:if test="${c.answer == 1}">
                                                                             <c:if test="${c.choicePercentages > 0}">
-                                                                                <li class="d-flex mb-1">
-                                                                                    <input type="radio" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                    <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
-                                                                                    <br/>
-                                                                                </li>
+                                                                                    <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
+                                                                                        <li class="d-flex mb-1">
+                                                                                            <input type="radio" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                            <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                            <br/>
+                                                                                        </li>
+                                                                                    </c:if>
+                                                                                    <c:if test="${choice.userCheck(c.choices, examID, StudentID) == false}">
+                                                                                        <li class="d-flex mb-1">
+                                                                                            <input type="radio" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                            <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                            <br/>
+                                                                                        </li>
+                                                                                    </c:if>
                                                                              </c:if>
                                                                              <c:if test="${c.choicePercentages == 0}">
-                                                                                <li class="d-flex mb-1">
-                                                                                    <input type="radio" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                    <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly=""></span>
-                                                                                    <br/>
-                                                                                </li>
+                                                                                    <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
+                                                                                       <li class="d-flex mb-1">
+                                                                                           <input type="radio" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                           <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: red"></span>
+                                                                                           <br/>
+                                                                                       </li>
+                                                                                   </c:if> 
+                                                                                   <c:if test="${choice.userCheck(c.choices, examID, StudentID) == false}">
+                                                                                       <li class="d-flex mb-1">
+                                                                                           <input type="radio" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                           <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly=""></span>
+                                                                                           <br/>
+                                                                                       </li>
+                                                                                   </c:if>
                                                                              </c:if>   
                                                                         </c:if>
                                                                         <c:if test="${c.answer != 1}">
                                                                             <c:if test="${c.choicePercentages > 0}">
-                                                                                <li class="d-flex mb-1 row">
-                                                                                    <input type="checkbox" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                    <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
-                                                                                    <br/>
-                                                                                 </li>
+                                                                                <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
+                                                                                    <li class="d-flex mb-1 row">
+                                                                                        <input type="checkbox" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                        <br/>
+                                                                                     </li>
+                                                                                 </c:if>
+                                                                                 <c:if test="${choice.userCheck(c.choices, examID, StudentID) == false}">
+                                                                                    <li class="d-flex mb-1 row">
+                                                                                        <input type="checkbox" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                        <br/>
+                                                                                     </li>
+                                                                                 </c:if>
                                                                             </c:if>
                                                                             <c:if test="${c.choicePercentages == 0}">
-                                                                                <li class="d-flex mb-1 row">
-                                                                                    <input type="checkbox" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                    <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly=""></span>
-                                                                                    <br/>
-                                                                                 </li>
+                                                                                <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
+                                                                                    <li class="d-flex mb-1 row">
+                                                                                        <input type="checkbox" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: red"></span>
+                                                                                        <br/>
+                                                                                    </li>
+                                                                                </c:if> 
+                                                                                <c:if test="${choice.userCheck(c.choices, examID, StudentID) == false}">
+                                                                                    <li class="d-flex mb-1 row">
+                                                                                        <input type="checkbox" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
+                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly=""></span>
+                                                                                        <br/>
+                                                                                    </li>
+                                                                                </c:if>     
                                                                             </c:if>     
                                                                         </c:if>
                                                                     </c:forEach>
@@ -80,7 +122,7 @@
                                 </form>
                                 </div>
                             </div>
-                                        <div class="btn btn-primary"><a href="studentExamDetail?examID=${requestScope.examId}">return to exam detail</a></div>
+                                        <div class="btn btn-primary"><a href="studentExamDetail?examID=${requestScope.examID}">return to exam detail</a></div>
 
                         </div>
                     </div>
