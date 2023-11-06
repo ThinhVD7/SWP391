@@ -106,3 +106,96 @@
     
         </body>
     </html>
+    <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <meta name="robots" content="" />
+
+        <!-- DESCRIPTION -->
+        <meta name="description" content="EduChamp : Education HTML Template" />
+
+        <!-- OG -->
+        <meta property="og:title" content="EduChamp : Education HTML Template" />
+        <meta property="og:description" content="EduChamp : Education HTML Template" />
+        <meta property="og:image" content="" />
+        <meta name="format-detection" content="telephone=no">
+
+        <!-- FAVICONS ICON ============================================= -->
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
+        <!-- PAGE TITLE HERE ============================================= -->
+        <title>Forget Password </title>
+
+        <!-- MOBILE SPECIFIC ============================================= -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--[if lt IE 9]>
+        <script src="assets/js/html5shiv.min.js"></script>
+        <script src="assets/js/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- All PLUGINS CSS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+
+        <!-- TYPOGRAPHY ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+
+        <!-- SHORTCODES ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
+
+        <!-- STYLESHEETS ============================================= -->
+        <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+        <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+
+    </head>
+    <body id="bg">
+<%
+    response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
+    response.setHeader("Pragma","no-cache"); //HTTP 1.0
+    response.setDateHeader ("Expires", 0); //prevents caching at the proxy server
+%>
+        
+        <div class="page-wraper">
+            <div id="loading-icon-bx"></div>
+            <div class="account-form">
+                <div class="account-head" style="background-image:url(https://i.ibb.co/jTh7KHj/web-design-HN-min.png)">
+                    <a href="home"><img src="assets/images/icon.png" alt="" width="150px" height="150px"></a>
+                </div>
+                <div class="account-form-inner">
+                    <div class="account-container">
+                        <div class="heading-bx left">
+                            <h2 class="title-head">Change <span>Password</span></h2>
+                            <p class="text-danger">${msg}</p>
+                            <p class="text-success">${fmsg}</p>
+
+
+                        </div>	
+                        <form method="post" id="passwordForm" action="ChangePassword">
+                            <input type="password" class="input-lg form-control" name="password0" id="password0" placeholder="Old Password" autocomplete="off" required="">
+
+                            <br>
+                            <input type="password" class="input-lg form-control" name="password1" id="password1" placeholder="New Password" autocomplete="off" required="">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <span id="8char" class="glyphicon glyphicon-remove" style="color:#FF0004;font-size: 10px">8 Characters Long</span> <br>
+                                    <span id="ucase" class="glyphicon glyphicon-remove" style="color:#FF0004;font-size: 10px">One Uppercase Letter</span> 
+                                </div>
+                                <div class="col-sm-6">
+                                    <span id="lcase" class="glyphicon glyphicon-remove" style="color:#FF0004;font-size: 10px">One Lowercase Letter</span> <br>
+                                    <span id="num" class="glyphicon glyphicon-remove" style="color:#FF0004;font-size: 10px">One Number</span> 
+                                </div>
+                            </div>
+                            <input type="password" class="input-lg form-control" name="password2" id="password2" placeholder="Repeat Password" autocomplete="off" required="">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <span id="pwmatch" class="glyphicon glyphicon-remove" style="color:#FF0004;font-size: 10px">Passwords Match</span> 
+                                </div>
+                            </div>
+                            <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
