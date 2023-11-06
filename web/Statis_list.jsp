@@ -243,3 +243,84 @@
                                                 <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
                                             </ul>
+                                            <head>
+
+                                                <!-- META ============================================= -->
+                                                <meta charset="utf-8">
+                                                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                                                <meta name="keywords" content="" />
+                                                <meta name="author" content="" />
+                                                <meta name="robots" content="" />
+                                        
+                                                <!-- DESCRIPTION -->
+                                                <meta name="description" content="EduChamp : Education HTML Template" />
+                                        
+                                                <!-- OG -->
+                                                <meta property="og:title" content="EduChamp : Education HTML Template" />
+                                                <meta property="og:description" content="EduChamp : Education HTML Template" />
+                                                <meta property="og:image" content="" />
+                                                <meta name="format-detection" content="telephone=no">
+                                        
+                                                <!-- FAVICONS ICON ============================================= -->
+                                        
+                                        
+                                                <!-- PAGE TITLE HERE ============================================= -->
+                                                <title>Forget Password </title>
+                                        
+                                                <!-- MOBILE SPECIFIC ============================================= -->
+                                                <meta name="viewport" content="width=device-width, initial-scale=1">
+                                        
+                                                <!--[if lt IE 9]>
+                                                <script src="assets/js/html5shiv.min.js"></script>
+                                                <script src="assets/js/respond.min.js"></script>
+                                                <![endif]-->
+                                        
+                                                <!-- All PLUGINS CSS ============================================= -->
+                                                <link rel="stylesheet" type="text/css" href="assets/css/assets.css">
+                                        
+                                                <!-- TYPOGRAPHY ============================================= -->
+                                                <link rel="stylesheet" type="text/css" href="assets/css/typography.css">
+                                        
+                                                <!-- SHORTCODES ============================================= -->
+                                                <link rel="stylesheet" type="text/css" href="assets/css/shortcodes/shortcodes.css">
+                                        
+                                                <!-- STYLESHEETS ============================================= -->
+                                                <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+                                                <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
+                                        
+                                            </head>
+                                            <body id="bg">
+                                                <div class="page-wraper">
+                                                    <div id="loading-icon-bx"></div>
+                                                    <div class="account-form">
+                                                        <div class="account-head" style="background-image:url(https://i.ibb.co/jTh7KHj/web-design-HN-min.png)">
+                                                            <a href="index.html"><img src="assets/images/icon.png" alt="" width="150px" height="150px"></a>
+                                                        </div>
+                                                        <div class="account-form-inner">
+                                                            <div class="account-container">
+                                                                <div class="heading-bx left">
+                                                                    <h2 class="title-head">Forget <span>Password</span></h2>
+                                                                    <p>Login Your Account <a href="Login">Click here</a></p>
+                                                                </div>	
+                                                                <form class="contact-bx" action="ForgetPassword" method="POST">
+                                                                    <p class="text-success">${err}</p>
+                                                                    <p class="text-success">${mess}</p>
+                                                                    <p class="text-success">${OTPmess}</p>
+                                                                    <div class="row placeani">
+                                                                        <div class="col-lg-12">
+                                                                            <div class="form-group">
+                                                                                <div class="input-group">
+                                                                                    <label>Your Email Address</label>
+                                                                                    <input name="email" type="email" required="" class="form-control">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-12 m-b30">
+                                                                            <button name="submit" type="submit" value="Submit" class="btn button-md">Submit</button>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
