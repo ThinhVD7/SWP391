@@ -931,41 +931,40 @@ public class DAO extends DBContext {
                         results.add(studentResult);
                     }
                 } else {
-                    if (max == 2) {
-                        sql = "select Count(*)  as TotalScore from (\n"
-                                + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
-                                + "	INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
-                                + "	WHERE e.Exam_ID = ?\n"
-                                + ") as a\n"
-                                + "LEFT JOIN (\n"
-                                + "	SELECT * FROM studentresult where Exam_ID = ?\n"
-                                + ") as b2 \n"
-                                + " ON a.Student_ID = b2.Student_ID\n"
-                                + "WHERE b2.TotalScore <=? ";
+                    if (max  == 2) {
+                        sql = "select Count(*)  as Total from (\n" +
+"                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n" +
+"                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n" +
+"                            WHERE e.Exam_ID = ?\n" +
+"                            )as a\n" +
+"                            LEFT JOIN (\n" +
+"                            SELECT * FROM studentresult where Exam_ID = ?\n" +
+"                            ) as b2\n" +
+"                            ON a.Student_ID = b2.Student_ID\n" +
+"                            WHERE b2.TotalScore/a.MaxScore*10>=? and b2.TotalScore/a.MaxScore*10<=?";
                         PreparedStatement stm = connector.prepareStatement(sql);
                         stm.setInt(1, examId);
                         stm.setInt(2, examId);
-                        stm.setInt(3, max);
+                        stm.setInt(3, min);
+                        stm.setInt(4, max);
                         ResultSet rs = stm.executeQuery();
                         while (rs.next()) {
                             StudentResult studentResult = new StudentResult();
                             studentResult.setResultID(min + "-" + max);
-                            studentResult.setState(rs.getInt("TotalScore"));
+                            studentResult.setState(rs.getInt("Total"));
                             results.add(studentResult);
                         }
                     } else {
-                        sql = "select Count(*)  as Total from (\n"
-                                + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
-                                + "	INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
-                                + "	WHERE e.Exam_ID = ?\n"
-                                + ") as a\n"
-                                + "LEFT JOIN (\n"
-                                + "	SELECT * FROM studentresult where Exam_ID = ?\n"
-                                + ") as b2 \n"
-                                + " ON a.Student_ID = b2.Student_ID\n"
-                                + " WHERE  b2.TotalScore >? and  b2.TotalScore <= ?\n"
-                                + "\n"
-                                + " ";
+                        sql = "select Count(*)  as Total from (\n" +
+"                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n" +
+"                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n" +
+"                            WHERE e.Exam_ID = ?\n" +
+"                            )as a\n" +
+"                            LEFT JOIN (\n" +
+"                            SELECT * FROM studentresult where Exam_ID = ?\n" +
+"                            ) as b2\n" +
+"                            ON a.Student_ID = b2.Student_ID\n" +
+"                            WHERE b2.TotalScore/a.MaxScore*10>? and b2.TotalScore/a.MaxScore*10<=?";
                         PreparedStatement stm = connector.prepareStatement(sql);
                         stm.setInt(1, examId);
                         stm.setInt(2, examId);

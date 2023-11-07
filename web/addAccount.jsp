@@ -105,7 +105,7 @@
                                             </div>
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="radio" name="gender" id="fluidGender"
-                                                       value="0" ${requestScope.gender==0?"checked":""}/>
+                                                       value="0" ${requestScope.gender==null?"checked":(requestScope.gender==0?"checked":"")}/>
                                                 <label class="form-check-label" for="femaleGender">Others</label>
                                             </div>
 
