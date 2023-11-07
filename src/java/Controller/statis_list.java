@@ -365,3 +365,68 @@ protected void processRequest(HttpServletRequest request, HttpServletResponse re
         return "Short description";
     }// </editor-fold>
 }
+protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet studentHome</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet studentHome at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+ @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException 
+    {
+        //block check if user have logged in, if not then return to index
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=3)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
+        DAO dao = new DAO();
+////test session block//////////////////////////////////////////////////////////////
+//try (PrintWriter out = response.getWriter()) {
+///* TODO output your page here. You may use following sample code. */
+//out.println("<!DOCTYPE html>");
+//out.println("<html>");
+//out.println("<head>");
+//out.println("<title>Servlet DemoSession03</title>");  
+//out.println("</head>");
+//out.println("<body>");
+//out.print("<h1>SessionId: "+session.getId()+ "</h1>");
+//Enumeration enu = session.getAttributeNames();
+//while(enu.hasMoreElements())
+//{
+//    String key = enu.nextElement() + "";
+//    Object value = session.getAttribute(key);
+//    out.print("<h1> Attribute name = "+key+" : value = "+value);
+//    out.print("<h2> Object:" +((Account)session.getAttribute("user")).getEmail()
+//            +"role: " +((Account)session.getAttribute("user")).getRoleID()
+//            +"</h2>");
+//}
+//out.println("</body>");
+//out.println("</html>");
+//}
+////////////////////////////////////////////////////////////////////////////////////
+        LecturerDAO daoTemp = new LecturerDAO();
+        List<Class1> userClasses = dao.getClass(user.accountID);
+        request.setAttribute("courseInfo", daoTemp.loadAllStudentCourse(user.accountID));
+        request.setAttribute("classes", userClasses);
+        request.getRequestDispatcher("student-homepage.jsp").forward(request, response);
+
+    }
