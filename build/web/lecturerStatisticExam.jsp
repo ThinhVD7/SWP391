@@ -430,15 +430,7 @@ display: none !important;
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="i" begin="1" end="30" step="1">
-<!--                            <tr>
-                                <td>${i}</td>
-                                <td><a href="#">ThanhDT59</a></td>
-                                <td>Do Tien Thanh</td>                        
-                                <td>thanhdt59@fe.edu.vn </td>
-                                <td><a href="#"> <i class='bx bxs-user-account'></i> </td>
-                            </tr>-->
-                            </c:forEach>
+  
                             
                             <c:forEach items="${requestScope.resultTable}" var="s">
                                 <tr>

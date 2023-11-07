@@ -456,7 +456,7 @@ display: none !important;
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Score Interval</th>
+                        <th>Number Student</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -497,7 +497,7 @@ display: none !important;
             yAxis: {
                 allowDecimals: false,
                 title: {
-                    text: 'Number of Students'
+                    text: 'Score'
                 }
             },
 //                    credits:

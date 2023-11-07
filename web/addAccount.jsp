@@ -130,7 +130,7 @@
                                                                                             <label class="form-label" for="phoneNumber">Phone Number</label>
                                                                                         </div>-->
                                             Status: <select class="select form-control-md" name="status">
-                                                <option value= "${requestScope.status}" selected>${requestScope.status==1?"Active":"Inactive"}</option>
+                                                <option value= "${requestScope.status!=null?requestScope.status:1}" selected>${requestScope.status==0?"Inactive":"Active"}</option>
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
                                             </select>
@@ -141,7 +141,7 @@
                                         <div class="col-12">
 
                                             Role: <select class="select form-control-md" name="role">
-                                                <option value="${requestScope.role}" selected>${requestScope.role==0?"Admin":role==1?"Manager":role==2?"Lecturer":"Student"}</option>
+                                                <option value="${requestScope.role!=null?requestScope.role:3}" selected>${requestScope.role==0?"Admin":role==1?"Manager":role==2?"Lecturer":"Student"}</option>
                                                 <option value="0">Admin</option>
                                                 <option value="1">Manager</option>
                                                 <option value="2">Lecturer</option>

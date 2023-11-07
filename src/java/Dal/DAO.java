@@ -482,7 +482,7 @@ public class DAO extends DBContext {
             stm.setInt(1, examID);
             List<Question> questions = new ArrayList<>();
             ResultSet rs = stm.executeQuery();
-            int i =1;
+            int i = 1;
             while (rs.next()) {
                 Question question = new Question();
                 question.setAnswer(i);
@@ -815,13 +815,13 @@ public class DAO extends DBContext {
             stm.setInt(2, examId);
             DAO dao = new DAO();
             float examScore = dao.getExamScore(examId);
-            
+
             ResultSet rs = stm.executeQuery();
             ArrayList<StudentResult> results = new ArrayList<>();
             while (rs.next()) {
                 StudentResult studentResult = new StudentResult();
                 String studentId = rs.getString("Student_ID");
-                float score = Float.parseFloat(df.format(rs.getFloat("TotalScore")/examScore*10));
+                float score = Float.parseFloat(df.format(rs.getFloat("TotalScore") / examScore * 10));
                 studentResult.setStudentID(studentId);
                 studentResult.setTotalScore(score);
                 results.add(studentResult);
@@ -899,7 +899,6 @@ public class DAO extends DBContext {
 //        }
 //        return null;
 //    }
-    
     public ArrayList<StudentResult> getScoreStatistic(int examId) {
         try {
             String sql = "";
@@ -932,43 +931,46 @@ public class DAO extends DBContext {
                         results.add(studentResult);
                     }
                 } else {
-                    if (max  == 2) {
-                        sql = "select Count(*)  as Total from (\n" +
-"                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n" +
-"                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n" +
-"                            WHERE e.Exam_ID = '1'\n" +
-"                            )as a\n" +
-"                            LEFT JOIN (\n" +
-"                            SELECT * FROM studentresult where Exam_ID = ?\n" +
-"                            ) as b2\n" +
-"                            ON a.Student_ID = b2.Student_ID\n" +
-"                            WHERE b2.TotalScore/a.MaxScore*10>=? and b2.TotalScore/a.MaxScore*10<=?";
+                    if (max == 2) {
+                        sql = "select Count(*)  as TotalScore from (\n"
+                                + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
+                                + "	INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                                + "	WHERE e.Exam_ID = ?\n"
+                                + ") as a\n"
+                                + "LEFT JOIN (\n"
+                                + "	SELECT * FROM studentresult where Exam_ID = ?\n"
+                                + ") as b2 \n"
+                                + " ON a.Student_ID = b2.Student_ID\n"
+                                + "WHERE b2.TotalScore <=? ";
                         PreparedStatement stm = connector.prepareStatement(sql);
                         stm.setInt(1, examId);
-                        stm.setInt(2, min);
+                        stm.setInt(2, examId);
                         stm.setInt(3, max);
                         ResultSet rs = stm.executeQuery();
                         while (rs.next()) {
                             StudentResult studentResult = new StudentResult();
                             studentResult.setResultID(min + "-" + max);
-                            studentResult.setState(rs.getInt("Total"));
+                            studentResult.setState(rs.getInt("TotalScore"));
                             results.add(studentResult);
                         }
                     } else {
-                        sql = "select Count(*)  as Total from (\n" +
-"                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n" +
-"                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n" +
-"                            WHERE e.Exam_ID = '1'\n" +
-"                            )as a\n" +
-"                            LEFT JOIN (\n" +
-"                            SELECT * FROM studentresult where Exam_ID = ?\n" +
-"                            ) as b2\n" +
-"                            ON a.Student_ID = b2.Student_ID\n" +
-"                            WHERE b2.TotalScore/a.MaxScore*10>? and b2.TotalScore/a.MaxScore*10<=?";
+                        sql = "select Count(*)  as Total from (\n"
+                                + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
+                                + "	INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                                + "	WHERE e.Exam_ID = ?\n"
+                                + ") as a\n"
+                                + "LEFT JOIN (\n"
+                                + "	SELECT * FROM studentresult where Exam_ID = ?\n"
+                                + ") as b2 \n"
+                                + " ON a.Student_ID = b2.Student_ID\n"
+                                + " WHERE  b2.TotalScore >? and  b2.TotalScore <= ?\n"
+                                + "\n"
+                                + " ";
                         PreparedStatement stm = connector.prepareStatement(sql);
                         stm.setInt(1, examId);
-                        stm.setInt(2, min);
-                        stm.setInt(3, max);
+                        stm.setInt(2, examId);
+                        stm.setInt(3, min);
+                        stm.setInt(4, max);
                         ResultSet rs = stm.executeQuery();
                         while (rs.next()) {
                             StudentResult studentResult = new StudentResult();
@@ -989,7 +991,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public float getExamScore(int examID) {
         try {
             String sql = "SELECT MaxScore FROM exam\n"
@@ -1005,6 +1007,7 @@ public class DAO extends DBContext {
         }
         return 1;
     }
+
     public List<StudentResult> getAllStudentResultOfExam(int examID) {
         try {
             String sql = "SELECT Exam_ID, Student_ID, TotalScore, TotalTime FROM studentresult\n"
@@ -1013,20 +1016,20 @@ public class DAO extends DBContext {
             stm.setInt(1, examID);
             ResultSet rs = stm.executeQuery();
             List<StudentResult> srList = new ArrayList<>();
-            
             DAO dao = new DAO();
             float examScore = dao.getExamScore(examID);
             float score = 0;
             while (rs.next()) {
                 StudentResult sr = new StudentResult();
+
                 sr.setExamID(rs.getString("Exam_ID"));
                 sr.setStudentID(rs.getString("Student_ID"));
-                score = Float.parseFloat(df.format(rs.getFloat("TotalScore")/examScore*10));
+                score = Float.parseFloat(df.format(rs.getFloat("TotalScore") / examScore * 10));
                 sr.setTotalScore(score);
                 sr.setTotalTime(rs.getString("TotalTime"));
                 srList.add(sr);
             }
-                return srList;
+            return srList;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
         }

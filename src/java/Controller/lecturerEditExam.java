@@ -87,7 +87,7 @@ public class lecturerEditExam extends HttpServlet {
         request.setAttribute("timeLimitSecond", second);
 //        request.setAttribute("attemp", exam.getAttempsAllowed());
         request.setAttribute("examDetail", exam.getExamDetail());
-//        request.setAttribute("maxScore", exam.getMaxScore());
+        request.setAttribute("maxScore", exam.getMaxScore());
         request.setAttribute("permission", exam.getPermission());
         List<Question> listQ = dao.getListQuestionByExamID(examID);
         session.setAttribute("listQ", listQ);
@@ -122,10 +122,10 @@ public class lecturerEditExam extends HttpServlet {
         int hour = Integer.parseInt(timeLimitHour);
         int minute = Integer.parseInt(timeLimitMinute);
         int second = Integer.parseInt(timeLimitSecond);
-        timeLimitHour = (hour<10)?("0" + String.valueOf(hour)):(String.valueOf(hour));
-        timeLimitMinute = (minute<10)?("0" + String.valueOf(minute)):(String.valueOf(minute));
-        timeLimitSecond = (second<10)?("0" + String.valueOf(second)):(String.valueOf(second));
-        String timeLimit = timeLimitHour+":"+timeLimitMinute+":"+timeLimitSecond;
+        timeLimitHour = (hour < 10) ? ("0" + String.valueOf(hour)) : (String.valueOf(hour));
+        timeLimitMinute = (minute < 10) ? ("0" + String.valueOf(minute)) : (String.valueOf(minute));
+        timeLimitSecond = (second < 10) ? ("0" + String.valueOf(second)) : (String.valueOf(second));
+        String timeLimit = timeLimitHour + ":" + timeLimitMinute + ":" + timeLimitSecond;
         String fromDate = request.getParameter("fromDate");
         //String attemp = request.getParameter("attemp");
         String toDate = request.getParameter("toDate");
