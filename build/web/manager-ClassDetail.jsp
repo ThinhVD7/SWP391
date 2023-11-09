@@ -633,7 +633,7 @@
                         <form action="managerEditClass" method="post">
                             <input name="cid" value="${requestScope.cid}" hidden="">
                             <input name="courseID" value="${requestScope.courseID}" hidden=""/>   
-                            <input name="className" type="text" id="newClassName" placeholder="Hello">
+                            <input name="className" type="text" id="newClassName" placeholder="search" required>
                             <button class ="popup-button" onclick="editClassName()" type="submit">Save</button>
                         </form>            
                             <button  class ="popup-button" onclick="closePopup()">Cancel</button>
@@ -863,7 +863,7 @@
 
 
                                         <td>
-                                            <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a  onclick="delStudent('${u.accountID}')"> <i t class="material-icons">&#xE5C9;</i></a>
+                                            <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delStudent('${u.accountID}','${requestScope.cid}')"> <i class="material-icons">&#xE5C9;</i></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -973,9 +973,11 @@
                 }
 
             }
-            function delStudent(studentID) {
+       function delStudent(studentID, classID) {
                 var dk = confirm('Bạn có muốn xóa không ?');
                 var studentID = studentID;
+                var classID = classID;
+                                
                 if (dk) {
                     var xhr = new XMLHttpRequest();
                     xhr.open("POST", "managerDeleteStudent", true);
@@ -990,7 +992,7 @@
                             location.reload();
                         }
                     };
-                    xhr.send("studentID=" + studentID);
+                    xhr.send("classID=" + classID + "&studentID=" + studentID);           
                 } else {
 
                 }

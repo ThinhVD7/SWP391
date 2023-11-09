@@ -379,7 +379,6 @@
                                 }
                             });
                         }
-
                         function delCousera(courseId) {
                             var dk = confirm('Bạn có muốn xóa không ?');
 
@@ -400,10 +399,7 @@
                             } else {
 
                             }
-
                         }
-
-
                         function closePopUp() {
                             const divPopUp = document.querySelector("#addCourse");
                             divPopUp.style.display = 'none';

@@ -685,15 +685,6 @@
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
-                                <!--                              <tr>
-                                                                    <td></td>
-                                                                    <td><a href="#">MAS291_SE1714</a></td>
-                                                                    <td>SE1714</td>                        
-                                                                    <td>MAS291 </td>
-                                                                    <td>
-                                                                        <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                                                    </td>
-                                                                </tr>-->
 
                                 <tbody>
                                 <form >
