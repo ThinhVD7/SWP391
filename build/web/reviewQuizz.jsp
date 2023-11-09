@@ -46,14 +46,14 @@
                                                                                     <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
                                                                                         <li class="d-flex mb-1">
                                                                                             <input type="radio" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                            <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                            <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="color: #fff;font-weight: bold;background-color: green"></span>
                                                                                             <br/>
                                                                                         </li>
                                                                                     </c:if>
                                                                                     <c:if test="${choice.userCheck(c.choices, examID, StudentID) == false}">
                                                                                         <li class="d-flex mb-1">
                                                                                             <input type="radio" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                            <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                            <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="color: #fff;font-weight: bold;background-color: green"></span>
                                                                                             <br/>
                                                                                         </li>
                                                                                     </c:if>
@@ -62,7 +62,7 @@
                                                                                     <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
                                                                                        <li class="d-flex mb-1">
                                                                                            <input type="radio" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                           <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: red"></span>
+                                                                                           <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="color: #fff;font-weight: bold;background-color: red"></span>
                                                                                            <br/>
                                                                                        </li>
                                                                                    </c:if> 
@@ -80,14 +80,14 @@
                                                                                 <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
                                                                                     <li class="d-flex mb-1 row">
                                                                                         <input type="checkbox" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="color: #fff;font-weight: bold;background-color: green"></span>
                                                                                         <br/>
                                                                                      </li>
                                                                                  </c:if>
                                                                                  <c:if test="${choice.userCheck(c.choices, examID, StudentID) == false}">
                                                                                     <li class="d-flex mb-1 row">
                                                                                         <input type="checkbox" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: green"></span>
+                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="color: #fff;font-weight: bold;background-color: green"></span>
                                                                                         <br/>
                                                                                      </li>
                                                                                  </c:if>
@@ -96,7 +96,7 @@
                                                                                 <c:if test="${choice.userCheck(c.choices, examID, StudentID) == true}">
                                                                                     <li class="d-flex mb-1 row">
                                                                                         <input type="checkbox" checked="check" name="q${questionMap.questionID}" value="${c.choicePercentages}:${c.choices}" class="col-1" style="width: 14px" disabled/>
-                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="background-color: red"></span>
+                                                                                        <span class="col-11"><input type="text" name="name"class="col-6 form-control ms-2" value="${c.content}" checked="check" readonly="" style="color: #fff;font-weight: bold;background-color: red"></span>
                                                                                         <br/>
                                                                                     </li>
                                                                                 </c:if> 
@@ -138,4 +138,3 @@
 
     </body>
 </html>
-
