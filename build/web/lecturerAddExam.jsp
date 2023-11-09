@@ -592,6 +592,7 @@
                             <div class="col-10 col-md-8 col-lg-6">
                                 <form action="${sessionScope.exam != null ? "lecturerEditExam":"lecturerAddNewExam"}" method="post" class="">
                                     <h4 style="text-align: center">Score: ${maxScore}</h4>
+                                    <h4 style="text-align: center">${questionNumber} Questions</h4>
 
                                     <p class="text-danger" style="text-align: center">${err}</p>
                                     <p class="text-success" style="text-align: center">${ok}</p>

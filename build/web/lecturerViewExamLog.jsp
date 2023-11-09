@@ -127,7 +127,7 @@
                                 </form>
                                 </div>
                             </div>
-                                        <div class="btn btn-primary"><a href="studentExamDetail?examID=${requestScope.examID}">return to exam detail</a></div>
+                                        <div class="btn btn-primary"><a href="lecturerStatisticExam?examId=${sessionScope.sessionThisExam.examID}">return to exam detail</a></div>
 
                         </div>
                     </div>

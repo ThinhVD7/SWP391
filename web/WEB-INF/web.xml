@@ -194,6 +194,10 @@
         <servlet-name>managerSearch</servlet-name>
         <servlet-class>Controller.managerSearch</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>lecturerViewExamLog</servlet-name>
+        <servlet-class>Controller.lecturerViewExamLog</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -377,6 +381,10 @@
     <servlet-mapping>
         <servlet-name>managerSearch</servlet-name>
         <url-pattern>/managerSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerViewExamLog</servlet-name>
+        <url-pattern>/lecturerViewExamLog</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

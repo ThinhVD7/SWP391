@@ -97,6 +97,7 @@ public class lecturerEditExam extends HttpServlet {
 //        request.setAttribute("attemp", exam.getAttempsAllowed());
         request.setAttribute("examDetail", exam.getExamDetail());
         request.setAttribute("maxScore", exam.getMaxScore());
+        request.setAttribute("questionNumber", exam.getQuestionNumber());
         request.setAttribute("permission", exam.getPermission());
         List<Question> listQ = dao.getListQuestionByExamID(examID);
         session.setAttribute("listQ", listQ);

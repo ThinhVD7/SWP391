@@ -424,7 +424,7 @@ display: none !important;
                                 <th>ID</th>						
                                 <th>Score</th>
                                 <th>Time</th>
-                                <th>View Log</th>
+                                <th>View Detail</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -442,7 +442,7 @@ display: none !important;
                                     <th>${s.studentID}</th>
                                     <td>${s.totalScore}</td>
                                     <td>${s.totalTime}</td>
-                                    <td><a href="viewProfileFromList?targetID=${student.accountID}"> <i class='bx bxs-user-account'></i></td>
+                                    <td><a href="lecturerViewExamLog?targetID=${s.studentID}"> <i class='bx bxs-user-account'></i></td>
                                 </tr>
                             </c:forEach>
                         </tbody>
