@@ -424,6 +424,21 @@ public class LecturerDAO extends DBContext {
         }
         return null;
     }
+    public void removeLastestQuestion() {
+        String sql = "SELECT * FROM question ORDER BY Question_ID DESC limit 1;";
+        int questionID = 0;
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                questionID = rs.getInt(1);
+            }
+            //String sql
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+            System.out.println(status);
+        }
+    }
 
     public boolean doesQuestionExistInBank(String qId, String bId) {
         String sql = "SELECT * FROM questioninwhichbank WHERE Bank_ID = ? AND Question_ID = ?;";
@@ -443,7 +458,7 @@ public class LecturerDAO extends DBContext {
     }
 
     public Bank getBankByCourseId(String courseId, String lecturerId) {
-        String sql = "SELECT * FROM `quiz9.7`.bank where Course_ID = ? AND Lecturer_ID = ?;";
+        String sql = "SELECT * FROM `quiz9.8`.bank where Course_ID = ? AND Lecturer_ID = ?;";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, courseId);
@@ -760,6 +775,23 @@ public class LecturerDAO extends DBContext {
         }
         return false;
 
+    }
+
+    public boolean doesQuestionExistInBankByTitleAndContent(String title, String content) {
+        String sql = "SELECT * FROM question WHERE Title = ? AND QuestionContent = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, content);
+
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); // Return true if there is a matching record, false otherwise
+        } catch (Exception e) {
+            status = "Error at checking if question exists in bank: " + e.getMessage();
+            System.out.println(status);
+            return false; // Return false in case of an error
+        }
     }
 
     public static void main(String[] args) {
