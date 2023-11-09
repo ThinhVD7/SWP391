@@ -285,9 +285,10 @@
                             
                </div>
                 <div>
-                    
-                        <button class="edit-exam-button-bottom" onclick ="alert('Feature not available yet, stay tuned!')"${sessionScope.sessionThisExam.permission==1 && requestScope.isDoQuizz == true?"":"hidden"}>Review Exam</button>
-                    
+                    <form action="reviewQuizz" method="post">
+                        <input type="hidden" name="examID" value="${requestScope.examId}"/>
+                        <button class="edit-exam-button-bottom" ${sessionScope.sessionThisExam.permission==1 && requestScope.isDoQuizz == true?"":"hidden"}>Review Exam</button>
+                    </form>
                 </div>
                 <br><br>
                     

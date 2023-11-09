@@ -64,6 +64,19 @@ public class lecturerAddQuestion extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //block check if user have logged in, if not then return to index
+        HttpSession session = request.getSession(false);
+        if(session == null||session.getAttribute("user") == null)
+        {
+            response.sendRedirect("index.html");
+            return;
+        }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         request.getRequestDispatcher("lecturerAddNewExam").forward(request, response);
     }
 
@@ -80,12 +93,19 @@ public class lecturerAddQuestion extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
 
-        //block check if user have logged in, if not then return to home
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         List<Question> list_Q = new ArrayList<>();
         LecturerDAO dao = new LecturerDAO();
 

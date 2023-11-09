@@ -128,7 +128,8 @@ public class LecturerDAO extends DBContext {
                         rs.getString(8),
                         rs.getFloat(9),
                         rs.getInt(10),
-                        rs.getString(11));
+                        rs.getString(11),
+                        rs.getInt(12));
             }
         } catch (Exception e) {
             status = "Error at load a exam" + e.getMessage();
@@ -232,7 +233,8 @@ public class LecturerDAO extends DBContext {
                         rs.getString(8),
                         rs.getFloat(9),
                         rs.getInt(10),
-                        rs.getString(11)));
+                        rs.getString(11),
+                        rs.getInt(12)));
             }
         } catch (Exception e) {
             status = "Error at load exam list" + e.getMessage();
@@ -424,21 +426,6 @@ public class LecturerDAO extends DBContext {
         }
         return null;
     }
-    public void removeLastestQuestion() {
-        String sql = "SELECT * FROM question ORDER BY Question_ID DESC limit 1;";
-        int questionID = 0;
-        try {
-            PreparedStatement ps = connector.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                questionID = rs.getInt(1);
-            }
-            //String sql
-        } catch (Exception e) {
-            status = "Error at get Account " + e.getMessage();
-            System.out.println(status);
-        }
-    }
 
     public boolean doesQuestionExistInBank(String qId, String bId) {
         String sql = "SELECT * FROM questioninwhichbank WHERE Bank_ID = ? AND Question_ID = ?;";
@@ -553,7 +540,7 @@ public class LecturerDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
-                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11), rs.getInt(12));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -570,7 +557,7 @@ public class LecturerDAO extends DBContext {
             while (rs.next()) {
                 test = rs.getString(4);
                 return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11), rs.getInt(12));
 
             }
         } catch (Exception e) {
@@ -776,7 +763,7 @@ public class LecturerDAO extends DBContext {
         return false;
 
     }
-
+    
     public boolean doesQuestionExistInBankByTitleAndContent(String title, String content) {
         String sql = "SELECT * FROM question WHERE Title = ? AND QuestionContent = ?;";
         try {

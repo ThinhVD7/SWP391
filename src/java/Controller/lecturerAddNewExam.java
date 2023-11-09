@@ -61,11 +61,19 @@ public class lecturerAddNewExam extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         session.removeAttribute("exam");
         request.getRequestDispatcher("lecturerAddExam.jsp").forward(request, response);
     }
@@ -83,12 +91,19 @@ public class lecturerAddNewExam extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
 
-        //block check if user have logged in, if not then return to home
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         session.removeAttribute("exam");
 
         String examName = request.getParameter("examName");

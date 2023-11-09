@@ -13,11 +13,12 @@ public class Exam {
     private float maxScore;
     private int permission;
     private String createdBy;
+    private int status;
 
     public Exam() {
     }
 
-    public Exam(String examID, String classID, String examName, int questionNumber, String startDate, String endDate, String timeLimit, String examDetail, float maxScore, int permission, String createdBy) {
+    public Exam(String examID, String classID, String examName, int questionNumber, String startDate, String endDate, String timeLimit, String examDetail, float maxScore, int permission, String createdBy, int status) {
         this.examID = examID;
         this.classID = classID;
         this.examName = examName;
@@ -29,6 +30,7 @@ public class Exam {
         this.maxScore = maxScore;
         this.permission = permission;
         this.createdBy = createdBy;
+        this.status = status;
     }
 
     public String getCreatedBy() {
@@ -73,6 +75,14 @@ public class Exam {
 
     public String getStartDate() {
         return startDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void setStartDate(String startDate) {

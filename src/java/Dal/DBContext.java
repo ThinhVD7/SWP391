@@ -12,7 +12,7 @@ public class DBContext {
     private final String DB_URL = "jdbc:mysql://localhost3306/";
     private static final String USER = "root";
     private static final String PASSWORD = "qqqqqqqq";
-    private static final String DATABASE = "quiz9.8";
+    private static final String DATABASE = "quiz9.9";
     public Connection getConnection()throws Exception 
             
     {         

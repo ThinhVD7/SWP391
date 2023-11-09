@@ -2,56 +2,62 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controller;
 
 import Dal.DAO;
-import Dal.LecturerDAO;
 import Model.Account;
-import Model.Exam;
+import Model.Course;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
- * @author ROG
+ * @author msi
  */
-public class lecturerExamDetail extends HttpServlet {
-   
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+@WebServlet(name = "managerSearch", urlPatterns = {"/managerSearch"})
+public class managerSearch extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet lecturerExamDetail</title>");  
+            out.println("<title>Servlet ManageSearch Hello</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet lecturerExamDetail at " + request.getParameter("examID")+ "</h1>");
+            out.println("<h1>Servlet ManageSearch at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    } 
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /** 
+    /**
      * Handles the HTTP <code>GET</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -59,48 +65,53 @@ public class lecturerExamDetail extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException 
-    {
-        //block check if user have logged in, if not then return to index
+            throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if(session == null||session.getAttribute("user") == null)
-        {
+        if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("index.html");
             return;
         }
         ////////////////////////////////////////////////////////////////
-        //check active status
-        Account user = (Account)session.getAttribute("user");
-        if(user.getStatus()==0)
-            {
-                session.removeAttribute("user");
-                request.setAttribute("mess", "Your account has been suspended. Be nicer next time!");
-                request.getRequestDispatcher("Login.jsp").forward(request, response);
-            }
+        Account user = (Account) session.getAttribute("user");
         //check user's authority by role
-        if(user.getRoleID()!=2)
+        if (user.getRoleID() != 1) {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
+        }
         ///////////////////////////////
-        LecturerDAO dao = new LecturerDAO();
-        Exam thisExam = dao.loadAExam(request.getParameter("examID"));
-        //session thisExam
-        session.setAttribute("sessionThisExam", thisExam);
-        //LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0 
-        //|| !thisExam.getCreatedBy().equalsIgnoreCase(((Account)session.getAttribute("user")).getAccountID()
-        if( thisExam.getStatus()==1)
-            request.setAttribute("notAllowToEdit", "notAllowToEdit");
-        DAO otherDao = new DAO();
-        if(otherDao.getAllStudentResultOfExam(Integer.parseInt(thisExam.getExamID())).size()==0)
-            request.setAttribute("statisticNotAllow", "not allow");
-        
-        request.setAttribute("timeLimit", dao.getStringFormattedDate("timeLimit", thisExam.getTimeLimit()));
-        request.setAttribute("startDate", dao.getStringFormattedDate("dateTime", thisExam.getStartDate()));
-        request.setAttribute("endDate", dao.getStringFormattedDate("dateTime", thisExam.getEndDate()));
-        request.getRequestDispatcher("lecturerExamDetail.jsp").forward(request, response);
+        DAO dao = new DAO();
+        List<Course> course = dao.getAllCourse();
+
+//        //after fix database
+        LocalDate today = LocalDate.now();
+        HashMap<String, Boolean> deleteNotAllowMap = new HashMap<String, Boolean>();
+        for (Course course1 : course) {
+            if (today.compareTo(LocalDate.parse(course1.getStartDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) > -1 && today.compareTo(LocalDate.parse(course1.getEndDate(), DateTimeFormatter.ofPattern("yyyy/MM/dd"))) < 0) {
+                deleteNotAllowMap.put(course1.getCourseID(), true);
+            } else {
+                deleteNotAllowMap.put(course1.getCourseID(), false);
+            }
+        }
+
+        String search = request.getParameter("searchInput").toLowerCase();
+        List<Course> resultCourse = new ArrayList<>();
+        for (Course course1 : course) {
+
+            if (course1.getCourseID().toLowerCase().contains(search) || course1.getCourseName().toLowerCase().contains(search)) {
+                Course c = course1;
+                response.getWriter().print(111);
+                resultCourse.add(c);
+            }
+        }
+
+        request.setAttribute("deleteNotAllowMap", deleteNotAllowMap);
+        request.setAttribute("course", resultCourse);
+
+        request.getRequestDispatcher("manager-Homepage.jsp").forward(request, response);
     }
 
-    /** 
+    /**
      * Handles the HTTP <code>POST</code> method.
+     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -108,12 +119,13 @@ public class lecturerExamDetail extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {
+        
     }
 
-    /** 
+    /**
      * Returns a short description of the servlet.
+     *
      * @return a String containing servlet description
      */
     @Override

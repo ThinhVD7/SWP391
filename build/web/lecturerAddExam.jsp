@@ -545,21 +545,21 @@
                                 <div class="form-group row">
                                     <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
-                                        Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
-                                        Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
+                                        Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
+                                        Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
+                                        Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        From: <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
+                                        From: <input type="datetime-local" name="fromDate" max="2099-01-01T00:00" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        To: <input type="datetime-local" name="toDate" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
+                                        To: <input type="datetime-local" name="toDate" max="2099-01-01T00:00" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -666,7 +666,8 @@
                                             <li data-list="tab_2">
                                                 <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}">Add from Question bank</a></li>
                                             <li data-list="tab_3">
-                                                Import Excel file</li>
+                                                 <a href="getQuestionCSV?examID=${sessionScope.examID}">Import Excel file</a>
+                                                </li>
                                         </ul>
                                     </div>
 
@@ -747,25 +748,21 @@
                                              Exam list will be dynamically populated here 
                                         </div>
                                     </form>-->
+                                            <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}" class = "edit-exam-button">Access Bank of ${sessionThisCourse.courseID}</a>
 
 
                                         </div>
+                                        <div class="tab_content tab_3">
+<!--                                            <form id='submit-form' action="getQuestionCSV" method="POST" enctype="multipart/form-data" onclick="(event) => {
+                                                        event.preventDefault();
+                                                    }">
+                                                <input type="file" name="file" />
+                                                <input type="submit" value="Upload" />
+                                            </form>        -->
+                                        </div>
                                     </div>
-                                    <div class="tab_content tab_3">
-                                        <form id='submit-form' action="getQuestionCSV" method="POST" enctype="multipart/form-data" onclick="(event) => {
-                                                    event.preventDefault();
-                                                }">
-                                            <input type="file" name="file" />
-                                            <input type="submit" value="Upload" />
-                                        </form>        
-                                    </div>
-
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>

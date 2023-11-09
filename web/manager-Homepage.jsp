@@ -137,11 +137,11 @@
             </div>
             <ul class="nav-links">
 
-                <li>
+<!--                <li>
                     <i class="bx bx-search search-btn"></i>
-                    <input type="text" placeholder="Search" />
+                    <input type="text" placeholder="Search" name="searchInput"/>
                     <span class="tooltip">Search</span>
-                </li>
+                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -174,27 +174,17 @@
             </div>
         </section>
         <section class="home">
-
-            <!--pop up delete course--------------------------------------------------------------------------------------------------->
-            <!--            <div class="addCourse" id="deleteCourse" style="display: none;">
-                            <div class="popup">
-                                <h3> Delete Course</h3> 
-                                <h6> You clicked delete on accident didn't you?</h6>
-                                <button class="closePopUp" onclick="closeDeletePopUp()" >Yes</button>
-                                <button class="closePopUp" onclick="delCousera()" >No</button>
-                                <button class="closePopUp" onclick="closeDeletePopUp()">Close</button>
-                            </div>
-                        </div>-->
-            <!----------------------------------------------------------------------------------------------------->
             <div class="row pt-2">
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
-                        <form class="nosubmit">
-                            <input class="nosubmit" type="search" placeholder="Search">
+                        <form action="managerSearch" method="doGet">
+                            <input class="nosubmit" type="search" name="searchInput">
+                            <button type="submit">Search</button>
                         </form>
                     </div>
                 </div>
 
+                
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
@@ -342,18 +332,16 @@
 
                             if (isNaN(courseId) === false) {
                                 alert("Bạn chưa nhập course_Id ");
-                            }else if (isNaN(courseName) === false) {
+                            } else if (isNaN(courseName) === false) {
                                 alert("Bạn chưa nhập course Name ");
-                            }else if (isNaN(semseter) === false) {
+                            } else if (isNaN(semseter) === false) {
                                 alert("Bạn chưa nhập semseter ");
-                            }
-                            else if (isNaN(startDay) === false) {
+                            } else if (isNaN(startDay) === false) {
                                 alert("Bạn chưa nhập ngày  bắt đầu");
                             } else if (isNaN(endDay) === false) {
                                 alert("Bạn chưa nhập ngày kết thúc");
-                                
-                            }
-                            else if (isNaN(endDay)) {
+
+                            } else if (isNaN(endDay)) {
                                 if (formatDate(startDay) < formatDate(today)) {
                                     alert("Ngày bắt đầu không hợp lệ");
                                 } else if (formatDate(endDay) < formatDate(startDay)) {

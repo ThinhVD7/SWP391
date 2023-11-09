@@ -8,12 +8,14 @@ import Dal.LecturerDAO;
 import Model.Account;
 import Model.Bank;
 import Model.Course;
+import Model.Exam;
 import Model.Question;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -43,32 +45,17 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletRequestContext;
 public class GetQuestionFromCSV extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
 
-        FileInputStream fis = new FileInputStream(new File("C:\\Users\\nocol\\Desktop\\project_namthanh\\SWP391-NamThanh\\example.xlsx"));
-        XSSFWorkbook wb = new XSSFWorkbook(fis);
-//creating a Sheet object to retrieve the object  
-        XSSFSheet sheet = wb.getSheetAt(0);
-//evaluating cell type   
-        FormulaEvaluator formulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
-        for (Row row : sheet) //iteration over row using for each loop  
-        {
-            for (Cell cell : row) //iteration over cell using for each loop  
-            {
-                switch (formulaEvaluator.evaluateInCell(cell).getCellType()) {
-                    case Cell.CELL_TYPE_NUMERIC:   //field that represents numeric cell type  
-//getting the value of the cell as a number  
-                        System.out.println(cell.getAddress().toString());
-                        System.out.print(cell.getNumericCellValue() + "\t\t");
-                        break;
-                    case Cell.CELL_TYPE_STRING:    //field that represents string cell type  
-//getting the value of the cell as a string  
-                        System.out.print(cell.getAddress().toString() + "-" + cell.getStringCellValue() + "\t\t");
-                        break;
-                }
-            }
-            System.out.println();
         }
+        String eId = request.getParameter("examID");
+        request.setAttribute("eId", eId);
+        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+
     }
 
     private final int COL_TITLE = 0;
@@ -129,6 +116,8 @@ public class GetQuestionFromCSV extends HttpServlet {
 
                         FormulaEvaluator formulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
                         Account lecturer = (Account) request.getSession().getAttribute("user");
+                        Exam thisEditExam = (Exam)request.getSession().getAttribute("sessionThisExam");
+                        request.setAttribute("eId", thisEditExam.getExamID());
                         LecturerDAO dbLecturer = new LecturerDAO();
                         Course course = (Course) request.getSession().getAttribute("sessionThisCourse");
                         Bank b = dbLecturer.getBankByCourseId(course.getCourseID(), lecturer.getAccountID());
@@ -183,7 +172,11 @@ public class GetQuestionFromCSV extends HttpServlet {
 //                        sizeRow.remove(12, 1);
                         boolean checkMaxCol = checkTitle && checkContent && checkType && checkMark && checkChoice && checkAnswer;
                         if (!checkMaxCol) {
-                            response.getWriter().println("Some headers is empty");
+//                            response.getWriter().println("Some headers is empty");
+
+                            String error = "Some headers is empty";
+                            request.setAttribute("err", error);
+                            request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                             return;
                         }
 
@@ -192,13 +185,16 @@ public class GetQuestionFromCSV extends HttpServlet {
                             Integer val = entry.getValue();
                             System.out.println(key + "-" + val + "");
                             if (val != MAX_COL) {
-                                response.getWriter().println("Some cells in " + (key + 1) + " is empty or overload");
+                                String error = "Some cells in " + (key + 1) + " is empty or overload";
+                                request.setAttribute("err", error);
+                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                response.getWriter().println("Some cells in " + (key + 1) + " is empty or overload");
                                 return;
                             }
                         }
 
                         ArrayList<Question> questions = new ArrayList<>();
-
+                        String error = "";
                         for (Row row : sheet) {
                             if (index > 1) {
                                 int irow = 0;
@@ -214,34 +210,50 @@ public class GetQuestionFromCSV extends HttpServlet {
                                             int krow = irow % 6;
                                             switch (krow) {
                                                 case COL_TITLE:
+                                                    question.setTitle(String.valueOf(valueDouble));
                                                     break;
                                                 case COL_CONTENT:
+                                                    question.setContent(String.valueOf(valueDouble));
                                                     break;
                                                 case COL_TYPE:
-
-                                                    break;
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+                                                    return;
                                                 case COL_MARK:
                                                     if (cell.getColumnIndex() != COL_MARK) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                         return;
                                                     }
 
                                                     try {
                                                         float mark = (float) valueDouble;
                                                         if (mark < 0 || mark > 100) {
-                                                            response.getWriter().println("FILE MARK NEED IN [0,100] TYPE WRONG AT " + cell.getAddress().toString());
+//                                                            response.getWriter().println("FILE MARK NEED IN [0,100] TYPE WRONG AT " + cell.getAddress().toString());
+                                                            error = "FILE MARK NEED IN [0,100] TYPE WRONG AT " + cell.getAddress().toString();
+                                                            request.setAttribute("err", error);
+                                                            request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                             return;
                                                         }
                                                         question.setMark(mark);
 //                                                    dbLecturer.addQuestion(question.getTitle(), question.getContent(),
 //                                                            question.getType(), question.getMark());
                                                         if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
-                                                            response.getWriter().println("Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                            response.getWriter().println("Question already exists in bankon row number" + (row.getRowNum() + 1));
+                                                            error = "Question already exists in bank on row number" + (row.getRowNum() + 1);
+                                                            request.setAttribute("err", error);
+                                                            request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                             return;
                                                         }
                                                         for (Question q : questions) {
                                                             if (q.getContent().equals(question.getContent()) && q.getTitle().equals(question.getTitle())) {
-                                                                response.getWriter().println("Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                                response.getWriter().println("Question is exists on row " + (row.getRowNum() + 1));
+                                                                error = "Question is exists on row " + (row.getRowNum() + 1);
+                                                                request.setAttribute("err", error);
+                                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                                 return;
                                                             }
                                                         }
@@ -249,16 +261,25 @@ public class GetQuestionFromCSV extends HttpServlet {
 //                                                    Question lastestQuestion = dbLecturer.getLastestQuestion();
 //                                                    dbLecturer.addToBank(b.getBankId(), lastestQuestion.getQuestionID());
                                                     } catch (Exception e) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
                                                     }
                                                     break;
                                                 case COL_CHOICE:
-                                                    break;
+                                                    error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                    request.setAttribute("err", error);
+                                                    request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+                                                        return;
 
                                                 case COL_ANSWER:
-                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
-                                                        return;
+//                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                    error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                    request.setAttribute("err", error);
+                                                    request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+                                                    return;
 //                                                    break;
                                                 default:
                                                     irow--;
@@ -270,21 +291,30 @@ public class GetQuestionFromCSV extends HttpServlet {
                                         case Cell.CELL_TYPE_STRING:    //field that represents string cell type  
                                             String value = cell.getStringCellValue();
                                             if (value == null || value.isEmpty()) {
-                                                response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                request.setAttribute("err", error);
+                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                 return;
                                             }
                                             int jrow = irow % 6;
                                             switch (jrow) {
                                                 case COL_TITLE:
                                                     if (cell.getColumnIndex() != COL_TITLE) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
                                                     }
                                                     question.setTitle(value);
                                                     break;
                                                 case COL_CONTENT:
                                                     if (cell.getColumnIndex() != COL_CONTENT) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
 
                                                     }
@@ -292,28 +322,40 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     break;
                                                 case COL_TYPE:
                                                     if (cell.getColumnIndex() != COL_TYPE) {
-                                                        response.getWriter().println(" FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println(" FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
 
                                                     }
                                                     if (value.equalsIgnoreCase("Single") || value.equalsIgnoreCase("Multi")) {
                                                         question.setType(value.equalsIgnoreCase("Single") ? "0" : "1");
                                                     } else {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
 
                                                     }
                                                     break;
                                                 case COL_MARK:
                                                     if (cell.getColumnIndex() != COL_MARK) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
                                                     }
                                                     try {
                                                         float mark = Float.parseFloat(value);
                                                         question.setMark(mark);
                                                         if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
-                                                            response.getWriter().println("Question is exists on " + row.getRowNum() + ",FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                            response.getWriter().println("Question is exists on row " + row.getRowNum());
+                                                            error = "Question is exists on row " + row.getRowNum();
+                                                            request.setAttribute("err", error);
+                                                            request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                             return;
                                                         }
 //                                                    dbLecturer.addQuestion(question.getTitle(), question.getContent(),
@@ -321,14 +363,20 @@ public class GetQuestionFromCSV extends HttpServlet {
 //                                                    Question lastestQuestion = dbLecturer.getLastestQuestion();
 //                                                    dbLecturer.addToBank(b.getBankId(), lastestQuestion.getQuestionID());
                                                     } catch (Exception e) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
 
                                                     }
                                                     break;
                                                 case COL_CHOICE:
                                                     if (cell.getColumnIndex() != COL_CHOICE) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
                                                     }
                                                     choiceContent = value.split("\\|space\\|");
@@ -340,7 +388,10 @@ public class GetQuestionFromCSV extends HttpServlet {
 
                                                 case COL_ANSWER:
                                                     if (cell.getColumnIndex() != COL_ANSWER) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
 
                                                     }
@@ -351,26 +402,39 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                         question.getType();
                                                         for (String string : choicePercent) {
                                                             int num = Integer.parseInt(string);
-                                                            if(question.getType().equals("0") &&  check100 && num!=0)
-                                                                {
-                                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
-                                                                    return;
-                                                                }
-                                                            if(question.getType().equals("0") && (num ==100))
+                                                            if (question.getType().equals("0") && check100 && num != 0) {
+//                                                                response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+
+                                                                error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                                request.setAttribute("err", error);
+                                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+                                                                return;
+                                                            }
+                                                            if (question.getType().equals("0") && (num == 100)) {
                                                                 check100 = true;
+                                                            }
                                                             sum += Integer.parseInt(string);
                                                         }
                                                         if (question.getType().equals("0") && !check100) {
-                                                            response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                            error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                            request.setAttribute("err", error);
+                                                            request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                            response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                             return;
                                                         }
                                                         if (sum != 100) {
-                                                            response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+//                                                            response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                            error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                            request.setAttribute("err", error);
+                                                            request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                             return;
 
                                                         } else {
                                                             if (choiceContent.length != choicePercent.length) {
-                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                                error = "CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                                request.setAttribute("err", error);
+                                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                                 return;
 
                                                             }
@@ -381,7 +445,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                                         try {
                                                                             int real_choicePercent = Integer.parseInt(choicePercent[j]);
                                                                             if (real_choicePercent < 0) {
-                                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                                                error = "CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                                                request.setAttribute("err", error);
+                                                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                                                 return;
                                                                             }
                                                                         } catch (Exception e) {
@@ -392,7 +459,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                             }
                                                         }
                                                     } catch (Exception e) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString() + "-" + value.length());
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString() + "-" + value.length());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString() + "-" + value.length();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
                                                     }
                                                     break;
@@ -428,22 +498,32 @@ public class GetQuestionFromCSV extends HttpServlet {
                                             int krow = irow % 6;
                                             switch (krow) {
                                                 case COL_TITLE:
+                                                    question.setTitle(String.valueOf(valueDouble));
                                                     break;
                                                 case COL_CONTENT:
+                                                    question.setContent(String.valueOf(valueDouble));
                                                     break;
                                                 case COL_TYPE:
-
-                                                    break;
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+                                                    return;
                                                 case COL_MARK:
                                                     try {
                                                     float mark = (float) valueDouble;
                                                     if (mark < 0 || mark > 100) {
-                                                        response.getWriter().println("FILE MARK NEED IN [0,100] TYPE WRONG AT " + cell.getAddress().toString());
+//                                                        response.getWriter().println("FILE MARK NEED IN [0,100] TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE MARK NEED IN [0,100] TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                         return;
                                                     }
                                                     question.setMark(mark);
                                                     if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
-                                                        response.getWriter().println("Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                        response.getWriter().println("Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                         return;
                                                     }
                                                     dbLecturer.addQuestion(question.getTitle(), question.getContent(),
@@ -451,7 +531,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     Question lastestQuestion = dbLecturer.getLastestQuestion();
                                                     dbLecturer.addToBank(b.getBankId(), lastestQuestion.getQuestionID());
                                                 } catch (Exception e) {
-                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                    error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                    request.setAttribute("err", error);
+                                                    request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                     return;
                                                 }
                                                 break;
@@ -461,7 +544,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                 case COL_ANSWER:
                                                     break;
                                                 default:
-                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                    error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                    request.setAttribute("err", error);
+                                                    request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                     break;
                                             }
 //                                            System.out.print(cell.getAddress().toString() + "-" + cell.getNumericCellValue() + "\t\t");
@@ -470,7 +556,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                         case Cell.CELL_TYPE_STRING:    //field that represents string cell type  
                                             String value = cell.getStringCellValue();
                                             if (value == null || value.isEmpty()) {
-                                                response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                request.setAttribute("err", error);
+                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                 return;
                                             }
                                             int jrow = irow % 6;
@@ -485,7 +574,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     if (value.equalsIgnoreCase("Single") || value.equalsIgnoreCase("Multi")) {
                                                         question.setType(value.equalsIgnoreCase("Single") ? "0" : "1");
                                                     } else {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                         return;
 
                                                     }
@@ -495,7 +587,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     float mark = Float.parseFloat(value);
                                                     question.setMark(mark);
                                                     if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
-                                                        response.getWriter().println("Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                        error = "Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                        response.getWriter().println("Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                         return;
                                                     }
                                                     dbLecturer.addQuestion(question.getTitle(), question.getContent(),
@@ -503,7 +598,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     Question lastestQuestion = dbLecturer.getLastestQuestion();
                                                     dbLecturer.addToBank(b.getBankId(), lastestQuestion.getQuestionID());
                                                 } catch (Exception e) {
-                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                    error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                    request.setAttribute("err", error);
+                                                    request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                     return;
 
                                                 }
@@ -524,12 +622,18 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                             sum += Integer.parseInt(string);
                                                         }
                                                         if (sum != 100) {
-                                                            response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                            error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                            request.setAttribute("err", error);
+                                                            request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                            response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                             return;
 
                                                         } else {
                                                             if (choiceContent.length < choicePercent.length) {
-                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                                error = "CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                                request.setAttribute("err", error);
+                                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                                 return;
 
                                                             }
@@ -540,7 +644,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                                         try {
                                                                             int real_choicePercent = Integer.parseInt(choicePercent[j]);
                                                                             if (real_choicePercent < 0) {
-                                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
+                                                                                error = "CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                                                request.setAttribute("err", error);
+                                                                                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                                                response.getWriter().println("CHOICE LENGTH NOT EQUAL CHOIC PERCENT ,FILE TYPE WRONG AT " + cell.getAddress().toString());
                                                                                 return;
                                                                             }
                                                                         } catch (Exception e) {
@@ -551,7 +658,10 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                             }
                                                         }
                                                     } catch (Exception e) {
-                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString() + "-" + value.length());
+                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString() + "-" + value.length();
+                                                        request.setAttribute("err", error);
+                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+//                                                        response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString() + "-" + value.length());
                                                         return;
                                                     }
                                                     break;
@@ -570,7 +680,9 @@ public class GetQuestionFromCSV extends HttpServlet {
                             index++;
 //                            System.out.println();
                         }
-                        response.getWriter().println("File uploaded successfully");
+                        request.setAttribute("success", "File uploaded successfully");
+                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+
                     }
                 }
             } catch (FileUploadException e) {
@@ -578,7 +690,9 @@ public class GetQuestionFromCSV extends HttpServlet {
                 response.getWriter().println("File upload failed!");
             } catch (Exception e) {
                 e.printStackTrace();
-                response.getWriter().println("Error: " + e.getMessage());
+                String error = "Error:" + e.getMessage();
+                request.setAttribute("err", error);
+                request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
             }
         } else {
             response.getWriter().println("Invalid request!");

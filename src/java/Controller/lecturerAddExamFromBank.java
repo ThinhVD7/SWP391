@@ -64,11 +64,19 @@ public class lecturerAddExamFromBank extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
         String courseID = request.getParameter("courseId");
         Account lecturer = (Account) session.getAttribute("user");
@@ -115,11 +123,19 @@ public class lecturerAddExamFromBank extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
 
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
         String examID = request.getParameter("eId");
         String r_count = request.getParameter("checkedCount");

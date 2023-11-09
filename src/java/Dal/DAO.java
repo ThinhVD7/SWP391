@@ -1,11 +1,13 @@
 package Dal;
 
 import Model.Account;
+import Model.ChoiceQuestion;
 import Model.Lecturer;
 import Model.Student;
 import Model.Course;
 import Model.Class1;
 import Model.Question;
+import Model.StudentAnswer;
 import Model.StudentResult;
 import java.sql.Connection;
 import java.sql.*;
@@ -574,6 +576,24 @@ public class DAO extends DBContext {
         }
         return -1;
     }
+    
+    public int getNewAnswerID() {
+        try {
+            String sql = "SELECT StudentAnswer_ID FROM studentanswer order by StudentAnswer_ID DESC\n";
+            PreparedStatement stm = connector.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            int StudentAnswer_ID = 0;
+            while (rs.next()) {
+                if (StudentAnswer_ID < rs.getInt("StudentAnswer_ID")) {
+                    StudentAnswer_ID = rs.getInt("StudentAnswer_ID");
+                }
+            }
+            return StudentAnswer_ID + 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return -1;
+    }
 
     public boolean isDoQuiz(String examID, String studentID) {
         try {
@@ -707,20 +727,17 @@ public class DAO extends DBContext {
         return -1;
     }
 
-    //have not modified to latest model
-    public boolean createStudentAnswer(String studentId, int QuestionID, int ChoiceID, int Flag) {
+    public boolean createStudentAnswer(int QuestionID, int ChoiceID, int ExamID, String StudentID) {
         try {
-            String sql = "INSERT INTO studentanswer VALUES (?, ?, ?, ?, ?)";
-            DAO dao = new DAO();
-            String resultID = String.valueOf(dao.getNewResultID());
-            String studentAnswer = String.valueOf(dao.getNewStudentAnswer());
-            studentAnswer = studentAnswer + studentId;
+            String sql = "INSERT INTO studentanswer VALUES (?, ?, ?, ?, ?)";       
             PreparedStatement stm = connector.prepareStatement(sql);
-            stm.setString(1, studentAnswer);
+            DAO dao = new DAO();
+            String studentAnswer_ID = String.valueOf(dao.getNewAnswerID());
+            stm.setString(1, studentAnswer_ID);
             stm.setInt(2, QuestionID);
             stm.setInt(3, ChoiceID);
-            stm.setInt(4, Flag);
-            stm.setString(5, resultID);
+            stm.setInt(4, ExamID);
+            stm.setString(5, StudentID);
             stm.executeUpdate();
             return true;
         } catch (SQLException ex) {
@@ -1034,6 +1051,96 @@ public class DAO extends DBContext {
         }
         return null;
     }
+    
+    public boolean userCheck(String selectedChoiceID, String examID, String studentID) {
+        boolean isChecked = false;
+
+        try (PreparedStatement stm = connector.prepareStatement("SELECT * FROM studentanswer WHERE Choice_ID = ? and Exam_ID = ? and Student_ID = ?")) {
+            stm.setString(1, selectedChoiceID);
+            stm.setString(2, examID);
+            stm.setString(3, studentID);
+
+            try (ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    if (selectedChoiceID.equals(rs.getString("Choice_ID"))) {
+                        isChecked = true;
+                        break;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Exception occurred while checking user answer", ex);
+        }
+
+        return isChecked;
+    }
+    
+    public ArrayList<StudentAnswer> getStudentAnswer(int Exam_ID ,String Student_ID){
+        try {
+            String sql = "SELECT * FROM studentanswer WHERE Exam_ID = ? and Student_ID = ?";       
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, Exam_ID);
+            stm.setString(2, Student_ID);
+            ResultSet rs = stm.executeQuery();             
+             ArrayList<StudentAnswer> answer = new ArrayList<>();
+            while (rs.next()) {
+                StudentAnswer studentAnswer = new StudentAnswer();
+                String studentId = rs.getString("Student_ID");
+                int ExamID = rs.getInt("Exam_ID");
+                int QuestionID = rs.getInt("Question_ID");
+                String ChoiceID = rs.getString("Choice_ID");
+                studentAnswer.setStudentID(studentId);
+                studentAnswer.setQuestionID(QuestionID);
+                studentAnswer.setChoiceID(ChoiceID);
+                studentAnswer.setExamID(ExamID);
+                answer.add(studentAnswer);
+            }
+            return answer;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public void updateExamStatusActive(int examID)
+    {
+        String sql = "update exam set Status = 1 where Exam_ID = ?";
+        try
+            {
+        PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setInt(1, examID);
+            ps.executeUpdate();
+            
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public ArrayList<ChoiceQuestion> getChoiceOfExam(int Exam_ID){
+       try {
+            String sql = "SELECT * FROM  WHERE Exam_ID = ? and Student_ID = ?";       
+            PreparedStatement stm = connector.prepareStatement(sql);
+            stm.setInt(1, Exam_ID);
+            ResultSet rs = stm.executeQuery();             
+             ArrayList<ChoiceQuestion> answer = new ArrayList<>();
+            while (rs.next()) {
+                ChoiceQuestion choiceQuestion = new ChoiceQuestion();
+                String studentId = rs.getString("Student_ID");
+                int ExamID = rs.getInt("Exam_ID");
+                int QuestionID = rs.getInt("Question_ID");
+                String ChoiceID = rs.getString("Choice_ID");
+//                choiceQuestion.setStudentID(studentId);
+//                choiceQuestion.setQuestionID(QuestionID);
+//                choiceQuestion.setChoiceID(ChoiceID);
+//                choiceQuestion.setExamID(ExamID);
+                answer.add(choiceQuestion);
+            }
+            return answer;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
         DAO d = new DAO();
@@ -1041,6 +1148,8 @@ public class DAO extends DBContext {
         for (StudentResult studentResult : s) {
             System.out.println(studentResult.getResultID() + " " + studentResult.getState());
         }
+        
+        System.out.println(d.getAllStudentResultOfExam(2).size());
 
 ////        System.out.println(d.getLength(1));
 //        String[] f = d.getStudentsByExamId(1);
