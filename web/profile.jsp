@@ -46,7 +46,24 @@
         <!-- STYLESHEETS ============================================= -->
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
-
+        <style>
+             .edit-exam-button 
+        {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+        }
+        .edit-exam-button:hover
+        {
+            background-color: #0073e6;
+        }
+        </style>
     </head>
     <body id="bg">
         <%
@@ -60,7 +77,7 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+                <div class="page-banner ovbl-dark">
                     <div class="container">
                         <div class="page-banner-entry">
                             <h1 class="text-white">Profile</h1>
@@ -85,12 +102,12 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                                     <div class="profile-bx text-center">
-                                        <div class="user-profile-thumb">
+<!--                                        <div class="user-profile-thumb">
                                             <img src="assets/images/profile/pic1.jpg" alt=""/>
-                                        </div>
-                                        <div class="profile-info">
-                                            <h4>${sessionScope.user.name}</h4>
-                                            <span>${sessionScope.user.email}</span>
+                                        </div>-->
+                                        <div class="profile-info"style="font-size: 15px">
+                                            <h3>${sessionScope.user.name}</h3>
+                                            <p>${sessionScope.user.email}</p>
                                         </div>
                                         <div class="profile-social">
 <!--                                            <ul class="list-inline m-a0">
@@ -112,7 +129,7 @@
                                                     <a class="nav-link" data-toggle="tab" href="#edit-profile"><i class="ti-pencil-alt"></i>Edit Profile</a>
                                                 </li>-->
                                                 <li class="nav-item">
-                                                    <a class="nav-link" data-toggle="" href="ChangePassword"><i class="ti-lock"></i>Change Password</a>
+                                                    <a class="edit-exam-button" style="color:white" data-toggle="" href="ChangePassword"><i class="ti-lock"></i>Change Password</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -151,10 +168,14 @@
                                                                 <h6>Gender</h6>
                                                                 <p class="text-muted">${user.gender==1||user.gender==2?"Straight":"Fluid"}</p>
                                                             </div>
+                                                            <div class="col-7 mb-3">
+                                                                <button class="edit-exam-button"><a style="color:white"href="javascript:history.go(-1);">Back to Previous Page</a></button>
+                                                            </div>
                                                         </div>
 
 
                                                         <div class="row pb-3">
+                                                            
                                                         </div>
 
 
