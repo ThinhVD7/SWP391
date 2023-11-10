@@ -430,10 +430,12 @@
                 color: #fff;
                 border: none;
                 border-radius: 5px;
-                padding: 5px 10px;
-                font-size: 10px;
+                padding: 10px 15px;
+                font-size: 15px;
                 cursor: pointer;
                 box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+                margin-left: 50%;
+
             }
             /* Style for the pop-up */
             .popup {
@@ -557,69 +559,135 @@
         </style>
     </head>
     <body>
+        <div id="overlay" class="overlay" style="display: none;"></div>
+
         <!--<h1>Hello World!</h1>-->
 
         <div class="container-xl">
             <div class="table-responsive">
                 <div class="table-wrapper">
-                    <div class="table-title">
-                        <div class="row">
-                            <div class="col-sm-5">
-                                <h2> </a><b>View Class List</b></h2>
-                            </div>
-                            <div class="col-sm-7">
-                                <button onclick="openPopUp()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Class</span></button>
+                    <form action="addFromBank" id="questionForm" method="post" onsubmit="return validateForm();">
 
+                        <div class="table-title">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <h2> </a><b>Question List</b></h2>
+                                </div>
+                                <div class="col-sm-7">
+                                    <a href="lecturerEditExam?tId=${requestScope.eId}" style="text-decoration: none;">     <div class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); font-weight: bold"><span>Back</span></div> </a>
+
+
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <table class="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>Question ID</th>
-                                <th>Title</th>						
-                                <th>Content</th>
-                                <th>Type</th>
-                                <th>Mark</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-
-
-                        <tbody>
-                        <form >
-                            <c:forEach items="${requestScope.class1}" var="u" varStatus="x" >
+                        <table class="table table-striped table-hover">
+                            <thead>
                                 <tr>
-                                    <td>${x.count}</td>
-                                    <td><a href="managerViewLecturer?CID=${u.classID}&courseID=${requestScope.courseID} ">${u.classID}</a></td>
-                                    <td>${u.className}</td>                        
-                                    <td>${u.courseID} </td>
-                                    <td>
-                                        <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delClass('${u.classID}')"> <i class="material-icons">&#xE5C9;</i></a>
-                                    </td>
+                                    <th>#</th>
+                                    <th>Question ID</th>
+                                    <th>Title</th>						
+                                    <th>Content</th>
+                                    <th>Type</th>
+                                    <th>Mark</th>
+                                    <th>Add to Exam</th>
                                 </tr>
-                            </c:forEach>
-                        </form>
+                            </thead>
 
 
-                        </tbody>
-                    </table>
-                    <!--                    <div class="clearfix">
-                                            <div class="hint-text">Showing <b>5</b> out of <b>25</b> entries</div>
-                                            <ul class="pagination">
-                                                <li class="page-item disabled"><a href="#">Previous</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">1</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                                                <li class="page-item active"><a href="#" class="page-link">3</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                                                <li class="page-item"><a href="#" class="page-link">Next</a></li>
-                                            </ul>
-                                        </div>-->
+                            <tbody>
+
+                                <c:forEach items="${requestScope.questionList}" var="u" varStatus="x">
+
+
+                                    <tr>
+                                        <td>${x.count}</td>
+                                        <td>${u.questionID}</td>
+                                        <td><a href="javascript:void(0);" onclick="showChoiceQuestions(${u.questionID})">${u.title}</a></td>
+                                        <td>${u.content}</td>
+                                        <td>${u.type}</td>
+                                        <td>${u.mark}</td>
+                                        <td>
+                                            <input type="checkbox" name="${x.count}_add" value="${u.questionID}" />
+                                            <input type="hidden" value="${requestScope.eId}" name="eId">
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+
+
+                            </tbody>
+                        </table>
+
+                        <button type="submit" class ="popup-button" onclick="checkCheckBoxesAndSubmit()">Save</button>
+                        <input type="hidden" id="checkedCount" name="checkedCount" value="0">
+                        <input type="hidden" id="checkboxNumber" name="checkboxNumber" value="0">
+
+                    </form>
                 </div>
             </div>
-        </div>        
+        </div>
+
+
+        <div id="choiceQuestionPopup" class="popup-container" style="display: none;">
+            <!-- Content for displaying choice questions -->
+        </div>
 
 
     </body>
+    <script>
+        // Function to display the pop-up and load content
+        function showChoiceQuestions(questionID) {
+            // You'll need to make an AJAX request to load choice questions based on the questionID.
+            // Here's a basic example of how to load content into the pop-up.
+
+            // Replace this with an actual AJAX request to load choice questions.
+            const choiceQuestionsContent = "<p>List of choice questions for Question ID: " + questionID + "</p>";
+
+            // Display the content in the pop-up and show the pop-up.
+            const popup = document.getElementById("choiceQuestionPopup");
+            popup.innerHTML = choiceQuestionsContent;
+            popup.style.display = "block";
+        }
+
+
+        function validateForm() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var checked = false;
+            //            var checkedCount = 0;
+            checkboxes.forEach(function (checkbox) {
+                if (checkbox.checked) {
+                    checked = true;
+                    //                    checkedCount++;
+                }
+            });
+
+            if (!checked) {
+                alert("Choose a question before submitting!");
+                return false; // Prevent form submission
+            }
+
+            // If at least one checkbox is checked, the form will submit
+            return true;
+        }
+        function updateCheckboxCount() {
+            var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            var checkedCount = 0;
+            var checkboxCount = checkboxes.length;
+
+            document.getElementById('checkboxNumber').value = checkboxCount;
+            checkboxes.forEach(function (checkbox, index) {
+                if (checkbox.checked) {
+                    checkedCount++;
+                    checkbox.name = 'add_' + index;
+                }
+            });
+
+            document.getElementById('checkedCount').value = checkedCount;
+        }
+
+        // Attach an event listener to each checkbox to update the count
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(function (checkbox, index) {
+            checkbox.addEventListener('change', updateCheckboxCount);
+        });
+    </script>
 </html>

@@ -397,7 +397,6 @@
                 /*max-height: 600px;  Set a maximum height for the form */
                 align-content: center;
                 justify-items: center;
-                
             }
 
             input[type="text"]{
@@ -405,12 +404,36 @@
                 margin: 10px auto;
                 display: block;
                 border-radius: 5px;
-                border: 1px solid lightgrey;
+                border: 2px solid black;
                 background: none;
                 width: 274px;
                 color: black;
             }
+            input[type="number"] {
 
+                display: block;
+                border-radius: 5px;
+                border: 2px solid black;
+                background: none;
+
+                color: black;
+            }
+            input[type="datetime-local"] {
+                display: block;
+                border-radius: 5px;
+                border: 2px solid black;
+                background: none;
+
+                color: black;
+            }
+            #permission {
+                display: block;
+                border-radius: 5px;
+                border: 2px solid black;
+                background: none;
+
+                color: black;
+            }
             input[type="text"]:focus {
                 outline: none;
             }
@@ -522,21 +545,21 @@
                                 <div class="form-group row">
                                     <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
-                                        Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
-                                        Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
+                                        Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
+                                        Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
+                                        Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        From: <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
+                                        From: <input type="datetime-local" name="fromDate" max="2099-01-01T00:00" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        To: <input type="datetime-local" name="toDate" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
+                                        To: <input type="datetime-local" name="toDate" max="2099-01-01T00:00" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -566,14 +589,13 @@
                     <div class ="left-div" style="display: ${sessionScope.exam != null ? "":"none"}">
                         <div class="row align-items-center">
 
-                            <div class="mx-auto col-10 col-md-8 col-lg-6">
+                            <div class="col-10 col-md-8 col-lg-6">
                                 <form action="${sessionScope.exam != null ? "lecturerEditExam":"lecturerAddNewExam"}" method="post" class="">
-                                    <a style ="padding:5px;"><h3 style="text-align: center">Questions</h3></a>
+                                    <h4 style="text-align: center">Score: ${maxScore}</h4>
+                                    <h4 style="text-align: center">${questionNumber} Questions</h4>
+
                                     <p class="text-danger" style="text-align: center">${err}</p>
                                     <p class="text-success" style="text-align: center">${ok}</p>
-
-
-
 
                                     <a style="text-decoration: none">
                                         <div class="form-group row">
@@ -585,26 +607,27 @@
 
 
                                 </form>
-                                <div class ="question-list">
 
-                                    <c:forEach items ="${sessionScope.listQ}" var="c">
-                                        <div class ="question-container">
+                            </div>
+                            <div class ="question-list">
 
-                                            <div class="row">
-                                                <div class="col-sm-3"><a href="lecturerUpdateQuestion?questionId=${c.questionID}">${c.title}:   </a></div> 
-                                                <div class="col-sm-4"> ${c.content}</div>
-                                                <div class="col-sm-3"> Mark:${c.mark}</div>
-                                                <div class="col-sm-2">
-                                                    <a class="delete" onclick="confirmDelete(${c.questionID})" title="Delete" data-toggle="tooltip">
-                                                        <i class="fa fa-trash" aria-hidden="true"></i>
-                                                    </a>
-                                                </div>
+                                <c:forEach items ="${sessionScope.listQ}" var="c">
+                                    <div class ="question-container">
+
+                                        <div class="row">
+                                            <div class="col-sm-3"><a href="lecturerUpdateQuestion?questionId=${c.questionID}">${c.title}:   </a></div> 
+                                            <div class="col-sm-4"> ${c.content}</div>
+                                            <div class="col-sm-3"> Mark:${c.mark}</div>
+                                            <div class="col-sm-2">
+                                                <a class="delete" onclick="confirmDelete(${c.questionID})" title="Delete" data-toggle="tooltip">
+                                                    <i class="fa fa-trash" aria-hidden="true" style="color: red"></i>
+                                                </a>
                                             </div>
-
                                         </div>
-                                    </c:forEach>
 
-                                </div>
+                                    </div>
+                                </c:forEach>
+
                             </div>
                         </div>
                     </div>
@@ -642,9 +665,10 @@
                                                 Add manually
                                             </li>
                                             <li data-list="tab_2">
-                                                Add from Question bank</li>
+                                                <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}">Add from Question bank</a></li>
                                             <li data-list="tab_3">
-                                                Import Excel file</li>
+                                                 <a href="getQuestionCSV?examID=${sessionScope.examID}">Import Excel file</a>
+                                                </li>
                                         </ul>
                                     </div>
 
@@ -660,10 +684,16 @@
                                                         <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="">
 
                                                     </div>
-                                                    <div class="form-group col-sm-5">
+                                                    <div class="form-group col-sm-3">
 
                                                         Question Mark:
                                                         <input type="number" name="mark" class="survey_options" placeholder="Question mark" min="0" required="">                     
+
+                                                    </div>
+                                                    <div class="form-group col-sm-2">
+
+                                                        Add to bank ?
+                                                        <input type="checkbox" name="addToBank" class="survey_options" value="checked" >                     
 
                                                     </div>
 
@@ -694,7 +724,7 @@
                                                     <a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>
                                                 </div>
 
-
+                                                <input type ="hidden" id="course_id" name="course_id" value="${sessionScope.sessionThisCourse.courseID}">
                                                 <input type="hidden" id="hiddenInput" name="newDivCount" value="">
                                                 <div class="form-group row">
                                                     <input class="btn btn-primary btn-sm align-items-center col-3" style="margin: 0 auto; display: block;border-radius:20px " type="submit" value="Add Question" />
@@ -704,35 +734,36 @@
 
                                         </div>
                                         <div class="tab_content tab_2">
-                                            <form id="bank-form" method="post" action="">
-                                                <p>Class:</p>
-                                                <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
-                                                <select id="classSelect" onchange="loadExams()">
-                                                    <c:forEach items="${sessionScope.classListTemp}" var="abc">
-                                                        <option value="${abc.classID}">${abc.className}</option>
+                                            <!--                                            <form id="bank-form" method="post" action="">
+                                                                                            <p>Class:</p>
+                                                                                            <a style="text-decoration: none;color: white" href="lecturerAddNewExam" class="add-exam-button" value="">Add Exam</a>
+                                                                                            <select id="classSelect" onchange="loadExams()">
+                                            <c:forEach items="${sessionScope.classListTemp}" var="abc">
+                                                <option value="${abc.classID}">${abc.className}</option>
 
-                                                    </c:forEach>
-                                                </select>
+                                            </c:forEach>
+                                        </select>
 
 
-                                                <div class="row" id="examList">
-                                                    <!-- Exam list will be dynamically populated here -->
-                                                </div>
-                                            </form>
+                                        <div class="row" id="examList">
+                                             Exam list will be dynamically populated here 
+                                        </div>
+                                    </form>-->
+                                            <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}" class = "edit-exam-button">Access Bank of ${sessionThisCourse.courseID}</a>
 
 
                                         </div>
-                                    </div>
-                                    <div class="tab_content tab_3">
-                                    </div>
-                                    <div class="tab_content tab_4">
+                                        <div class="tab_content tab_3">
+<!--                                            <form id='submit-form' action="getQuestionCSV" method="POST" enctype="multipart/form-data" onclick="(event) => {
+                                                        event.preventDefault();
+                                                    }">
+                                                <input type="file" name="file" />
+                                                <input type="submit" value="Upload" />
+                                            </form>        -->
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>

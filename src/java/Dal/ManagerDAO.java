@@ -499,22 +499,24 @@ public class ManagerDAO extends DBContext {
         }
     }
 
-    public void deleteLecturer(String Lecturer_ID) {
-        String sql = "delete from lecturerinwhichclass where Lecturer_ID = ?";
+    public void deleteLecturer(String Lecturer_ID, String Class_ID) {
+        String sql = "delete from lecturerinwhichclass where Lecturer_ID = ? and Class_ID = ?";
         try {
             PreparedStatement st = connector.prepareStatement(sql);
             st.setString(1, Lecturer_ID);
+            st.setString(2, Class_ID);
             st.executeUpdate();
         } catch (SQLException e) {
 
         }
     }
 
-    public void deleteStudent(String Student_ID) {
-        String sql = "delete from studentinwhichclass where Student_ID = ?";
+    public void deleteStudent(String Student_ID,String Class_ID) {
+        String sql = "delete from studentinwhichclass where Student_ID = ? AND Class_ID= ?";
         try {
             PreparedStatement st = connector.prepareStatement(sql);
             st.setString(1, Student_ID);
+            st.setString(2, Class_ID);
             st.executeUpdate();
         } catch (SQLException e) {
 

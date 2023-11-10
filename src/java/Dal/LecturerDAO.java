@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 public class LecturerDAO extends DBContext {
 
     Connection connector;
+
     public List<Account> accountList = new ArrayList<>();
     public List<Student> studentList = new ArrayList<>();
     public List<Lecturer> lecturerList = new ArrayList<>();
@@ -30,6 +31,8 @@ public class LecturerDAO extends DBContext {
     public List<Class1> classList = new ArrayList<>();
     public List<Exam> examList = new ArrayList<>();
     public List<Question> questionList = new ArrayList<>();
+    public List<Question> questionList2 = new ArrayList<>();
+
     public List<ChoiceQuestion> choiceList = new ArrayList<>();
     private String status = "yes";
     public String test;
@@ -125,7 +128,8 @@ public class LecturerDAO extends DBContext {
                         rs.getString(8),
                         rs.getFloat(9),
                         rs.getInt(10),
-                        rs.getString(11));
+                        rs.getString(11),
+                        rs.getInt(12));
             }
         } catch (Exception e) {
             status = "Error at load a exam" + e.getMessage();
@@ -229,7 +233,8 @@ public class LecturerDAO extends DBContext {
                         rs.getString(8),
                         rs.getFloat(9),
                         rs.getInt(10),
-                        rs.getString(11)));
+                        rs.getString(11),
+                        rs.getInt(12)));
             }
         } catch (Exception e) {
             status = "Error at load exam list" + e.getMessage();
@@ -422,6 +427,77 @@ public class LecturerDAO extends DBContext {
         return null;
     }
 
+    public boolean doesQuestionExistInBank(String qId, String bId) {
+        String sql = "SELECT * FROM questioninwhichbank WHERE Bank_ID = ? AND Question_ID = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, bId);
+            ps.setString(2, qId);
+
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); // Return true if there is a matching record, false otherwise
+        } catch (Exception e) {
+            status = "Error at checking if question exists in bank: " + e.getMessage();
+            System.out.println(status);
+            return false; // Return false in case of an error
+        }
+    }
+
+    public Bank getBankByCourseId(String courseId, String lecturerId) {
+        String sql = "SELECT * FROM `quiz9.8`.bank where Course_ID = ? AND Lecturer_ID = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, courseId);
+            ps.setString(2, lecturerId);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                test = rs.getString(4);
+                return new Bank(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+            System.out.println(status);
+        }
+        return null;
+    }
+
+    public boolean addToBank(String bankId, String Question_ID) {
+        try {
+            String sql = "INSERT INTO questioninwhichbank\n"
+                    + "(Bank_ID,\n"
+                    + "Question_ID)\n"
+                    + "VALUES(?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, bankId);
+            ps.setString(2, Question_ID);
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return false;
+
+    }
+
+    public void addNewBank(String CourseID, String LecturerID) {
+        try {
+            String sql = "INSERT INTO Bank\n"
+                    + "(Course_ID,\n"
+                    + "Lecturer_ID)\n"
+                    + "VALUES(?,?)";
+
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, CourseID);
+            ps.setString(2, LecturerID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
     public List<Question> getListQuestionByExamID(String examId) {
         String sql = "SELECT b.* FROM questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
 
@@ -431,11 +507,28 @@ public class LecturerDAO extends DBContext {
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                questionList.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5)));
+                questionList2.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5)));
             }
         } catch (Exception e) {
             status = "Error at load classes" + e.getMessage();
             System.out.println(status);
+        }
+        return questionList2;
+    }
+
+    public List<Question> getListQuestionByBank(String bankId) {
+        String sql = "SELECT b.* FROM questioninwhichbank a join question b on a.Question_ID = b.Question_ID where Bank_ID = ?";
+
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, bankId);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                questionList.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5)));
+            }
+        } catch (Exception e) {
+            status = "Error at load classes" + e.getMessage();
         }
         return questionList;
     }
@@ -447,7 +540,7 @@ public class LecturerDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
-                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11), rs.getInt(12));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -464,7 +557,7 @@ public class LecturerDAO extends DBContext {
             while (rs.next()) {
                 test = rs.getString(4);
                 return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11), rs.getInt(12));
 
             }
         } catch (Exception e) {
@@ -670,15 +763,29 @@ public class LecturerDAO extends DBContext {
         return false;
 
     }
+    
+    public boolean doesQuestionExistInBankByTitleAndContent(String title, String content) {
+        String sql = "SELECT * FROM question WHERE Title = ? AND QuestionContent = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, content);
+
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); // Return true if there is a matching record, false otherwise
+        } catch (Exception e) {
+            status = "Error at checking if question exists in bank: " + e.getMessage();
+            System.out.println(status);
+            return false; // Return false in case of an error
+        }
+    }
 
     public static void main(String[] args) {
         LecturerDAO dao = new LecturerDAO();
-        List<Question> q = dao.getListQuestionByExamID("5");
-        
-            System.out.println(q.size());
-        
-//        System.out.println(test.getExamID());
+        System.out.println(dao.getListQuestionByBank("3").get(1).getQuestionID());
 
+//        System.out.println(test.getExamID());
 //        //test user
 //        Account acc = dao.getUser("nampthe171400@fpt.edu.vn");
 //        System.out.println(acc.getEmail());
@@ -783,6 +890,5 @@ public class LecturerDAO extends DBContext {
             System.out.println();
         }*/
     }
-
 
 }

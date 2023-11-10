@@ -24,6 +24,7 @@ public class lecturerStaticticExam1 extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         DAO d = new DAO();
         int examId = Integer.parseInt(request.getParameter("examId"));
          ArrayList<StudentResult> studentResult = d.getScoreStatistic(examId);

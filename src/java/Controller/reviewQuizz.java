@@ -81,7 +81,7 @@ public class reviewQuizz extends HttpServlet {
         LecturerDAO dao = new LecturerDAO();
         String examID = request.getParameter("examID");
         Exam thisExam = dao.loadAExam(examID);
-        //session thisExam
+        
         DAO d = new DAO();
         String name = d.getExamName(Integer.parseInt(examID));
         boolean isDoQuizz = d.isDoQuiz(examID, user.getAccountID());
