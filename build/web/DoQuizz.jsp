@@ -275,7 +275,7 @@
                     var atLeastOneChecked = false;
                     checkboxes.forEach(function (checkbox) {
                         if (checkbox.checked) {
-                            atLeastOneChecked = true;
+                            atLeastOneChecked = true;                         
                         }
                     });
                     if (atLeastOneChecked) {
@@ -286,9 +286,6 @@
                         document.getElementById(string).style.color = "black";
                     }
                 }
-
-
-
             }
 
             var countdownElement = document.getElementById("time");

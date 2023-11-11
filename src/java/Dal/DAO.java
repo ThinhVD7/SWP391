@@ -27,7 +27,7 @@ import java.text.DecimalFormat;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 public class DAO extends DBContext {
-
+    
     Connection connector;
     public List<Account> account = new ArrayList<>();
     public List<Student> student = new ArrayList<>();
@@ -1138,12 +1138,12 @@ public class DAO extends DBContext {
         return choicePercentage;
     }
     
-    public double getPointEachQuestionOfStudentAnswer(String questionID) {
+    public double getPointEachQuestionOfStudentAnswer(String questionID, String studentID) {
     DAO d = new DAO();
     double choicePercentage = 0;
-    try (PreparedStatement stm = connector.prepareStatement("SELECT * FROM studentanswer WHERE Question_ID = ?")) {
+    try (PreparedStatement stm = connector.prepareStatement("SELECT * FROM studentanswer WHERE Question_ID = ? and Student_ID = ?")) {
         stm.setString(1, questionID);
-
+        stm.setString(2, studentID);
         try (ResultSet rs = stm.executeQuery()) {
             while (rs.next()) {
                 if (questionID.equals(rs.getString("Question_ID"))) {
@@ -1154,9 +1154,19 @@ public class DAO extends DBContext {
     } catch (SQLException ex) {
         
     }
-    return choicePercentage;
-}
+        return Double.parseDouble(df.format(choicePercentage));
+    }
     
+    public String getPoint(String questionID, int questionMark, String examID, String studentID){
+        DAO d = new DAO();
+        double point = ((d.getPointEachQuestionOfStudentAnswer(questionID, studentID)*questionMark)/100)/(d.getExamScore(Integer.parseInt(examID)))*10;
+        return df.format(point);
+    }
+    public String getPoint2(int questionMark, String examID){
+        DAO d = new DAO();
+        double point = (questionMark/d.getExamScore(Integer.parseInt(examID)))*10;
+        return df.format(point);
+    }
     public ArrayList<ChoiceQuestion> getChoiceOfExam(int Exam_ID){
        try {
             String sql = "SELECT * FROM  WHERE Exam_ID = ? and Student_ID = ?";       
@@ -1191,7 +1201,7 @@ public class DAO extends DBContext {
         }
         
         System.out.println(d.getAllStudentResultOfExam(2).size());
-        System.out.println(d.getPointEachQuestionOfStudentAnswer("4"));
+       
 
     }
 

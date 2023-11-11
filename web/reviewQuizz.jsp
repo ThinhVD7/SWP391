@@ -43,7 +43,7 @@
                                                     <c:forEach var="questionMap" items="${requestScope.questions}">
                                                         <div class="mb-3 mx-auto d-block shadow p-3 mb-5 bg-white rounded" style="padding: 10px 10px 10px 10px; border-radius: 8px; width: 32%; margin-left: 10px; width: 100% !important">
                                                             <li class="ms-3">
-                                                                <span>${questionMap.content}</span> <span style="float: right"> Your point: ${(((choice.getPointEachQuestionOfStudentAnswer(questionMap.questionID)*questionMap.mark)/100)/choice.getExamScore(examID))*10}/${(questionMap.mark/choice.getExamScore(examID))*10} point</span>
+                                                                <span>${questionMap.content}</span> <span style="float: right"> Your point: ${choice.getPoint(questionMap.questionID, questionMap.mark, examID, StudentID)}/${choice.getPoint2(questionMap.mark, examID)} point</span>
                                                                 <ol type="A" class="mt-3">
                                                                     <c:forEach items="${choice.getChoice(questionMap.questionID)}" var="c" varStatus="index">
                                                                         <c:if test="${c.answer == 1}">
