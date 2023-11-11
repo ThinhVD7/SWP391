@@ -20,6 +20,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
@@ -817,7 +818,7 @@
                                             <td>${u.email} </td>
 
                                             <td>
-                                                 <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delLecturer('${u.accountID}','${requestScope.cid}')"> <i class="material-icons">&#xE5C9;</i></a>
+                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delLecturer('${u.accountID}', '${requestScope.cid}')"> <i class="material-icons">&#xE5C9;</i></a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -877,172 +878,192 @@
                 </div>     
             </div>
         </section>
+
         <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+                                                var contextPath = "<%= request.getContextPath()%>";
+
+                                                if ('${sessionScope.messOfClass}' === '1') {
+                                                    alert("Id Class này đã tồn tại");
+                                                }
 
 
-            if ('${sessionScope.messOfClass}' === '1') {
-                alert("Id Class này đã tồn tại");
-            }
+                                                delMess();
+                                                function delMess() {
+                                                    console.log('da chay ham quan trong nay');
+                                                    $.ajax({
+                                                        url: contextPath + "/ressetMess",
+                                                        type: "POST",
+                                                        data: {
+                                                            mess: 1
+                                                        },
+                                                        success: function (response) {
+                                                            console.log('da thuc hien thanh cong ham xoa mess');
+                                                        },
+                                                        error: function (xhr, status, error) {
+                                                            console.log('da khong the ham xoa mess');
+                                                        }
+                                                    });
+                                                }
 
+                                                // Function to open the edit class name pop-up
+                                                function openPopup() {
+                                                    const overlay = document.getElementById('classEditPopup');
+                                                    const newClassNameInput = document.getElementById('newClassName');
+                                                    //newClassNameInput.value = className;
+                                                    newClassNameInput.value = null;
+                                                    overlay.style.display = 'block';
+                                                }
+                                                function openDelete() {
+                                                    const divPopUp = document.querySelector("#deleterCouse");
+                                                    const showBtn = document.querySelector("show");
+                                                    divPopUp.style.display = 'block';
 
+                                                }
+                                                function openAssignLecturerPopup(className) {
+                                                    const overlay = document.getElementById('assignLecturerPopup');
+                                                    const newClassNameInput = document.getElementById('search');
+                                                    newClassNameInput.value = className;
+                                                    overlay.style.display = 'block';
+                                                }
+                                                function openAssignStudentPopup(className) {
+                                                    const overlay = document.getElementById('assignStudentrPopup');
+                                                    const newClassNameInput = document.getElementById('search');
+                                                    newClassNameInput.value = className;
+                                                    overlay.style.display = 'block';
+                                                }
 
+                                                // Function to close the pop-up
+                                                function closePopup() {
+                                                    const overlay = document.getElementById('classEditPopup');
+                                                    overlay.style.display = 'none';
+                                                }
+                                                function closePopUp() {
+                                                    const divPopUp = document.querySelector("#deleterCouse");
+                                                    divPopUp.style.display = 'none';
+                                                }
+                                                function closeAssignLecturerPopup() {
+                                                    const overlay = document.getElementById('assignLecturerPopup');
+                                                    overlay.style.display = 'none';
+                                                }
+                                                function closeAssignStudentPopup() {
+                                                    const overlay = document.getElementById('assignStudentrPopup');
+                                                    overlay.style.display = 'none';
+                                                }
 
-            // Function to open the edit class name pop-up
-            function openPopup() {
-                const overlay = document.getElementById('classEditPopup');
-                const newClassNameInput = document.getElementById('newClassName');
-                //newClassNameInput.value = className;
-                newClassNameInput.value = null;
-                overlay.style.display = 'block';
-            }
-            function openDelete() {
-                const divPopUp = document.querySelector("#deleterCouse");
-                const showBtn = document.querySelector("show");
-                divPopUp.style.display = 'block';
+                                                function editClassNameS() {
+                                                    const newClassNameInput = document.getElementById('newClassName');
+                                                    const updatedClassName = newClassNameInput.value;
+                                                    if (updatedClassName.length < 1) {
+                                                        alert("Bạn chưa nhập Class để thay đổi");
+                                                    }
+                                                    editClassName();
+                                                }
 
-            }
-            function openAssignLecturerPopup(className) {
-                const overlay = document.getElementById('assignLecturerPopup');
-                const newClassNameInput = document.getElementById('search');
-                newClassNameInput.value = className;
-                overlay.style.display = 'block';
-            }
-            function openAssignStudentPopup(className) {
-                const overlay = document.getElementById('assignStudentrPopup');
-                const newClassNameInput = document.getElementById('search');
-                newClassNameInput.value = className;
-                overlay.style.display = 'block';
-            }
+                                                // Function to save the edited class name
+                                                function editClassName() {
+                                                    const newClassNameInput = document.getElementById('newClassName');
+                                                    const updatedClassName = newClassNameInput.value;
+                                                    // Update the class name in your data or display
+                                                    console.log('Updated Class Name:', updatedClassName);
+                                                    // Close the pop-up
+                                                    closePopup();
+                                                }
 
-            // Function to close the pop-up
-            function closePopup() {
-                const overlay = document.getElementById('classEditPopup');
-                overlay.style.display = 'none';
-            }
-            function closePopUp() {
-                const divPopUp = document.querySelector("#deleterCouse");
-                divPopUp.style.display = 'none';
-            }
-            function closeAssignLecturerPopup() {
-                const overlay = document.getElementById('assignLecturerPopup');
-                overlay.style.display = 'none';
-            }
-            function closeAssignStudentPopup() {
-                const overlay = document.getElementById('assignStudentrPopup');
-                overlay.style.display = 'none';
-            }
+                                                const btn_menu = document.querySelector(".btn-menu");
+                                                const side_bar = document.querySelector(".sidebar");
 
-            function editClassNameS() {
-                const newClassNameInput = document.getElementById('newClassName');
-                const updatedClassName = newClassNameInput.value;
-                if (updatedClassName.length < 1) {
-                    alert("Bạn chưa nhập Class để thay đổi");
-                }
-                editClassName();
-            }
+                                                btn_menu.addEventListener("click", function () {
+                                                    side_bar.classList.toggle("expand");
+                                                    changebtn();
+                                                });
+                                                function delLecturer(lecturerId, classID) {
+                                                    var dk = confirm('Bạn có muốn xóa không ?');
+                                                    var lecturerId = lecturerId;
+                                                    var classID = classID;
+                                                    if (dk) {
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.open("POST", "managerDeleteLecturer", true);
+                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                        xhr.onreadystatechange = function ()
+                                                        {
+                                                            if (xhr.readyState === 4 && xhr.status === 200)
+                                                            {
+                                                                // Handle the response from the server (if needed)
+                                                                var response = xhr.responseText;
+                                                                // Reload or update the page as necessary
+                                                                location.reload();
+                                                            }
+                                                        };
+                                                        xhr.send("classID=" + classID + "&lecturerId=" + lecturerId);
+                                                    } else {
 
-            // Function to save the edited class name
-            function editClassName() {
-                const newClassNameInput = document.getElementById('newClassName');
-                const updatedClassName = newClassNameInput.value;
-                // Update the class name in your data or display
-                console.log('Updated Class Name:', updatedClassName);
-                // Close the pop-up
-                closePopup();
-            }
+                                                    }
 
-            const btn_menu = document.querySelector(".btn-menu");
-            const side_bar = document.querySelector(".sidebar");
+                                                }
+                                                function delStudent(studentID, classID) {
+                                                    var dk = confirm('Bạn có muốn xóa không ?');
+                                                    var studentID = studentID;
+                                                    var classID = classID;
 
-            btn_menu.addEventListener("click", function () {
-                side_bar.classList.toggle("expand");
-                changebtn();
-            });
-            function delLecturer(lecturerId,classID) {
-                var dk = confirm('Bạn có muốn xóa không ?');
-                var lecturerId = lecturerId;
-                var classID = classID;
-                if (dk) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "managerDeleteLecturer", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function ()
-                    {
-                        if (xhr.readyState === 4 && xhr.status === 200)
-                        {
-                            // Handle the response from the server (if needed)
-                            var response = xhr.responseText;
-                            // Reload or update the page as necessary
-                            location.reload();
-                        }
-                    };
-                   xhr.send("classID=" + classID + "&lecturerId=" + lecturerId);   
-                } else {
+                                                    if (dk) {
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.open("POST", "managerDeleteStudent", true);
+                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                        xhr.onreadystatechange = function ()
+                                                        {
+                                                            if (xhr.readyState === 4 && xhr.status === 200)
+                                                            {
+                                                                // Handle the response from the server (if needed)
+                                                                var response = xhr.responseText;
+                                                                // Reload or update the page as necessary
+                                                                location.reload();
+                                                            }
+                                                        };
+                                                        xhr.send("classID=" + classID + "&studentID=" + studentID);
+                                                    } else {
 
-                }
+                                                    }
 
-            }
-            function delStudent(studentID, classID) {
-                var dk = confirm('Bạn có muốn xóa không ?');
-                var studentID = studentID;
-                var classID = classID;
+                                                }
+                                                function changebtn() {
+                                                    if (side_bar.classList.contains("expand")) {
+                                                        btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                                                    } else {
+                                                        btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                                                    }
+                                                }
 
-                if (dk) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "managerDeleteStudent", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function ()
-                    {
-                        if (xhr.readyState === 4 && xhr.status === 200)
-                        {
-                            // Handle the response from the server (if needed)
-                            var response = xhr.responseText;
-                            // Reload or update the page as necessary
-                            location.reload();
-                        }
-                    };
-                    xhr.send("classID=" + classID + "&studentID=" + studentID);
-                } else {
+                                                const btn_theme = document.querySelector(".theme-btn");
+                                                const theme_ball = document.querySelector(".theme-ball");
 
-                }
+                                                const localData = localStorage.getItem("theme");
 
-            }
-            function changebtn() {
-                if (side_bar.classList.contains("expand")) {
-                    btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
-                } else {
-                    btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
-                }
-            }
+                                                if (localData == null) {
+                                                    localStorage.setItem("theme", "light");
+                                                }
 
-            const btn_theme = document.querySelector(".theme-btn");
-            const theme_ball = document.querySelector(".theme-ball");
+                                                if (localData == "dark") {
+                                                    document.body.classList.add("dark-mode");
+                                                    theme_ball.classList.add("dark");
+                                                } else if (localData == "light") {
+                                                    document.body.classList.remove("dark-mode");
+                                                    theme_ball.classList.remove("dark");
+                                                }
 
-            const localData = localStorage.getItem("theme");
-
-            if (localData == null) {
-                localStorage.setItem("theme", "light");
-            }
-
-            if (localData == "dark") {
-                document.body.classList.add("dark-mode");
-                theme_ball.classList.add("dark");
-            } else if (localData == "light") {
-                document.body.classList.remove("dark-mode");
-                theme_ball.classList.remove("dark");
-            }
-
-            btn_theme.addEventListener("click", function () {
-                document.body.classList.toggle("dark-mode");
-                theme_ball.classList.toggle("dark");
-                if (document.body.classList.contains("dark-mode")) {
-                    localStorage.setItem("theme", "dark");
-                } else {
-                    localStorage.setItem("theme", "light");
-                }
-            });
+                                                btn_theme.addEventListener("click", function () {
+                                                    document.body.classList.toggle("dark-mode");
+                                                    theme_ball.classList.toggle("dark");
+                                                    if (document.body.classList.contains("dark-mode")) {
+                                                        localStorage.setItem("theme", "dark");
+                                                    } else {
+                                                        localStorage.setItem("theme", "light");
+                                                    }
+                                                });
         </script>
+
     </body>
 </html>

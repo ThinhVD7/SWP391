@@ -137,11 +137,11 @@
             </div>
             <ul class="nav-links">
 
-<!--                <li>
-                    <i class="bx bx-search search-btn"></i>
-                    <input type="text" placeholder="Search" name="searchInput"/>
-                    <span class="tooltip">Search</span>
-                </li>-->
+                <!--                <li>
+                                    <i class="bx bx-search search-btn"></i>
+                                    <input type="text" placeholder="Search" name="searchInput"/>
+                                    <span class="tooltip">Search</span>
+                                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -184,7 +184,7 @@
                     </div>
                 </div>
 
-                
+
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
@@ -263,11 +263,12 @@
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
+                        var contextPath = "<%= request.getContextPath()%>";
 
                         if ('${sessionScope.logPrint}' === '1') {
                             alert("Id Course này đã tồn tại");
                         }
-
+                        delMess();
                         const btn_menu = document.querySelector(".btn-menu");
                         const side_bar = document.querySelector(".sidebar");
                         var idCourse;
@@ -284,6 +285,23 @@
                             } else {
                                 btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                             }
+                        }
+
+                        function delMess() {
+                            console.log('da chay ham quan trong nay');
+                            $.ajax({
+                                url: contextPath + "/ressetMess",
+                                type: "POST",
+                                data: {
+                                    mess: 1
+                                },
+                                success: function (response) {
+                                    console.log('da thuc hien thanh cong ham xoa mess');
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log('không thuc hien dc ham xoa mess');
+                                }
+                            });
                         }
 
 

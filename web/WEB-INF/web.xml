@@ -354,6 +354,14 @@
         <servlet-name>managerEditClass</servlet-name>
         <url-pattern>/managerEditClass</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>ressetMess</servlet-name>
+        <servlet-class>Controller.ressetMess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ressetMess</servlet-name>
+        <url-pattern>/ressetMess</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
