@@ -150,13 +150,13 @@ public class addAccount extends HttpServlet {
             request.getRequestDispatcher("addAccount.jsp").forward(request, response);
 
         } else {
-            int role1 = Integer.parseInt(role);
+           int role1 = Integer.parseInt(role);
             int gender1 = Integer.parseInt(gender);
             int status1 = Integer.parseInt(status);
-
+            
             int password = Random();
             sendMail(email, password);
-            boolean isAddAccountSucess = dao.addAccount(id, name, email, String.valueOf(password), role1, status1, gender1, phno);
+            boolean isAddAccountSucess = dao.addAccount(id, name, email, dao.encodeSHA1(String.valueOf(password)), role1, status1, gender1, phno);
             if (isAddAccountSucess) {
                 session.removeAttribute("idErr");
                 session.removeAttribute("nameErr");

@@ -372,11 +372,11 @@
             </div>
             <ul class="nav-links">
 
-                <li>
+<!--                <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
-                </li>
+                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -648,7 +648,7 @@
                         if (xhr.readyState === 4 && xhr.status === 200) {
                             // Handle the response from the servlet
                             var response = xhr.responseText;
-                            alert("Exam with ID " + examID + " deleted.");
+                            alert("Exam successfully deleted.");
                             location.reload();
                         }
                     };

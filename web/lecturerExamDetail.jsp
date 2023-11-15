@@ -179,11 +179,11 @@
 
 
 
-                <li>
+<!--                <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
-                </li>
+                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -260,17 +260,18 @@
                     <!--                <form action="action">
                                         <button class="edit-exam-button">Edit Exam</button> 
                                     </form>-->
-                    <c:if test="${sessionScope.lecturerX!= null}">
+                    <c:if test="${requestScope.notAllowToEdit1==null}">
+                        <c:if test="${sessionScope.lecturerX!= null}">
 
-                        <a href="lecturerEditExam?tId=${sessionThisExam.examID}">
-                            <button class="edit-exam-button" ${requestScope.notAllowToEdit!=null?"hidden":""}>Edit Exam</button> 
-                        </a>
+                            <a href="lecturerEditExam?tId=${sessionThisExam.examID}">
+                                <button class="edit-exam-button" ${requestScope.notAllowToEdit!=null?"hidden":""}>Edit Exam</button> 
+                            </a>
+                        </c:if>
+                        <c:if test="${sessionScope.lecturerX== null}">
+                               <p class="text-warning">Can not access</p>
+
+                        </c:if>
                     </c:if>
-                       <c:if test="${sessionScope.lecturerX== null}">
-                           <p class="text-warning">Can not access</p>
-                      
-                    </c:if>
-                    
                     
                     <!--                &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;-->
                 </div>
@@ -286,7 +287,7 @@
                                             <button class="edit-exam-button-bottom" onclick ="alert('Button clicked!')"${2==1?"":"hidden"}>Review Exam</button>
                                         </form>-->
                 </div>
-                <div ${requestScope.statisticNotAllow!=null?"display:none":""}>
+                <div>
                     <form action="lecturerStatisticExam">
                         <input value="${sessionThisExam.examID}" type="hidden" name="examId"/>
                         <button class="stat-exam-button" ${requestScope.statisticNotAllow!=null?"hidden":""} type="submit">View Statistics</button>

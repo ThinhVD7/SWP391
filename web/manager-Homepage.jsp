@@ -127,6 +127,19 @@
                 padding: 15px;
                 z-index: 2;
             }
+            
+            .edit-exam-button
+            {
+                background-color: #00c5db;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                margin-top: 10px;
+                /*box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);*/
+            }
         </style>
 
 
@@ -183,12 +196,12 @@
                     <div class="input-group rounded">
                         <form action="managerSearch" method="doGet">
                             <input class="nosubmit" type="search" name="searchInput">
-                            <button type="submit">Search</button>
+                            <button class ="edit-exam-button"type="submit">Search</button>
                         </form>
                     </div>
                 </div>
 
-                
+
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>

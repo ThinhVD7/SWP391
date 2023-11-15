@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Do Exam</title>
         <%@include file="Components/AllAccess.jsp"%>
         <!-- Custom scripts -->
         <script type="text/javascript"></script>
@@ -22,13 +22,15 @@
             }
             .questionBtn{
                 padding: 8px 12px;
-                margin-right: 10px;
+                margin: 2px;
                 background-color: #ccc;
                 cursor: pointer;
                 transition: .4s;
                 border-radius: 4px;
                 position: relative;
                 border: 4px solid transparent;
+                width: 65px;
+                height: 55px;
             }
             .flag{
                 margin: 0 10px;
@@ -41,7 +43,6 @@
                 color: red;
                 opacity: 0;
             }
-
         </style>
 
     </head>
@@ -52,11 +53,11 @@
 
         <header class="sb-nav-fixed"><nav class="sb-topnav navbar navbar-expand navbar-light py-3" style=" background-image: url(''); background-color: #FFC533; height: 70px">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <div class="row p-2 d-flex">
-                        <div>Your Time: </div><p class="p-1 form-control text-center bg-light text-dark my-auto ms-2" style="width: 100px" <span id="time">${hour}:${minute}:${second}</span>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12.5 7.25a.75.75 0 00-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 00.744-1.302L12.5 12.315V7.25z"></path><path fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg></p>
+                    <div class="row p-2 d-flex" style="font-weight:bold">
+                        <div>Total Time Left: </div><p class="p-1 form-control text-center bg-light text-dark my-auto ms-2" style="width: 100px" <span style="font-weight:bold"id="time">${hour}:${minute}:${second}</span>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12.5 7.25a.75.75 0 00-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 00.744-1.302L12.5 12.315V7.25z"></path><path fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg></p>
                     </div>
                     <div class="row p-5 d-flex">
-                        <div>Elapse Time: </div><p class="p-1 form-control text-center bg-light text-dark my-auto ms-2" style="width: 100px" <span id="elapsed-time"></span>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12.5 7.25a.75.75 0 00-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 00.744-1.302L12.5 12.315V7.25z"></path><path fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg></p>
+                        <div hidden>Elapse Time: </div><p hidden class="p-1 form-control text-center bg-light text-dark my-auto ms-2" style="width: 100px" <span id="elapsed-time"></span>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M12.5 7.25a.75.75 0 00-1.5 0v5.5c0 .27.144.518.378.651l3.5 2a.75.75 0 00.744-1.302L12.5 12.315V7.25z"></path><path fill-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zM2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0z"></path></svg></p>
                     </div>
                 </div>
 
@@ -80,8 +81,8 @@
         <div id="layoutSidenav" class="mb-4">
             <div id="layoutSidenav_content">
                 <div class="container-fluid px-4 px-lg-5 mb-5" style="margin-top: 91px">
-                    <p class="fs-1 fw-bold">Exam Name: ${requestScope.name}</p>
-                    <p class="fs-2 fw-light">Total Question: ${requestScope.questions.size()}</p>
+                    <p class="fs-1 fw-bold" style="font-size:30px; font-weight:600;color:black ">Exam Name: ${requestScope.name}</p><br>
+                    <b class="fs-2 fw-light"style="font-size:20px">Total Question: ${requestScope.questions.size()}</b><br>
 
                     <div class="container">
                         <div class="row">
@@ -104,12 +105,12 @@
                                                             <div id="${questionMap.answer}" >
                                                                 <div class="mb-3 mx-auto d-block shadow p-3 mb-5 bg-white rounded"  
                                                                      style="padding: 10px 10px 10px 10px; border-radius: 8px; width: 32%; margin-left: 10px; width: 100% !important">
-                                                                        <span>Question ${index.index+1}:</span>
-                                                                        <span>${questionMap.content} </span>
+                                                                        <span style="font-size:18px; font-weight:600">Question ${index.index+1}:</span>
+                                                                        <span style="font-size:18px">${questionMap.content} </span>
                                                                         <div style="float: right">
                                                                             <c:forEach items="${choice.getChoice(questionMap.questionID)}" var="ch" varStatus="index1">
                                                                                 <c:if test="${index1.index == 1}">
-                                                                                    <span style="color: red">        (Choose ${ch.answer} correct!)</span>
+                                                                                    <span style="color: red">        (Choose ${ch.answer} only!)</span>
                                                                                 </c:if>
 
                                                                             </c:forEach>
@@ -202,13 +203,14 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="checkQuetion">
+                                        <div class="checkQuetion col-lg-4">
                                             <h4>Quiz Navigation</h4>
                                             <c:forEach var="questionMap" items="${requestScope.questions}" varStatus="i">
-                                                <span class="questionBtn" onclick="changeQuestion(${questionMap.answer})" id="q${i.index+1}" >${i.index+1}                                                 
+                                                <button type="button" class="questionBtn" onclick="changeQuestion(${questionMap.answer})" id="q${i.index+1}" >${i.index+1}                                                 
                                                     <i id="flagflag${questionMap.answer}"  class="flagIcon" ><i class="fa-solid fa-flag"></i></i>
-                                                </span>
+                                                </button>
                                             </c:forEach>
+
                                         </div>
                                     </div>
                                 </form>
@@ -265,7 +267,7 @@
                 var num = id;
                 var string = `q` + num.toString();
                 var string2 = `question` + num.toString();
-                const checkbox = document.getElementById(string2);
+                const checkbox = document.getElementById(string);
                 var inputSelector = 'input[name="' + string.toString() + '"]';
                 if (checkbox.type !== "checkbox") {
                     document.getElementById(string).style.backgroundColor = "blue";
@@ -276,7 +278,7 @@
                     checkboxes.forEach(function (checkbox) {
                         if (checkbox.checked) {
                             atLeastOneChecked = true;
-                        }
+                        } 
                     });
                     if (atLeastOneChecked) {
                         document.getElementById(string).style.backgroundColor = "blue";
@@ -286,9 +288,6 @@
                         document.getElementById(string).style.color = "black";
                     }
                 }
-
-
-
             }
 
             var countdownElement = document.getElementById("time");

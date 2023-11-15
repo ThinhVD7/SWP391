@@ -80,7 +80,7 @@ public class lecturerClasslist extends HttpServlet {
         session.setAttribute("sessionThisCourse", dao.loadACourse(courseID));
         //sessionPageTitle temporary
         session.setAttribute("sessionPageTitle", dao.loadACourse(courseID).getCourseID()+" "+dao.loadACourse(courseID).getSemester());
-        List<Class1> classList = dao.loadAllClassesofCourse(user.getAccountID(), courseID);
+        List<Class1> classList = dao.loadAllClassesofCourse(user.getAccountID(),courseID);
         HashMap<String, Integer> class_studentNumber = new HashMap<String,Integer>();
         HashMap<String, Integer> class_examNumber = new HashMap<String,Integer>();
         for (Class1 class1 : classList) 

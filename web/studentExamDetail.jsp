@@ -160,11 +160,11 @@
 
 
 
-                <li>
+<!--                <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
-                </li>
+                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -265,12 +265,14 @@
                         <br>
                         <p>Time limit: ${requestScope.timeLimit} </p>
                         <br>
-                        <c:if test="${requestScope.startDate1 <= requestScope.timeNow && requestScope.endDate1 >= requestScope.timeNow}">
-                            <form action="doQuiz" method="post">
-                                <input type="hidden" name="examID" value="${requestScope.examId}"/>
-                                <button class="edit-exam-button">Enter Exam Now</button> 
-                            </form>
-                        </c:if>
+                        <c:if test="${requestScope.x ==null}">
+                            <c:if test="${requestScope.startDate1 <= requestScope.timeNow && requestScope.endDate1 >= requestScope.timeNow}">
+                                <form action="doQuiz" method="post">
+                                    <input type="hidden" name="examID" value="${requestScope.examId}"/>
+                                    <button class="edit-exam-button">Enter Exam Now</button> 
+                                </form>
+                            </c:if>
+                        </c:if>    
                     </c:if>
                     <c:if test="${requestScope.isDoQuizz == true}">
                         <p>Total Mark: ${requestScope.totalMark}</p> <br/>

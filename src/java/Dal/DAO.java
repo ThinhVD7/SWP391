@@ -27,7 +27,7 @@ import java.text.DecimalFormat;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 public class DAO extends DBContext {
-    
+
     Connection connector;
     public List<Account> account = new ArrayList<>();
     public List<Student> student = new ArrayList<>();
@@ -64,24 +64,40 @@ public class DAO extends DBContext {
     }
 
     public void loadStudent() {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         student = new Vector();
         String sql = "select * from role";
         try {
-            PreparedStatement ps = connector.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ps = connector.prepareStatement(sql);
+            rs = ps.executeQuery();
             while (rs.next()) {
 
             }
         } catch (Exception e) {
             status = "Error at get Student " + e.getMessage();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public List<Account> getAllAcount() {
+
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String strSelect = "select * from account";
-            PreparedStatement ps = connector.prepareStatement(strSelect);
-            ResultSet rs = ps.executeQuery();
+            ps = connector.prepareStatement(strSelect);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Account a = new Account(rs.getString(1),
                         rs.getString(2),
@@ -95,18 +111,31 @@ public class DAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return account;
     }
 
     public Account getAccountLogin(String email, String password) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         String sql = "select * from account where Email = ? and Password = ?";
         try {
-            PreparedStatement ps = connector.prepareStatement(sql);
-//            password = DAO.encodeSHA1(password);
+            ps = connector.prepareStatement(sql);
+            password = DAO.encodeSHA1(password);
             ps.setString(1, email);
             ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
                 return new Account(rs.getString(1),
@@ -120,16 +149,29 @@ public class DAO extends DBContext {
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public Account getUser(String email) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         String sql = "select * from account where Email = ?";
         try {
-            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
             ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
                 return new Account(rs.getString(1),
@@ -143,16 +185,29 @@ public class DAO extends DBContext {
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public Account getUserById(String id) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         String sql = "select * from account where Account_ID = ?";
         try {
-            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
             ps.setString(1, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
                 return new Account(rs.getString(1),
@@ -166,6 +221,17 @@ public class DAO extends DBContext {
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
@@ -193,27 +259,39 @@ public class DAO extends DBContext {
     }
 
     public boolean resetPassword(Account user) {
+        PreparedStatement ps = null;
         try {
             String sql = "UPDATE account SET Password = ? WHERE Email = ?";
-            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
             ps.setString(1, user.getPassword());
             ps.setString(2, user.getEmail());
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
 
     public List<Class1> getClass(String studentId) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         String sql = "select a.Student_ID,a.Class_ID,b.ClassName,c.Semester,c.Course_ID from studentinwhichclass a join class b on \n"
                 + "a.Class_ID = b.Class_ID \n"
                 + "join course c on b.Course_ID = c.Course_ID where a.Student_ID = ?";
         try {
-            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
             ps.setString(1, studentId);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(1);
                 Class1 c = new Class1(rs.getString(2), rs.getString(3), rs.getString(5));
@@ -222,30 +300,56 @@ public class DAO extends DBContext {
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return classes;
     }
 
     public List<Class1> getAllClass() {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String strSelect = "select * from class";
-            PreparedStatement ps = connector.prepareStatement(strSelect);
-            ResultSet rs = ps.executeQuery();
+            ps = connector.prepareStatement(strSelect);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Class1 c = new Class1(rs.getString(1), rs.getString(2), rs.getString(3));
                 classes.add(c);
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return classes;
     }
 
     public List<Course> getAllCourse() {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String strSelect = "select * from course";
-            PreparedStatement ps = connector.prepareStatement(strSelect);
-            ResultSet rs = ps.executeQuery();
+            ps = connector.prepareStatement(strSelect);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println("");
                 Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
@@ -253,21 +357,45 @@ public class DAO extends DBContext {
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return course;
     }
 
     public List<Course> getAllCourseByLId(String lecId) {
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try {
             String strSelect = "select * from course";
-            PreparedStatement ps = connector.prepareStatement(strSelect);
-            ResultSet rs = ps.executeQuery();
+            ps = connector.prepareStatement(strSelect);
+            rs = ps.executeQuery();
             while (rs.next()) {
                 Course c = new Course(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
                 course.add(c);
             }
         } catch (SQLException e) {
             System.out.println(e);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return course;
     }
@@ -285,6 +413,7 @@ public class DAO extends DBContext {
     }
 
     public boolean addAccount(String id, String name, String email, String password, int role, int status, int gender, String phno) {
+        PreparedStatement ps = null;
         try {
             String sql = "INSERT INTO account\n"
                     + "(Account_ID,\n"
@@ -297,7 +426,7 @@ public class DAO extends DBContext {
                     + "PhoneNumber)\n"
                     + "VALUES(?,?,?,?,?,?,?,?)";
 
-            PreparedStatement ps = connector.prepareStatement(sql);
+            ps = connector.prepareStatement(sql);
             ps.setString(1, id);
             ps.setString(2, name);
             ps.setString(3, email);
@@ -326,35 +455,25 @@ public class DAO extends DBContext {
             return true;
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
 
     public String updateAccount(String id, String newID, String name, String email, int role, int status, int gender, String phno) {
-        //check role student or lecturer
-//            String condition = "select Role_ID from account where Account_ID like ?";
+        PreparedStatement ps = null;
         String sql = "update account set Account_ID = ?,Name = ?,Email = ?,Role_ID = ?,Status = ?,Gender = ?,PhoneNumber = ?where Account_ID = ?";
         try {
-            PreparedStatement ps = connector.prepareStatement(sql);
-//            ps.setString(1, id);
-//            ps.executeQuery();
-//            int checkRole = 4;
-//            boolean wasActive = false;
-//            ResultSet rs = ps.executeQuery();
-//            while(rs.next())
-//                {
-//                    checkRole = rs.getInt(1);
-//                }
-//            //update role is changed and old role is student or lecturer
-//            if(checkRole != role && (checkRole == 3 || checkRole == 2))
-//                {
-//                    if(checkRole == 3)
-//                        {
-//                            condition = "select "
-//                        }
-//                }
-//                    
-//                    
+            ps = connector.prepareStatement(sql);
+
             //update account        
             ps = connector.prepareStatement(sql);
             ps.setString(1, newID);
@@ -392,16 +511,26 @@ public class DAO extends DBContext {
             return "success";
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return "failed";
     }
 
     public void deleteAccountbyID(String accountID) {
+        PreparedStatement ps = null;
         String deleteAccount = "delete from account where Account_ID = ?";
 //                String sqlCondition = "select Role_ID from account where Account_ID = ?";
 //                int roleID = 0;
         try {
-            PreparedStatement ps = connector.prepareStatement(deleteAccount);
+            ps = connector.prepareStatement(deleteAccount);
 //                    ps.setString(1, accountID);
 //                    ps.executeQuery();
 //                    ResultSet rs = ps.executeQuery();
@@ -440,14 +569,24 @@ public class DAO extends DBContext {
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public void deleteClassbyID(String classID) {
         String deleteClass = "";
+        PreparedStatement ps = null;
         try {
             deleteClass = "delete from lecturerinwhichclass where Class_ID = ?";
-            PreparedStatement ps = connector.prepareStatement(deleteClass);
+            ps = connector.prepareStatement(deleteClass);
             ps = connector.prepareStatement(deleteClass);
             ps.setString(1, classID);
             ps.executeUpdate();
@@ -461,29 +600,50 @@ public class DAO extends DBContext {
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public void deleteCoursebyID(String courseID) {
         String deleteCourse = "delete from course where Course_ID = ?";
+        PreparedStatement ps = null;
         try {
-            PreparedStatement ps = connector.prepareStatement(deleteCourse);
+            ps = connector.prepareStatement(deleteCourse);
             ps.setString(1, courseID);
             ps.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     public ArrayList<Question> getQuestionsExam(int examID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT question.Question_ID, question.Title, question.QuestionContent, question.Type, question.Mark  FROM question as question\n"
                     + "INNER JOIN questioninwhichexam as qw\n"
                     + "WHERE question.Question_ID = qw.Question_ID AND Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examID);
             List<Question> questions = new ArrayList<>();
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             int i = 1;
             while (rs.next()) {
                 Question question = new Question();
@@ -499,17 +659,31 @@ public class DAO extends DBContext {
             return (ArrayList<Question>) questions;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
         return null;
     }
 
     public ArrayList<Question> getChoice(int questionID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT Choice_ID, Question_ID, ChoiceContent,ScorePercentage FROM choicesofquestion WHERE Question_ID =  ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, questionID);
             ArrayList<Question> questions = new ArrayList<>();
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             int status = 0;
             while (rs.next()) {
                 Question question = new Question();
@@ -535,16 +709,28 @@ public class DAO extends DBContext {
             return questions;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public boolean createResult(String ExamID, String StudentID, float totalMark, String totalTime, int state) {
+        PreparedStatement stm = null;
         try {
             String sql = "INSERT INTO studentresult VALUES (?, ?, ?, ?, ?, ?)";
             DAO dao = new DAO();
             String resultID = String.valueOf(dao.getNewResultID());
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setString(1, resultID);
             stm.setString(2, ExamID);
             stm.setString(3, StudentID);
@@ -555,15 +741,26 @@ public class DAO extends DBContext {
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
 
     public int getNewResultID() {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT Result_ID FROM studentresult order by Result_ID DESC\n";
-            PreparedStatement stm = connector.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
+            stm = connector.prepareStatement(sql);
+            rs = stm.executeQuery();
             int ResultID = 0;
             while (rs.next()) {
                 if (ResultID < rs.getInt("Result_ID")) {
@@ -573,15 +770,28 @@ public class DAO extends DBContext {
             return ResultID + 1;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return -1;
     }
-    
+
     public int getNewAnswerID() {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT StudentAnswer_ID FROM studentanswer order by StudentAnswer_ID DESC\n";
-            PreparedStatement stm = connector.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
+            stm = connector.prepareStatement(sql);
+            rs = stm.executeQuery();
             int StudentAnswer_ID = 0;
             while (rs.next()) {
                 if (StudentAnswer_ID < rs.getInt("StudentAnswer_ID")) {
@@ -591,18 +801,31 @@ public class DAO extends DBContext {
             return StudentAnswer_ID + 1;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return -1;
     }
 
     public boolean isDoQuiz(String examID, String studentID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT * FROM studentresult\n"
                     + "WHERE Exam_ID = ? AND Student_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setString(1, examID);
             stm.setString(2, studentID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             int status = 0;
             while (rs.next()) {
                 status++;
@@ -614,19 +837,33 @@ public class DAO extends DBContext {
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
         return false;
 
     }
 
     public StudentResult getResultStudent(String examID, String StudentID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT Exam_ID, Student_ID, TotalScore, TotalTime FROM studentresult\n"
                     + "WHERE Exam_ID = ? AND Student_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setString(1, examID);
             stm.setString(2, StudentID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             StudentResult sr = new StudentResult();
             while (rs.next()) {
                 sr.setExamID(rs.getString("Exam_ID"));
@@ -638,82 +875,149 @@ public class DAO extends DBContext {
             return sr;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
         return null;
     }
 
     public String getDetailExam(int examID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT TimeLimit FROM exam\n"
                     + "WHERE Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             while (rs.next()) {
                 return rs.getString("TimeLimit");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public String getExamName(int examID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT ExamName FROM exam\n"
                     + "WHERE Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             while (rs.next()) {
                 return rs.getString("ExamName");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public int getTotalMark(int examID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT c.Choice_ID, c.ScorePercentage, q.Question_ID FROM choicesofquestion  as c\n"
                     + "INNER JOIN questioninwhichexam  as q \n"
                     + "WHERE c.Question_ID = q.Question_ID AND q.Exam_ID= ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             int total = 0;
             stm.setInt(1, examID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             while (rs.next()) {
                 total += rs.getInt("ScorePercentage");
             }
             return total;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return -1;
     }
 
     public int getNumberOfQuestion(int examID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT QuestionNumber FROM exam\n"
                     + "WHERE Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             while (rs.next()) {
                 return rs.getInt("numberOfQueston");
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
         return 0;
     }
 
     public int getNewStudentAnswer() {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT StudentAnswer_ID, Question_ID, Choice_ID, Flag, Result_ID  FROM studentanswer order by StudentAnswer_ID DESC";
-            PreparedStatement stm = connector.prepareStatement(sql);
-            ResultSet rs = stm.executeQuery();
+            stm = connector.prepareStatement(sql);
+            rs = stm.executeQuery();
             int studentAnswer = 0;
             while (rs.next()) {
                 if (studentAnswer < rs.getInt("StudentAnswer_ID")) {
@@ -723,14 +1027,27 @@ public class DAO extends DBContext {
             return studentAnswer + 1;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return -1;
     }
 
     public boolean createStudentAnswer(int QuestionID, int ChoiceID, int ExamID, String StudentID) {
+        PreparedStatement stm = null;
+
         try {
-            String sql = "INSERT INTO studentanswer VALUES (?, ?, ?, ?, ?)";       
-            PreparedStatement stm = connector.prepareStatement(sql);
+            String sql = "INSERT INTO studentanswer VALUES (?, ?, ?, ?, ?)";
+            stm = connector.prepareStatement(sql);
             DAO dao = new DAO();
             String studentAnswer_ID = String.valueOf(dao.getNewAnswerID());
             stm.setString(1, studentAnswer_ID);
@@ -742,19 +1059,30 @@ public class DAO extends DBContext {
             return true;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return false;
     }
 
     public int getLength(int examId) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT e.Exam_ID, e.Class_ID, sc.Student_ID, ifnull(sr.TotalScore,0) as TotalScore FROM exam as e\n"
                     + "INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
                     + "LEFT JOIN studentresult as sr on sr.Student_ID = sc.Student_ID\n"
                     + "WHERE e.Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examId);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             int length = 0;
             while (rs.next()) {
                 length++;
@@ -762,19 +1090,32 @@ public class DAO extends DBContext {
             return length;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return -1;
     }
 
     public Float[] getResultByExamId(int examId) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT e.Exam_ID, e.Class_ID, sc.Student_ID, ifnull(sr.TotalScore,0) as TotalScore FROM exam as e\n"
                     + "INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
                     + "LEFT JOIN studentresult as sr on sr.Student_ID = sc.Student_ID\n"
                     + "WHERE e.Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examId);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             DAO d = new DAO();
             int size = d.getLength(examId);
             Float[] results = new Float[size];
@@ -787,19 +1128,32 @@ public class DAO extends DBContext {
             return results;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public String[] getStudentsByExamId(int examId) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT e.Exam_ID, e.Class_ID, sc.Student_ID, ifnull(sr.TotalScore,0) as TotalScore FROM exam as e\n"
                     + "INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
                     + "LEFT JOIN studentresult as sr on sr.Student_ID = sc.Student_ID\n"
                     + "WHERE e.Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examId);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             DAO d = new DAO();
             int size = d.getLength(examId);
             String[] results = new String[size];
@@ -812,11 +1166,24 @@ public class DAO extends DBContext {
             return results;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public ArrayList<StudentResult> getStudentResult(int examId) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "select a.Exam_ID, a.Class_ID, a.Student_ID, ifnull(b2.TotalScore,0) as TotalScore from (\n"
                     + "	SELECT e.Exam_ID, e.Class_ID, sc.Student_ID  FROM exam as e\n"
@@ -827,13 +1194,13 @@ public class DAO extends DBContext {
                     + "	SELECT * FROM studentresult where Exam_ID = ?\n"
                     + ") as b2 \n"
                     + " ON a.Student_ID = b2.Student_ID";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examId);
             stm.setInt(2, examId);
             DAO dao = new DAO();
             float examScore = dao.getExamScore(examId);
 
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             ArrayList<StudentResult> results = new ArrayList<>();
             while (rs.next()) {
                 StudentResult studentResult = new StudentResult();
@@ -846,6 +1213,17 @@ public class DAO extends DBContext {
             return results;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
@@ -917,6 +1295,8 @@ public class DAO extends DBContext {
 //        return null;
 //    }
     public ArrayList<StudentResult> getScoreStatistic(int examId) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "";
             ArrayList<StudentResult> results = new ArrayList<>();
@@ -937,10 +1317,10 @@ public class DAO extends DBContext {
                             + ") as b2 \n"
                             + " ON a.Student_ID = b2.Student_ID\n"
                             + "WHERE isnull(b2.TotalScore)";
-                    PreparedStatement stm = connector.prepareStatement(sql);
+                    stm = connector.prepareStatement(sql);
                     stm.setInt(1, examId);
                     stm.setInt(2, examId);
-                    ResultSet rs = stm.executeQuery();
+                    rs = stm.executeQuery();
                     while (rs.next()) {
                         StudentResult studentResult = new StudentResult();
                         studentResult.setResultID("Not Submitted");
@@ -948,23 +1328,23 @@ public class DAO extends DBContext {
                         results.add(studentResult);
                     }
                 } else {
-                    if (max  == 2) {
-                        sql = "select Count(*)  as Total from (\n" +
-"                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n" +
-"                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n" +
-"                            WHERE e.Exam_ID = ?\n" +
-"                            )as a\n" +
-"                            LEFT JOIN (\n" +
-"                            SELECT * FROM studentresult where Exam_ID = ?\n" +
-"                            ) as b2\n" +
-"                            ON a.Student_ID = b2.Student_ID\n" +
-"                            WHERE b2.TotalScore/a.MaxScore*10>=? and b2.TotalScore/a.MaxScore*10<=?";
-                        PreparedStatement stm = connector.prepareStatement(sql);
+                    if (max == 2) {
+                        sql = "select Count(*)  as Total from (\n"
+                                + "                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n"
+                                + "                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                                + "                            WHERE e.Exam_ID = ?\n"
+                                + "                            )as a\n"
+                                + "                            LEFT JOIN (\n"
+                                + "                            SELECT * FROM studentresult where Exam_ID = ?\n"
+                                + "                            ) as b2\n"
+                                + "                            ON a.Student_ID = b2.Student_ID\n"
+                                + "                            WHERE b2.TotalScore/a.MaxScore*10>=? and b2.TotalScore/a.MaxScore*10<=?";
+                        stm = connector.prepareStatement(sql);
                         stm.setInt(1, examId);
                         stm.setInt(2, examId);
                         stm.setInt(3, min);
                         stm.setInt(4, max);
-                        ResultSet rs = stm.executeQuery();
+                        rs = stm.executeQuery();
                         while (rs.next()) {
                             StudentResult studentResult = new StudentResult();
                             studentResult.setResultID(min + "-" + max);
@@ -972,22 +1352,22 @@ public class DAO extends DBContext {
                             results.add(studentResult);
                         }
                     } else {
-                        sql = "select Count(*)  as Total from (\n" +
-"                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n" +
-"                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n" +
-"                            WHERE e.Exam_ID = ?\n" +
-"                            )as a\n" +
-"                            LEFT JOIN (\n" +
-"                            SELECT * FROM studentresult where Exam_ID = ?\n" +
-"                            ) as b2\n" +
-"                            ON a.Student_ID = b2.Student_ID\n" +
-"                            WHERE b2.TotalScore/a.MaxScore*10>? and b2.TotalScore/a.MaxScore*10<=?";
-                        PreparedStatement stm = connector.prepareStatement(sql);
+                        sql = "select Count(*)  as Total from (\n"
+                                + "                            SELECT e.Exam_ID, e.MaxScore, e.Class_ID, sc.Student_ID FROM exam as e\n"
+                                + "                            INNER JOIN studentinwhichclass as sc on e.Class_ID =sc.Class_ID\n"
+                                + "                            WHERE e.Exam_ID = ?\n"
+                                + "                            )as a\n"
+                                + "                            LEFT JOIN (\n"
+                                + "                            SELECT * FROM studentresult where Exam_ID = ?\n"
+                                + "                            ) as b2\n"
+                                + "                            ON a.Student_ID = b2.Student_ID\n"
+                                + "                            WHERE b2.TotalScore/a.MaxScore*10>? and b2.TotalScore/a.MaxScore*10<=?";
+                        stm = connector.prepareStatement(sql);
                         stm.setInt(1, examId);
                         stm.setInt(2, examId);
                         stm.setInt(3, min);
                         stm.setInt(4, max);
-                        ResultSet rs = stm.executeQuery();
+                        rs = stm.executeQuery();
                         while (rs.next()) {
                             StudentResult studentResult = new StudentResult();
                             studentResult.setResultID(min + "-" + max);
@@ -1004,33 +1384,59 @@ public class DAO extends DBContext {
             return results;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
 
     public float getExamScore(int examID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT MaxScore FROM exam\n"
                     + "WHERE Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             while (rs.next()) {
                 return rs.getFloat(1);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return 1;
     }
 
     public List<StudentResult> getAllStudentResultOfExam(int examID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
             String sql = "SELECT Exam_ID, Student_ID, TotalScore, TotalTime FROM studentresult\n"
                     + "WHERE Exam_ID = ?";
-            PreparedStatement stm = connector.prepareStatement(sql);
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, examID);
-            ResultSet rs = stm.executeQuery();
+            rs = stm.executeQuery();
             List<StudentResult> srList = new ArrayList<>();
             DAO dao = new DAO();
             float examScore = dao.getExamScore(examID);
@@ -1048,41 +1454,66 @@ public class DAO extends DBContext {
             return srList;
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
-    
+
     public boolean userCheck(String selectedChoiceID, String examID, String studentID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         boolean isChecked = false;
 
-        try (PreparedStatement stm = connector.prepareStatement("SELECT * FROM studentanswer WHERE Choice_ID = ? and Exam_ID = ? and Student_ID = ?")) {
+        try {
+            stm = connector.prepareStatement("SELECT * FROM studentanswer WHERE Choice_ID = ? and Exam_ID = ? and Student_ID = ?");
             stm.setString(1, selectedChoiceID);
             stm.setString(2, examID);
             stm.setString(3, studentID);
-
-            try (ResultSet rs = stm.executeQuery()) {
-                while (rs.next()) {
-                    if (selectedChoiceID.equals(rs.getString("Choice_ID"))) {
-                        isChecked = true;
-                        break;
-                    }
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                if (selectedChoiceID.equals(rs.getString("Choice_ID"))) {
+                    isChecked = true;
+                    break;
                 }
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, "Exception occurred while checking user answer", ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         return isChecked;
     }
-    
-    public ArrayList<StudentAnswer> getStudentAnswer(int Exam_ID ,String Student_ID){
+
+    public ArrayList<StudentAnswer> getStudentAnswer(int Exam_ID, String Student_ID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         try {
-            String sql = "SELECT * FROM studentanswer WHERE Exam_ID = ? and Student_ID = ?";       
-            PreparedStatement stm = connector.prepareStatement(sql);
+            String sql = "SELECT * FROM studentanswer WHERE Exam_ID = ? and Student_ID = ?";
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, Exam_ID);
             stm.setString(2, Student_ID);
-            ResultSet rs = stm.executeQuery();             
-             ArrayList<StudentAnswer> answer = new ArrayList<>();
+            rs = stm.executeQuery();
+            ArrayList<StudentAnswer> answer = new ArrayList<>();
             while (rs.next()) {
                 StudentAnswer studentAnswer = new StudentAnswer();
                 String studentId = rs.getString("Student_ID");
@@ -1096,33 +1527,62 @@ public class DAO extends DBContext {
                 answer.add(studentAnswer);
             }
             return answer;
+
         } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
         return null;
     }
-    
-    public void updateExamStatusActive(int examID)
-    {
+
+    public void updateExamStatusActive(int examID) {
         String sql = "update exam set Status = 1 where Exam_ID = ?";
-        try
-            {
-        PreparedStatement ps = connector.prepareStatement(sql);
+        PreparedStatement ps = null;
+        try {
+            ps = connector.prepareStatement(sql);
             ps.setInt(1, examID);
             ps.executeUpdate();
-            
+
         } catch (Exception e) {
             System.out.println(e);
+        } finally {
+            try {
+
+                if (ps != null) {
+                    ps.close();
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
     }
-    
-    public ArrayList<ChoiceQuestion> getChoiceOfExam(int Exam_ID){
-       try {
-            String sql = "SELECT * FROM  WHERE Exam_ID = ? and Student_ID = ?";       
-            PreparedStatement stm = connector.prepareStatement(sql);
+
+    public ArrayList<ChoiceQuestion> getChoiceOfExam(int Exam_ID) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            String sql = "SELECT * FROM  WHERE Exam_ID = ? and Student_ID = ?";
+            stm = connector.prepareStatement(sql);
             stm.setInt(1, Exam_ID);
-            ResultSet rs = stm.executeQuery();             
-             ArrayList<ChoiceQuestion> answer = new ArrayList<>();
+            rs = stm.executeQuery();
+            ArrayList<ChoiceQuestion> answer = new ArrayList<>();
             while (rs.next()) {
                 ChoiceQuestion choiceQuestion = new ChoiceQuestion();
                 String studentId = rs.getString("Student_ID");
@@ -1136,10 +1596,104 @@ public class DAO extends DBContext {
                 answer.add(choiceQuestion);
             }
             return answer;
+
         } catch (SQLException ex) {
-            Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class
+                        .getName()).log(Level.SEVERE, null, ex);
+
+            }
         }
         return null;
+    }
+
+    public int getChoicePercentageOfStudentAnswer(String selectedChoiceID) {
+        int choicePercentage = 0;
+
+        try ( PreparedStatement stm = connector.prepareStatement("SELECT * FROM choicesofquestion WHERE Choice_ID = ?")) {
+            stm.setString(1, selectedChoiceID);
+
+            try ( ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    if (selectedChoiceID.equals(rs.getString("Choice_ID"))) {
+                        int ScorePercentage = rs.getInt("ScorePercentage");
+                        choicePercentage += ScorePercentage;
+                        break;
+                    }
+                }
+
+            }
+        } catch (SQLException ex) {
+
+        }
+
+        return choicePercentage;
+    }
+
+    public double getPointEachQuestionOfStudentAnswer(String questionID, String studentID, String examId) {
+//        DAO d = new DAO();
+        double choicePercentage = 0;
+        try ( PreparedStatement stm = connector.prepareStatement("SELECT * FROM studentanswer WHERE Question_ID = ? and Student_ID = ? and Exam_ID=?")) {
+            stm.setString(1, questionID);
+            stm.setString(2, studentID);
+            stm.setString(3, examId);
+            try ( ResultSet rs = stm.executeQuery()) {
+                int a = 0;
+                while (rs.next()) {
+                    if (questionID.equals(rs.getString("Question_ID"))) {
+                        choicePercentage += getChoicePercentageOfStudentAnswer(rs.getString("Choice_ID"));
+                        a++;
+                    }
+                }
+                if (a > getLengthOfCorrectChoice(questionID)) {
+                    choicePercentage = 0;
+                }
+            } catch (Exception e) {
+
+            }
+        } catch (SQLException ex) {
+
+        }
+        return Double.parseDouble(df.format(choicePercentage));
+    }
+
+    public int getLengthOfCorrectChoice(String QuestionID) {
+        int length = 0;
+        try ( PreparedStatement stm = connector.prepareStatement("SELECT * FROM choicesofquestion WHERE Question_ID = ?")) {
+            stm.setString(1, QuestionID);
+            try ( ResultSet rs = stm.executeQuery()) {
+                while (rs.next()) {
+                    if (QuestionID.equals(rs.getString("Question_ID")) && rs.getInt("ScorePercentage") > 0) {
+                        length++;
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+
+        }
+        return length;
+    }
+
+    public String getPoint(String questionID, int questionMark, String examID, String studentID) {
+//        DAO d = new DAO();
+        double point = ((getPointEachQuestionOfStudentAnswer(questionID, studentID, examID) * questionMark) / 100) / (getExamScore(Integer.parseInt(examID))) * 10;
+        return df.format(point);
+    }
+
+    public String getPoint2(int questionMark, String examID) {
+        double point = (questionMark / getExamScore(Integer.parseInt(examID))) * 10;
+        return df.format(point);
     }
 
     public static void main(String[] args) {
@@ -1148,7 +1702,7 @@ public class DAO extends DBContext {
         for (StudentResult studentResult : s) {
             System.out.println(studentResult.getResultID() + " " + studentResult.getState());
         }
-        
+
         System.out.println(d.getAllStudentResultOfExam(2).size());
 
 ////        System.out.println(d.getLength(1));

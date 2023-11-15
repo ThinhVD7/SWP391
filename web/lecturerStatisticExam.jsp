@@ -346,11 +346,11 @@ display: none !important;
 
 
 
-                <li>
+<!--                <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
-                </li>
+                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>

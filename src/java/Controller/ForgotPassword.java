@@ -138,7 +138,7 @@ public class ForgotPassword extends HttpServlet {
                 }
                 try {
                     acc.setEmail(username);
-                    acc.setPassword(pass);
+                    acc.setPassword(dao.encodeSHA1(pass));
                     boolean resetPasswordSuccess = dao.resetPassword(acc);
                     if (resetPasswordSuccess) {
                         request.setAttribute("err", "Reset password successfully! \n Please check mail to get new password");

@@ -656,7 +656,7 @@
                     <div id="assignLecturerPopup" class="overlay" onclick="closeAssignLecturerPopup()"> 
                         <div class="popup-container" onclick="event.stopPropagation();">
                             <h2>Assign Lecturer</h2>
-                            <input type="text" id="search" placeholder="New Class Name">
+                            <!--<input type="text" id="search" >-->
                             <div class="container-xl">
                                 <div class="table-responsive">
                                     <div class="table-wrapper">
@@ -771,7 +771,7 @@
                 <div> 
                     <a style="font-size: 36px; margin-bottom: 10px; width:50%">
                         ${requestScope.classInfo.className}
-                        <button class="edit-button" onclick="openPopup()">Edit Name</button>
+<!--                        <button class="edit-button" onclick="openPopup()">Edit Name</button>-->
 
                 </div>
 
@@ -1037,14 +1037,14 @@
             }
             function openAssignLecturerPopup(className) {
                 const overlay = document.getElementById('assignLecturerPopup');
-                const newClassNameInput = document.getElementById('search');
-                newClassNameInput.value = className;
+//                const newClassNameInput = document.getElementById('search');
+//                newClassNameInput.value = className;
                 overlay.style.display = 'block';
             }
             function openAssignStudentPopup(className) {
                 const overlay = document.getElementById('assignStudentrPopup');
-                const newClassNameInput = document.getElementById('search');
-                newClassNameInput.value = className;
+//                const newClassNameInput = document.getElementById('search');
+//                newClassNameInput.value = className;
                 overlay.style.display = 'block';
             }
 

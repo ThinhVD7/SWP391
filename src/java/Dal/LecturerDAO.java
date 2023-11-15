@@ -179,11 +179,11 @@ public class LecturerDAO extends DBContext {
 
     public List<Class1> loadAllClassesofCourse(String lecturerID, String courseID) {
         List<String> result = new ArrayList();
-        String sql = "SELECT distinct class.Class_ID, class.ClassName, class.Course_ID FROM class join lecturerinwhichclass on lecturerinwhichclass.Lecturer_ID like ? where class.Course_ID like ?";
+        String sql = "SELECT  a.Class_ID, a.ClassName, a.Course_ID FROM class a join lecturerinwhichclass b on a.Class_ID = b.Class_ID where a.Course_ID = ? and b.Lecturer_ID = ?";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
-            ps.setString(1, lecturerID);
-            ps.setString(2, courseID);
+            ps.setString(1, courseID);
+            ps.setString(2, lecturerID);
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -499,19 +499,32 @@ public class LecturerDAO extends DBContext {
     }
 
     public List<Question> getListQuestionByExamID(String examId) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
         String sql = "SELECT b.* FROM questioninwhichexam a join question b on a.Question_ID = b.Question_ID where Exam_ID = ?";
 
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, examId);
 
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 questionList2.add(new Question(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getFloat(5)));
             }
         } catch (Exception e) {
             status = "Error at load classes" + e.getMessage();
             System.out.println(status);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(DAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return questionList2;
     }
@@ -763,23 +776,6 @@ public class LecturerDAO extends DBContext {
         return false;
 
     }
-    
-    public boolean doesQuestionExistInBankByTitleAndContent(String title, String content) {
-        String sql = "SELECT * FROM question WHERE Title = ? AND QuestionContent = ?;";
-        try {
-            PreparedStatement ps = connector.prepareStatement(sql);
-            ps.setString(1, title);
-            ps.setString(2, content);
-
-            ResultSet rs = ps.executeQuery();
-
-            return rs.next(); // Return true if there is a matching record, false otherwise
-        } catch (Exception e) {
-            status = "Error at checking if question exists in bank: " + e.getMessage();
-            System.out.println(status);
-            return false; // Return false in case of an error
-        }
-    }
 
     public boolean doesQuestionExistInBankByTitleAndContent(String title, String content, String bankId) {
         String sql = "SELECT b.* FROM questioninwhichbank a join question b on a.Question_ID = b.Question_ID join bank c on a.Bank_ID = c.Bank_ID "
@@ -795,8 +791,9 @@ public class LecturerDAO extends DBContext {
         } catch (Exception e) {
             status = "Error at checking if question exists in bank: " + e.getMessage();
             System.out.println(status);
-            return false; // Return false in case of an error
         }
+        return false; // Return false in case of an error
+
     }
 
     public static void main(String[] args) {

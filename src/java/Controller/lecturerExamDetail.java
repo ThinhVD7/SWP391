@@ -85,6 +85,9 @@ public class lecturerExamDetail extends HttpServlet {
         Exam thisExam = dao.loadAExam(request.getParameter("examID"));
         //session thisExam
         session.setAttribute("sessionThisExam", thisExam);
+        if (!thisExam.getCreatedBy().equals(user.getAccountID())) {
+            request.setAttribute("notAllowToEdit1", "notAllowToEdit");
+        }
         //LocalDateTime.now().compareTo(LocalDateTime.parse(thisExam.getStartDate()))>0 
         //|| !thisExam.getCreatedBy().equalsIgnoreCase(((Account)session.getAttribute("user")).getAccountID()
         if( thisExam.getStatus()==1)

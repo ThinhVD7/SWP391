@@ -563,11 +563,11 @@
 
 
 
-                <li>
+<!--                <li>
                     <i class="bx bx-search search-btn"></i>
                     <input type="text" placeholder="Search" />
                     <span class="tooltip">Search</span>
-                </li>
+                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -601,29 +601,29 @@
         </section>
         <section class="home">
 
-            <div class="row pt-2">
-                <div class="col-md-9 ml-2">
-                    <div class="input-group rounded">
-                        <form class="nosubmit">
-                            <input class="nosubmit" type="search" placeholder="Search">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="col-md-2 ml-auto">
-                    <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
-                </div>
-            </div>
+            <!--            <div class="row pt-2">
+                            <div class="col-md-9 ml-2">
+                                <div class="input-group rounded">
+                                    <form class="nosubmit">
+                                        <input class="nosubmit" type="search" placeholder="Search">
+                                    </form>
+                                </div>
+                            </div>
+            
+                            <div class="col-md-2 ml-auto">
+                                <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
+                            </div>
+                        </div>-->
 
 
             <div class="class-list">
                 <div>
-                <a style ="padding: 5px; font-size: 20px"
-                    href="home">Home</a> / 
+                    <a style ="padding: 5px; font-size: 20px"
+                       href="home">Home</a> / 
                     <a style ="padding: 5px; font-size: 20px" 
                        href="">${sessionScope.sessionThisCourse.courseID}</a>
                 </div>
-                
+
                 <!--pop up--------------------------------------------------------------------------------------------------->
                 <div class="addCourse" id="deleterCouse" style="display: none;">
                     <div class="addCourseContent">
@@ -685,15 +685,6 @@
                                         <th>Delete</th>
                                     </tr>
                                 </thead>
-                                <!--                              <tr>
-                                                                    <td></td>
-                                                                    <td><a href="#">MAS291_SE1714</a></td>
-                                                                    <td>SE1714</td>                        
-                                                                    <td>MAS291 </td>
-                                                                    <td>
-                                                                        <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="openDelete()"> <i class="material-icons">&#xE5C9;</i></a>
-                                                                    </td>
-                                                                </tr>-->
 
                                 <tbody>
                                 <form >
@@ -732,110 +723,141 @@
         </section>
         <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-            // Function to open the edit class name pop-up
-            function openDelete() {
-                const divPopUp = document.querySelector("#deleterCouse");
-                const showBtn = document.querySelector("show");
-                divPopUp.style.display = 'block';
 
-            }
-            function openPopUp() {
-                const divPopUp = document.querySelector("#addCourse");
-                divPopUp.style.display = 'block';
-                document.getElementById("Class_ID").value = '';
-                document.getElementById("ClassName").value = '';
-                document.getElementById("Course_ID").value = '';
-                location.reload();
-            }
+                                                    var contextPath = "<%= request.getContextPath()%>";
 
-            // Function to close the pop-up
-            function closePopUp() {
-                const divPopUp = document.querySelector("#deleterCouse");
-                divPopUp.style.display = 'none';
-            }
-            function closePopUp1() {
-                const divPopUp = document.querySelector("#addCourse");
-                divPopUp.style.display = 'none';
-            }
-            function delClass(classId) {
-                var dk = confirm('Bạn có muốn xóa không ?');
+                                                    console.log("cai nay la" + '${sessionScope.logOfClass}');
+                                                    
+                                                    if ('${sessionScope.logPrint}' === '1') {
+                                                        alert("Class đã tồn tại!");
+                                                    }
 
-                if (dk) {
-                    var xhr = new XMLHttpRequest();
-                    xhr.open("POST", "managerDeleteClass", true);
-                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                    xhr.onreadystatechange = function ()
-                    {
-                        if (xhr.readyState === 4 && xhr.status === 200)
-                        {
-                            // Handle the response from the server (if needed)
-                            var response = xhr.responseText;
-                            // Reload or update the page as necessary
-                            location.reload();
-                        }
-                    };
-                    xhr.send("classId=" + classId);
+                                                    delMess();
 
-                } else {
+                                                    function delMess() {
+                                                        console.log('da chay ham quan trong nay');
+                                                        $.ajax({
+                                                            url: contextPath + "/ressetMess",
+                                                            type: "POST",
+                                                            data: {
+                                                                mess: 1
+                                                            },
+                                                            success: function (response) {
+                                                                console.log('da thuc hien thanh cong ham xoa mess');
+                                                            },
+                                                            error: function (xhr, status, error) {
+                                                                console.log('eo thuc hien dc ham xoa mess');
+                                                            }
+                                                        });
+                                                    }
 
-                }
 
-            }
 
-            // Function to save the edited class name
-            function editClassName() {
-                const newClassNameInput = document.getElementById('newClassName');
-                const updatedClassName = newClassNameInput.value;
+                                                    // Function to open the edit class name pop-up
+                                                    function openDelete() {
+                                                        const divPopUp = document.querySelector("#deleterCouse");
+                                                        const showBtn = document.querySelector("show");
+                                                        divPopUp.style.display = 'block';
 
-                // Update the class name in your data or display
-                console.log('Updated Class Name:', updatedClassName);
+                                                    }
+                                                    function openPopUp() {
+                                                        const divPopUp = document.querySelector("#addCourse");
+                                                        divPopUp.style.display = 'block';
+                                                        document.getElementById("Class_ID").value = '';
+                                                        document.getElementById("ClassName").value = '';
+                                                        document.getElementById("Course_ID").value = '';
+                                                        location.reload();
+                                                    }
 
-                // Close the pop-up
-                closePopup();
-            }
-            const btn_menu = document.querySelector(".btn-menu");
-            const side_bar = document.querySelector(".sidebar");
+                                                    // Function to close the pop-up
+                                                    function closePopUp() {
+                                                        const divPopUp = document.querySelector("#deleterCouse");
+                                                        divPopUp.style.display = 'none';
+                                                    }
+                                                    function closePopUp1() {
+                                                        const divPopUp = document.querySelector("#addCourse");
+                                                        divPopUp.style.display = 'none';
+                                                    }
+                                                    function delClass(classId) {
+                                                        var dk = confirm('Bạn có muốn xóa không ?');
 
-            btn_menu.addEventListener("click", function () {
-                side_bar.classList.toggle("expand");
-                changebtn();
-            });
+                                                        if (dk) {
+                                                            var xhr = new XMLHttpRequest();
+                                                            xhr.open("POST", "managerDeleteClass", true);
+                                                            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                            xhr.onreadystatechange = function ()
+                                                            {
+                                                                if (xhr.readyState === 4 && xhr.status === 200)
+                                                                {
+                                                                    // Handle the response from the server (if needed)
+                                                                    var response = xhr.responseText;
+                                                                    // Reload or update the page as necessary
+                                                                    location.reload();
+                                                                }
+                                                            };
+                                                            xhr.send("classId=" + classId);
 
-            function changebtn() {
-                if (side_bar.classList.contains("expand")) {
-                    btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
-                } else {
-                    btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
-                }
-            }
+                                                        } else {
 
-            const btn_theme = document.querySelector(".theme-btn");
-            const theme_ball = document.querySelector(".theme-ball");
+                                                        }
 
-            const localData = localStorage.getItem("theme");
+                                                    }
 
-            if (localData == null) {
-                localStorage.setItem("theme", "light");
-            }
+                                                    // Function to save the edited class name
+                                                    function editClassName() {
+                                                        const newClassNameInput = document.getElementById('newClassName');
+                                                        const updatedClassName = newClassNameInput.value;
 
-            if (localData == "dark") {
-                document.body.classList.add("dark-mode");
-                theme_ball.classList.add("dark");
-            } else if (localData == "light") {
-                document.body.classList.remove("dark-mode");
-                theme_ball.classList.remove("dark");
-            }
+                                                        // Update the class name in your data or display
+                                                        console.log('Updated Class Name:', updatedClassName);
 
-            btn_theme.addEventListener("click", function () {
-                document.body.classList.toggle("dark-mode");
-                theme_ball.classList.toggle("dark");
-                if (document.body.classList.contains("dark-mode")) {
-                    localStorage.setItem("theme", "dark");
-                } else {
-                    localStorage.setItem("theme", "light");
-                }
-            });
+                                                        // Close the pop-up
+                                                        closePopup();
+                                                    }
+                                                    const btn_menu = document.querySelector(".btn-menu");
+                                                    const side_bar = document.querySelector(".sidebar");
+
+                                                    btn_menu.addEventListener("click", function () {
+                                                        side_bar.classList.toggle("expand");
+                                                        changebtn();
+                                                    });
+
+                                                    function changebtn() {
+                                                        if (side_bar.classList.contains("expand")) {
+                                                            btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                                                        } else {
+                                                            btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                                                        }
+                                                    }
+
+                                                    const btn_theme = document.querySelector(".theme-btn");
+                                                    const theme_ball = document.querySelector(".theme-ball");
+
+                                                    const localData = localStorage.getItem("theme");
+
+                                                    if (localData == null) {
+                                                        localStorage.setItem("theme", "light");
+                                                    }
+
+                                                    if (localData == "dark") {
+                                                        document.body.classList.add("dark-mode");
+                                                        theme_ball.classList.add("dark");
+                                                    } else if (localData == "light") {
+                                                        document.body.classList.remove("dark-mode");
+                                                        theme_ball.classList.remove("dark");
+                                                    }
+
+                                                    btn_theme.addEventListener("click", function () {
+                                                        document.body.classList.toggle("dark-mode");
+                                                        theme_ball.classList.toggle("dark");
+                                                        if (document.body.classList.contains("dark-mode")) {
+                                                            localStorage.setItem("theme", "dark");
+                                                        } else {
+                                                            localStorage.setItem("theme", "light");
+                                                        }
+                                                    });
         </script>
     </body>
 </html>

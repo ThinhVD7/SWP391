@@ -69,6 +69,9 @@ public class studentExamDetail extends HttpServlet {
             request.setAttribute("startDate1", thisExam.getStartDate());
             request.setAttribute("endDate1", thisExam.getEndDate());
             request.setAttribute("timeNow", java.time.LocalDateTime.now());
+            if (dao.getListQuestionByExamID(examID).isEmpty()) {
+                request.setAttribute("x", 1);
+            }
         }
 
         session.setAttribute("sessionThisExam", thisExam);
@@ -157,7 +160,7 @@ public class studentExamDetail extends HttpServlet {
 
         float totalMark = 0;
         for (Question question : questions) {
-            if (question.getChoicePercentages() != null) {
+            if (question.getChoicePercentages() != null && Integer.parseInt(question.getChoicePercentages()) > 0) {
                 totalMark += (question.getMark() * Float.parseFloat(question.getChoicePercentages()))/100;
             }
         }

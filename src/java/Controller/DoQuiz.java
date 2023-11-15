@@ -25,8 +25,19 @@ public class DoQuiz extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     */ 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         DAO dao = new DAO();
         int examId = Integer.parseInt(request.getParameter("examID"));
@@ -49,21 +60,6 @@ public class DoQuiz extends HttpServlet {
         request.getRequestDispatcher("DoQuizz.jsp").forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -75,7 +71,25 @@ public class DoQuiz extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        DAO dao = new DAO();
+        int examId = Integer.parseInt(request.getParameter("examID"));
+        //update exan status to active
+        dao.updateExamStatusActive(examId);
+        ArrayList<Question> questions = dao.getQuestionsExam(examId);
+        String timeLimit = dao.getDetailExam(examId);
+        int hours = Integer.parseInt(timeLimit.split(":")[0]);
+        int minutes = Integer.parseInt(timeLimit.split(":")[1]);
+        int seconds = Integer.parseInt(timeLimit.split(":")[2]);
+        String name = dao.getExamName(examId);
+       
+        request.setAttribute("defaultQuestion", 1);
+        request.setAttribute("hours", hours);
+        request.setAttribute("minutes", minutes);
+        request.setAttribute("seconds", seconds);
+        request.setAttribute("examID", examId);
+        request.setAttribute("questions", questions);
+        request.setAttribute("name", name);
+        request.getRequestDispatcher("DoQuizz.jsp").forward(request, response);
     }
 
     /**

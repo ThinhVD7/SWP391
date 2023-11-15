@@ -226,11 +226,13 @@ public class lecturerUpdateQuestion extends HttpServlet {
             for (String s : removedChoiceIds) {
                 dao.deleteChoiceQuestion(s);
             }
+
             for (int i = 0; i < count; i++) {
                 dao.addChoice(newQuestion.getQuestionID(), choiceContent[i], choiceScore[i]);
             }
             dao.deleteQuestionExam(qId, e.getExamID());
             dao.updateExamScore(e.getExamID(), String.valueOf(e.getMaxScore() - (dao.getAQuestion(qId).getMark())), String.valueOf(e.getQuestionNumber()));
+
             dao.addBank(e.getExamID(), newQuestion.getQuestionID());
             float currentMaxScore = e.getMaxScore();
             float markChange = Float.parseFloat(mark) - q.getMark();

@@ -289,16 +289,36 @@
                 margin: 10px auto;
                 display: block;
                 border-radius: 5px;
-                border: 1px solid lightgrey;
+                border: 2px solid black;
                 background: none;
                 width: 274px;
                 color: black;
+            }
+            input[type="number"] {
+
+                display: block;
+                border-radius: 5px;
+                border: 2px solid black;
+                background: none;
+
+                color: black;
+            }
+            input[type="datetime-local"] {
+                display: block;
+                border-radius: 5px;
+                border: 2px solid black;
+                background: none;
+
+                color: black;
+            }
+            input[type="text"]:focus {
+                outline: none;
             }
             textarea {
                 padding: 10px;
                 margin: 10px auto;
                 display: block;
-                border-radius: 5px;
+                border: 2px solid black;
                 border: 1px solid lightgrey;
                 background: none;
                 width: 274px;
@@ -415,7 +435,7 @@
                                                                 <c:if test="${question.type == 1}">
                                                                     <option ${c.choicePercentage == 0?"selected":""} value="0">0</option>
                                                                     <option ${c.choicePercentage == 10?"selected":""} value="10">10</option>
-                                                                    <option${c.choicePercentage == 20?"selected":""} value="20">20</option>
+                                                                    <option ${c.choicePercentage == 20?"selected":""} value="20">20</option>
                                                                     <option ${c.choicePercentage == 30?"selected":""} value="30">30</option>
                                                                     <option ${c.choicePercentage == 40?"selected":""} value="40">40</option>
                                                                     <option ${c.choicePercentage == 50?"selected":""} value="50">50</option>

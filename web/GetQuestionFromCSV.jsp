@@ -50,7 +50,7 @@
             }
 
             .wrapper {
-                max-width: 350px;
+                max-width: 400px;
                 min-height: 500px;
                 margin: 80px auto;
                 padding: 40px 30px 30px 30px;
@@ -146,7 +146,7 @@
                 <div class="row">
                     <div class="col col-sm-3"></div>
                     <div class="col col-sm-5" style="margin-left: 10px">
-                        <a href="lecturerEditExam?tId=${requestScope.eId}">   <input class="btn btn-primary" value="Back" type="submit"> </a>
+                        <a href="lecturerEditExam?tId=${sessionScope.eId}">   <input class="btn btn-primary" value="Back" type="submit"> </a>
                     </div>
                 </div>
                 <div class="text-center mt-4 name">
@@ -162,6 +162,8 @@
                                                             <input type="file" name="file" />
                                                             <input type="submit" value="Upload" />
                                                         </form>        -->
+                    <input type="hidden" name="eId" value="${sessionScope.eId}">
+                    <input type="hidden" name="cId" value="${sessionScope.cId}">
 
                     <div class="form-field d-flex align-items-center">
                         <input type="file" name="file"  >
@@ -173,7 +175,7 @@
                     <br>
                     <br>
 
-                    <p class="text-danger">${requestScope.err}</p>
+                    <p class="text-danger">${sessionScope.err}</p>
                     <br>
 
                     <!--<button class="btn mt-3">Login</button>-->

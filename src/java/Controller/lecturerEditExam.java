@@ -63,13 +63,16 @@ public class lecturerEditExam extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
-
+        
         //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
         if(session == null||session.getAttribute("user") == null)
         {
             response.sendRedirect("index.html");
             return;
+        }
+        if(session.getAttribute("err")!=null) {
+            session.removeAttribute("err");
         }
         ////////////////////////////////////////////////////////////////
         Account user = (Account)session.getAttribute("user");

@@ -85,7 +85,6 @@ public class managerViewLecturer extends HttpServlet {
             request.setAttribute("x", 1);
 
         }
-        
 
 //        int lecturerListSize = lecturer.size();
 //        for (Lecturer lecturer1 : lecturer) {
@@ -97,13 +96,11 @@ public class managerViewLecturer extends HttpServlet {
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
         List<Lecturer> lecturerInThisClass = dao.getlecturerByClass(cid);
 
-          if (lecturerInThisClass.isEmpty()) {
+        if (lecturerInThisClass.isEmpty()) {
             request.setAttribute("y", 1);
 
         }
-        
-        
-        
+
         List<Lecturer> addlecturerCoppy = new ArrayList<>(addlecturer);
         List<Lecturer> lecturerInThisClassCoppy = new ArrayList<>(lecturerInThisClass);
 
@@ -171,6 +168,7 @@ public class managerViewLecturer extends HttpServlet {
         String cid = request.getParameter("cid");
         int status = Integer.parseInt(request.getParameter("status"));
         HttpSession session = request.getSession(false);
+
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("index.html");
             return;
@@ -209,9 +207,15 @@ public class managerViewLecturer extends HttpServlet {
             dao.insetLecturerIntoClass0(lecturerAdd, classID);
 
         } else {
-            for (int i = 0; i < studentAdd.length; i++) {
-                dao.insetStudentIntoClass(studentAdd[i], classID);
+            if (studentAdd != null) {
+                for (int i = 0; i < studentAdd.length; i++) {
+                    dao.insetStudentIntoClass(studentAdd[i], classID);
+                }
+            }else{
+                response.sendRedirect("managerViewLecturer?CID=" + cid + "&courseID=" + courseID);
+                return;
             }
+
         }
 
         int lecturerListSize = lecturer.size();

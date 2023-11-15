@@ -185,7 +185,7 @@ public class lecturerAddQuestion extends HttpServlet {
         } else {
 //                        request.setAttribute("test", "3");
 //                processRequest(request, response);
-            request.setAttribute("EROR", "err");
+            request.setAttribute("EROR", "err123");
             request.getRequestDispatcher("lecturerAddNewExam").forward(request, response);
 
         }
