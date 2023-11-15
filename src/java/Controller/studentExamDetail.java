@@ -114,8 +114,8 @@ public class studentExamDetail extends HttpServlet {
                     String[] type = request.getParameterValues("q" + question.getQuestionID());
 //                    response.getWriter().println(type.length + " " + question1.getAnswer());
                     if (type != null) {
-                        if (type.length != question1.getAnswer()) {
-                        } else if (type.length == question1.getAnswer()) {
+                        if (type.length > question1.getAnswer()) {
+                        } else if (type.length <= question1.getAnswer()) {
                             int mark = 0;
                             String choiceID = "";
                             for (String string : type) {
@@ -157,7 +157,7 @@ public class studentExamDetail extends HttpServlet {
 
         float totalMark = 0;
         for (Question question : questions) {
-            if (question.getChoicePercentages() != null && Integer.parseInt(question.getChoicePercentages()) > 0) {
+            if (question.getChoicePercentages() != null) {
                 totalMark += (question.getMark() * Float.parseFloat(question.getChoicePercentages()))/100;
             }
         }

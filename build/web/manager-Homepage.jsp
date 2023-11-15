@@ -188,6 +188,7 @@
                     </div>
                 </div>
 
+                
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>

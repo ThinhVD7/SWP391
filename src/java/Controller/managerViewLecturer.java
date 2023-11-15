@@ -171,7 +171,6 @@ public class managerViewLecturer extends HttpServlet {
         String cid = request.getParameter("cid");
         int status = Integer.parseInt(request.getParameter("status"));
         HttpSession session = request.getSession(false);
-
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("index.html");
             return;
