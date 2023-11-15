@@ -3,6 +3,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
+    
     <head>
 
         <!-- META ============================================= -->
@@ -48,6 +49,24 @@
         <link class="skin" rel="stylesheet" type="text/css" href="assets/css/color/color-1.css">
 
     </head>
+    <style>
+             .edit-exam-button 
+        {
+            background-color: #299be4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.9);
+        }
+        .edit-exam-button:hover
+        {
+            background-color: #0073e6;
+        }
+        </style>
     <body id="bg">
         <%
     response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");//HTTP 1.1
@@ -60,7 +79,7 @@
             <!-- Content -->
             <div class="page-content bg-white">
                 <!-- inner page banner -->
-                <div class="page-banner ovbl-dark" style="background-image:url(assets/images/banner/banner1.jpg);">
+                <div class="page-banner ovbl-dark">
                     <div class="container">
                         <div class="page-banner-entry">
                             <h1 class="text-white">Profile</h1>
@@ -85,14 +104,14 @@
                             <div class="row">
                                 <div class="col-lg-3 col-md-4 col-sm-12 m-b30">
                                     <div class="profile-bx text-center">
-                                        <div class="user-profile-thumb">
-                                            <img src="assets/images/profile/pic1.jpg" alt=""/>
+<!--                                        <div class="user-profile-thumb">
+                                            <img src= "assets/images/profile/sign-lgbt-silhouette.jpg" ${target.gender==1?"assets/images/profile/malesilhouette.png":target.gender==2?"assets/images/profile/femalesilhouette.png":"assets/images/profile/sign-lgbt-silhouette.jpg"} alt=""/>
+                                        </div>-->
+                                        <div class="profile-info" style="font-size: 15px">
+                                            <h3>${target.name}</h3>
+                                            <p>${target.email}</p>
                                         </div>
-                                        <div class="profile-info">
-                                            <h4>${target.name}</h4>
-                                            <span>${target.email}</span>
-                                        </div>
-                                        <div class="profile-social">
+                                        <div class="profile-social" style = "display:none">
                                             <ul class="list-inline m-a0">
                                                 <li><a href="#"><i class="fa fa-facebook"></i></a></li>
                                                 <li><a href="#"><i class="fa fa-twitter"></i></a></li>
@@ -103,7 +122,7 @@
                                         <div class="profile-tabnav">
                                             <ul class="nav nav-tabs">
                                                 <li class="nav-item">
-                                                    <a class="nav-link active" data-toggle="tab" href="#courses"><i class="ti-book"></i>Information</a>
+                                                    <!--<a class="edit-exam-button" style="color:white" data-toggle="tab" ><i class="ti-book"></i>Information</a>-->
                                                 </li>
                                             </ul>
                                         </div>
@@ -141,6 +160,9 @@
                                                             <div class="col-5 mb-3">
                                                                 <h6>Gender</h6>
                                                                 <p class="text-muted">${target.gender==1||target.gender==2?"Straight":"Fluid"}</p>
+                                                            </div>
+                                                            <div class="col-5 mb-3">
+                                                                <button class="edit-exam-button"><a style="color:white"href="javascript:history.go(-1);">Back to Previous Page</a></button>
                                                             </div>
                                                         </div>
 

@@ -294,10 +294,18 @@
                 width: 274px;
                 color: black;
             }
-
-            input[type="text"]:focus {
-                outline: none;
+            textarea {
+                padding: 10px;
+                margin: 10px auto;
+                display: block;
+                border-radius: 5px;
+                border: 1px solid lightgrey;
+                background: none;
+                width: 274px;
+                color: black;
             }
+
+
 
             .controls {
                 width: 294px;
@@ -359,21 +367,27 @@
                                         <div class="wrapper">
                                             <div class="form-inline">
 
-                                                <div class="form-group col-sm-7">
-                                                    <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="${question.title}">
+                                                <div class="form-group col-sm-6 ml-5">
+                                                    <label for="title">Title:</label>
+                                                    <input id="title" type="text" name="title" class="survey_options" placeholder="Title" required="" value="${question.title}" style="margin-left: 55px">
 
                                                 </div>
-                                                <div class="form-group col-sm-5">
+                                                <div class="form-group col-sm-4">
 
-                                                    Question Mark:
-                                                    <input type="number" name="mark" min="0" class="survey_options" placeholder="Question mark" required="" value="${question.mark}">                     
+
+                                                    <label for="mark">Question Mark:</label>
+
+                                                    <input id="mark" type="number" name="mark" min="0" class="survey_options" placeholder="Question mark" required="" value="${question.mark}">                     
 
                                                 </div>
 
                                             </div>
                                             <div class="form-inline">
-                                                <div class="form-group col-sm-7">
-                                                    <input type="text" name="content" class="survey_options" placeholder="Question Content" required="" value="${question.content}">                     
+                                                <div class="form-group col-sm-6 ml-5 ">
+                                                    <label for="content">Content:</label>
+                                                    <textarea id="content" name="content" class="survey_options" placeholder="Question Content"  required="" style="width: 80%; resize: vertical;">${question.content}</textarea>
+
+                                                    <!--<input id="content" type="text" name="content" class="survey_options" placeholder="Question Content" required="" value="${question.content}" style="margin-left: 5px">-->                     
                                                 </div>
                                                 <div class="form-group col-sm-3 mr-4">
 
@@ -388,9 +402,8 @@
                                             </div>
 
                                             <div id="container">
-
                                                 <c:forEach items="${requestScope.listChoice}" var="c" varStatus="index">
-                                                    <div class="form-inline">
+                                                    <div class="form-inline mt-3">
                                                         <input type="hidden" name="${index.index}_choiceId" value="${c.choiceId}">
                                                         <div class="form-group col-sm-7 index">
                                                             <input type="text" name="${index.index}_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="" value="${c.choiceContent}">
@@ -429,7 +442,7 @@
 
                                             </div>
                                             <div class="controls">
-                                                <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More</a>
+                                                <a style="cursor: pointer"  id="add_more_fields"><i class="fa fa-plus"></i>Add More Answer</a>
                                                 <!--<a style="cursor: pointer" id="remove_fields" ><i class="fa fa-minus"></i>Remove Field</a>-->
                                             </div>
 

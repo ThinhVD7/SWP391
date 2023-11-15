@@ -114,8 +114,8 @@ public class studentExamDetail extends HttpServlet {
                     String[] type = request.getParameterValues("q" + question.getQuestionID());
 //                    response.getWriter().println(type.length + " " + question1.getAnswer());
                     if (type != null) {
-                        if (type.length != question1.getAnswer()) {
-                        } else if (type.length == question1.getAnswer()) {
+                        if (type.length > question1.getAnswer()) {
+                        } else if (type.length <= question1.getAnswer()) {
                             int mark = 0;
                             String choiceID = "";
                             for (String string : type) {
@@ -123,16 +123,23 @@ public class studentExamDetail extends HttpServlet {
                                 if (choiceID.equals("")) {
                                     choiceID += string.split(":")[1];
                                 } else {
-                                    choiceID += ":" + string.split(":")[1];
+                                    choiceID += ":" + string.split(":")[1];                                   
                                 }
                             }
                             question.setChoicePercentages(String.valueOf(mark));
-                            question.setChoices(choiceID);
-                        }
-
+                            question.setChoices(choiceID);                         
+                        }                                          
                     } else {
                         question.setChoicePercentages("0");
                         question.setChoices("");
+                    }
+                    if (type != null) {
+                        String choiceID = "";
+                            for (String string : type) {                
+                                    choiceID += ":" + string.split(":")[1];
+                                    d.createStudentAnswer(Integer.parseInt(question1.getQuestionID()), Integer.parseInt(string.split(":")[1]), examID, user.getAccountID());
+                                    question.setUserCheck(true);
+                            }
                     }
                 } else {
                     String qResult = "q" + question1.getQuestionID();
@@ -140,7 +147,8 @@ public class studentExamDetail extends HttpServlet {
                     if (result != null) {
                         question.setChoicePercentages(result.split(":")[0]);
                         question.setChoices(result.split(":")[1]);
-
+                        d.createStudentAnswer(Integer.parseInt(question.getQuestionID()), Integer.parseInt(result.split(":")[1]), examID, user.getAccountID());
+                        question.setUserCheck(true);
                     }
                 }
                 break;
@@ -149,7 +157,7 @@ public class studentExamDetail extends HttpServlet {
 
         float totalMark = 0;
         for (Question question : questions) {
-            if (question.getChoicePercentages() != null && Integer.parseInt(question.getChoicePercentages()) > 0) {
+            if (question.getChoicePercentages() != null) {
                 totalMark += (question.getMark() * Float.parseFloat(question.getChoicePercentages()))/100;
             }
         }

@@ -231,6 +231,29 @@ public class ManagerDAO extends DBContext {
         return null;
     }
 
+    public Lecturer getLecturerExactly(String id, String classId) {
+        String sql = "select account.Account_ID, account.Name, account.Email,lecturerinwhichclass.Status from account join lecturer on account.Account_ID = lecturer.Lecturer_ID join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID"
+                + " where lecturerinwhichclass.Class_ID = ? AND Account_ID=?";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, classId);
+            ps.setString(2, id);
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Lecturer c = new Lecturer();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
+                c.setStatus(rs.getInt(4));
+                return c;
+            }
+        } catch (Exception e) {
+            status = "Error at get Account " + e.getMessage();
+        }
+        return null;
+    }
+
     public List<Class1> getClass(String studentId) {
         String sql = "select a.Student_ID,a.Class_ID,b.ClassName,c.Semester,c.Course_ID from studentinwhichclass a join class b on \n"
                 + "a.Class_ID = b.Class_ID \n"
@@ -318,10 +341,11 @@ public class ManagerDAO extends DBContext {
         return null;
     }
 
+    
     public ArrayList<Lecturer> getlecturerByClass(String cID) {
         try {
             ArrayList<Lecturer> list = new ArrayList<Lecturer>();
-            String strSelect = "select account.Account_ID, account.Name, account.Email from account join lecturer on account.Account_ID = lecturer.Lecturer_ID join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where lecturerinwhichclass.Class_ID = ?;";
+            String strSelect = "select account.Account_ID, account.Name, account.Email,lecturerinwhichclass.Status from account join lecturer on account.Account_ID = lecturer.Lecturer_ID join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where lecturerinwhichclass.Class_ID = ?;";
             PreparedStatement ps = connector.prepareStatement(strSelect);
             ps.setString(1, cID);
             ResultSet rs = ps.executeQuery();
@@ -330,7 +354,52 @@ public class ManagerDAO extends DBContext {
                 c.setAccountID(rs.getString(1));
                 c.setName(rs.getString(2));
                 c.setEmail(rs.getString(3));
+                c.setStatus(rs.getInt(4));
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    
+    public ArrayList<Lecturer> getlecturerByClassInactive(String cID) {
+        try {
+            ArrayList<Lecturer> list = new ArrayList<Lecturer>();
+            String strSelect = "select account.Account_ID, account.Name, account.Email,lecturerinwhichclass.Status from account join lecturer on account.Account_ID = lecturer.Lecturer_ID join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where lecturerinwhichclass.Class_ID = ? AND lecturerinwhichclass.Status = 0;";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ps.setString(1, cID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Lecturer c = new Lecturer();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
+                c.setStatus(rs.getInt(4));
+                list.add(c);
+            }
+            return list;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
+    public ArrayList<Lecturer> getlecturerByClassActive(String cID) {
+        try {
+            ArrayList<Lecturer> list = new ArrayList<Lecturer>();
+            String strSelect = "select account.Account_ID, account.Name, account.Email,lecturerinwhichclass.Status from account join lecturer on account.Account_ID = lecturer.Lecturer_ID join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where lecturerinwhichclass.Class_ID = ? AND lecturerinwhichclass.Status = 1;";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ps.setString(1, cID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Lecturer c = new Lecturer();
+                c.setAccountID(rs.getString(1));
+                c.setName(rs.getString(2));
+                c.setEmail(rs.getString(3));
+                c.setStatus(rs.getInt(4));
                 list.add(c);
             }
             return list;
@@ -439,12 +508,28 @@ public class ManagerDAO extends DBContext {
         return null;
     }
 
-    public void insetLecturerIntoClass(String cID, String lID) {
+    public void insetLecturerIntoClass0(String cID, String lID) {
         try {
-            String strSelect = "INSERT INTO lecturerinwhichclass (Lecturer_ID, Class_ID) VALUES (?, ?);";
+            String strSelect = "INSERT INTO lecturerinwhichclass (Lecturer_ID, Class_ID,Status) VALUES (?, ?, ?);";
             PreparedStatement ps = connector.prepareStatement(strSelect);
             ps.setString(1, cID);
             ps.setString(2, lID);
+            ps.setInt(3, 0);
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void insetLecturerIntoClass1(String cID, String lID) {
+        try {
+            String strSelect = "INSERT INTO lecturerinwhichclass (Lecturer_ID, Class_ID,Status) VALUES (?, ?,?);";
+            PreparedStatement ps = connector.prepareStatement(strSelect);
+            ps.setString(1, cID);
+            ps.setString(2, lID);
+            ps.setInt(3, 1);
             ps.executeUpdate();
 
         } catch (SQLException e) {
@@ -499,22 +584,38 @@ public class ManagerDAO extends DBContext {
         }
     }
 
-    public void deleteLecturer(String Lecturer_ID) {
-        String sql = "delete from lecturerinwhichclass where Lecturer_ID = ?";
+    public void deleteLecturer(String Lecturer_ID, String Class_ID) {
+        String sql = "delete from lecturerinwhichclass where Lecturer_ID = ? and Class_ID = ?";
         try {
             PreparedStatement st = connector.prepareStatement(sql);
             st.setString(1, Lecturer_ID);
+            st.setString(2, Class_ID);
             st.executeUpdate();
         } catch (SQLException e) {
 
         }
     }
 
-    public void deleteStudent(String Student_ID) {
-        String sql = "delete from studentinwhichclass where Student_ID = ?";
+    public void setLecturerStatus(String Lecturer_ID, String Class_ID, int Status) {
+        String sql = "update `lecturerinwhichclass` SET `Status` = ?  WHERE Lecturer_ID = ? and Class_ID = ?";
+        try {
+            PreparedStatement st = connector.prepareStatement(sql);
+            st.setInt(1, Status);
+            st.setString(2, Lecturer_ID);
+            st.setString(3, Class_ID);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+
+        }
+    }
+
+    public void deleteStudent(String Student_ID, String Class_ID) {
+        String sql = "delete from studentinwhichclass where Student_ID = ? AND Class_ID= ?";
         try {
             PreparedStatement st = connector.prepareStatement(sql);
             st.setString(1, Student_ID);
+            st.setString(2, Class_ID);
             st.executeUpdate();
         } catch (SQLException e) {
 
@@ -630,7 +731,7 @@ public class ManagerDAO extends DBContext {
         }
         return true;
     }
-    
+
     public Course getACourseById(String courseID) {
         try {
             String strSelect = "select * from course where Course_ID = ?";

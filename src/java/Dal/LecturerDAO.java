@@ -128,7 +128,8 @@ public class LecturerDAO extends DBContext {
                         rs.getString(8),
                         rs.getFloat(9),
                         rs.getInt(10),
-                        rs.getString(11));
+                        rs.getString(11),
+                        rs.getInt(12));
             }
         } catch (Exception e) {
             status = "Error at load a exam" + e.getMessage();
@@ -137,7 +138,7 @@ public class LecturerDAO extends DBContext {
     }
 
     public Account loadALecturerofClass(String classID) {
-        String sql = "SELECT account.Account_ID, account.Name, account.Email FROM account join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where Class_ID like ?";
+        String sql = "SELECT account.Account_ID, account.Name, account.Email FROM account join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where Class_ID like ? and lecturerinwhichclass.Status = 1";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, classID);
@@ -232,7 +233,8 @@ public class LecturerDAO extends DBContext {
                         rs.getString(8),
                         rs.getFloat(9),
                         rs.getInt(10),
-                        rs.getString(11)));
+                        rs.getString(11),
+                        rs.getInt(12)));
             }
         } catch (Exception e) {
             status = "Error at load exam list" + e.getMessage();
@@ -443,7 +445,7 @@ public class LecturerDAO extends DBContext {
     }
 
     public Bank getBankByCourseId(String courseId, String lecturerId) {
-        String sql = "SELECT * FROM `quiz9.7`.bank where Course_ID = ? AND Lecturer_ID = ?;";
+        String sql = "SELECT * FROM bank where Course_ID = ? AND Lecturer_ID = ?;";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, courseId);
@@ -538,7 +540,7 @@ public class LecturerDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 test = rs.getString(4);
-                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
+                return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11), rs.getInt(12));
             }
         } catch (Exception e) {
             status = "Error at get Account " + e.getMessage();
@@ -555,7 +557,7 @@ public class LecturerDAO extends DBContext {
             while (rs.next()) {
                 test = rs.getString(4);
                 return new Exam(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11));
+                        rs.getString(6), rs.getString(7), rs.getString(8), rs.getFloat(9), rs.getInt(10), rs.getString(11), rs.getInt(12));
 
             }
         } catch (Exception e) {
@@ -760,6 +762,41 @@ public class LecturerDAO extends DBContext {
         }
         return false;
 
+    }
+    
+    public boolean doesQuestionExistInBankByTitleAndContent(String title, String content) {
+        String sql = "SELECT * FROM question WHERE Title = ? AND QuestionContent = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, content);
+
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); // Return true if there is a matching record, false otherwise
+        } catch (Exception e) {
+            status = "Error at checking if question exists in bank: " + e.getMessage();
+            System.out.println(status);
+            return false; // Return false in case of an error
+        }
+    }
+
+    public boolean doesQuestionExistInBankByTitleAndContent(String title, String content, String bankId) {
+        String sql = "SELECT b.* FROM questioninwhichbank a join question b on a.Question_ID = b.Question_ID join bank c on a.Bank_ID = c.Bank_ID "
+                + "WHERE Title = ? AND QuestionContent = ? AND c.Bank_ID = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, content);
+            ps.setString(3, bankId);
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); // Return true if there is a matching record, false otherwise
+        } catch (Exception e) {
+            status = "Error at checking if question exists in bank: " + e.getMessage();
+            System.out.println(status);
+            return false; // Return false in case of an error
+        }
     }
 
     public static void main(String[] args) {

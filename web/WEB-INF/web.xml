@@ -43,8 +43,8 @@
         <servlet-class>Controller.addAccount</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ForgetPassword</servlet-name>
-        <servlet-class>Controller.ForgetPassword</servlet-class>
+        <servlet-name>ForgotPassword</servlet-name>
+        <servlet-class>Controller.ForgotPassword</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
@@ -182,6 +182,30 @@
         <servlet-name>lecturerStaticticExam1</servlet-name>
         <servlet-class>Controller.lecturerStaticticExam1</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>managerEditClass</servlet-name>
+        <servlet-class>Controller.managerEditClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>reviewQuizz</servlet-name>
+        <servlet-class>Controller.reviewQuizz</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerSearch</servlet-name>
+        <servlet-class>Controller.managerSearch</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>lecturerViewExamLog</servlet-name>
+        <servlet-class>Controller.lecturerViewExamLog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>managerSetLecturerStatus</servlet-name>
+        <servlet-class>Controller.managerSetLecturerStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ressetMess</servlet-name>
+        <servlet-class>Controller.ressetMess</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -215,8 +239,8 @@
         <url-pattern>/addAccount</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ForgetPassword</servlet-name>
-        <url-pattern>/ForgetPassword</url-pattern>
+        <servlet-name>ForgotPassword</servlet-name>
+        <url-pattern>/ForgotPassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
@@ -353,6 +377,34 @@
     <servlet-mapping>
         <servlet-name>lecturerStaticticExam1</servlet-name>
         <url-pattern>/lecturerStaticticExam1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerEditClass</servlet-name>
+        <url-pattern>/managerEditClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>reviewQuizz</servlet-name>
+        <url-pattern>/reviewQuizz</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerSearch</servlet-name>
+        <url-pattern>/managerSearch</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>lecturerViewExamLog</servlet-name>
+        <url-pattern>/lecturerViewExamLog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>managerSetLecturerStatus</servlet-name>
+        <url-pattern>/managerSetLecturerStatus</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ressetMess</servlet-name>
+        <servlet-class>Controller.ressetMess</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ressetMess</servlet-name>
+        <url-pattern>/ressetMess</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

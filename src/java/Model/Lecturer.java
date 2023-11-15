@@ -1,11 +1,19 @@
 package Model;
 
-
 public class Lecturer extends Account {
+
     private String department;
     private String meetlink;
+    private int status;
 
     public Lecturer() {
+    }
+
+    public Lecturer(String accountID, String name, String email, String password, String department, String meetlink, int status) {
+        super(accountID, name, email, password);
+        this.department = department;
+        this.meetlink = meetlink;
+        this.status = status;
     }
 
     public Lecturer(String accountID, String name, String email, String password, String department, String meetlink) {
@@ -99,11 +107,5 @@ public class Lecturer extends Account {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
-    
-    
-    
-    
-    
-    
+
 }

@@ -545,21 +545,21 @@
                                 <div class="form-group row">
                                     <label for="timeLim" class="col-sm-3 col-form-label" style="font-weight: bold">Time Limit:</label>
                                     <div class="col-sm-5">
-                                        Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
-                                        Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
-                                        Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
+                                        Hour<input type="number" name="timeLimitHour" id="timeLimitHour" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max="99" placeholder="0" value=${timeLimitHour==null?"0":timeLimitHour}> 
+                                        Minute<input type="number" name="timeLimitMinute" id="timeLimitMinute" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max="59" placeholder="0" value=${timeLimitMinute==null?"0":timeLimitMinute}>
+                                        Second<input type="number" name="timeLimitSecond" id="timeLimitSecond" class="form-control" style = "width: 70px" id="timeLim" required min ="0" max = "59" placeholder="0" value=${timeLimitSecond==null?"0":timeLimitSecond}>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        From: <input type="datetime-local" name="fromDate" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
+                                        From: <input type="datetime-local" name="fromDate" max="2099-01-01T00:00" class="form-control" id="fromDate" placeholder="" value="${startDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="date" class="col-sm-3 col-form-label" style="font-weight: bold">Set exam date:</label>
                                     <div class="col-sm-5">
-                                        To: <input type="datetime-local" name="toDate" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
+                                        To: <input type="datetime-local" name="toDate" max="2099-01-01T00:00" class="form-control" id="toDate" placeholder="" value="${endDate}" required="">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -592,13 +592,10 @@
                             <div class="col-10 col-md-8 col-lg-6">
                                 <form action="${sessionScope.exam != null ? "lecturerEditExam":"lecturerAddNewExam"}" method="post" class="">
                                     <h4 style="text-align: center">Score: ${maxScore}</h4>
-
+                                    <h4 style="text-align: center">${questionNumber} Questions</h4>
 
                                     <p class="text-danger" style="text-align: center">${err}</p>
                                     <p class="text-success" style="text-align: center">${ok}</p>
-
-
-
 
                                     <a style="text-decoration: none">
                                         <div class="form-group row">
@@ -670,7 +667,8 @@
                                             <li data-list="tab_2">
                                                 <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}">Add from Question bank</a></li>
                                             <li data-list="tab_3">
-                                                Import Excel file</li>
+                                                <a href="getQuestionCSV?examID=${sessionScope.examID}">Import Excel file</a>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -682,8 +680,8 @@
 
                                                 <div class="form-inline">
 
-                                                    <div class="form-group col-sm-7">
-                                                        <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="">
+                                                    <div class="form-group col-sm-4">
+                                                        <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="" style="width: 50%;height: 50%;" >
 
                                                     </div>
                                                     <div class="form-group col-sm-3">
@@ -700,17 +698,32 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="form-inline">
-                                                    <div class="form-group col-sm-7">
-                                                        <input type="text" name="content" class="survey_options" placeholder="Question Content" required="">                     
-                                                    </div>
-                                                    <div class="form-group col-sm-3 mr-4">
+                                                <div class="form-inline mt-3">
+                                                    <div class="form-group col-sm-4">
 
-                                                        Question Type:
+                                                    </div>
+                                                    <div class="form-group col-sm-5">
+                                                        
+                                                        <textarea name="content" class="survey_options" placeholder="Question Content" required="" style="width: 80%; resize: vertical;"></textarea>
+                                                    </div>
+                                                    <!--<input type="text" name="content" class="survey_options" placeholder="Question Content" required="" style="width: 100%;overflow-wrap: break-word;;">-->                     
+                                                    <div class="form-group col-sm-2">
+
+                                                                      Question Type:
                                                         <select name="questionType" class="survey_options ml-3" id="questionType">
                                                             <option value="1">Multiple Choice</option>
                                                             <option value="0">One Choice</option>
-                                                        </select>
+                                                        </select>  
+
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="form-inline">
+
+                                                    <div class="form-group col-sm-3 mr-4">
+
+                                                      
                                                     </div>
 
 
@@ -751,19 +764,21 @@
                                              Exam list will be dynamically populated here 
                                         </div>
                                     </form>-->
+                                            <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}" class = "edit-exam-button">Access Bank of ${sessionThisCourse.courseID}</a>
 
 
                                         </div>
+                                        <div class="tab_content tab_3">
+                                            <!--                                            <form id='submit-form' action="getQuestionCSV" method="POST" enctype="multipart/form-data" onclick="(event) => {
+                                                                                                    event.preventDefault();
+                                                                                                }">
+                                                                                            <input type="file" name="file" />
+                                                                                            <input type="submit" value="Upload" />
+                                                                                        </form>        -->
+                                        </div>
                                     </div>
-                                    <div class="tab_content tab_3">
-                                    </div>
-
                                 </div>
                             </div>
-
-
-
-
                         </div>
                     </div>
                 </div>
@@ -784,67 +799,67 @@
                             const overlay = document.getElementById('classEditPopup');
 //                const newClassNameInput = document.getElementById('newClassName');
 //                newClassNameInput.value = className;
-                            overlay.style.display = 'block';
-                        }
+                                                        overlay.style.display = 'block';
+                                                    }
 
-                        // Function to close the pop-up
-                        function closePopup() {
-                            const overlay = document.getElementById('classEditPopup');
-                            overlay.style.display = 'none';
-                        }
+                                                    // Function to close the pop-up
+                                                    function closePopup() {
+                                                        const overlay = document.getElementById('classEditPopup');
+                                                        overlay.style.display = 'none';
+                                                    }
 
 
-                        const btn_menu = document.querySelector(".btn-menu");
-                        const side_bar = document.querySelector(".sidebar");
-                        btn_menu.addEventListener("click", function () {
-                            side_bar.classList.toggle("expand");
-                            changebtn();
-                        });
-                        function changebtn() {
-                            if (side_bar.classList.contains("expand")) {
-                                btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
-                            } else {
-                                btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
-                            }
-                        }
+                                                    const btn_menu = document.querySelector(".btn-menu");
+                                                    const side_bar = document.querySelector(".sidebar");
+                                                    btn_menu.addEventListener("click", function () {
+                                                        side_bar.classList.toggle("expand");
+                                                        changebtn();
+                                                    });
+                                                    function changebtn() {
+                                                        if (side_bar.classList.contains("expand")) {
+                                                            btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                                                        } else {
+                                                            btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                                                        }
+                                                    }
 
-                        const btn_theme = document.querySelector(".theme-btn");
-                        const theme_ball = document.querySelector(".theme-ball");
-                        const localData = localStorage.getItem("theme");
-                        if (localData == null) {
-                            localStorage.setItem("theme", "light");
-                        }
+                                                    const btn_theme = document.querySelector(".theme-btn");
+                                                    const theme_ball = document.querySelector(".theme-ball");
+                                                    const localData = localStorage.getItem("theme");
+                                                    if (localData == null) {
+                                                        localStorage.setItem("theme", "light");
+                                                    }
 
-                        if (localData == "dark") {
-                            document.body.classList.add("dark-mode");
-                            theme_ball.classList.add("dark");
-                        } else if (localData == "light") {
-                            document.body.classList.remove("dark-mode");
-                            theme_ball.classList.remove("dark");
-                        }
+                                                    if (localData == "dark") {
+                                                        document.body.classList.add("dark-mode");
+                                                        theme_ball.classList.add("dark");
+                                                    } else if (localData == "light") {
+                                                        document.body.classList.remove("dark-mode");
+                                                        theme_ball.classList.remove("dark");
+                                                    }
 
-                        btn_theme.addEventListener("click", function () {
-                            document.body.classList.toggle("dark-mode");
-                            theme_ball.classList.toggle("dark");
-                            if (document.body.classList.contains("dark-mode")) {
-                                localStorage.setItem("theme", "dark");
-                            } else {
-                                localStorage.setItem("theme", "light");
-                            }
-                        });
-                        $(document).ready(function () {
-                            $(".content .tab_content").hide();
-                            $(".content .tab_content:first-child").show();
-                            $("ul li").click(function () {
+                                                    btn_theme.addEventListener("click", function () {
+                                                        document.body.classList.toggle("dark-mode");
+                                                        theme_ball.classList.toggle("dark");
+                                                        if (document.body.classList.contains("dark-mode")) {
+                                                            localStorage.setItem("theme", "dark");
+                                                        } else {
+                                                            localStorage.setItem("theme", "light");
+                                                        }
+                                                    });
+                                                    $(document).ready(function () {
+                                                        $(".content .tab_content").hide();
+                                                        $(".content .tab_content:first-child").show();
+                                                        $("ul li").click(function () {
 
-                                $("ul li").removeClass("active");
-                                $(this).addClass("active");
-                                var current_tab = $(this).attr("data-list");
-                                $(".content .tab_content").hide();
-                                $("." + current_tab).show();
-                            })
-                        });
-                        /*-------------------------------------------------------------------------------------------*/
+                                                            $("ul li").removeClass("active");
+                                                            $(this).addClass("active");
+                                                            var current_tab = $(this).attr("data-list");
+                                                            $(".content .tab_content").hide();
+                                                            $("." + current_tab).show();
+                                                        })
+                                                    });
+                                                    /*-------------------------------------------------------------------------------------------*/
 //                        document.addEventListener("DOMContentLoaded", function () {
 //                            const form = document.querySelector(".exam-form");
 //                            form.addEventListener("submit", function (event) {
@@ -887,43 +902,43 @@
                                 return;
                             }
 
-                            if (toDate >= yDate) {
-                                alert("Due date must be set before " + yDate.toDateString());
-                                return;
-                            }
-                            if (fromDate <= xDate) {
-                                alert("Start date must be set after: " + xDate.toDateString());
-                                return;
-                            }
-                            if (toDate - fromDate < (hour * 60 * 60000 + minute * 60000 + second * 1000))
-                            {
-                                alert("Time limit of attempt exceeds exam's available duration");
-                                return;
-                            }
+                                                        if (toDate >= yDate) {
+                                                            alert("Due date must be set before " + yDate.toDateString());
+                                                            return;
+                                                        }
+                                                        if (fromDate <= xDate) {
+                                                            alert("Start date must be set after: " + xDate.toDateString());
+                                                            return;
+                                                        }
+                                                        if (toDate - fromDate < (hour * 60 * 60000 + minute * 60000 + second * 1000))
+                                                        {
+                                                            alert("Time limit of attempt exceeds exam's available duration");
+                                                            return;
+                                                        }
 
-                            if ((hour + minute + second) === 0) {
-                                alert("Time limit must be fairer");
-                                return;
-                            }
+                                                        if ((hour + minute + second) === 0) {
+                                                            alert("Time limit must be fairer");
+                                                            return;
+                                                        }
 
 
-                            // If the validation passes, you can submit the form
-                            this.submit();
-                        });
+                                                        // If the validation passes, you can submit the form
+                                                        this.submit();
+                                                    });
 
-                        var count = 0;
+                                                    var count = 0;
 
-                        document.getElementById('add_more_fields').addEventListener('click', function (event) {
-                            event.preventDefault();
-                            var x = document.getElementById('questionType');
-                            var container = document.getElementById('container');
+                                                    document.getElementById('add_more_fields').addEventListener('click', function (event) {
+                                                        event.preventDefault();
+                                                        var x = document.getElementById('questionType');
+                                                        var container = document.getElementById('container');
 
                             // Create a new div element
                             var newDiv = document.createElement('div');
-                            newDiv.className = 'form-inline count';
+                            newDiv.className = 'form-inline mt-3';
 
-                            // Generate a unique ID for the new div
-                            newDiv.id = count;
+                                                        // Generate a unique ID for the new div
+                                                        newDiv.id = count;
 
 
                             // Define the default options for the count_score select
@@ -952,8 +967,8 @@
 
 
 
-                            // Add the HTML content to the new div
-                            newDiv.innerHTML = `
+                                                        // Add the HTML content to the new div
+                                                        newDiv.innerHTML = `
         <div class="form-group col-sm-7 index">
             <input type="text" name="` + count + `_survey_options[]" class="survey_options" size="50" placeholder="Answer:" required="">
         </div>
@@ -967,9 +982,9 @@
   
     `;
 
-                            // Append the new div to the container
-                            container.appendChild(newDiv);
-                            count = container.children.length;
+                                                        // Append the new div to the container
+                                                        container.appendChild(newDiv);
+                                                        count = container.children.length;
 
                             var hiddenInput = document.getElementById('hiddenInput');
                             hiddenInput.value = count;
@@ -977,7 +992,114 @@
                             document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
                             document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
 
-                        });
+                                                    document.getElementById('remove_fields').addEventListener('click', function () {
+                                                        var container = document.getElementById('container');
+                                                        // Get the last added div in the container
+                                                        var lastDiv = container.lastChild;
+                                                        // Check if the last div exists and remove it
+                                                        if (lastDiv) {
+                                                            container.removeChild(lastDiv);
+                                                            // Update the count based on the number of newDivs in the container
+                                                            count = container.children.length;
+
+                                                            // Update the hidden input value with the count
+                                                            var hiddenInput = document.getElementById('hiddenInput');
+                                                            hiddenInput.value = count;
+                                                            if (x1 > 0) {
+                                                                x1 -= 100;
+
+                                                            }
+                                                            document.getElementById('my-form').style.height = x1 + 'px'; // Adjust the height as needed
+                                                            document.getElementById('wrapper-content').style.height = (x1 + 300) + 'px';
+                                                        }
+                                                    });
+
+
+                                                    document.getElementById('my-form').addEventListener('submit', function (event) {
+                                                        // Get all the "Score Percentage" select elements
+                                                        var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                                                        var totalScore = 0;
+
+                                                        // Calculate the total score
+                                                        scoreElements.forEach(function (scoreElement) {
+                                                            totalScore += parseInt(scoreElement.value);
+                                                        });
+
+                                                        // Check if the total score is greater than 100
+                                                        if (totalScore !== 100) {
+                                                            // Prevent the form from being submitted
+                                                            event.preventDefault();
+                                                            alert("The total score percentage must be 100%.\nYour total score percentage:" + totalScore + "%");
+                                                        }
+                                                    });
+
+                                                    document.getElementById('questionType').addEventListener('change', function () {
+                                                        // Get all the "Score Percentage" select elements
+                                                        var scoreElements = document.querySelectorAll('select[id$="_score"]');
+
+                                                        if (this.value === "0") {
+                                                            // For "One Choice" question
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                scoreElement.innerHTML = `
+                    <option value="0">0</option>
+                    <option value="100">100</option>
+                `;
+                                                            });
+                                                        } else if (this.value === "1") {
+                                                            // For "Multiple Choice" question
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                scoreElement.innerHTML = `
+                    <option value="0">0</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="60">60</option>
+                    <option value="70">70</option>
+                    <option value="80">80</option>
+                    <option value="90">90</option>
+                `;
+                                                            });
+                                                        }
+                                                    });
+
+                                                    document.getElementById('my-form').addEventListener('submit', function (event) {
+                                                        // Get all the "Score Percentage" select elements
+                                                        var scoreElements = document.querySelectorAll('select[id$="_score"]');
+                                                        var totalScore = 0;
+
+                                                        if (document.getElementById('questionType').value === "0") {
+                                                            // For "One Choice" question
+                                                            // Check if all score percentages are 0 and 100
+                                                            var valid = true;
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                var score = parseInt(scoreElement.value);
+                                                                if (score !== 0 && score !== 100) {
+                                                                    valid = false;
+                                                                }
+                                                            });
+
+                                                            if (!valid) {
+                                                                event.preventDefault();
+                                                                alert("One choice question! Score percentages must be 0 and 100.");
+                                                            }
+                                                        } else if (document.getElementById('questionType').value === "1") {
+                                                            // For "Multiple Choice" question
+                                                            // Check if each score percentage is less than 100
+                                                            scoreElements.forEach(function (scoreElement) {
+                                                                var score = parseInt(scoreElement.value);
+                                                                if (score >= 100) {
+                                                                    event.preventDefault();
+                                                                    alert("Multiple choice question! Score percentages must be less than 100.");
+                                                                    return;
+                                                                }
+//                                    totalScore += score;
+                                                            });
+
+
+                                                        }
+                                                    });
 
 
                         document.getElementById('remove_fields').addEventListener('click', function () {
@@ -1008,10 +1130,14 @@
                             var scoreElements = document.querySelectorAll('select[id$="_score"]');
                             var totalScore = 0;
 
-                            // Calculate the total score
-                            scoreElements.forEach(function (scoreElement) {
-                                totalScore += parseInt(scoreElement.value);
-                            });
+                                                            xhr.onreadystatechange = function () {
+                                                                if (xhr.readyState === 4 && xhr.status === 200) {
+                                                                    // Handle the response from the servlet
+                                                                    var response = xhr.responseText;
+                                                                    alert("Question with ID " + questionID + " deleted.");
+                                                                    location.reload();
+                                                                }
+                                                            };
 
                             // Check if the total score is greater than 100
                             if (totalScore !== 100) {
@@ -1094,26 +1220,23 @@
 
 
 
-                        function confirmDelete(questionID) {
-                            var confirmDelete = confirm("Are you sure you want to remove this question?");
-                            if (confirmDelete) {
-                                // Make an AJAX request to delete the exam
-                                var xhr = new XMLHttpRequest();
-                                xhr.open("POST", "lecturerRemoveQuestionExam?questionID=" + questionID, true);
+                                                        // Make an AJAX request to your servlet
+                                                        var xhr = new XMLHttpRequest();
+                                                        xhr.open("GET", "AjaxLoadExamByClass?classID=" + selectedClass, true);
 
-                                xhr.onreadystatechange = function () {
-                                    if (xhr.readyState === 4 && xhr.status === 200) {
-                                        // Handle the response from the servlet
-                                        var response = xhr.responseText;
-                                        alert("Question with ID " + questionID + " deleted.");
-                                        location.reload();
-                                    }
-                                };
+                                                        xhr.onload = function () {
+                                                            if (xhr.status === 200) {
+                                                                // Replace the content of the examList div with the response
+                                                                examListContainer.innerHTML = xhr.responseText;
+                                                            } else {
+                                                                // Handle errors
+                                                                console.error("Failed to load exams.");
+                                                            }
+                                                        };
 
-                                // Send the request
-                                xhr.send();
-                            }
-                        }
+                                                        xhr.send();
+                                                    }
+
 
                         function loadExams() {
                             var selectedClass = document.getElementById("classSelect").value;

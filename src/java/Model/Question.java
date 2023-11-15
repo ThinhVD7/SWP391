@@ -11,11 +11,14 @@ public class Question {
     private int answer;
     private int shuffleChoices;
     private float mark;
+    private boolean userCheck = false;
+    private String examID;
+    private String StudentID;
 
     public Question() {
     }
 
-    public Question(String questionID, String title, String content, String type, String choices, String choicePercentages, int answer, int shuffleChoices, float mark) {
+    public Question(String questionID, String title, String content, String type, String choices, String choicePercentages, int answer, int shuffleChoices, float mark, boolean userCheck, String examID, String StudentID) {
         this.questionID = questionID;
         this.title = title;
         this.content = content;
@@ -25,6 +28,9 @@ public class Question {
         this.answer = answer;
         this.shuffleChoices = shuffleChoices;
         this.mark = mark;
+        this.userCheck = userCheck;
+        this.StudentID = StudentID;
+        this.examID = examID;
     }
     
     public Question(String questionID, String title, String content, String type, int shuffleChoices, float mark) {
@@ -114,4 +120,29 @@ public class Question {
     public void setMark(float mark) {
         this.mark = mark;
     }
+
+    public boolean isUserCheck() {
+        return userCheck;
+    }
+
+    public void setUserCheck(boolean userCheck) {
+        this.userCheck = userCheck;
+    }
+
+    public String getExamID() {
+        return examID;
+    }
+
+    public void setExamID(String examID) {
+        this.examID = examID;
+    }
+
+    public String getStudentID() {
+        return StudentID;
+    }
+
+    public void setStudentID(String StudentID) {
+        this.StudentID = StudentID;
+    }
+    
 }
