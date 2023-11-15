@@ -589,7 +589,7 @@
                                     <th>Content</th>
                                     <th>Type</th>
                                     <th>Mark</th>
-                                    <th>Action</th>
+                                    <th>Add to Exam</th>
                                 </tr>
                             </thead>
 

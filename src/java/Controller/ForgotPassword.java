@@ -60,7 +60,7 @@ public class ForgotPassword extends HttpServlet {
         //block check if user have logged in, if true then return to home
         HttpSession session = request.getSession(false);
         if(session ==null)
-            request.getRequestDispatcher("forget-password.jsp").forward(request, response);
+            request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
         if(session.getAttribute("user") != null)
         {
             response.sendRedirect("home");
@@ -99,7 +99,7 @@ public class ForgotPassword extends HttpServlet {
 
         if (acc == null) {
             request.setAttribute("mess", "Wrong email!");
-            request.getRequestDispatcher("forget-password.jsp").forward(request, response);
+            request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
         } else {
             
 
@@ -142,10 +142,10 @@ public class ForgotPassword extends HttpServlet {
                     boolean resetPasswordSuccess = dao.resetPassword(acc);
                     if (resetPasswordSuccess) {
                         request.setAttribute("err", "Reset password successfully! \n Please check mail to get new password");
-                        request.getRequestDispatcher("forget-password.jsp").forward(request, response);
+                        request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
                     } else {
                         request.setAttribute("err", "Cannot reset password. Please try again!");
-                        request.getRequestDispatcher("forget-password.jsp").forward(request, response);
+                        request.getRequestDispatcher("forgot-password.jsp").forward(request, response);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

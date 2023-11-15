@@ -236,8 +236,7 @@
                        href="lecturerClasslist?courseID=${sessionScope.sessionThisCourse.courseID}">${sessionScope.sessionThisCourse.courseID}</a> /
                         <a style ="padding: 5px;" 
                            href="lecturerExamList?classID=${sessionScope.sessionThisClass.classID}">${sessionScope.sessionThisClass.className}</a> /
-                            <a style ="padding: 5px;" 
-                               href="lecturerExamDetail?examID=${sessionScope.sessionThisExam}">${sessionScope.sessionThisExam.examName}</a>
+                           <a style ="padding: 5px;" >${sessionScope.sessionThisExam.examName}</a>
             </div>
             <div>
                 <a style ="padding:5px;">
@@ -270,7 +269,7 @@
                 <div><br></div>
             <div style="overflow:auto; border-top: 3px solid #000;padding-top: 10px; margin-left: 10px; margin-right: 10px;">
             </div>
-                <div>
+                <div style= "display:none">
                     <form action="lecturerStatisticExam">
                         <input value="${sessionThisExam.examID}" type="hidden" name="examId"/>
                         <button class="edit-exam-button-bottom" type="submit">Preview Exam</button>
@@ -282,7 +281,7 @@
                 <div>
                     <form action="lecturerStatisticExam">
                         <input value="${sessionThisExam.examID}" type="hidden" name="examId"/>
-                        <button class="stat-exam-button" type="submit">View Statistics</button>
+                        <button class="stat-exam-button" ${requestScope.statisticNotAllow!=null?"hidden":""} type="submit">View Statistics</button>
                     </form>
                 </div>
             <br><br>

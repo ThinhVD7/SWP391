@@ -5,6 +5,7 @@
 package Controller;
 
 import Dal.LecturerDAO;
+import Model.Account;
 import Model.Class1;
 import Model.Exam;
 import Model.Question;
@@ -63,11 +64,19 @@ public class lecturerEditExam extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
 
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         LecturerDAO dao = new LecturerDAO();
         String examID = request.getParameter("tId");
         Exam exam = dao.getExam(examID);
@@ -88,6 +97,7 @@ public class lecturerEditExam extends HttpServlet {
 //        request.setAttribute("attemp", exam.getAttempsAllowed());
         request.setAttribute("examDetail", exam.getExamDetail());
         request.setAttribute("maxScore", exam.getMaxScore());
+        request.setAttribute("questionNumber", exam.getQuestionNumber());
         request.setAttribute("permission", exam.getPermission());
         List<Question> listQ = dao.getListQuestionByExamID(examID);
         session.setAttribute("listQ", listQ);
@@ -106,11 +116,19 @@ public class lecturerEditExam extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         Exam exam = (Exam) session.getAttribute("exam");
         String examName = request.getParameter("examName");
         //String questionNumber = request.getParameter("questionNumber");
