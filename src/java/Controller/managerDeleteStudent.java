@@ -67,12 +67,10 @@ public class managerDeleteStudent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String studentID = request.getParameter("studentID");
+       String studentID = request.getParameter("studentID");
         String classID = request.getParameter("classID");
          ManagerDAO dao=new ManagerDAO();
          dao.deleteStudent(studentID,classID);
-         
-         
     }
 
     /** 

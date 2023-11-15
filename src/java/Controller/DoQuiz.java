@@ -5,6 +5,7 @@
 package Controller;
 
 import Dal.DAO;
+import Dal.LecturerDAO;
 import Model.Question;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -29,13 +30,16 @@ public class DoQuiz extends HttpServlet {
             throws ServletException, IOException {
         DAO dao = new DAO();
         int examId = Integer.parseInt(request.getParameter("examID"));
+        //update exan status to active
+        dao.updateExamStatusActive(examId);
         ArrayList<Question> questions = dao.getQuestionsExam(examId);
         String timeLimit = dao.getDetailExam(examId);
         int hours = Integer.parseInt(timeLimit.split(":")[0]);
         int minutes = Integer.parseInt(timeLimit.split(":")[1]);
         int seconds = Integer.parseInt(timeLimit.split(":")[2]);
         String name = dao.getExamName(examId);
-
+       
+        request.setAttribute("defaultQuestion", 1);
         request.setAttribute("hours", hours);
         request.setAttribute("minutes", minutes);
         request.setAttribute("seconds", seconds);

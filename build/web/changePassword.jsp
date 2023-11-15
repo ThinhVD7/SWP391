@@ -98,6 +98,7 @@
                                 </div>
                             </div>
                             <input type="submit" class="col-xs-12 btn btn-primary btn-load btn-lg" data-loading-text="Changing Password..." value="Change Password">
+                            <a href="javascript:history.go(-1);" class="col-xs-12 btn btn-primary btn-load btn-lg">Back to Previous Page</a>
                         </form>
                     </div>
                 </div>

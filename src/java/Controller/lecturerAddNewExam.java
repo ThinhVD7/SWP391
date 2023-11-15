@@ -5,6 +5,7 @@
 package Controller;
 
 import Dal.LecturerDAO;
+import Model.Account;
 import Model.Class1;
 import Model.Exam;
 import java.io.IOException;
@@ -60,11 +61,19 @@ public class lecturerAddNewExam extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 //        processRequest(request, response);
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         session.removeAttribute("exam");
         request.getRequestDispatcher("lecturerAddExam.jsp").forward(request, response);
     }
@@ -82,12 +91,19 @@ public class lecturerAddNewExam extends HttpServlet {
             throws ServletException, IOException {
 //        processRequest(request, response);
 
-        //block check if user have logged in, if not then return to home
+        //block check if user have logged in, if not then return to index
         HttpSession session = request.getSession(false);
-        if (session == null || session.getAttribute("user") == null) {
+        if(session == null||session.getAttribute("user") == null)
+        {
             response.sendRedirect("index.html");
             return;
         }
+        ////////////////////////////////////////////////////////////////
+        Account user = (Account)session.getAttribute("user");
+        //check user's authority by role
+        if(user.getRoleID()!=2)
+            request.getRequestDispatcher("pageNotFound").forward(request, response);
+        ///////////////////////////////
         session.removeAttribute("exam");
 
         String examName = request.getParameter("examName");
@@ -111,7 +127,7 @@ public class lecturerAddNewExam extends HttpServlet {
         String classId = thisClass.getClassID();
         LecturerDAO dao = new LecturerDAO();
 //        String examId = examName + '_' + classId;
-        if (dao.addExam(classId, examName, String.valueOf(0), timeLimit, fromDate, toDate, String.valueOf(1), examDetail, String.valueOf(0), Integer.parseInt(permission))) {
+        if (dao.addExam(classId, examName, String.valueOf(0), timeLimit, fromDate, toDate, examDetail, String.valueOf(0), Integer.parseInt(permission), ((Account)session.getAttribute("user")).getAccountID())) {
             Exam exam = dao.getLastExam();
             response.sendRedirect("lecturerEditExam?tId=" + exam.getExamID());
 

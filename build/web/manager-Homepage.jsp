@@ -128,8 +128,12 @@
                 z-index: 2;
             }
         </style>
+
+
+
     </head>
     <body>
+
         <section class="sidebar">
             <div class="nav-header">
                 <p class="logo">Quiz Practice</p>
@@ -178,7 +182,7 @@
                 <div class="col-md-9 ml-2">
                     <div class="input-group rounded">
                         <form action="managerSearch" method="doGet">
-                            <input class="nosubmit" type="search" placeholder="Search" name="searchInput">
+                            <input class="nosubmit" type="search" name="searchInput">
                             <button type="submit">Search</button>
                         </form>
                     </div>
@@ -247,12 +251,12 @@
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
                         <p>Start Day</p>
-                        <input type="date" name="courseId" id="startDay" placeholder="course-ID" required="">
+                        <input type="date" name="startDay" id="startDay" max="2099-01-01" required="">
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
                         <p>End Day</p>
-                        <input type="date" name="courseId" id="endDay" placeholder="course-ID" required="" >
+                        <input type="date" name="endDay" id="endDay"  max="2099-01-01" required="" >
                     </div>
                     <button class="closePopUp" onclick="getInfoAddCourse()" type="submit" >Submit</button>
                     <button class="closePopUp" onclick="closePopUp()">Close</button>
@@ -262,6 +266,7 @@
         </section>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <script>
                         var contextPath = "<%= request.getContextPath()%>";
 
@@ -286,7 +291,6 @@
                                 btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                             }
                         }
-
                         function delMess() {
                             console.log('da chay ham quan trong nay');
                             $.ajax({
@@ -299,11 +303,10 @@
                                     console.log('da thuc hien thanh cong ham xoa mess');
                                 },
                                 error: function (xhr, status, error) {
-                                    console.log('không thuc hien dc ham xoa mess');
+                                    console.log('eo thuc hien dc ham xoa mess');
                                 }
                             });
                         }
-
 
 //                        function openDelete(courseId) {
 //                            const divPopUp = document.querySelector("#deleteCourse");
@@ -343,10 +346,13 @@
                             var startDay = document.getElementById("startDay").value;
                             var endDay = document.getElementById("endDay").value;
                             var today = new Date();
-
+                            if (new Date(startDay).getFullYear() > 2099 || new Date(endDay).getFullYear() > 2099) {
+                                alert("Please enter a date within the year 2099 or earlier.");
+                                return;
+                            }
                             let dateStr = "NaN/NaN/NaN";
 
-                            console.log("start day la:");
+                            console.log("Start day la:");
 
                             if (isNaN(courseId) === false) {
                                 alert("Bạn chưa nhập course_Id ");
@@ -397,6 +403,7 @@
                                 }
                             });
                         }
+
                         function delCousera(courseId) {
                             var dk = confirm('Bạn có muốn xóa không ?');
 
@@ -417,7 +424,10 @@
                             } else {
 
                             }
+
                         }
+
+
                         function closePopUp() {
                             const divPopUp = document.querySelector("#addCourse");
                             divPopUp.style.display = 'none';

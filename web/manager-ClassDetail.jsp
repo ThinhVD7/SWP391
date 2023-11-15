@@ -20,7 +20,6 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 
@@ -556,8 +555,19 @@
                 overflow: auto;
                 height: 500px;
                 width: 75%;
-
-
+            }
+            /* Style for the clear pop-up container */
+            .popup-editClass {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 15px;
+                z-index: 2;
+                overflow: auto;
 
             }
         </style>
@@ -626,7 +636,7 @@
             <div class="class-list">
 
                 <div id="classEditPopup" class="overlay" onclick="closePopup()">
-                    <div class="popup-container" onclick="event.stopPropagation();">
+                    <div class="popup-editClass" onclick="event.stopPropagation();">
                         <h2>Edit Class Name</h2>
 <!--                        <input name="classID" value="${requestScope.classID}" style="display: none"/>
                         <input name="className" value="${requestScope.className}" style="display: none"/>
@@ -704,7 +714,7 @@
                     <div id="assignStudentrPopup" class="overlay" onclick="closeAssignStudentPopup()"> 
                         <div class="popup-container" onclick="event.stopPropagation();">
                             <h2>Assign Student</h2>              
-                            <input type="text" id="search" placeholder="New Class Name">
+
                             <div class="container-xl">
                                 <div class="table-responsive">
                                     <div class="table-wrapper">
@@ -722,7 +732,6 @@
                                                     <th>ID</th>						
                                                     <th>Name</th>
                                                     <th>Email</th>
-
                                                     <th>Add</th>
                                                 </tr>
                                             </thead>
@@ -768,7 +777,7 @@
 
                 <div>
                     <a style ="padding: 5px;"
-                       href="#">Home</a> / 
+                       href="home">Home</a> / 
                     <a style ="padding: 5px;" 
                        href="managerViewClassList?courseID=${requestScope.courseID}">${requestScope.courseID}</a> /
                     <a style ="padding: 5px;" 
@@ -787,12 +796,13 @@
                                     <div class="col-sm-5">
                                         <h2> </a><b>Lecturer</b></h2>
                                     </div>
-                                    <c:if test="${requestScope.enableAdd <= 0}">
-                                        <div class="col-sm-7">
+                                    <%--<c:if test="${requestScope.enableAdd <= 0}">--%>
+                                    <div class="col-sm-7">
+                                        <c:if test="${requestScope.y != null}">
                                             <button onclick="openAssignLecturerPopup()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
-
-                                        </div>
-                                    </c:if>
+                                        </c:if>
+                                    </div>
+                                    <%--</c:if>--%>
                                 </div>
                             </div>
                             <table class="table table-striped table-hover">
@@ -802,25 +812,39 @@
                                         <th>ID</th>						
                                         <th>Name</th>
                                         <th>Email</th>
+                                        <th>Status</th>
 
-                                        <th>Action</th>
+                                        <th>Remove</th>
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
 
-                                    <c:forEach items="${requestScope.lecturer}" var="u" varStatus="x" >
-                                        <tr>
-                                            <td>${x.count}</td>
-                                            <td><a href="#">${u.accountID}</a></td>
-                                            <td>${u.name}</td>                        
-                                            <td>${u.email} </td>
+                                    <c:forEach items="${requestScope.lecturer1}" var="u" varStatus="x" >
+                                        <c:if test="${u.status == 1}">
+                                            <tr>
+                                                <td>${x.count}</td>
+                                                <td><a href="#">${u.accountID}</a></td>
+                                                <td>${u.name}</td>                        
+                                                <td>${u.email} </td>
+                                                <td> <c:if test="${u.status == 1}">
+                                                        <a  onclick="setStatus('${u.accountID}', '${requestScope.cid}')" style="color:green; cursor: pointer">Active</a>
 
-                                            <td>
-                                                <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delLecturer('${u.accountID}', '${requestScope.cid}')"> <i class="material-icons">&#xE5C9;</i></a>
-                                            </td>
-                                        </tr>
+                                                    </c:if>
+                                                    <c:if test="${u.status == 0}">
+                                                        <a onclick="setStatus('${u.accountID}', '${requestScope.cid}')" style="color:red; cursor: pointer">Inactive</a>
+
+                                                    </c:if></td>
+                                                <td>
+                                                    <a onclick="delLecturer('${u.accountID}', '${requestScope.cid}')" style="margin-right: 5px"> <i  style="cursor: pointer" class="fa-solid fa-trash"></i></a>
+                                                        <!--<a href="#" class="active" title="Active" data-toggle="tooltip"><a onclick="delLecturer('${u.accountID}', '${requestScope.cid}')"> <i class="material-icons">&#xE5C9;</i></a>-->
+
+                                                </td>
+                                            </tr>
+
+                                        </c:if>
+
                                     </c:forEach>
 
 
@@ -829,7 +853,99 @@
 
                         </div>
                     </div>
-                </div>     
+                </div>  
+                <!--LecturerSub-->
+
+                <c:if test="${requestScope.y == null}">
+                    <div class="container-xl">
+                        <div class="table-responsive">
+                            <div class="table-wrapper">
+                                <div class="table-title">
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <h2> </a><b>Sub-Lecturer</b></h2>
+                                        </div>
+                                        <%--<c:if test="${requestScope.enableAdd <= 0}">--%>
+                                        <div class="col-sm-7">
+                                            <button onclick="openAssignLecturerPopup()"class="btn btn-secondary" style ="box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);"><i class="material-icons">&#xE147;</i> <span>Add Lecturer</span></button>
+
+                                        </div>
+                                        <%--</c:if>--%>
+                                    </div>
+                                </div>
+                                <table class="table table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>ID</th>						
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>Remove</th>
+                                        </tr>
+                                    </thead>
+
+
+                                    <tbody>
+
+                                        <c:forEach items="${requestScope.lecturer0}" var="u" varStatus="x" >
+                                            <c:if test="${u.status == 0}">
+                                                <tr>
+                                                    <td>${x.count}</td>
+                                                    <td><a href="#">${u.accountID}</a></td>
+                                                    <td>${u.name}</td>                        
+                                                    <td>${u.email} </td>
+                                                    <td> <c:if test="${u.status == 1}">
+                                                            <c:if test="${requestScope.x != null}">
+                                                                <a  onclick="setStatus('${u.accountID}', '${requestScope.cid}')" style="color:green; cursor: pointer">Active</a>
+
+                                                            </c:if>
+                                                            <c:if test="${requestScope.x == null}">
+                                                                <a  style="color:green; cursor: pointer">Active</a>
+
+
+                                                            </c:if>
+
+                                                        </c:if>
+                                                        <c:if test="${u.status == 0}">
+                                                            <c:if test="${requestScope.x != null}">
+                                                                <a onclick="setStatus('${u.accountID}', '${requestScope.cid}')" style="color:red; cursor: pointer">Inactive</a>
+
+                                                            </c:if>
+                                                            <c:if test="${requestScope.x == null}">
+                                                                <a style="color:red; cursor: pointer">Inactive</a>
+
+
+                                                            </c:if>
+
+                                                        </c:if>
+
+
+
+
+                                                    </td>
+                                                    <td>
+                                                        <a onclick="delLecturer('${u.accountID}', '${requestScope.cid}')" style="margin-right: 5px"> <i  style="cursor: pointer" class="fa-solid fa-trash"></i></a>
+                                                            <!--<a href="#" class="active" title="Active" data-toggle="tooltip"><a onclick="delLecturer('${u.accountID}', '${requestScope.cid}')"> <i class="material-icons">&#xE5C9;</i></a>-->
+
+                                                    </td>
+                                                </tr>
+
+                                            </c:if>
+
+                                        </c:forEach>
+
+
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>   
+
+                </c:if>
+                <!--.-->
+
                 <div class="container-xl">
                     <div class="table-responsive">
                         <div class="table-wrapper">
@@ -852,7 +968,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
 
-                                        <th>Action</th>
+                                        <th>Remove</th>
                                     </tr>
                                 </thead>
 
@@ -865,7 +981,7 @@
 
 
                                         <td>
-                                            <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delStudent('${u.accountID}', '${requestScope.cid}')"> <i class="material-icons">&#xE5C9;</i></a>
+                                            <a href="#" class="deleterCouse" title="Delete" data-toggle="tooltip"><a onclick="delStudent('${u.accountID}', '${requestScope.cid}')"> <i  style="cursor: pointer" class="fa-solid fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 </c:forEach>
@@ -878,192 +994,211 @@
                 </div>     
             </div>
         </section>
-
         <!-- Blurred overlay -->
         <div id="overlay" class="overlay"></div>
-
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-                                                var contextPath = "<%= request.getContextPath()%>";
+            var contextPath = "<%= request.getContextPath()%>";
 
-                                                if ('${sessionScope.messOfClass}' === '1') {
-                                                    alert("Id Class này đã tồn tại");
-                                                }
+            if ('${sessionScope.messOfClass}' === '1') {
+                alert("Id Class này đã tồn tại");
+            }
 
 
-                                                delMess();
-                                                function delMess() {
-                                                    console.log('da chay ham quan trong nay');
-                                                    $.ajax({
-                                                        url: contextPath + "/ressetMess",
-                                                        type: "POST",
-                                                        data: {
-                                                            mess: 1
-                                                        },
-                                                        success: function (response) {
-                                                            console.log('da thuc hien thanh cong ham xoa mess');
-                                                        },
-                                                        error: function (xhr, status, error) {
-                                                            console.log('da khong the ham xoa mess');
-                                                        }
-                                                    });
-                                                }
+            delMess();
+            function delMess() {
+                console.log('da chay ham quan trong nay');
+                $.ajax({
+                    url: contextPath + "/ressetMess",
+                    type: "POST",
+                    data: {
+                        mess: 1
+                    },
+                    success: function (response) {
+                        console.log('da thuc hien thanh cong ham xoa mess');
+                    },
+                    error: function (xhr, status, error) {
+                        console.log('da khong the ham xoa mess');
+                    }
+                });
+            }
+            // Function to open the edit class name pop-up
+            function openPopup() {
+                const overlay = document.getElementById('classEditPopup');
+                const newClassNameInput = document.getElementById('newClassName');
+                //newClassNameInput.value = className;
+                newClassNameInput.value = null;
+                overlay.style.display = 'block';
+            }
+            function openDelete() {
+                const divPopUp = document.querySelector("#deleterCouse");
+                const showBtn = document.querySelector("show");
+                divPopUp.style.display = 'block';
 
-                                                // Function to open the edit class name pop-up
-                                                function openPopup() {
-                                                    const overlay = document.getElementById('classEditPopup');
-                                                    const newClassNameInput = document.getElementById('newClassName');
-                                                    //newClassNameInput.value = className;
-                                                    newClassNameInput.value = null;
-                                                    overlay.style.display = 'block';
-                                                }
-                                                function openDelete() {
-                                                    const divPopUp = document.querySelector("#deleterCouse");
-                                                    const showBtn = document.querySelector("show");
-                                                    divPopUp.style.display = 'block';
+            }
+            function openAssignLecturerPopup(className) {
+                const overlay = document.getElementById('assignLecturerPopup');
+                const newClassNameInput = document.getElementById('search');
+                newClassNameInput.value = className;
+                overlay.style.display = 'block';
+            }
+            function openAssignStudentPopup(className) {
+                const overlay = document.getElementById('assignStudentrPopup');
+                const newClassNameInput = document.getElementById('search');
+                newClassNameInput.value = className;
+                overlay.style.display = 'block';
+            }
 
-                                                }
-                                                function openAssignLecturerPopup(className) {
-                                                    const overlay = document.getElementById('assignLecturerPopup');
-                                                    const newClassNameInput = document.getElementById('search');
-                                                    newClassNameInput.value = className;
-                                                    overlay.style.display = 'block';
-                                                }
-                                                function openAssignStudentPopup(className) {
-                                                    const overlay = document.getElementById('assignStudentrPopup');
-                                                    const newClassNameInput = document.getElementById('search');
-                                                    newClassNameInput.value = className;
-                                                    overlay.style.display = 'block';
-                                                }
+            // Function to close the pop-up
+            function closePopup() {
+                const overlay = document.getElementById('classEditPopup');
+                overlay.style.display = 'none';
+            }
+            function closePopUp() {
+                const divPopUp = document.querySelector("#deleterCouse");
+                divPopUp.style.display = 'none';
+            }
+            function closeAssignLecturerPopup() {
+                const overlay = document.getElementById('assignLecturerPopup');
+                overlay.style.display = 'none';
+            }
+            function closeAssignStudentPopup() {
+                const overlay = document.getElementById('assignStudentrPopup');
+                overlay.style.display = 'none';
+            }
 
-                                                // Function to close the pop-up
-                                                function closePopup() {
-                                                    const overlay = document.getElementById('classEditPopup');
-                                                    overlay.style.display = 'none';
-                                                }
-                                                function closePopUp() {
-                                                    const divPopUp = document.querySelector("#deleterCouse");
-                                                    divPopUp.style.display = 'none';
-                                                }
-                                                function closeAssignLecturerPopup() {
-                                                    const overlay = document.getElementById('assignLecturerPopup');
-                                                    overlay.style.display = 'none';
-                                                }
-                                                function closeAssignStudentPopup() {
-                                                    const overlay = document.getElementById('assignStudentrPopup');
-                                                    overlay.style.display = 'none';
-                                                }
+            function editClassNameS() {
+                const newClassNameInput = document.getElementById('newClassName');
+                const updatedClassName = newClassNameInput.value;
+                if (updatedClassName.length < 1) {
+                    alert("Bạn chưa nhập Class để thay đổi");
+                }
+                editClassName();
+            }
 
-                                                function editClassNameS() {
-                                                    const newClassNameInput = document.getElementById('newClassName');
-                                                    const updatedClassName = newClassNameInput.value;
-                                                    if (updatedClassName.length < 1) {
-                                                        alert("Bạn chưa nhập Class để thay đổi");
-                                                    }
-                                                    editClassName();
-                                                }
+            // Function to save the edited class name
+            function editClassName() {
+                const newClassNameInput = document.getElementById('newClassName');
+                const updatedClassName = newClassNameInput.value;
+                // Update the class name in your data or display
+                console.log('Updated Class Name:', updatedClassName);
+                // Close the pop-up
+                closePopup();
+            }
 
-                                                // Function to save the edited class name
-                                                function editClassName() {
-                                                    const newClassNameInput = document.getElementById('newClassName');
-                                                    const updatedClassName = newClassNameInput.value;
-                                                    // Update the class name in your data or display
-                                                    console.log('Updated Class Name:', updatedClassName);
-                                                    // Close the pop-up
-                                                    closePopup();
-                                                }
+            const btn_menu = document.querySelector(".btn-menu");
+            const side_bar = document.querySelector(".sidebar");
 
-                                                const btn_menu = document.querySelector(".btn-menu");
-                                                const side_bar = document.querySelector(".sidebar");
+            btn_menu.addEventListener("click", function () {
+                side_bar.classList.toggle("expand");
+                changebtn();
+            });
+            function delLecturer(lecturerId, classID) {
+                var dk = confirm('Bạn có muốn xóa không ?');
+                var lecturerId = lecturerId;
+                var classID = classID;
+                if (dk) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "managerDeleteLecturer", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function ()
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            // Handle the response from the server (if needed)
+                            var response = xhr.responseText;
+                            // Reload or update the page as necessary
+                            location.reload();
+                        }
+                    };
+                    xhr.send("classID=" + classID + "&lecturerId=" + lecturerId);
+                } else {
 
-                                                btn_menu.addEventListener("click", function () {
-                                                    side_bar.classList.toggle("expand");
-                                                    changebtn();
-                                                });
-                                                function delLecturer(lecturerId, classID) {
-                                                    var dk = confirm('Bạn có muốn xóa không ?');
-                                                    var lecturerId = lecturerId;
-                                                    var classID = classID;
-                                                    if (dk) {
-                                                        var xhr = new XMLHttpRequest();
-                                                        xhr.open("POST", "managerDeleteLecturer", true);
-                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                        xhr.onreadystatechange = function ()
-                                                        {
-                                                            if (xhr.readyState === 4 && xhr.status === 200)
-                                                            {
-                                                                // Handle the response from the server (if needed)
-                                                                var response = xhr.responseText;
-                                                                // Reload or update the page as necessary
-                                                                location.reload();
-                                                            }
-                                                        };
-                                                        xhr.send("classID=" + classID + "&lecturerId=" + lecturerId);
-                                                    } else {
+                }
+            }
+            function setStatus(lecturerId, classID) {
+                var dk = confirm('Change lecturer status ?');
+                var lecturerId = lecturerId;
+                var classID = classID;
+                if (dk) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "managerSetLecturerStatus", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function ()
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            // Handle the response from the server (if needed)
+                            var response = xhr.responseText;
+                            // Reload or update the page as necessary
+                            location.reload();
+                        }
+                    };
+                    xhr.send("classID=" + classID + "&lecturerId=" + lecturerId);
+                } else {
 
-                                                    }
+                }
+            }
 
-                                                }
-                                                function delStudent(studentID, classID) {
-                                                    var dk = confirm('Bạn có muốn xóa không ?');
-                                                    var studentID = studentID;
-                                                    var classID = classID;
 
-                                                    if (dk) {
-                                                        var xhr = new XMLHttpRequest();
-                                                        xhr.open("POST", "managerDeleteStudent", true);
-                                                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-                                                        xhr.onreadystatechange = function ()
-                                                        {
-                                                            if (xhr.readyState === 4 && xhr.status === 200)
-                                                            {
-                                                                // Handle the response from the server (if needed)
-                                                                var response = xhr.responseText;
-                                                                // Reload or update the page as necessary
-                                                                location.reload();
-                                                            }
-                                                        };
-                                                        xhr.send("classID=" + classID + "&studentID=" + studentID);
-                                                    } else {
+            function delStudent(studentID, classID) {
+                var dk = confirm('Bạn có muốn xóa không ?');
+                var studentID = studentID;
+                var classID = classID;
 
-                                                    }
+                if (dk) {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", "managerDeleteStudent", true);
+                    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                    xhr.onreadystatechange = function ()
+                    {
+                        if (xhr.readyState === 4 && xhr.status === 200)
+                        {
+                            // Handle the response from the server (if needed)
+                            var response = xhr.responseText;
+                            // Reload or update the page as necessary
+                            location.reload();
+                        }
+                    };
+                    xhr.send("classID=" + classID + "&studentID=" + studentID);
+                } else {
 
-                                                }
-                                                function changebtn() {
-                                                    if (side_bar.classList.contains("expand")) {
-                                                        btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
-                                                    } else {
-                                                        btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
-                                                    }
-                                                }
+                }
 
-                                                const btn_theme = document.querySelector(".theme-btn");
-                                                const theme_ball = document.querySelector(".theme-ball");
+            }
+            function changebtn() {
+                if (side_bar.classList.contains("expand")) {
+                    btn_menu.classList.replace("bx-menu", "bx-menu-alt-right");
+                } else {
+                    btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
+                }
+            }
 
-                                                const localData = localStorage.getItem("theme");
+            const btn_theme = document.querySelector(".theme-btn");
+            const theme_ball = document.querySelector(".theme-ball");
 
-                                                if (localData == null) {
-                                                    localStorage.setItem("theme", "light");
-                                                }
+            const localData = localStorage.getItem("theme");
 
-                                                if (localData == "dark") {
-                                                    document.body.classList.add("dark-mode");
-                                                    theme_ball.classList.add("dark");
-                                                } else if (localData == "light") {
-                                                    document.body.classList.remove("dark-mode");
-                                                    theme_ball.classList.remove("dark");
-                                                }
+            if (localData == null) {
+                localStorage.setItem("theme", "light");
+            }
 
-                                                btn_theme.addEventListener("click", function () {
-                                                    document.body.classList.toggle("dark-mode");
-                                                    theme_ball.classList.toggle("dark");
-                                                    if (document.body.classList.contains("dark-mode")) {
-                                                        localStorage.setItem("theme", "dark");
-                                                    } else {
-                                                        localStorage.setItem("theme", "light");
-                                                    }
-                                                });
+            if (localData == "dark") {
+                document.body.classList.add("dark-mode");
+                theme_ball.classList.add("dark");
+            } else if (localData == "light") {
+                document.body.classList.remove("dark-mode");
+                theme_ball.classList.remove("dark");
+            }
+
+            btn_theme.addEventListener("click", function () {
+                document.body.classList.toggle("dark-mode");
+                theme_ball.classList.toggle("dark");
+                if (document.body.classList.contains("dark-mode")) {
+                    localStorage.setItem("theme", "dark");
+                } else {
+                    localStorage.setItem("theme", "light");
+                }
+            });
         </script>
-
     </body>
 </html>
