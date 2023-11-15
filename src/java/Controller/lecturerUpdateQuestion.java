@@ -101,7 +101,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
         }
         Question q = (Question) session.getAttribute("sessionQuestion");
         String qId = q.getQuestionID();
-        
+
         List<Question> list_Q = new ArrayList<>();
         LecturerDAO dao = new LecturerDAO();
         String title = request.getParameter("title");
