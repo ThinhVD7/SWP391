@@ -54,22 +54,17 @@ public class managerEditClass extends HttpServlet {
         String courseID = request.getParameter("courseID");
         String className = request.getParameter("className");
         String classNameS = request.getParameter("classNameS");
-        
+
         ManagerDAO obj = new ManagerDAO();
 
-        if (className.length() >= 1) {
-            if (obj.checkClassID(className, courseID)) {
-                obj.editClass(cid, className, courseID);
-                session.setAttribute("messOfClass", 0);
-            } else {
-                session.setAttribute("messOfClass", 1);
-            }
+        if (obj.checkClassID(className, courseID)) {
+            obj.editClass(cid, className, courseID);
+            session.setAttribute("messOfClass", 0);
             response.sendRedirect("managerViewLecturer?CID=" + className + "_" + courseID + "&courseID=" + courseID);
         } else {
+            session.setAttribute("messOfClass", 1);
             response.sendRedirect("managerViewLecturer?CID=" + classNameS + "_" + courseID + "&courseID=" + courseID);
         }
-
-        
 
     }
 

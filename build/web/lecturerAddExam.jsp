@@ -592,6 +592,7 @@
                             <div class="col-10 col-md-8 col-lg-6">
                                 <form action="${sessionScope.exam != null ? "lecturerEditExam":"lecturerAddNewExam"}" method="post" class="">
                                     <h4 style="text-align: center">Score: ${maxScore}</h4>
+                                    <h4 style="text-align: center">${questionNumber} Questions</h4>
 
                                     <p class="text-danger" style="text-align: center">${err}</p>
                                     <p class="text-success" style="text-align: center">${ok}</p>
@@ -666,8 +667,8 @@
                                             <li data-list="tab_2">
                                                 <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}">Add from Question bank</a></li>
                                             <li data-list="tab_3">
-                                                 <a href="getQuestionCSV?examID=${sessionScope.examID}">Import Excel file</a>
-                                                </li>
+                                                <a href="getQuestionCSV?examID=${sessionScope.examID}">Import Excel file</a>
+                                            </li>
                                         </ul>
                                     </div>
 
@@ -679,8 +680,8 @@
 
                                                 <div class="form-inline">
 
-                                                    <div class="form-group col-sm-7">
-                                                        <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="">
+                                                    <div class="form-group col-sm-4">
+                                                        <input type="text" name="title" class="survey_options" placeholder="Title" required="" value="" style="width: 50%;height: 50%;" >
 
                                                     </div>
                                                     <div class="form-group col-sm-3">
@@ -697,17 +698,30 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="form-inline">
-                                                    <div class="form-group col-sm-7">
-                                                        <input type="text" name="content" class="survey_options" placeholder="Question Content" required="">                     
-                                                    </div>
-                                                    <div class="form-group col-sm-3 mr-4">
+                                                <div class="form-inline mt-3">
+                                                    <div class="form-group col-sm-4">
 
-                                                        Question Type:
+                                                    </div>
+                                                    <div class="form-group col-sm-5">
+                                                        
+                                                        <textarea name="content" class="survey_options" placeholder="Question Content" required="" style="width: 80%; resize: vertical;"></textarea>
+                                                    </div>
+                                                    <!--<input type="text" name="content" class="survey_options" placeholder="Question Content" required="" style="width: 100%;overflow-wrap: break-word;;">-->                     
+                                                    <div class="form-group col-sm-2">
+
+                                                                      Question Type:
                                                         <select name="questionType" class="survey_options ml-3" id="questionType">
                                                             <option value="1">Multiple Choice</option>
                                                             <option value="0">One Choice</option>
-                                                        </select>
+                                                        </select>  
+
+                                                    </div>
+                                                </div>
+                                                <div class="form-inline">
+
+                                                    <div class="form-group col-sm-3 mr-4">
+
+                                                      
                                                     </div>
 
 
@@ -748,13 +762,19 @@
                                              Exam list will be dynamically populated here 
                                         </div>
                                     </form>-->
+                                            <a href="addFromBank?examID=${sessionScope.examID}&courseId=${sessionScope.sessionThisCourse.courseID}" class = "edit-exam-button">Access Bank of ${sessionThisCourse.courseID}</a>
 
 
                                         </div>
+                                        <div class="tab_content tab_3">
+                                            <!--                                            <form id='submit-form' action="getQuestionCSV" method="POST" enctype="multipart/form-data" onclick="(event) => {
+                                                                                                    event.preventDefault();
+                                                                                                }">
+                                                                                            <input type="file" name="file" />
+                                                                                            <input type="submit" value="Upload" />
+                                                                                        </form>        -->
+                                        </div>
                                     </div>
-                                    <div class="tab_content tab_3">
-                                    </div>
-
                                 </div>
                             </div>
                         </div>
@@ -913,7 +933,7 @@
 
                             // Create a new div element
                             var newDiv = document.createElement('div');
-                            newDiv.className = 'form-inline count';
+                            newDiv.className = 'form-inline mt-3';
 
                             // Generate a unique ID for the new div
                             newDiv.id = count;

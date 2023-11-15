@@ -69,6 +69,14 @@ public class GetQuestionFromCSV extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        if (session == null || session.getAttribute("user") == null) {
+            response.sendRedirect("index.html");
+            return;
+
+        }
+        Course thisC = (Course) session.getAttribute("sessionThisCourse");
+        Account a = (Account) session.getAttribute("user");
         if (ServletFileUpload.isMultipartContent(request)) {
             try {
                 // Create a factory for disk-based file items
@@ -116,7 +124,7 @@ public class GetQuestionFromCSV extends HttpServlet {
 
                         FormulaEvaluator formulaEvaluator = wb.getCreationHelper().createFormulaEvaluator();
                         Account lecturer = (Account) request.getSession().getAttribute("user");
-                        Exam thisEditExam = (Exam)request.getSession().getAttribute("sessionThisExam");
+                        Exam thisEditExam = (Exam) request.getSession().getAttribute("sessionThisExam");
                         request.setAttribute("eId", thisEditExam.getExamID());
                         LecturerDAO dbLecturer = new LecturerDAO();
                         Course course = (Course) request.getSession().getAttribute("sessionThisCourse");
@@ -185,7 +193,7 @@ public class GetQuestionFromCSV extends HttpServlet {
                             Integer val = entry.getValue();
                             System.out.println(key + "-" + val + "");
                             if (val != MAX_COL) {
-                                String error = "Some cells in " + (key + 1) + " is empty or overload";
+                                String error = "Some cells in row " + (key + 1) + " is empty or overload";
                                 request.setAttribute("err", error);
                                 request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
 //                                response.getWriter().println("Some cells in " + (key + 1) + " is empty or overload");
@@ -216,9 +224,9 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     question.setContent(String.valueOf(valueDouble));
                                                     break;
                                                 case COL_TYPE:
-                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
-                                                        request.setAttribute("err", error);
-                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+                                                    error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                    request.setAttribute("err", error);
+                                                    request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                     return;
                                                 case COL_MARK:
                                                     if (cell.getColumnIndex() != COL_MARK) {
@@ -241,7 +249,8 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                         question.setMark(mark);
 //                                                    dbLecturer.addQuestion(question.getTitle(), question.getContent(),
 //                                                            question.getType(), question.getMark());
-                                                        if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
+
+                                                        if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent(), dbLecturer.getBankByCourseId(thisC.getCourseID(), a.getAccountID()).getBankId())) {
 //                                                            response.getWriter().println("Question already exists in bankon row number" + (row.getRowNum() + 1));
                                                             error = "Question already exists in bank on row number" + (row.getRowNum() + 1);
                                                             request.setAttribute("err", error);
@@ -272,7 +281,7 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
                                                     request.setAttribute("err", error);
                                                     request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
-                                                        return;
+                                                    return;
 
                                                 case COL_ANSWER:
 //                                                    response.getWriter().println("FILE TYPE WRONG AT " + cell.getAddress().toString());
@@ -351,7 +360,8 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     try {
                                                         float mark = Float.parseFloat(value);
                                                         question.setMark(mark);
-                                                        if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
+                                                        if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent(), dbLecturer.getBankByCourseId(thisC.getCourseID(), a.getAccountID()).getBankId())) {
+
 //                                                            response.getWriter().println("Question is exists on row " + row.getRowNum());
                                                             error = "Question is exists on row " + row.getRowNum();
                                                             request.setAttribute("err", error);
@@ -504,9 +514,9 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     question.setContent(String.valueOf(valueDouble));
                                                     break;
                                                 case COL_TYPE:
-                                                        error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
-                                                        request.setAttribute("err", error);
-                                                        request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
+                                                    error = "FILE TYPE WRONG AT " + cell.getAddress().toString();
+                                                    request.setAttribute("err", error);
+                                                    request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
                                                     return;
                                                 case COL_MARK:
                                                     try {
@@ -519,7 +529,8 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                         return;
                                                     }
                                                     question.setMark(mark);
-                                                    if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
+                                                    if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent(), dbLecturer.getBankByCourseId(thisC.getCourseID(), a.getAccountID()).getBankId())) {
+
                                                         error = "Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString();
                                                         request.setAttribute("err", error);
                                                         request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);
@@ -586,7 +597,8 @@ public class GetQuestionFromCSV extends HttpServlet {
                                                     try {
                                                     float mark = Float.parseFloat(value);
                                                     question.setMark(mark);
-                                                    if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent())) {
+                                                    if (dbLecturer.doesQuestionExistInBankByTitleAndContent(question.getTitle(), question.getContent(), dbLecturer.getBankByCourseId(thisC.getCourseID(), a.getAccountID()).getBankId())) {
+
                                                         error = "Question is exists on " + (row.getRowNum() + 1) + ",FILE TYPE WRONG AT " + cell.getAddress().toString();
                                                         request.setAttribute("err", error);
                                                         request.getRequestDispatcher("GetQuestionFromCSV.jsp").forward(request, response);

@@ -8,6 +8,7 @@ import Dal.ManagerDAO;
 import Model.Account;
 import Model.Class1;
 import Model.Lecturer;
+import Model.Question;
 import Model.Student;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -77,18 +78,54 @@ public class managerViewLecturer extends HttpServlet {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
         }
         ManagerDAO dao = new ManagerDAO();
-        List<Lecturer> lecturer = dao.getlecturerByClass(cid);
-        int lecturerListSize = lecturer.size();
-        for (Lecturer lecturer1 : lecturer) 
-        {
-            if(dao.getUserById(lecturer1.getAccountID()).getStatus() == 0)
-                {
-                    lecturerListSize--;
-                }
+        List<Lecturer> lecturer1 = dao.getlecturerByClassActive(cid);
+        List<Lecturer> lecturer0 = dao.getlecturerByClassInactive(cid);
+//        boolean condition = false;
+        if (lecturer1.isEmpty()) {
+            request.setAttribute("x", 1);
+
         }
+        
+
+//        int lecturerListSize = lecturer.size();
+//        for (Lecturer lecturer1 : lecturer) {
+//            if (dao.getUserById(lecturer1.getAccountID()).getStatus() == 0) {
+//                lecturerListSize--;
+//            }
+//        }
         List<Student> student = dao.getstudentByClass(cid);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
+        List<Lecturer> lecturerInThisClass = dao.getlecturerByClass(cid);
+
+          if (lecturerInThisClass.isEmpty()) {
+            request.setAttribute("y", 1);
+
+        }
+        
+        
+        
+        List<Lecturer> addlecturerCoppy = new ArrayList<>(addlecturer);
+        List<Lecturer> lecturerInThisClassCoppy = new ArrayList<>(lecturerInThisClass);
+
+        for (Lecturer q : addlecturerCoppy) {
+            for (Lecturer p : lecturerInThisClassCoppy) {
+                if (q.getAccountID().equals(p.getAccountID())) {
+                    addlecturer.remove(q); // Remove from the original list
+                }
+            }
+        }
+
         List<Student> addstudent = dao.getAllCoursestudent();
+        List<Student> addstudentCoppy = new ArrayList<>(addstudent);
+        List<Student> studentCoppy = new ArrayList<>(student);
+        for (Student q : addstudentCoppy) {
+            for (Student p : studentCoppy) {
+                if (q.getAccountID().equals(p.getAccountID())) {
+                    addstudent.remove(q); // Remove from the original list
+                }
+            }
+        }
+
         List<Student> result = new ArrayList<>();
         for (Student student1 : addstudent) {
             boolean status = true;
@@ -107,10 +144,15 @@ public class managerViewLecturer extends HttpServlet {
 
         Class1 classInformation = dao.getClassByID(cid);
         request.setAttribute("cid", cid);
-        request.setAttribute("lecturer", lecturer);
-        request.setAttribute("enableAdd", lecturerListSize);
+        request.setAttribute("lecturer1", lecturer1);
+        request.setAttribute("lecturer0", lecturer0);
+
+//        request.setAttribute("enableAdd", lecturerListSize);
         request.setAttribute("student", student);
+
+//        request.setAttribute("addlecturer", lecturer0);
         request.setAttribute("addlecturer", addlecturer);
+
         request.setAttribute("addstudent", addstudent);
         request.setAttribute("courseID", courseID);
         request.setAttribute("classInfo", classInformation);
@@ -129,33 +171,55 @@ public class managerViewLecturer extends HttpServlet {
         String cid = request.getParameter("cid");
         int status = Integer.parseInt(request.getParameter("status"));
         HttpSession session = request.getSession(false);
-        
+
         if (session == null || session.getAttribute("user") == null) {
             response.sendRedirect("index.html");
             return;
         }
+        ManagerDAO dao = new ManagerDAO();
+
         ////////////////////////////////////////////////////////////////
         Account user = (Account) session.getAttribute("user");
+        List<Lecturer> listL = dao.getlecturerByClass(classID);
+
+        List<Lecturer> lecturerActive = dao.getlecturerByClassActive(classID);
+        List<Lecturer> lecturer = dao.getlecturerByClassInactive(classID);
+        boolean condition1 = false;
+        boolean condition2 = false;
+        int counting = 0;
+        if (lecturerActive.isEmpty()) {
+            condition1 = true;
+        }
+        if (listL.isEmpty()) {
+            condition1 = true;
+        }
+        for (Lecturer x : listL) {
+            if (x.getStatus() == 1) {
+                counting++;
+            }
+        }
+
         if (user.getRoleID() != 1) {
             request.getRequestDispatcher("pageNotFound").forward(request, response);
         }
-        ManagerDAO dao = new ManagerDAO();
         if (status == 1) {
-            dao.insetLecturerIntoClass(lecturerAdd, classID);
+            if (counting < 1) {
+                dao.insetLecturerIntoClass1(lecturerAdd, classID);
+
+            }
+            dao.insetLecturerIntoClass0(lecturerAdd, classID);
+
         } else {
-            for(int i =0 ;i < studentAdd.length; i++){
+            for (int i = 0; i < studentAdd.length; i++) {
                 dao.insetStudentIntoClass(studentAdd[i], classID);
             }
         }
-        
-        List<Lecturer> lecturer = dao.getlecturerByClass(classID);
+
         int lecturerListSize = lecturer.size();
-        for (Lecturer lecturer1 : lecturer) 
-        {
-            if(dao.getUserById(lecturer1.getAccountID()).getStatus() == 0)
-                {
-                    lecturerListSize--;
-                }
+        for (Lecturer lecturer1 : lecturer) {
+            if (dao.getUserById(lecturer1.getAccountID()).getStatus() == 0) {
+                lecturerListSize--;
+            }
         }
         List<Student> student = dao.getstudentByClass(classID);
         List<Lecturer> addlecturer = dao.getAllCourselecturer();
@@ -189,7 +253,7 @@ public class managerViewLecturer extends HttpServlet {
 
         // response.getWriter().print(courseID + " " + lecturerAdd);
         //request.getRequestDispatcher("manager-ClassDetail.jsp").forward(request, response);
-        response.sendRedirect("managerViewLecturer?CID="+cid+"&courseID="+courseID);
+        response.sendRedirect("managerViewLecturer?CID=" + cid + "&courseID=" + courseID);
     }
 
     /**

@@ -71,6 +71,7 @@ public class managerDeleteLecturer extends HttpServlet {
         String classID = request.getParameter("classID");
         ManagerDAO dao=new ManagerDAO();
         dao.deleteLecturer(lecturerId,classID);
+        
     
     }
 

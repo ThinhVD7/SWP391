@@ -138,7 +138,7 @@ public class LecturerDAO extends DBContext {
     }
 
     public Account loadALecturerofClass(String classID) {
-        String sql = "SELECT account.Account_ID, account.Name, account.Email FROM account join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where Class_ID like ?";
+        String sql = "SELECT account.Account_ID, account.Name, account.Email FROM account join lecturerinwhichclass on account.Account_ID = lecturerinwhichclass.Lecturer_ID where Class_ID like ? and lecturerinwhichclass.Status = 1";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, classID);
@@ -445,7 +445,7 @@ public class LecturerDAO extends DBContext {
     }
 
     public Bank getBankByCourseId(String courseId, String lecturerId) {
-        String sql = "SELECT * FROM `quiz9.8`.bank where Course_ID = ? AND Lecturer_ID = ?;";
+        String sql = "SELECT * FROM bank where Course_ID = ? AND Lecturer_ID = ?;";
         try {
             PreparedStatement ps = connector.prepareStatement(sql);
             ps.setString(1, courseId);
@@ -771,6 +771,24 @@ public class LecturerDAO extends DBContext {
             ps.setString(1, title);
             ps.setString(2, content);
 
+            ResultSet rs = ps.executeQuery();
+
+            return rs.next(); // Return true if there is a matching record, false otherwise
+        } catch (Exception e) {
+            status = "Error at checking if question exists in bank: " + e.getMessage();
+            System.out.println(status);
+            return false; // Return false in case of an error
+        }
+    }
+
+    public boolean doesQuestionExistInBankByTitleAndContent(String title, String content, String bankId) {
+        String sql = "SELECT b.* FROM questioninwhichbank a join question b on a.Question_ID = b.Question_ID join bank c on a.Bank_ID = c.Bank_ID "
+                + "WHERE Title = ? AND QuestionContent = ? AND c.Bank_ID = ?;";
+        try {
+            PreparedStatement ps = connector.prepareStatement(sql);
+            ps.setString(1, title);
+            ps.setString(2, content);
+            ps.setString(3, bankId);
             ResultSet rs = ps.executeQuery();
 
             return rs.next(); // Return true if there is a matching record, false otherwise

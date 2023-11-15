@@ -128,8 +128,12 @@
                 z-index: 2;
             }
         </style>
+
+
+
     </head>
     <body>
+
         <section class="sidebar">
             <div class="nav-header">
                 <p class="logo">Quiz Practice</p>
@@ -137,11 +141,11 @@
             </div>
             <ul class="nav-links">
 
-<!--                <li>
-                    <i class="bx bx-search search-btn"></i>
-                    <input type="text" placeholder="Search" name="searchInput"/>
-                    <span class="tooltip">Search</span>
-                </li>-->
+                <!--                <li>
+                                    <i class="bx bx-search search-btn"></i>
+                                    <input type="text" placeholder="Search" name="searchInput"/>
+                                    <span class="tooltip">Search</span>
+                                </li>-->
                 <li>
                     <a href="profile">
                         <i class='bx bxs-user-account'></i>
@@ -184,7 +188,6 @@
                     </div>
                 </div>
 
-                
                 <div class="col-md-2 ml-auto">
                     <a href="profile" style="text-decoration: none;"><div class="align-self-end"><i class="fa-solid fa-user fa-xl"></i></div></a>
                 </div>
@@ -247,12 +250,12 @@
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
                         <p>Start Day</p>
-                        <input type="date" name="courseId" id="startDay" placeholder="course-ID" required="">
+                        <input type="date" name="startDay" id="startDay" max="2099-01-01" required="">
                     </div>
                     <div class="form-field d-flex align-items-center">
                         <!--<span class="far fa-user"></span>-->
                         <p>End Day</p>
-                        <input type="date" name="courseId" id="endDay" placeholder="course-ID" required="" >
+                        <input type="date" name="endDay" id="endDay"  max="2099-01-01" required="" >
                     </div>
                     <button class="closePopUp" onclick="getInfoAddCourse()" type="submit" >Submit</button>
                     <button class="closePopUp" onclick="closePopUp()">Close</button>
@@ -262,12 +265,14 @@
         </section>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <script>
+                        var contextPath = "<%= request.getContextPath()%>";
 
                         if ('${sessionScope.logPrint}' === '1') {
                             alert("Id Course này đã tồn tại");
                         }
-
+                        delMess();
                         const btn_menu = document.querySelector(".btn-menu");
                         const side_bar = document.querySelector(".sidebar");
                         var idCourse;
@@ -285,7 +290,22 @@
                                 btn_menu.classList.replace("bx-menu-alt-right", "bx-menu");
                             }
                         }
-
+                        function delMess() {
+                            console.log('da chay ham quan trong nay');
+                            $.ajax({
+                                url: contextPath + "/ressetMess",
+                                type: "POST",
+                                data: {
+                                    mess: 1
+                                },
+                                success: function (response) {
+                                    console.log('da thuc hien thanh cong ham xoa mess');
+                                },
+                                error: function (xhr, status, error) {
+                                    console.log('eo thuc hien dc ham xoa mess');
+                                }
+                            });
+                        }
 
 //                        function openDelete(courseId) {
 //                            const divPopUp = document.querySelector("#deleteCourse");
@@ -325,10 +345,13 @@
                             var startDay = document.getElementById("startDay").value;
                             var endDay = document.getElementById("endDay").value;
                             var today = new Date();
-
+                            if (new Date(startDay).getFullYear() > 2099 || new Date(endDay).getFullYear() > 2099) {
+                                alert("Please enter a date within the year 2099 or earlier.");
+                                return;
+                            }
                             let dateStr = "NaN/NaN/NaN";
 
-                            console.log("start day la:");
+                            console.log("Start day la:");
 
                             if (isNaN(courseId) === false) {
                                 alert("Bạn chưa nhập course_Id ");

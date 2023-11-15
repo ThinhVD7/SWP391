@@ -190,6 +190,7 @@ public class lecturerUpdateQuestion extends HttpServlet {
             }
         }
         Exam e = (Exam) session.getAttribute("exam");
+
         List<ChoiceQuestion> listChoice = dao.getChoiceOfQuestion(qId);
         if (!dao.doesQuestionExistInBank(qId, bank.getBankId())) { ////////////////////////////////////////////// if question does not existed in bank
             //update normally
